@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://xtestw.com/"/>
-  <updated>2020-05-30T02:00:39.080Z</updated>
+  <updated>2019-08-05T08:30:21.429Z</updated>
   <id>http://xtestw.com/</id>
   
   <author>
@@ -15,28 +15,6 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
-  
-  <entry>
-    <title>Java 4 种引用类型</title>
-    <link href="http://xtestw.com/2020/05/30/Java-4-%E7%A7%8D%E5%BC%95%E7%94%A8%E7%B1%BB%E5%9E%8B/"/>
-    <id>http://xtestw.com/2020/05/30/Java-4-种引用类型/</id>
-    <published>2020-05-30T01:13:56.000Z</published>
-    <updated>2020-05-30T02:00:39.080Z</updated>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;h3 id=&quot;强引用&quot;&gt;&lt;a href=&quot;#强引用&quot; class=&quot;headerlink&quot; title=&quot;强引用&quot;&gt;&lt;/a&gt;强引用&lt;/h3&gt;&lt;ul&gt;
-&lt;li&gt;JAVA 默认引用模式，不会被java gc 主动回收&lt;ul&gt;
-&lt;li&gt;可能引起内存泄漏&lt;/li&gt;
-&lt;li&gt;可能导致 O
-      
-    
-    </summary>
-    
-    
-  </entry>
   
   <entry>
     <title>GraphQl 使用 - java</title>
@@ -453,6 +431,27 @@
       
       
         &lt;p&gt;命令模式这个设计模式更像是对接口编程的一种应用，比如给小朋友穿衣服，但是不一样的衣服有不一样的穿法，裤子，衬衫，鞋，T恤都是不一样的，但是小朋友不知道怎么穿，只知道想穿什么，那么怎么办呢，小朋友会让他的妈妈帮他穿，这里面的“让妈妈帮忙”，就是给妈妈一个命令（虽然不是很恰当-
+      
+    
+    </summary>
+    
+      <category term="Design Pattern" scheme="http://xtestw.com/categories/Design-Pattern/"/>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>设计模式-单件模式</title>
+    <link href="http://xtestw.com/2014/09/02/e8-ae-be-e8-ae-a1-e6-a8-a1-e5-bc-8f-e5-8d-95-e4-bb-b6-e6-a8-a1-e5-bc-8f/"/>
+    <id>http://xtestw.com/2014/09/02/e8-ae-be-e8-ae-a1-e6-a8-a1-e5-bc-8f-e5-8d-95-e4-bb-b6-e6-a8-a1-e5-bc-8f/</id>
+    <published>2014-09-01T22:42:00.000Z</published>
+    <updated>2019-07-29T15:22:50.131Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;工程中，某些对象我们只需要一个，比如线程池，缓存，对话框等的对象，我们通常的做法是可以定一个全局静态变量，然后通过程序初始化的时候就实例化他们，然后直接调用这个全局变量，但是这样有个问题，如果我的这个对象消耗的资源很多，而有的时候，我的程序在运行过程中又没用到这个对象，岂不
       
     
     </summary>
