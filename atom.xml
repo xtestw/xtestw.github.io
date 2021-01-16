@@ -50,10 +50,10 @@
   
   <entry>
     <title>HttpURLConnection使用http代理</title>
-    <link href="http://xtestw.com/2017/08/13/httpurlconnection-e4-bd-bf-e7-94-a8http-e4-bb-a3-e7-90-86/"/>
-    <id>http://xtestw.com/2017/08/13/httpurlconnection-e4-bd-bf-e7-94-a8http-e4-bb-a3-e7-90-86/</id>
+    <link href="http://xtestw.com/2017/08/13/HttpURLConnection%E4%BD%BF%E7%94%A8http%E4%BB%A3%E7%90%86/"/>
+    <id>http://xtestw.com/2017/08/13/HttpURLConnection使用http代理/</id>
     <published>2017-08-13T14:38:08.000Z</published>
-    <updated>2019-07-29T15:22:50.131Z</updated>
+    <updated>2021-01-16T22:05:22.432Z</updated>
     
     <summary type="html">
     
@@ -124,7 +124,7 @@
     <link href="http://xtestw.com/2016/05/05/cplusplusobjectmodel/"/>
     <id>http://xtestw.com/2016/05/05/cplusplusobjectmodel/</id>
     <published>2016-05-04T16:22:50.000Z</published>
-    <updated>2019-07-29T15:22:50.130Z</updated>
+    <updated>2021-01-16T21:26:13.899Z</updated>
     
     <summary type="html">
     
@@ -145,7 +145,7 @@
     <link href="http://xtestw.com/2016/01/29/linuxrunonbackground/"/>
     <id>http://xtestw.com/2016/01/29/linuxrunonbackground/</id>
     <published>2016-01-29T07:18:00.000Z</published>
-    <updated>2019-07-29T15:22:50.131Z</updated>
+    <updated>2021-01-16T22:05:04.004Z</updated>
     
     <summary type="html">
     
@@ -159,6 +159,8 @@
       <category term="Linux" scheme="http://xtestw.com/categories/Linux/"/>
     
     
+      <category term="linux" scheme="http://xtestw.com/tags/linux/"/>
+    
   </entry>
   
   <entry>
@@ -166,13 +168,14 @@
     <link href="http://xtestw.com/2015/04/22/proof/"/>
     <id>http://xtestw.com/2015/04/22/proof/</id>
     <published>2015-04-22T10:49:00.000Z</published>
-    <updated>2019-07-29T15:22:50.131Z</updated>
+    <updated>2021-01-16T22:06:48.474Z</updated>
     
     <summary type="html">
     
       
       
-        &lt;p&gt;明天要给新队员讲树状数组，避不开的一个证明，之前教主讲过，当时没听明白给忘了- -，只有自己想了一种证明方法。 #####证明##### 大家都知道，计算机是用补码来存储一个数的，在这种编码情况下，整数是自然状态编码，假设我们是一个5位的机器（只是假设），那么1，编码就为0
+        &lt;p&gt;&lt;a href=&quot;http://xtestw.site/?p=29&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;http://xtestw.site/?p=29&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;##x&amp;amp;(-x)取x的最后一个1的证明##&lt;br&gt;明天要给新队
       
     
     </summary>
@@ -208,13 +211,17 @@
     <link href="http://xtestw.com/2015/04/03/c++%20%E9%BB%98%E8%AE%A4%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0/"/>
     <id>http://xtestw.com/2015/04/03/c++ 默认构造函数/</id>
     <published>2015-04-03T05:37:00.000Z</published>
-    <updated>2019-07-29T15:22:50.130Z</updated>
+    <updated>2021-01-16T21:07:59.647Z</updated>
     
     <summary type="html">
     
       
       
-        &lt;p&gt;&lt;strong&gt;关于c++构造函数两个误解&lt;/strong&gt; 1.任何class只要没有定义构造函数，就会被编译器自动合成一个。 有些构造函数在实际中有和没有是没有任何用处的，所以无用的构造函数是不会被构建出来 2.编译器合成的构造函数，会为每个成员变量设定初始值 在我看来
+        &lt;p&gt;&lt;strong&gt;关于c++构造函数两个误解&lt;/strong&gt; &lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;任何class只要没有定义构造函数，就会被编译器自动合成一个。 有些构造函数在实际中有和没有是没有任何用处的，所以无用的构造函数是不会被构建出来&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p
       
     
     </summary>
@@ -226,10 +233,10 @@
   
   <entry>
     <title>hibernate ID 生成方式</title>
-    <link href="http://xtestw.com/2015/02/10/hibernateid-e7-94-9f-e6-88-90-e6-96-b9-e5-bc-8f/"/>
-    <id>http://xtestw.com/2015/02/10/hibernateid-e7-94-9f-e6-88-90-e6-96-b9-e5-bc-8f/</id>
+    <link href="http://xtestw.com/2015/02/10/hibernate%20ID%20%E7%94%9F%E6%88%90%E6%96%B9%E5%BC%8F/"/>
+    <id>http://xtestw.com/2015/02/10/hibernate ID 生成方式/</id>
     <published>2015-02-10T05:08:00.000Z</published>
-    <updated>2019-07-29T15:22:50.131Z</updated>
+    <updated>2021-01-16T21:48:10.549Z</updated>
     
     <summary type="html">
     
@@ -250,7 +257,7 @@
     <link href="http://xtestw.com/2015/01/29/windows-e6-a0-b8-e5-bf-83-e7-bc-96-e7-a8-8b-e9-94-99-e8-af-af-e5-a4-84-e7-90-86/"/>
     <id>http://xtestw.com/2015/01/29/windows-e6-a0-b8-e5-bf-83-e7-bc-96-e7-a8-8b-e9-94-99-e8-af-af-e5-a4-84-e7-90-86/</id>
     <published>2015-01-29T06:04:00.000Z</published>
-    <updated>2019-07-29T15:22:50.131Z</updated>
+    <updated>2021-01-16T22:04:23.919Z</updated>
     
     <summary type="html">
     
@@ -265,6 +272,8 @@
       <category term="ACMICPC" scheme="http://xtestw.com/categories/ACMICPC/"/>
     
     
+      <category term="windows" scheme="http://xtestw.com/tags/windows/"/>
+    
   </entry>
   
   <entry>
@@ -272,7 +281,7 @@
     <link href="http://xtestw.com/2015/01/29/iocp/"/>
     <id>http://xtestw.com/2015/01/29/iocp/</id>
     <published>2015-01-29T05:41:00.000Z</published>
-    <updated>2019-07-29T15:22:50.131Z</updated>
+    <updated>2021-01-16T22:05:13.230Z</updated>
     
     <summary type="html">
     
@@ -286,14 +295,16 @@
       <category term="Theory" scheme="http://xtestw.com/categories/Theory/"/>
     
     
+      <category term="windows" scheme="http://xtestw.com/tags/windows/"/>
+    
   </entry>
   
   <entry>
     <title>Xchart 源码分析（1）</title>
-    <link href="http://xtestw.com/2014/12/22/xchart-e6-ba-90-e7-a0-81-e5-88-86-e6-9e-90-ef-bc-881-ef-bc-89/"/>
-    <id>http://xtestw.com/2014/12/22/xchart-e6-ba-90-e7-a0-81-e5-88-86-e6-9e-90-ef-bc-881-ef-bc-89/</id>
+    <link href="http://xtestw.com/2014/12/22/%20Xchart%20%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90%EF%BC%881/"/>
+    <id>http://xtestw.com/2014/12/22/ Xchart 源码分析（1/</id>
     <published>2014-12-21T23:04:00.000Z</published>
-    <updated>2019-07-29T15:22:50.131Z</updated>
+    <updated>2021-01-16T21:38:05.767Z</updated>
     
     <summary type="html">
     
@@ -311,10 +322,10 @@
   
   <entry>
     <title>设计模式-代理模式</title>
-    <link href="http://xtestw.com/2014/09/08/e8-ae-be-e8-ae-a1-e6-a8-a1-e5-bc-8f-e4-bb-a3-e7-90-86-e6-a8-a1-e5-bc-8f/"/>
-    <id>http://xtestw.com/2014/09/08/e8-ae-be-e8-ae-a1-e6-a8-a1-e5-bc-8f-e4-bb-a3-e7-90-86-e6-a8-a1-e5-bc-8f/</id>
+    <link href="http://xtestw.com/2014/09/08/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E4%BB%A3%E7%90%86%E6%A8%A1%E5%BC%8F/"/>
+    <id>http://xtestw.com/2014/09/08/设计模式-代理模式/</id>
     <published>2014-09-08T01:11:00.000Z</published>
-    <updated>2019-07-29T15:22:50.131Z</updated>
+    <updated>2021-01-16T22:03:52.986Z</updated>
     
     <summary type="html">
     
@@ -328,22 +339,23 @@
       <category term="Design Pattern" scheme="http://xtestw.com/categories/Design-Pattern/"/>
     
     
+      <category term="设计模式" scheme="http://xtestw.com/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
+    
   </entry>
   
   <entry>
     <title>设计模式-状态模式</title>
-    <link href="http://xtestw.com/2014/09/07/e8-ae-be-e8-ae-a1-e6-a8-a1-e5-bc-8f-e7-8a-b6-e6-80-81-e6-a8-a1-e5-bc-8f/"/>
-    <id>http://xtestw.com/2014/09/07/e8-ae-be-e8-ae-a1-e6-a8-a1-e5-bc-8f-e7-8a-b6-e6-80-81-e6-a8-a1-e5-bc-8f/</id>
+    <link href="http://xtestw.com/2014/09/07/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E7%8A%B6%E6%80%81%E6%A8%A1%E5%BC%8F/"/>
+    <id>http://xtestw.com/2014/09/07/设计模式-状态模式/</id>
     <published>2014-09-07T05:18:00.000Z</published>
-    <updated>2019-07-29T15:22:50.131Z</updated>
+    <updated>2021-01-16T22:03:33.455Z</updated>
     
     <summary type="html">
     
       
       
         &lt;p&gt;状态模式是针对系统的状态转换的，其主要的定义如下：&lt;/p&gt;
-&lt;p&gt;状态模式：允许对象在内部状态改变时改变他的行为，对象看起来好像修改了它的类。&lt;/p&gt;
-&lt;p&gt;为了方便状态转移 我们为状态定义一个通用的接口，然后每一种状态都实现这个接口，而在系统类中，通过构造函数，将系统本身
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/t
       
     
     </summary>
@@ -351,21 +363,23 @@
       <category term="Design Pattern" scheme="http://xtestw.com/categories/Design-Pattern/"/>
     
     
+      <category term="设计模式" scheme="http://xtestw.com/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
+    
   </entry>
   
   <entry>
     <title>设计模式-迭代器模式和组合模式</title>
-    <link href="http://xtestw.com/2014/09/06/e8-ae-be-e8-ae-a1-e6-a8-a1-e5-bc-8f-e8-bf-ad-e4-bb-a3-e5-99-a8-e6-a8-a1-e5-bc-8f-e5-92-8c-e7-bb-84-e5-90-88-e6-a8-a1-e5-bc-8f/"/>
-    <id>http://xtestw.com/2014/09/06/e8-ae-be-e8-ae-a1-e6-a8-a1-e5-bc-8f-e8-bf-ad-e4-bb-a3-e5-99-a8-e6-a8-a1-e5-bc-8f-e5-92-8c-e7-bb-84-e5-90-88-e6-a8-a1-e5-bc-8f/</id>
+    <link href="http://xtestw.com/2014/09/06/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E8%BF%AD%E4%BB%A3%E5%99%A8%E6%A8%A1%E5%BC%8F%E5%92%8C%E7%BB%84%E5%90%88%E6%A8%A1%E5%BC%8F/"/>
+    <id>http://xtestw.com/2014/09/06/设计模式-迭代器模式和组合模式/</id>
     <published>2014-09-05T20:52:00.000Z</published>
-    <updated>2019-07-29T15:22:50.131Z</updated>
+    <updated>2021-01-16T22:03:17.794Z</updated>
     
     <summary type="html">
     
       
       
         &lt;p&gt;1.迭代器模式完成的功能是和迭代器一样的，封装了对对象的顺序遍历，因为子类的对象集合的存储方式可能并不一致。但是存储的对象是一致的。&lt;/p&gt;
-&lt;p&gt;public classItem{&lt;br&gt;    …..//各种属性&lt;br&gt;}&lt;br&gt;public class Set1{&lt;b
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre
       
     
     </summary>
@@ -373,14 +387,16 @@
       <category term="Design Pattern" scheme="http://xtestw.com/categories/Design-Pattern/"/>
     
     
+      <category term="设计模式" scheme="http://xtestw.com/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
+    
   </entry>
   
   <entry>
     <title>设计模式-模板方法</title>
-    <link href="http://xtestw.com/2014/09/05/e8-ae-be-e8-ae-a1-e6-a8-a1-e5-bc-8f-e6-a8-a1-e6-9d-bf-e6-96-b9-e6-b3-95/"/>
-    <id>http://xtestw.com/2014/09/05/e8-ae-be-e8-ae-a1-e6-a8-a1-e5-bc-8f-e6-a8-a1-e6-9d-bf-e6-96-b9-e6-b3-95/</id>
+    <link href="http://xtestw.com/2014/09/05/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E6%A8%A1%E6%9D%BF%E6%96%B9%E6%B3%95/"/>
+    <id>http://xtestw.com/2014/09/05/设计模式-模板方法/</id>
     <published>2014-09-04T19:36:00.000Z</published>
-    <updated>2019-07-29T15:22:50.131Z</updated>
+    <updated>2021-01-16T22:03:36.973Z</updated>
     
     <summary type="html">
     
@@ -395,21 +411,24 @@
       <category term="Design Pattern" scheme="http://xtestw.com/categories/Design-Pattern/"/>
     
     
+      <category term="设计模式" scheme="http://xtestw.com/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
+    
   </entry>
   
   <entry>
     <title>设计模式-适配器模式和外观模式</title>
-    <link href="http://xtestw.com/2014/09/04/e8-ae-be-e8-ae-a1-e6-a8-a1-e5-bc-8f-e9-80-82-e9-85-8d-e5-99-a8-e6-a8-a1-e5-bc-8f-e5-92-8c-e5-a4-96-e8-a7-82-e6-a8-a1-e5-bc-8f/"/>
-    <id>http://xtestw.com/2014/09/04/e8-ae-be-e8-ae-a1-e6-a8-a1-e5-bc-8f-e9-80-82-e9-85-8d-e5-99-a8-e6-a8-a1-e5-bc-8f-e5-92-8c-e5-a4-96-e8-a7-82-e6-a8-a1-e5-bc-8f/</id>
+    <link href="http://xtestw.com/2014/09/04/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E9%80%82%E9%85%8D%E5%99%A8%E6%A8%A1%E5%BC%8F%E5%92%8C%E5%A4%96%E8%A7%82%E6%A8%A1%E5%BC%8F/"/>
+    <id>http://xtestw.com/2014/09/04/设计模式-适配器模式和外观模式/</id>
     <published>2014-09-03T21:46:00.000Z</published>
-    <updated>2019-07-29T15:22:50.131Z</updated>
+    <updated>2021-01-16T22:03:12.892Z</updated>
     
     <summary type="html">
     
       
       
-        &lt;p&gt;1.适配器模式 适配器模式是针对接口不一时处理的情况，比如我的类的参数是IInterface1，但是我现在想要调用IInterface2接口的函数，怎么办呢？就是用适配器来解决这个问题：&lt;/p&gt;
-&lt;p&gt;public interface IInterface1(){&lt;br&gt; 
+        &lt;p&gt;1.适配器模式&lt;/p&gt;
+&lt;p&gt;适配器模式是针对接口不一时处理的情况，比如我的类的参数是IInterface1，但是我现在想要调用IInterface2接口的函数，怎么办呢？就是用适配器来解决这个问题：&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;
       
     
     </summary>
@@ -417,14 +436,16 @@
       <category term="Design Pattern" scheme="http://xtestw.com/categories/Design-Pattern/"/>
     
     
+      <category term="设计模式" scheme="http://xtestw.com/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
+    
   </entry>
   
   <entry>
     <title>设计模式-命令模式</title>
-    <link href="http://xtestw.com/2014/09/03/e8-ae-be-e8-ae-a1-e6-a8-a1-e5-bc-8f-e5-91-bd-e4-bb-a4-e6-a8-a1-e5-bc-8f/"/>
-    <id>http://xtestw.com/2014/09/03/e8-ae-be-e8-ae-a1-e6-a8-a1-e5-bc-8f-e5-91-bd-e4-bb-a4-e6-a8-a1-e5-bc-8f/</id>
+    <link href="http://xtestw.com/2014/09/03/%20%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E5%91%BD%E4%BB%A4%E6%A8%A1%E5%BC%8F/"/>
+    <id>http://xtestw.com/2014/09/03/ 设计模式-命令模式/</id>
     <published>2014-09-02T21:26:00.000Z</published>
-    <updated>2019-07-29T15:22:50.131Z</updated>
+    <updated>2021-01-16T21:50:14.785Z</updated>
     
     <summary type="html">
     
@@ -442,10 +463,10 @@
   
   <entry>
     <title>设计模式-单件模式</title>
-    <link href="http://xtestw.com/2014/09/02/e8-ae-be-e8-ae-a1-e6-a8-a1-e5-bc-8f-e5-8d-95-e4-bb-b6-e6-a8-a1-e5-bc-8f/"/>
-    <id>http://xtestw.com/2014/09/02/e8-ae-be-e8-ae-a1-e6-a8-a1-e5-bc-8f-e5-8d-95-e4-bb-b6-e6-a8-a1-e5-bc-8f/</id>
+    <link href="http://xtestw.com/2014/09/02/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E5%8D%95%E4%BB%B6%E6%A8%A1%E5%BC%8F/"/>
+    <id>http://xtestw.com/2014/09/02/设计模式-单件模式/</id>
     <published>2014-09-01T22:42:00.000Z</published>
-    <updated>2019-07-29T15:22:50.131Z</updated>
+    <updated>2021-01-16T22:03:49.482Z</updated>
     
     <summary type="html">
     
@@ -458,6 +479,8 @@
     
       <category term="Design Pattern" scheme="http://xtestw.com/categories/Design-Pattern/"/>
     
+    
+      <category term="设计模式" scheme="http://xtestw.com/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
     
   </entry>
   

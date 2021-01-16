@@ -81,18 +81,18 @@
 
 
 
-<meta name="description" content="关于c++构造函数两个误解 1.任何class只要没有定义构造函数，就会被编译器自动合成一个。 有些构造函数在实际中有和没有是没有任何用处的，所以无用的构造函数是不会被构建出来 2.编译器合成的构造函数，会为每个成员变量设定初始值 在我看来，编译器合成的构造函数，是为了调用成员类或者父类的构造函数，而这个成员类的构造函数的调用顺序则是按照申明的顺序来调用。">
+<meta name="description" content="关于c++构造函数两个误解   任何class只要没有定义构造函数，就会被编译器自动合成一个。 有些构造函数在实际中有和没有是没有任何用处的，所以无用的构造函数是不会被构建出来  编译器合成的构造函数，会为每个成员变量设定初始值 在我看来，编译器合成的构造函数，是为了调用成员类或者父类的构造函数，而这个成员类的构造函数的调用顺序则是按照申明的顺序来调用。">
 <meta name="keywords" content="blog,java,xtestw">
 <meta property="og:type" content="article">
 <meta property="og:title" content="c++ 默认构造函数">
 <meta property="og:url" content="http://xtestw.com/2015/04/03/c++ 默认构造函数/index.html">
 <meta property="og:site_name" content="XtestW&#39;s Blog">
-<meta property="og:description" content="关于c++构造函数两个误解 1.任何class只要没有定义构造函数，就会被编译器自动合成一个。 有些构造函数在实际中有和没有是没有任何用处的，所以无用的构造函数是不会被构建出来 2.编译器合成的构造函数，会为每个成员变量设定初始值 在我看来，编译器合成的构造函数，是为了调用成员类或者父类的构造函数，而这个成员类的构造函数的调用顺序则是按照申明的顺序来调用。">
+<meta property="og:description" content="关于c++构造函数两个误解   任何class只要没有定义构造函数，就会被编译器自动合成一个。 有些构造函数在实际中有和没有是没有任何用处的，所以无用的构造函数是不会被构建出来  编译器合成的构造函数，会为每个成员变量设定初始值 在我看来，编译器合成的构造函数，是为了调用成员类或者父类的构造函数，而这个成员类的构造函数的调用顺序则是按照申明的顺序来调用。">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-07-29T15:22:50.130Z">
+<meta property="og:updated_time" content="2021-01-16T21:07:59.647Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="c++ 默认构造函数">
-<meta name="twitter:description" content="关于c++构造函数两个误解 1.任何class只要没有定义构造函数，就会被编译器自动合成一个。 有些构造函数在实际中有和没有是没有任何用处的，所以无用的构造函数是不会被构建出来 2.编译器合成的构造函数，会为每个成员变量设定初始值 在我看来，编译器合成的构造函数，是为了调用成员类或者父类的构造函数，而这个成员类的构造函数的调用顺序则是按照申明的顺序来调用。">
+<meta name="twitter:description" content="关于c++构造函数两个误解   任何class只要没有定义构造函数，就会被编译器自动合成一个。 有些构造函数在实际中有和没有是没有任何用处的，所以无用的构造函数是不会被构建出来  编译器合成的构造函数，会为每个成员变量设定初始值 在我看来，编译器合成的构造函数，是为了调用成员类或者父类的构造函数，而这个成员类的构造函数的调用顺序则是按照申明的顺序来调用。">
 
 
 
@@ -415,7 +415,13 @@
       
 
       
-        <p><strong>关于c++构造函数两个误解</strong> 1.任何class只要没有定义构造函数，就会被编译器自动合成一个。 有些构造函数在实际中有和没有是没有任何用处的，所以无用的构造函数是不会被构建出来 2.编译器合成的构造函数，会为每个成员变量设定初始值 在我看来，编译器合成的构造函数，是为了调用成员类或者父类的构造函数，而这个成员类的构造函数的调用顺序则是按照申明的顺序来调用。</p>
+        <p><strong>关于c++构造函数两个误解</strong> </p>
+<ol>
+<li><p>任何class只要没有定义构造函数，就会被编译器自动合成一个。 有些构造函数在实际中有和没有是没有任何用处的，所以无用的构造函数是不会被构建出来</p>
+</li>
+<li><p>编译器合成的构造函数，会为每个成员变量设定初始值 在我看来，编译器合成的构造函数，是为了调用成员类或者父类的构造函数，而这个成员类的构造函数的调用顺序则是按照申明的顺序来调用。</p>
+</li>
+</ol>
 
       
     </div>
@@ -440,7 +446,7 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2015/02/10/hibernateid-e7-94-9f-e6-88-90-e6-96-b9-e5-bc-8f/" rel="next" title="hibernate ID 生成方式">
+              <a href="/2015/02/10/hibernate ID 生成方式/" rel="next" title="hibernate ID 生成方式">
                 <i class="fa fa-chevron-left"></i> hibernate ID 生成方式
               </a>
             
@@ -551,7 +557,7 @@
               
               <div class="site-state-item site-state-tags">
                 
-                  <span class="site-state-item-count">4</span>
+                  <span class="site-state-item-count">11</span>
                   <span class="site-state-item-name">tags</span>
                 
               </div>
@@ -618,7 +624,7 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2021</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>
