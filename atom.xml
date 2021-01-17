@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://xtestw.com/"/>
-  <updated>2021-01-16T23:10:47.580Z</updated>
+  <updated>2021-01-17T14:07:05.247Z</updated>
   <id>http://xtestw.com/</id>
   
   <author>
@@ -15,6 +15,27 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>UndeclaredThrowableException原因</title>
+    <link href="http://xtestw.com/2021/01/17/UndeclaredThrowableException%E5%8E%9F%E5%9B%A0/"/>
+    <id>http://xtestw.com/2021/01/17/UndeclaredThrowableException原因/</id>
+    <published>2021-01-17T07:33:20.000Z</published>
+    <updated>2021-01-17T14:07:05.247Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h1 id=&quot;UndeclaredThrowableException-原因&quot;&gt;&lt;a href=&quot;#UndeclaredThrowableException-原因&quot; class=&quot;headerlink&quot; title=&quot;UndeclaredThrowableException 原
+      
+    
+    </summary>
+    
+    
+      <category term="Java" scheme="http://xtestw.com/tags/Java/"/>
+    
+  </entry>
   
   <entry>
     <title>GraphQl 使用 - java</title>
@@ -452,29 +473,6 @@
       
       
         &lt;p&gt;命令模式这个设计模式更像是对接口编程的一种应用，比如给小朋友穿衣服，但是不一样的衣服有不一样的穿法，裤子，衬衫，鞋，T恤都是不一样的，但是小朋友不知道怎么穿，只知道想穿什么，那么怎么办呢，小朋友会让他的妈妈帮他穿，这里面的“让妈妈帮忙”，就是给妈妈一个命令（虽然不是很恰当-
-      
-    
-    </summary>
-    
-      <category term="Design Pattern" scheme="http://xtestw.com/categories/Design-Pattern/"/>
-    
-    
-      <category term="设计模式" scheme="http://xtestw.com/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>设计模式-单件模式</title>
-    <link href="http://xtestw.com/2014/09/02/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E5%8D%95%E4%BB%B6%E6%A8%A1%E5%BC%8F/"/>
-    <id>http://xtestw.com/2014/09/02/设计模式-单件模式/</id>
-    <published>2014-09-01T22:42:00.000Z</published>
-    <updated>2021-01-16T22:23:29.784Z</updated>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;p&gt;工程中，某些对象我们只需要一个，比如线程池，缓存，对话框等的对象，我们通常的做法是可以定一个全局静态变量，然后通过程序初始化的时候就实例化他们，然后直接调用这个全局变量，但是这样有个问题，如果我的这个对象消耗的资源很多，而有的时候，我的程序在运行过程中又没用到这个对象，岂不
       
     
     </summary>
