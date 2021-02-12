@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://xtestw.com/"/>
-  <updated>2021-01-17T14:07:05.247Z</updated>
+  <updated>2021-02-12T14:31:43.591Z</updated>
   <id>http://xtestw.com/</id>
   
   <author>
@@ -15,6 +15,29 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>国内NextJs代理支持amp</title>
+    <link href="http://xtestw.com/2021/02/12/%E5%9B%BD%E5%86%85NextJs%E4%BB%A3%E7%90%86%E6%94%AF%E6%8C%81amp/"/>
+    <id>http://xtestw.com/2021/02/12/国内NextJs代理支持amp/</id>
+    <published>2021-02-12T14:31:43.000Z</published>
+    <updated>2021-02-12T14:31:43.591Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h2 id=&quot;背景&quot;&gt;&lt;a href=&quot;#背景&quot; class=&quot;headerlink&quot; title=&quot;背景&quot;&gt;&lt;/a&gt;背景&lt;/h2&gt;&lt;p&gt;最近学习了一下 nextjs，用这个写了个小网站 cushiwen.cn.  过程中发现 nextjs 天然支持 amp，虽然只有css-i
+      
+    
+    </summary>
+    
+      <category term="FE" scheme="http://xtestw.com/categories/FE/"/>
+    
+    
+      <category term="FE" scheme="http://xtestw.com/tags/FE/"/>
+    
+  </entry>
   
   <entry>
     <title>UndeclaredThrowableException原因</title>
@@ -450,29 +473,6 @@
         &lt;p&gt;1.适配器模式&lt;/p&gt;
 &lt;p&gt;适配器模式是针对接口不一时处理的情况，比如我的类的参数是IInterface1，但是我现在想要调用IInterface2接口的函数，怎么办呢？就是用适配器来解决这个问题：&lt;/p&gt;
 &lt;figure class=&quot;highlight plain&quot;&gt;
-      
-    
-    </summary>
-    
-      <category term="Design Pattern" scheme="http://xtestw.com/categories/Design-Pattern/"/>
-    
-    
-      <category term="设计模式" scheme="http://xtestw.com/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>设计模式-命令模式</title>
-    <link href="http://xtestw.com/2014/09/03/%20%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E5%91%BD%E4%BB%A4%E6%A8%A1%E5%BC%8F/"/>
-    <id>http://xtestw.com/2014/09/03/ 设计模式-命令模式/</id>
-    <published>2014-09-02T21:26:00.000Z</published>
-    <updated>2021-01-16T22:24:19.365Z</updated>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;p&gt;命令模式这个设计模式更像是对接口编程的一种应用，比如给小朋友穿衣服，但是不一样的衣服有不一样的穿法，裤子，衬衫，鞋，T恤都是不一样的，但是小朋友不知道怎么穿，只知道想穿什么，那么怎么办呢，小朋友会让他的妈妈帮他穿，这里面的“让妈妈帮忙”，就是给妈妈一个命令（虽然不是很恰当-
       
     
     </summary>
