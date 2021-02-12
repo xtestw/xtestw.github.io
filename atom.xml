@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://xtestw.com/"/>
-  <updated>2021-02-12T14:31:43.591Z</updated>
+  <updated>2021-02-12T14:47:08.098Z</updated>
   <id>http://xtestw.com/</id>
   
   <author>
@@ -15,6 +15,29 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>nextjs静态页面github pages资源文件404</title>
+    <link href="http://xtestw.com/2021/02/12/nextjs%E9%9D%99%E6%80%81%E9%A1%B5%E9%9D%A2github-pages%E8%B5%84%E6%BA%90%E6%96%87%E4%BB%B6404/"/>
+    <id>http://xtestw.com/2021/02/12/nextjs静态页面github-pages资源文件404/</id>
+    <published>2021-02-12T14:47:08.000Z</published>
+    <updated>2021-02-12T14:47:08.098Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h2 id=&quot;背景&quot;&gt;&lt;a href=&quot;#背景&quot; class=&quot;headerlink&quot; title=&quot;背景&quot;&gt;&lt;/a&gt;背景&lt;/h2&gt;&lt;p&gt;通过把nextjs的静态文件放到github pages上，省一波流量钱，但是发现资源文件总是会404，本来以为是github pages构
+      
+    
+    </summary>
+    
+      <category term="FE" scheme="http://xtestw.com/categories/FE/"/>
+    
+    
+      <category term="FE" scheme="http://xtestw.com/tags/FE/"/>
+    
+  </entry>
   
   <entry>
     <title>国内NextJs代理支持amp</title>
@@ -448,31 +471,6 @@
       
         &lt;p&gt;前面学习过了策略模式，策略模式是对一类的算法进行封装，利用组合，算法之间可以互相替换，但是这个是针对算法过程不是一样的算法。但是如果一系列的算法的步骤都是一样的，且算法的很多过程都是一样的处理，那么，用策略模式的话，会导致算法的重用不高，我们采用模板方法来实现：&lt;/p&gt;
 &lt;
-      
-    
-    </summary>
-    
-      <category term="Design Pattern" scheme="http://xtestw.com/categories/Design-Pattern/"/>
-    
-    
-      <category term="设计模式" scheme="http://xtestw.com/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>设计模式-适配器模式和外观模式</title>
-    <link href="http://xtestw.com/2014/09/04/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E9%80%82%E9%85%8D%E5%99%A8%E6%A8%A1%E5%BC%8F%E5%92%8C%E5%A4%96%E8%A7%82%E6%A8%A1%E5%BC%8F/"/>
-    <id>http://xtestw.com/2014/09/04/设计模式-适配器模式和外观模式/</id>
-    <published>2014-09-03T21:46:00.000Z</published>
-    <updated>2021-01-16T22:22:37.636Z</updated>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;p&gt;1.适配器模式&lt;/p&gt;
-&lt;p&gt;适配器模式是针对接口不一时处理的情况，比如我的类的参数是IInterface1，但是我现在想要调用IInterface2接口的函数，怎么办呢？就是用适配器来解决这个问题：&lt;/p&gt;
-&lt;figure class=&quot;highlight plain&quot;&gt;
       
     
     </summary>
