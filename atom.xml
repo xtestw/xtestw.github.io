@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://xtestw.com/"/>
-  <updated>2021-02-28T15:05:00.312Z</updated>
+  <updated>2021-03-15T13:42:13.198Z</updated>
   <id>http://xtestw.com/</id>
   
   <author>
@@ -17,11 +17,35 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>DDD 领域建模笔记</title>
+    <link href="http://xtestw.com/2021/03/15/DDD-%E9%A2%86%E5%9F%9F%E5%BB%BA%E6%A8%A1/"/>
+    <id>http://xtestw.com/2021/03/15/DDD-领域建模/</id>
+    <published>2021-03-15T12:34:25.000Z</published>
+    <updated>2021-03-15T13:42:13.198Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h4 id=&quot;核心概念&quot;&gt;&lt;a href=&quot;#核心概念&quot; class=&quot;headerlink&quot; title=&quot;核心概念&quot;&gt;&lt;/a&gt;核心概念&lt;/h4&gt;&lt;blockquote&gt;
+&lt;p&gt;战术设计(Tactic DDD): Entity, Value Object; Aggregate
+      
+    
+    </summary>
+    
+      <category term="架构" scheme="http://xtestw.com/categories/%E6%9E%B6%E6%9E%84/"/>
+    
+    
+      <category term="DDD" scheme="http://xtestw.com/tags/DDD/"/>
+    
+  </entry>
+  
+  <entry>
     <title>Ha3 学习笔记</title>
     <link href="http://xtestw.com/2021/02/28/Ha3-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
     <id>http://xtestw.com/2021/02/28/Ha3-学习笔记/</id>
     <published>2021-02-28T10:07:13.000Z</published>
-    <updated>2021-02-28T15:05:00.312Z</updated>
+    <updated>2021-03-15T13:43:07.792Z</updated>
     
     <summary type="html">
     
@@ -443,30 +467,6 @@
       
       
         &lt;p&gt;在实际开发的时候，我们同样的一个对象，对于不同的客户，可能能够调用的方法是不一样的，就是权限的控制，这个时候，对象的方法都应该是public，那么就要给对象加上一层，通过客户的类型，决定是否可以访问，也就是说，客户不直接访问对象，而是访问给对象加上的这一层，就是代理层。&lt;/
-      
-    
-    </summary>
-    
-      <category term="Design Pattern" scheme="http://xtestw.com/categories/Design-Pattern/"/>
-    
-    
-      <category term="设计模式" scheme="http://xtestw.com/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>设计模式-状态模式</title>
-    <link href="http://xtestw.com/2014/09/07/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E7%8A%B6%E6%80%81%E6%A8%A1%E5%BC%8F/"/>
-    <id>http://xtestw.com/2014/09/07/设计模式-状态模式/</id>
-    <published>2014-09-07T05:18:00.000Z</published>
-    <updated>2021-01-16T22:23:11.535Z</updated>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;p&gt;状态模式是针对系统的状态转换的，其主要的定义如下：&lt;/p&gt;
-&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/t
       
     
     </summary>
