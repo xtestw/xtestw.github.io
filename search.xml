@@ -619,6 +619,23 @@
       </tags>
   </entry>
   <entry>
+    <title>HttpURLConnection使用http代理</title>
+    <url>/2017/08/13/HttpURLConnection%E4%BD%BF%E7%94%A8http%E4%BB%A3%E7%90%86/</url>
+    <content><![CDATA[<p>工程中的网络请求，有时会需要使用http代理，比较简单的方法是使用apache的httpclient 直接设置代理，但有的时候使用java自带的HttpURLConnection的时候，就需要注意多线程的问题了。 使用HttpURLConnection 实现代理的方法也很简单，在建立连接之前先设置代理：</p>
+<p>Authenticator.setDefault(authenticator);</p>
+<p>需要注意的是，设置代理的方法并不是使用HttpURLConnection的一个方法，而在建立请求的时候，也没有任何调用和使用 Authenticator的地方，可以猜测这里设置了代理是使用了全局量，跟进Authenticator中去，会发现： <img src="http://xtestw.site/wp-content/uploads/2017/08/1.png" alt="1"> <img src="http://xtestw.site/wp-content/uploads/2017/08/2.png" alt="2"> 其实setDefault 方法就是设置了一个静态变量，而这个变量被使用的地方在： <img src="http://xtestw.site/wp-content/uploads/2017/08/3.png" alt="3"> （三个同名函数，相同的处理）这个静态变量被全局的网络请求所使用，而不是当前连接独占的配置，一般来说，当前网络使用一个http代理的时候没有问题（比如我们就是通过elb代理多个IP出口），但是当我们有多个代理的时候，在多线程环境下就会出现问题，如果代理服务器的账号密码不同，请求的服务球对cookie和ip进行校验的时候，就会比较麻烦，所以需要想办法来让每一个HttpURLConnection独占这个代理配置，直接的方法似乎没有，但是可以折中，同步网络请求过程中，HttpURLConnection是和唯一线程绑定的，我们可以用ThreadLocal,让每个线程独占一个代理配置，从而间接的保证每个HttpURLConnection始终使用一个代理配置。 可以定一个类：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ThreadLocalAuthenticator</span> <span class="keyword">extends</span> <span class="title">Authenticator</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">  ThreadLocal&lt;PasswordAuthentication&gt; auth = <span class="keyword">new</span> ThreadLocal&lt;&gt;();</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setPasswordAuthentication</span><span class="params">(PasswordAuthentication passwordAuthentication)</span> </span>&#123;</span><br><span class="line">    auth.set(passwordAuthentication);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">clearPasswordAuthentication</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    auth.remove();</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="meta">@Override</span></span><br><span class="line">  <span class="function"><span class="keyword">protected</span> PasswordAuthentication <span class="title">getPasswordAuthentication</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> auth.get();</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>然后在http网络请求的工具类中定义一个全局的静态ThreadLocalAuthenticator的实例：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> ThreadLocalAuthenticator authenticator = <span class="keyword">new</span> ThreadLocalAuthenticator();</span><br></pre></td></tr></table></figure>
+
+<p>然后在需要的时候使用它就OK了。</p>
+]]></content>
+      <categories>
+        <category>JAVA</category>
+      </categories>
+  </entry>
+  <entry>
     <title>Ha3 学习笔记</title>
     <url>/2021/02/28/Ha3-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</url>
     <content><![CDATA[<h2 id="整体架构"><a href="#整体架构" class="headerlink" title="整体架构"></a>整体架构</h2><p><img src="/images/Ha3-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/image-20210228184558960.png" alt="image-20210228184558960"></p>
@@ -855,23 +872,6 @@
       <tags>
         <tag>搜索引擎</tag>
       </tags>
-  </entry>
-  <entry>
-    <title>HttpURLConnection使用http代理</title>
-    <url>/2017/08/13/HttpURLConnection%E4%BD%BF%E7%94%A8http%E4%BB%A3%E7%90%86/</url>
-    <content><![CDATA[<p>工程中的网络请求，有时会需要使用http代理，比较简单的方法是使用apache的httpclient 直接设置代理，但有的时候使用java自带的HttpURLConnection的时候，就需要注意多线程的问题了。 使用HttpURLConnection 实现代理的方法也很简单，在建立连接之前先设置代理：</p>
-<p>Authenticator.setDefault(authenticator);</p>
-<p>需要注意的是，设置代理的方法并不是使用HttpURLConnection的一个方法，而在建立请求的时候，也没有任何调用和使用 Authenticator的地方，可以猜测这里设置了代理是使用了全局量，跟进Authenticator中去，会发现： <img src="http://xtestw.site/wp-content/uploads/2017/08/1.png" alt="1"> <img src="http://xtestw.site/wp-content/uploads/2017/08/2.png" alt="2"> 其实setDefault 方法就是设置了一个静态变量，而这个变量被使用的地方在： <img src="http://xtestw.site/wp-content/uploads/2017/08/3.png" alt="3"> （三个同名函数，相同的处理）这个静态变量被全局的网络请求所使用，而不是当前连接独占的配置，一般来说，当前网络使用一个http代理的时候没有问题（比如我们就是通过elb代理多个IP出口），但是当我们有多个代理的时候，在多线程环境下就会出现问题，如果代理服务器的账号密码不同，请求的服务球对cookie和ip进行校验的时候，就会比较麻烦，所以需要想办法来让每一个HttpURLConnection独占这个代理配置，直接的方法似乎没有，但是可以折中，同步网络请求过程中，HttpURLConnection是和唯一线程绑定的，我们可以用ThreadLocal,让每个线程独占一个代理配置，从而间接的保证每个HttpURLConnection始终使用一个代理配置。 可以定一个类：</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ThreadLocalAuthenticator</span> <span class="keyword">extends</span> <span class="title">Authenticator</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">  ThreadLocal&lt;PasswordAuthentication&gt; auth = <span class="keyword">new</span> ThreadLocal&lt;&gt;();</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setPasswordAuthentication</span><span class="params">(PasswordAuthentication passwordAuthentication)</span> </span>&#123;</span><br><span class="line">    auth.set(passwordAuthentication);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">clearPasswordAuthentication</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    auth.remove();</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="meta">@Override</span></span><br><span class="line">  <span class="function"><span class="keyword">protected</span> PasswordAuthentication <span class="title">getPasswordAuthentication</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> auth.get();</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>然后在http网络请求的工具类中定义一个全局的静态ThreadLocalAuthenticator的实例：</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> ThreadLocalAuthenticator authenticator = <span class="keyword">new</span> ThreadLocalAuthenticator();</span><br></pre></td></tr></table></figure>
-
-<p>然后在需要的时候使用它就OK了。</p>
-]]></content>
-      <categories>
-        <category>JAVA</category>
-      </categories>
   </entry>
   <entry>
     <title>MFC Invalidate闪屏问题</title>
@@ -1567,24 +1567,6 @@ f1
       </tags>
   </entry>
   <entry>
-    <title>sdk篡改</title>
-    <url>/2017/07/23/sdk-e7-af-a1-e6-94-b9/</url>
-    <content><![CDATA[<p>前段时间，因为一年前篡改了一个sdk的包，导致了一系列不可预知的损失，这也充分说明了技术的正确性，需要决策的正确性来支撑的。作为技术人员，不仅仅要考虑技术的可行性，也要考虑实施后的风险和结果的预期假设。 从工程角度，简单记录一下篡改sdk包的技术。 </p>
-<ol>
-<li>解压jar或者apk的包 </li>
-<li>JD-GUI 反编译查看class的相关代码，找到修改点</li>
-<li>自己编写相应的方法或者类，使用 <code>javaassist</code> 注入到class文件 </li>
-<li>重新打包</li>
-</ol>
-<p> <code>javassist</code> 使用方法参考： <a href="https://jboss-javassist.github.io/javassist/tutorial/tutorial.html">https://jboss-javassist.github.io/javassist/tutorial/tutorial.html</a> 附上测试代码，修改一个方法</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">      javassist.tools.reflect.Loader cl = <span class="keyword">new</span> javassist.tools.reflect.Loader();</span><br><span class="line">      ClassPool pool = ClassPool.getDefault();</span><br><span class="line">      pool.insertClassPath(<span class="string">&quot;/tmp/aa/&quot;</span>);</span><br><span class="line">      CtClass cc = pool.get(<span class="string">&quot;com.facebook.ads.internal.d.g&quot;</span>);</span><br><span class="line">      CtMethod ctmethod = cc.getDeclaredMethod(<span class="string">&quot;c&quot;</span>);</span><br><span class="line">      cc.getDeclaredField(<span class="string">&quot;c&quot;</span>);</span><br><span class="line">      <span class="comment">// getCode()即为需要替换的的代码</span></span><br><span class="line">      ctmethod.setBody(getCode());</span><br><span class="line">      cc.writeFile(<span class="string">&quot;/tmp/aa/&quot;</span>);</span><br><span class="line">    &#125; <span class="keyword">catch</span> (CannotCompileException e) &#123;</span><br><span class="line">      e.printStackTrace();</span><br><span class="line">    &#125; <span class="keyword">catch</span> (NotFoundException e) &#123;</span><br><span class="line">      e.printStackTrace();</span><br><span class="line">    &#125; <span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">      e.printStackTrace();</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-]]></content>
-      <categories>
-        <category>JAVA</category>
-      </categories>
-  </entry>
-  <entry>
     <title>并查集</title>
     <url>/2013/04/27/set/</url>
     <content><![CDATA[<p>  好吧，前两天做了一场CF，遇到一道并查集的题目，感觉并查集还需学习啊，记录一下 具体的算法如下</p>
@@ -1603,17 +1585,22 @@ f1
       </categories>
   </entry>
   <entry>
-    <title>windows核心编程-错误处理</title>
-    <url>/2015/01/29/windows-e6-a0-b8-e5-bf-83-e7-bc-96-e7-a8-8b-e9-94-99-e8-af-af-e5-a4-84-e7-90-86/</url>
-    <content><![CDATA[<p>1.常见的错误返回类型</p>
-<p>VOID/BOOL/HANDLE/PVOID/LONG/DWORD VOID 不可能失败 BOOL 错误返回false 编码的时候最好测试是否不为FALSE HANDLE 错误 NULL/INVALID_HANDLE_VALUE PVOID  失败返回NULL,成功返回一个数据块的地址 LONG/DWORD 0或-1，不绝对 2.GetLastError函数   DWORD GetLastError(); 3.WinError.h 头文件定义了若干的Mircosoft定义的代码列表 4.</p>
+    <title>sdk篡改</title>
+    <url>/2017/07/23/sdk-e7-af-a1-e6-94-b9/</url>
+    <content><![CDATA[<p>前段时间，因为一年前篡改了一个sdk的包，导致了一系列不可预知的损失，这也充分说明了技术的正确性，需要决策的正确性来支撑的。作为技术人员，不仅仅要考虑技术的可行性，也要考虑实施后的风险和结果的预期假设。 从工程角度，简单记录一下篡改sdk包的技术。 </p>
+<ol>
+<li>解压jar或者apk的包 </li>
+<li>JD-GUI 反编译查看class的相关代码，找到修改点</li>
+<li>自己编写相应的方法或者类，使用 <code>javaassist</code> 注入到class文件 </li>
+<li>重新打包</li>
+</ol>
+<p> <code>javassist</code> 使用方法参考： <a href="https://jboss-javassist.github.io/javassist/tutorial/tutorial.html">https://jboss-javassist.github.io/javassist/tutorial/tutorial.html</a> 附上测试代码，修改一个方法</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">      javassist.tools.reflect.Loader cl = <span class="keyword">new</span> javassist.tools.reflect.Loader();</span><br><span class="line">      ClassPool pool = ClassPool.getDefault();</span><br><span class="line">      pool.insertClassPath(<span class="string">&quot;/tmp/aa/&quot;</span>);</span><br><span class="line">      CtClass cc = pool.get(<span class="string">&quot;com.facebook.ads.internal.d.g&quot;</span>);</span><br><span class="line">      CtMethod ctmethod = cc.getDeclaredMethod(<span class="string">&quot;c&quot;</span>);</span><br><span class="line">      cc.getDeclaredField(<span class="string">&quot;c&quot;</span>);</span><br><span class="line">      <span class="comment">// getCode()即为需要替换的的代码</span></span><br><span class="line">      ctmethod.setBody(getCode());</span><br><span class="line">      cc.writeFile(<span class="string">&quot;/tmp/aa/&quot;</span>);</span><br><span class="line">    &#125; <span class="keyword">catch</span> (CannotCompileException e) &#123;</span><br><span class="line">      e.printStackTrace();</span><br><span class="line">    &#125; <span class="keyword">catch</span> (NotFoundException e) &#123;</span><br><span class="line">      e.printStackTrace();</span><br><span class="line">    &#125; <span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">      e.printStackTrace();</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
 ]]></content>
       <categories>
-        <category>ACMICPC</category>
+        <category>JAVA</category>
       </categories>
-      <tags>
-        <tag>windows</tag>
-      </tags>
   </entry>
   <entry>
     <title>关于大数据的C(M,N)</title>
@@ -1635,15 +1622,16 @@ f1
       </tags>
   </entry>
   <entry>
-    <title>几种简单的传统加密算法概述</title>
-    <url>/2013/11/10/%E5%87%A0%E7%A7%8D%E7%AE%80%E5%8D%95%E7%9A%84%E4%BC%A0%E7%BB%9F%E5%8A%A0%E5%AF%86%E7%AE%97%E6%B3%95%E6%A6%82%E8%BF%B0/</url>
-    <content><![CDATA[<p>本文只是概述几种简单的传统加密算法，没有DES,没有RSA，没有想象中的高端大气上档次的东东。。。但是都是很传统很经典的一些算法 首先，提到加密，比如加密一段文字，让其不可读，一般人首先会想到的是将其中的各个字符用其他一些特定的字符代替，比如，讲所有的A用C来表示，所有的C用E表示等等…其中早的代替算法就是由Julius Caesar发明的Caesar，它是用字母表中每个字母的之后的第三个字母来代替其本身的（C=E(3，p)=（p+3) mod 26)，但是，这种加密方式，很容易可以用穷举算法来破解，毕竟只有25种可能的情况.. 为了改进上诉算法，增加其破解的难度，我们不用简单的有序的替代方式，我们让替代无序化，用其中字母表的一个置换（置换：有限元素的集合S的置换就是S的所有元素的有序排列，且每个元素就出现一次，如S={a,b}其置换就只有两种:ab,ba），这样的话，就有26！种方式，大大的增加了破解的难度，但是这个世界聪明人太多，虽然26！很多，但是语言本身有一定的特性，每个字母在语言中出现的相对频率可以统计出来的，这样子，只要密文有了一定数量，就可以从统计学的角度，得到准确的字母匹配了。 上面的算法我们称之为单表代替，其实单表代替密码之所以较容易被攻破，因为它带有原始字母使用频率的一些统计学特征。有两种主要的方法可以减少代替密码里明文结构在密文中的残留度，一种是对明文中的多个字母一起加密，另一种是采用多表代替密码。 先说多字母代替吧，最著名的就是playfair密码，它把明文中的双字母音节作为一个单元并将其转换成密文的双字母音节，它是一个基于由密钥词构成的5<em>5的字母矩阵中的，一个例子，如密钥为monarchy，将其从左往右从上往下填入后，将剩余的字母依次填入剩下的空格，其中I/J填入同一个空格: <a href="http://static.oschina.net/uploads/img/201311/10123647_Q0Ls.png"><img src="http://static.oschina.net/uploads/img/201311/10123647_Q0Ls.png"></a> 对明文加密规则如下： 1 若p1 p2在同一行，对应密文c1 c2分别是紧靠p1 p2 右端的字母。其中第一列被看做是最后一列的右方。 2 若p1 p2在同一列，对应密文c1 c2分别是紧靠p1 p2 下方的字母。其中第一行被看做是最后一行的下方。 3 若p1 p2不在同一行，不在同一列，则c1 c2是由p1 p2确定的矩形的其他两角的字母，并且c1和p1， c2和p2同行。 4 若p1 p2相同，则插入一个事先约定的字母，比如Q 。 5 若明文字母数为奇数时，则在明文的末端添加某个事先约定的字母作为填充。 虽然相对简单加密，安全性有所提高，但是还是保留了明文语言的大部分结构特征，依旧可以破解出来，另一个有意思的多表代替密码是Hill密码，由数学家Lester Hill提出来的，其实就是利用了线性代数中的可逆矩阵，一个矩阵乘以它的逆矩阵得到单位矩阵，那么假设我们对密文每m个字母进行加密，那么将这m个字母在字母表中的序号写成矩阵形式设为P（如abc，[1,2,3])，密钥就是一个m阶的矩阵K，则C=P</em>K mod26，，解密的时候只要将密文乘上K的逆矩阵模26就可以了。该方法大大的增加了安全性。 上面的算法主要是多字母代替，现在再说说另一种多表代替的加密算法吧，其中最著名最简单的是vigenere密码，它的主要思想是对明文每m个字母进行加密，将每个字母加密，和Caesar算法一样，每个字母用后面的第k个字母来代替，只不过是m个字母中，每一个字母的k值不同，简单的说就是C=C0C1C2C3…=E(K,P)=(p0+k0）mod26,(p1+k1)mod26,(p2+k2)mod26…..但是这样的算法也是比较容易破解的，可以对相同字母的组合（如都是KATB）间隔数（存在偶然性，可以进行取舍），取公约数，那么m就是这个约数的某个因子，之后通过观察，如果长度为m，其实就是m个单表，进行分离就是m个单表分离，然后就很容易的破解了。。 另外一种加密手段，是选择一个与明文无关的，且与他长度一致的密钥，进行异或，解密的时候再一次异或就OK了，这也是基于两次异或同一个值，值不变的结论，大家可以尝试一下的~ 上面主要说的是替换技术，其实传统加密算法除了替换的技术，还有一种就是置换的技术了，简单的说就是将明文的序列打乱，比如栅栏技术，就是按照对角线的顺序写出明文，而按行的顺序读出作为密文。当然这种技术太简单了，更复杂一点的就是将消息一行行的写成矩阵块，然后按列读出，但是把列的次序打乱的，为了增加安全性，还可以多次置换来着。 传统加密高端一点的就是转轮机和隐写术了，转轮机是一种多重加密的技术，其主要的意义就是为DES加密提供了方向…隐写术是个神奇的东西，比如我们经常在电视剧中看到的隐形药水啥的…这些东西，就问度娘吧…..</p>
+    <title>windows核心编程-错误处理</title>
+    <url>/2015/01/29/windows-e6-a0-b8-e5-bf-83-e7-bc-96-e7-a8-8b-e9-94-99-e8-af-af-e5-a4-84-e7-90-86/</url>
+    <content><![CDATA[<p>1.常见的错误返回类型</p>
+<p>VOID/BOOL/HANDLE/PVOID/LONG/DWORD VOID 不可能失败 BOOL 错误返回false 编码的时候最好测试是否不为FALSE HANDLE 错误 NULL/INVALID_HANDLE_VALUE PVOID  失败返回NULL,成功返回一个数据块的地址 LONG/DWORD 0或-1，不绝对 2.GetLastError函数   DWORD GetLastError(); 3.WinError.h 头文件定义了若干的Mircosoft定义的代码列表 4.</p>
 ]]></content>
       <categories>
-        <category>Theory</category>
+        <category>ACMICPC</category>
       </categories>
       <tags>
-        <tag>proof</tag>
+        <tag>windows</tag>
       </tags>
   </entry>
   <entry>
@@ -1663,6 +1651,18 @@ f1
       </categories>
   </entry>
   <entry>
+    <title>几种简单的传统加密算法概述</title>
+    <url>/2013/11/10/%E5%87%A0%E7%A7%8D%E7%AE%80%E5%8D%95%E7%9A%84%E4%BC%A0%E7%BB%9F%E5%8A%A0%E5%AF%86%E7%AE%97%E6%B3%95%E6%A6%82%E8%BF%B0/</url>
+    <content><![CDATA[<p>本文只是概述几种简单的传统加密算法，没有DES,没有RSA，没有想象中的高端大气上档次的东东。。。但是都是很传统很经典的一些算法 首先，提到加密，比如加密一段文字，让其不可读，一般人首先会想到的是将其中的各个字符用其他一些特定的字符代替，比如，讲所有的A用C来表示，所有的C用E表示等等…其中早的代替算法就是由Julius Caesar发明的Caesar，它是用字母表中每个字母的之后的第三个字母来代替其本身的（C=E(3，p)=（p+3) mod 26)，但是，这种加密方式，很容易可以用穷举算法来破解，毕竟只有25种可能的情况.. 为了改进上诉算法，增加其破解的难度，我们不用简单的有序的替代方式，我们让替代无序化，用其中字母表的一个置换（置换：有限元素的集合S的置换就是S的所有元素的有序排列，且每个元素就出现一次，如S={a,b}其置换就只有两种:ab,ba），这样的话，就有26！种方式，大大的增加了破解的难度，但是这个世界聪明人太多，虽然26！很多，但是语言本身有一定的特性，每个字母在语言中出现的相对频率可以统计出来的，这样子，只要密文有了一定数量，就可以从统计学的角度，得到准确的字母匹配了。 上面的算法我们称之为单表代替，其实单表代替密码之所以较容易被攻破，因为它带有原始字母使用频率的一些统计学特征。有两种主要的方法可以减少代替密码里明文结构在密文中的残留度，一种是对明文中的多个字母一起加密，另一种是采用多表代替密码。 先说多字母代替吧，最著名的就是playfair密码，它把明文中的双字母音节作为一个单元并将其转换成密文的双字母音节，它是一个基于由密钥词构成的5<em>5的字母矩阵中的，一个例子，如密钥为monarchy，将其从左往右从上往下填入后，将剩余的字母依次填入剩下的空格，其中I/J填入同一个空格: <a href="http://static.oschina.net/uploads/img/201311/10123647_Q0Ls.png"><img src="http://static.oschina.net/uploads/img/201311/10123647_Q0Ls.png"></a> 对明文加密规则如下： 1 若p1 p2在同一行，对应密文c1 c2分别是紧靠p1 p2 右端的字母。其中第一列被看做是最后一列的右方。 2 若p1 p2在同一列，对应密文c1 c2分别是紧靠p1 p2 下方的字母。其中第一行被看做是最后一行的下方。 3 若p1 p2不在同一行，不在同一列，则c1 c2是由p1 p2确定的矩形的其他两角的字母，并且c1和p1， c2和p2同行。 4 若p1 p2相同，则插入一个事先约定的字母，比如Q 。 5 若明文字母数为奇数时，则在明文的末端添加某个事先约定的字母作为填充。 虽然相对简单加密，安全性有所提高，但是还是保留了明文语言的大部分结构特征，依旧可以破解出来，另一个有意思的多表代替密码是Hill密码，由数学家Lester Hill提出来的，其实就是利用了线性代数中的可逆矩阵，一个矩阵乘以它的逆矩阵得到单位矩阵，那么假设我们对密文每m个字母进行加密，那么将这m个字母在字母表中的序号写成矩阵形式设为P（如abc，[1,2,3])，密钥就是一个m阶的矩阵K，则C=P</em>K mod26，，解密的时候只要将密文乘上K的逆矩阵模26就可以了。该方法大大的增加了安全性。 上面的算法主要是多字母代替，现在再说说另一种多表代替的加密算法吧，其中最著名最简单的是vigenere密码，它的主要思想是对明文每m个字母进行加密，将每个字母加密，和Caesar算法一样，每个字母用后面的第k个字母来代替，只不过是m个字母中，每一个字母的k值不同，简单的说就是C=C0C1C2C3…=E(K,P)=(p0+k0）mod26,(p1+k1)mod26,(p2+k2)mod26…..但是这样的算法也是比较容易破解的，可以对相同字母的组合（如都是KATB）间隔数（存在偶然性，可以进行取舍），取公约数，那么m就是这个约数的某个因子，之后通过观察，如果长度为m，其实就是m个单表，进行分离就是m个单表分离，然后就很容易的破解了。。 另外一种加密手段，是选择一个与明文无关的，且与他长度一致的密钥，进行异或，解密的时候再一次异或就OK了，这也是基于两次异或同一个值，值不变的结论，大家可以尝试一下的~ 上面主要说的是替换技术，其实传统加密算法除了替换的技术，还有一种就是置换的技术了，简单的说就是将明文的序列打乱，比如栅栏技术，就是按照对角线的顺序写出明文，而按行的顺序读出作为密文。当然这种技术太简单了，更复杂一点的就是将消息一行行的写成矩阵块，然后按列读出，但是把列的次序打乱的，为了增加安全性，还可以多次置换来着。 传统加密高端一点的就是转轮机和隐写术了，转轮机是一种多重加密的技术，其主要的意义就是为DES加密提供了方向…隐写术是个神奇的东西，比如我们经常在电视剧中看到的隐形药水啥的…这些东西，就问度娘吧…..</p>
+]]></content>
+      <categories>
+        <category>Theory</category>
+      </categories>
+      <tags>
+        <tag>proof</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>匈牙利算法</title>
     <url>/2014/07/07/%E5%8C%88%E7%89%99%E5%88%A9%E7%AE%97%E6%B3%95/</url>
     <content><![CDATA[<p>参见博客：<a href="http://blog.csdn.net/dark_scope/article/details/8880547%EF%BC%8C%E9%9D%9E%E5%B8%B8%E7%BB%99%E5%8A%9B%E7%9A%84%E8%AF%B4%E6%B3%95">http://blog.csdn.net/dark_scope/article/details/8880547，非常给力的说法</a> 关于二分图匹配，常用的结论如下：</p>
@@ -1679,48 +1679,6 @@ f1
       <categories>
         <category>ACMICPC</category>
       </categories>
-  </entry>
-  <entry>
-    <title>国内NextJs代理支持amp</title>
-    <url>/2021/02/12/%E5%9B%BD%E5%86%85NextJs%E4%BB%A3%E7%90%86%E6%94%AF%E6%8C%81amp/</url>
-    <content><![CDATA[<h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><p>最近学习了一下 nextjs，用这个写了个小网站 cushiwen.cn.  过程中发现 nextjs 天然支持 amp，虽然只有css-in-js的方式支持css， 但是还是很方便的，就尝试了一下。 发现过程中总是出现以下错误：</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">Error: Unable to fetch https://cdn.ampproject.org/v0/validator.js - connect ETIMEDOUT 172.217.27.129:443</span><br><span class="line">    at ClientRequest.&lt;anonymous&gt; (/Users/xxx/xtestw/xxx/fe-xxx/node_modules/next/dist/compiled/amphtml-validator/index.js:1:1159)</span><br><span class="line">    at ClientRequest.emit (node:events:329:20)</span><br><span class="line">    at TLSSocket.socketErrorListener (node:_http_client:478:9)</span><br><span class="line">    at TLSSocket.emit (node:events:329:20)</span><br><span class="line">    at emitErrorNT (node:internal/streams/destroy:188:8)</span><br><span class="line">    at emitErrorCloseNT (node:internal/streams/destroy:153:3)</span><br><span class="line">    at processTicksAndRejections (node:internal/process/task_queues:80:21)</span><br></pre></td></tr></table></figure>
-
-<p>这就很尴尬了， 我自己架了个ss的代理，但是node本身的请求没有走代理，需要解决这个问题。</p>
-<p>大概有几种解法吧：</p>
-<ul>
-<li>VPN的方式架梯子，成本有点高</li>
-<li>Charles 全局代理捕获，自定义 response (未验证，理论可行)</li>
-<li>node全局代理</li>
-</ul>
-<p>本文讨论最后一种的解法</p>
-<h2 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h2><p>查找了一些资料，通过<code>global-agent</code>来实现。其实现主要通过系统环境变量来实现的 主要步骤如下：</p>
-<ol>
-<li><p>安装 <code>global-agent</code></p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">yarn add <span class="built_in">global</span>-agent</span><br></pre></td></tr></table></figure></li>
-<li><p>添加引用</p>
-<p>在需要的页面里面添加引用，我是在 _app.tsx 文件添加的</p>
-<figure class="highlight typescript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> <span class="string">&#x27;global-agent/bootstrap&#x27;</span>;</span><br><span class="line"><span class="comment">// or:</span></span><br><span class="line"><span class="comment">// import &#123;bootstrap&#125; from &#x27;global-agent&#x27;;</span></span><br></pre></td></tr></table></figure></li>
-<li><p>设置环境变量</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">export GLOBAL_AGENT_HTTP_PROXY=http://127.0.0.1:8080</span><br></pre></td></tr></table></figure>
-
-<p>如果指定部分域名不走代理的话，通过另外一个环境变量设置（因为我本地开了另外一个服务作为api接口, 所以这个接口不走代理）：</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">export GLOBAL_AGENT_NO_PROXY=&#x27;*.test.com,test2.com,localhost:8888&#x27;</span><br></pre></td></tr></table></figure></li>
-<li><p>启动</p>
-<p>需要找到next实际的启动地址，来启动</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">node -r global-agent/bootstrap /Users/xxx/xtestw/yyy/fe-yyy/node_modules/next/dist/bin/next</span><br></pre></td></tr></table></figure></li>
-</ol>
-<h2 id="附录"><a href="#附录" class="headerlink" title="附录"></a>附录</h2><ul>
-<li>其实通过改写 node 底层的 request 理论上也是可以的，不过对代码侵入太大了</li>
-<li>参考：<a href="https://www.ctolib.com/gajus-global-agent.html">https://www.ctolib.com/gajus-global-agent.html</a></li>
-</ul>
-]]></content>
-      <categories>
-        <category>FE</category>
-      </categories>
-      <tags>
-        <tag>FE</tag>
-      </tags>
   </entry>
   <entry>
     <title>图论入门算法理解</title>
@@ -1776,6 +1734,48 @@ f1
       </categories>
       <tags>
         <tag>设计模式</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>国内NextJs代理支持amp</title>
+    <url>/2021/02/12/%E5%9B%BD%E5%86%85NextJs%E4%BB%A3%E7%90%86%E6%94%AF%E6%8C%81amp/</url>
+    <content><![CDATA[<h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><p>最近学习了一下 nextjs，用这个写了个小网站 cushiwen.cn.  过程中发现 nextjs 天然支持 amp，虽然只有css-in-js的方式支持css， 但是还是很方便的，就尝试了一下。 发现过程中总是出现以下错误：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">Error: Unable to fetch https://cdn.ampproject.org/v0/validator.js - connect ETIMEDOUT 172.217.27.129:443</span><br><span class="line">    at ClientRequest.&lt;anonymous&gt; (/Users/xxx/xtestw/xxx/fe-xxx/node_modules/next/dist/compiled/amphtml-validator/index.js:1:1159)</span><br><span class="line">    at ClientRequest.emit (node:events:329:20)</span><br><span class="line">    at TLSSocket.socketErrorListener (node:_http_client:478:9)</span><br><span class="line">    at TLSSocket.emit (node:events:329:20)</span><br><span class="line">    at emitErrorNT (node:internal/streams/destroy:188:8)</span><br><span class="line">    at emitErrorCloseNT (node:internal/streams/destroy:153:3)</span><br><span class="line">    at processTicksAndRejections (node:internal/process/task_queues:80:21)</span><br></pre></td></tr></table></figure>
+
+<p>这就很尴尬了， 我自己架了个ss的代理，但是node本身的请求没有走代理，需要解决这个问题。</p>
+<p>大概有几种解法吧：</p>
+<ul>
+<li>VPN的方式架梯子，成本有点高</li>
+<li>Charles 全局代理捕获，自定义 response (未验证，理论可行)</li>
+<li>node全局代理</li>
+</ul>
+<p>本文讨论最后一种的解法</p>
+<h2 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h2><p>查找了一些资料，通过<code>global-agent</code>来实现。其实现主要通过系统环境变量来实现的 主要步骤如下：</p>
+<ol>
+<li><p>安装 <code>global-agent</code></p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">yarn add <span class="built_in">global</span>-agent</span><br></pre></td></tr></table></figure></li>
+<li><p>添加引用</p>
+<p>在需要的页面里面添加引用，我是在 _app.tsx 文件添加的</p>
+<figure class="highlight typescript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> <span class="string">&#x27;global-agent/bootstrap&#x27;</span>;</span><br><span class="line"><span class="comment">// or:</span></span><br><span class="line"><span class="comment">// import &#123;bootstrap&#125; from &#x27;global-agent&#x27;;</span></span><br></pre></td></tr></table></figure></li>
+<li><p>设置环境变量</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">export GLOBAL_AGENT_HTTP_PROXY=http://127.0.0.1:8080</span><br></pre></td></tr></table></figure>
+
+<p>如果指定部分域名不走代理的话，通过另外一个环境变量设置（因为我本地开了另外一个服务作为api接口, 所以这个接口不走代理）：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">export GLOBAL_AGENT_NO_PROXY=&#x27;*.test.com,test2.com,localhost:8888&#x27;</span><br></pre></td></tr></table></figure></li>
+<li><p>启动</p>
+<p>需要找到next实际的启动地址，来启动</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">node -r global-agent/bootstrap /Users/xxx/xtestw/yyy/fe-yyy/node_modules/next/dist/bin/next</span><br></pre></td></tr></table></figure></li>
+</ol>
+<h2 id="附录"><a href="#附录" class="headerlink" title="附录"></a>附录</h2><ul>
+<li>其实通过改写 node 底层的 request 理论上也是可以的，不过对代码侵入太大了</li>
+<li>参考：<a href="https://www.ctolib.com/gajus-global-agent.html">https://www.ctolib.com/gajus-global-agent.html</a></li>
+</ul>
+]]></content>
+      <categories>
+        <category>FE</category>
+      </categories>
+      <tags>
+        <tag>FE</tag>
       </tags>
   </entry>
   <entry>
