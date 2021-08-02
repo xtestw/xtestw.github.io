@@ -361,14 +361,14 @@
   </url>
   
   <url>
-    <loc>http://xtestw.com/tags/DDD/</loc>
+    <loc>http://xtestw.com/tags/%E5%A4%A7%E6%95%B0%E6%8D%AE/</loc>
     <lastmod>2021-08-02</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
-    <loc>http://xtestw.com/tags/%E5%A4%A7%E6%95%B0%E6%8D%AE/</loc>
+    <loc>http://xtestw.com/tags/DDD/</loc>
     <lastmod>2021-08-02</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
@@ -424,14 +424,14 @@
   </url>
   
   <url>
-    <loc>http://xtestw.com/tags/FE/</loc>
+    <loc>http://xtestw.com/tags/prof-acm/</loc>
     <lastmod>2021-08-02</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
-    <loc>http://xtestw.com/tags/prof-acm/</loc>
+    <loc>http://xtestw.com/tags/FE/</loc>
     <lastmod>2021-08-02</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
@@ -459,14 +459,14 @@
   </url>
   
   <url>
-    <loc>http://xtestw.com/tags/%E6%A6%82%E5%BF%B5/</loc>
+    <loc>http://xtestw.com/tags/%E7%90%86%E8%AE%BA/</loc>
     <lastmod>2021-08-02</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
-    <loc>http://xtestw.com/tags/%E7%90%86%E8%AE%BA/</loc>
+    <loc>http://xtestw.com/tags/%E6%A6%82%E5%BF%B5/</loc>
     <lastmod>2021-08-02</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
@@ -480,6 +480,13 @@
   </url>
   
 
+  
+  <url>
+    <loc>http://xtestw.com/categories/SourceReading/</loc>
+    <lastmod>2021-08-02</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
   
   <url>
     <loc>http://xtestw.com/categories/Design-Pattern/</loc>
@@ -496,14 +503,14 @@
   </url>
   
   <url>
-    <loc>http://xtestw.com/categories/%E6%9E%B6%E6%9E%84/</loc>
+    <loc>http://xtestw.com/categories/%E5%A4%A7%E6%95%B0%E6%8D%AE/</loc>
     <lastmod>2021-08-02</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
-    <loc>http://xtestw.com/categories/%E5%A4%A7%E6%95%B0%E6%8D%AE/</loc>
+    <loc>http://xtestw.com/categories/%E6%9E%B6%E6%9E%84/</loc>
     <lastmod>2021-08-02</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
@@ -518,13 +525,6 @@
   
   <url>
     <loc>http://xtestw.com/categories/JAVA/</loc>
-    <lastmod>2021-08-02</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>http://xtestw.com/categories/SourceReading/</loc>
     <lastmod>2021-08-02</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
