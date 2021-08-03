@@ -1,26 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>Xchart 源码分析（1）</title>
-    <url>/2014/12/22/%20Xchart%20%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90%EF%BC%881/</url>
-    <content><![CDATA[<p>   学校课程需要找一份代码，来讲讲代码里面用了哪些设计模式- -！ 还是要java的。。。 于是上github上面翻代码，偶然翻到一个java的xchart图标库，感觉可能以后会用的到，而且代码不是很长，就直接拿过来用了。具体的链接地址如下：<a href="https://github.com/timmolter/XChart" title="https://github.com/timmolter/XChart">https://github.com/timmolter/XChart</a></p>
-<p>   先看文件夹结构：<br> <a href="http://images.cnitblog.com/blog/372495/201412/212006353907368.png"><img src="http://images.cnitblog.com/blog/372495/201412/212021296717659.png" alt="image" title="image"></a>           </p>
-<p>一共有6个包，最后一个是用来测试的包，可以忽略不计，一共5个包，5个包的作用分别是
-  </p>
-<ul>
-<li>com.xeiam.xchart:<br>主要是图表生成的代码以及一些图表的功能包括导出功能的代码，是给我们使用该jar包人调用的结构，表示的是一个图表整体的构造，包括Chart,ChartBuild,Series等类。<br><a href="http://images.cnitblog.com/blog/372495/201412/212021311244117.png"><img src="http://images.cnitblog.com/blog/372495/201412/212021319529230.png" alt="image" title="image"></a>    </li>
-<li>com.xeiam.xchart.internal<br>这个package里面只有两个类，一个是package-info，我也不是很明白他的作用。。。就是写了一个license的地址。另一个类是Utils的类，提供了两个静态方法，一个求幂的，一个就是求差值的一半。      </li>
-<li>com.xeiam.xchart.internal.chartpart<br>这个包里面的东西，都是一些绘图的基本元素，全部是从chartpart中继承过来的，利用组合模式来进行绘制和构造，主要包括Axis,chartTitle,legend,plot等基本图表的元素。<br><a href="http://images.cnitblog.com/blog/372495/201412/212021324522145.png"><img src="http://images.cnitblog.com/blog/372495/201412/212021336403214.png" alt="image" title="image"></a>         </li>
-<li>com.xeiam.xchart.internal.markers<br>这个包里面，主要是针对刻度的一些绘图，包括圆形，矩形，上下三角形，菱形等。<br><a href="http://images.cnitblog.com/blog/372495/201412/212021341246600.png"><img src="http://images.cnitblog.com/blog/372495/201412/212021350622214.png" alt="image" title="image"></a>          </li>
-<li>com.xeiam.xchart.internal.style<br>这个类主要是针对图表的一系列的外观进行定义的包，给出了几个主题，以及对于线的一些类型外观的设置。<br><a href="http://images.cnitblog.com/blog/372495/201412/212021356089113.png"><img src="http://images.cnitblog.com/blog/372495/201412/212021364994442.png" alt="image" title="image"></a>            </li>
-</ul>
-<p>作为一个轻量级的图表库，xchart通过这几个包里面的类进行图像的构造，最终画出一个图形出来，不过目前只能支持有限的几种图表类型。</p>
-]]></content>
-      <categories>
-        <category>SourceReading</category>
-      </categories>
-  </entry>
-  <entry>
     <title>设计模式-命令模式</title>
     <url>/2014/09/03/%20%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E5%91%BD%E4%BB%A4%E6%A8%A1%E5%BC%8F/</url>
     <content><![CDATA[<p>命令模式这个设计模式更像是对接口编程的一种应用，比如给小朋友穿衣服，但是不一样的衣服有不一样的穿法，裤子，衬衫，鞋，T恤都是不一样的，但是小朋友不知道怎么穿，只知道想穿什么，那么怎么办呢，小朋友会让他的妈妈帮他穿，这里面的“让妈妈帮忙”，就是给妈妈一个命令（虽然不是很恰当- -！），对小朋友而言，怎么穿他并不关心，反正只要有只要让妈妈穿就行了，所以我们只要定义一个穿的接口就行</p>
@@ -74,153 +54,6 @@
       <categories>
         <category>ACMICPC</category>
       </categories>
-  </entry>
-  <entry>
-    <title>Blink学习笔记</title>
-    <url>/2021/02/28/Blink%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</url>
-    <content><![CDATA[<h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><p>Blink 其实是阿里内部基于 flink 改造的系统，学习 Blink 首先要学习 flink 相关的知识，先了解一下 flink 产生的背景和要解决的问题。</p>
-<p>在大数据开始爆发的时代，mapreduce 作为初代的计算引擎，提供了分布式计算的核心思想，map&amp;reduce的分阶段处理。但是 map reduce 本质上还是批处理计算框架，随着业务发展，流式数据计算处理的需求越来越旺盛，storm 等应运而生，但是作为第一代流式计算框架，存在一些设计上的缺陷，包括 exactly once等语义的支持。而且批处理和流处理作为处理同一个业务逻辑的两套系统，需要维护两套代码，并不是很友好。而这个时候 spark也发展起来了，集批处理，流处理，SQL 功能，图计算，机器学习于一身，并且支持 SparkR 和 PySpark 来做科学计算。而同时支持流处理和批处理的计算引擎，只有2个选择，除了spark 便是 flink。</p>
-<p>spark 批流统一处理的核心思想其实是用批来模拟流的能力，而flink则完全相反，使用流计算来模拟批计算。flink在捐赠给apache后定位的主流方向便是 Streaming， 区别于Storm,Spark Streaming以及其他流式计算引擎的是：它不仅是一个高吞吐、低延迟的计算引擎，同时还提供很多高级的功能。比如它提供了有状态的计算，支持状态管理，支持强一致性的数据语义以及支持 Event Time,WaterMark 对消息乱序的处理。</p>
-<p>最后，回归到官网对它的定义：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">Apache Flink 是一个框架和分布式处理引擎，用于在无边界和有边界数据流上进行有状态的计算。Flink 能在所有常见集群环境中运行，并能以内存速度和任意规模进行计算。</span><br></pre></td></tr></table></figure>
-
-<p>关于应用场景， 官方主要给了3类应用和相应的事例可以参看：</p>
-<ul>
-<li><a href="https://flink.apache.org/zh/usecases.html#eventDrivenApps">事件驱动型应用</a></li>
-<li><a href="https://flink.apache.org/zh/usecases.html#analytics">数据分析应用</a></li>
-<li><a href="https://flink.apache.org/zh/usecases.html#pipelines">数据管道应用</a></li>
-</ul>
-<h2 id="设计架构"><a href="#设计架构" class="headerlink" title="设计架构"></a>设计架构</h2><p><img src="/images/Blink%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/image-20210218205017997.png" alt="image-20210218205017997"></p>
-<p>Client 构建dataflow graph 已经数据流下放到 jobmanager 去调度 taskmanager 执行。Flink 运行时由2种进程组成，JobManager 和 TaskManager。</p>
-<h4 id="JobManager"><a href="#JobManager" class="headerlink" title="JobManager"></a>JobManager</h4><p>JobManager  负责task的调度、失败处理、协调处理checkpoint等，主要由3个组件构成：</p>
-<ul>
-<li>ResourceManager：负责资源的申请、分配、回收(适配 YARN、Mesos、Kubernetes等)。管理TaskManager的Task Slots</li>
-<li>Dispacher：提供REST接口，用于提交Flink应用程序执行，并且为每一个Task启动一个新的JobMaster，同时提供一个WebUI反应作业执行情况。</li>
-<li>JobMaster: 负责管理单个<a href="https://ci.apache.org/projects/flink/flink-docs-release-1.12/zh/concepts/glossary.html#logical-graph">JobGraph</a>的执行。Flink 集群中可以同时运行多个作业，每个作业都有自己的 JobMaster。JobMaster可以有多个，其中一个事leader 其他的为Standby。JobMaster的HA有2种实现方式：Zookeeper 和 Kubernetes。</li>
-</ul>
-<h4 id="TaskManager"><a href="#TaskManager" class="headerlink" title="TaskManager"></a>TaskManager</h4><p>TaskManager 执行作业流的task，并且缓存和交换数据流。 本质上是一个 JVM 进程，可以在单独的线程中执行一个或多个 subtask，为了控制TaskManager接受多个task，也就是所谓的task slots。</p>
-<p>Task、Subtask、Slot 是 3 个不同层面的概念</p>
-<p>slot是独立资源，如果一个taskmanager有3个slot，那么每个slot独立分配1/3内存。同时同一个taskmanager下的slot共享同一个JVM。同一个JVM的多个task共享TCP链接和心跳信息。</p>
-<p>默认允许 SubTask 共享 slot， 即便是不同的task的subtask，只要是一个作业就可以。也就是说，一个slot可以持有整个作业的通道。</p>
-<h3 id="执行过程"><a href="#执行过程" class="headerlink" title="执行过程"></a>执行过程</h3><p>Flink的执行会被提交到3种类型的集群执行，其主要的差异在于执行的生命周期和资源的隔离保证：</p>
-<ul>
-<li>Flink Session 集群<ul>
-<li>生命周期：集群是长期运行的，可接受多个作业提交</li>
-<li>资源隔离：多个作业共享集群资源，如果 TaskManager 或者 JobManager 出问题，会影响所有集群运行</li>
-</ul>
-</li>
-<li>Flink Job 集群<ul>
-<li>生命周期：Yarn或者k8s 为每个作业启动一个集群，作业结束，则集群结束</li>
-<li>资源隔离：作业独占资源</li>
-</ul>
-</li>
-<li>Flink Application 集群<ul>
-<li>生命周期：专用的flink集群，运行不是通过作业提交的方式运行，而是以application的方式运行。</li>
-<li>资源隔离： ResourceManager 和 Dispatcher 作用于单个的 Flink 应用程序，相比于 Flink Session 集群，它提供了更好的隔离。</li>
-</ul>
-</li>
-</ul>
-<h2 id="核心概念"><a href="#核心概念" class="headerlink" title="核心概念"></a>核心概念</h2><p>Flink的四大基石：</p>
-<ul>
-<li>Checkpoint: 快照；高容错</li>
-<li>State: 状态</li>
-<li>Time: 通过WaterMark支持基于Event Time的时间窗口</li>
-<li>Window: 窗口机制</li>
-</ul>
-<h4 id="Checkpoint"><a href="#Checkpoint" class="headerlink" title="Checkpoint"></a>Checkpoint</h4><p><img src="/images/Blink%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/image-20210228143710944.png" alt="image-20210228143710944"></p>
-<p>checkpoint是一种通过快找容错恢复的机制，这种机制保证实时程序运行的时候，即便出现异常，也可以自我恢复。 checkpoint 是flink系统自身的系统行为，用户无感知，只需要配置就可以了。</p>
-<ul>
-<li>checkpoint 的实现参考了 <a href="https://en.wikipedia.org/wiki/Chandy-Lamport_algorithm">Chandy-Lamport algorithm</a> 算法， 自己实现了一套异步barrier快照的算法，在数据流中设置屏障，记录屏障点的信息(比如kafka偏移量)以及每个算子的 state 的状态。 拥有2个输入流的Operators 会执行 Barrier 对齐，保证当前快照消费了输入流barrier之前的所有events。                                        </li>
-<li>checkpoint的状态备份存储主要分为2类<ul>
-<li>基于RocksDB内嵌k/v存储，将工作状态保存到磁盘上</li>
-<li>基于堆的 state backend.<ul>
-<li>FsStateBackend，将状态快照持久化到分布式文件系统中</li>
-<li>MemoryStateBackend, 使用JobManager的堆保存状态</li>
-</ul>
-</li>
-</ul>
-</li>
-<li>在流处理过程中，对结果的保障分为3种<ul>
-<li>at most once (结果不会从快照中恢复)</li>
-<li>at least once（没有任何丢失，但是会有冗余结果）<ul>
-<li>souce 必须可以重放</li>
-</ul>
-</li>
-<li>Exactly once （没有丢失，没有冗余）<ul>
-<li>souce 必须可以重放</li>
-<li>sinks 必须是事务性的</li>
-</ul>
-</li>
-</ul>
-</li>
-<li>checkpoint 状态保留策略<ul>
-<li>当程序取消时，删除checkpoint存储文件</li>
-<li>当程序取消时，保存之前的checkpoint文件</li>
-</ul>
-</li>
-<li>chekpoint 配置<ul>
-<li><em>Exactly-once/at-least-once 模式配置</em></li>
-<li><em>checkpoint 超时</em>： 如果执行时间超过配置，checkpoint操作会被丢弃</li>
-<li><em>并发checkpoint的数目</em>： 默认为1</li>
-<li><em>checkpoints之间的最小时间</em></li>
-<li><em>externalized checkpoints</em>: 周期存储 checkpoint 到外部系统中</li>
-<li><em>在 checkpoint 出错时使 task 失败或者继续进行 task</em></li>
-<li><em>优先从 checkpoint 恢复</em>: 在有savepoint的情况下的选择 (checkpoint 恢复的更快)</li>
-</ul>
-</li>
-</ul>
-<h4 id="State"><a href="#State" class="headerlink" title="State"></a>State</h4><p><img src="/images/Blink%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/image-20210228151711717.png" alt="image-20210228151711717"></p>
-<p>有状态的计算是流处理框架要实现的重要功能，因为稍复杂的流处理场景都需要记录状态，主要用来作为中间状态来进行去重/对比/聚合/更新等操作。 而在flink中，一个算子会有多个子任务，状态是和子任务绑定的，有子任务创建和管理。对于状态的管理，flink作为计算框架，封装了一些实现，也包括状态的高效存储/checkpoint/savepoint持久化/计算资源扩缩容等等。</p>
-<ul>
-<li>针对不同的场景，会有状态的类型的划分<ul>
-<li>托管状态(Managed State)，由flink帮忙存储、恢复和优化，支持一些常见数据结构，比如ValueState/ListState/MapState<ul>
-<li>Keyed State<ul>
-<li>Keyed State是<code>KeyedStream</code>上的状态。假如输入流按照id为Key进行了<code>keyBy</code>分组，形成一个<code>KeyedStream</code>，数据流中所有id为1的数据共享一个状态，可以访问和更新这个状态，以此类推，每个Key对应一个自己的状态。</li>
-<li>Flink提供了几种现成的数据结构供我们使用，包括<code>ValueState</code>、<code>ListState</code>等</li>
-</ul>
-</li>
-<li>Operator State<ul>
-<li>Operator State可以用在所有算子上，每个算子子任务或者说每个算子实例共享一个状态，流入这个算子子任务的数据可以访问和更新这个状态。</li>
-</ul>
-</li>
-</ul>
-</li>
-<li>原生状态(Raw State)，需要开发者自己管理, 只支持字节，需要自己序列化</li>
-</ul>
-</li>
-<li>横向扩展问题</li>
-</ul>
-<h4 id="Time"><a href="#Time" class="headerlink" title="Time"></a>Time</h4><p>Flink 在流程序中支持不同的Time概念；</p>
-<ul>
-<li>Time 类型<ul>
-<li>Processing Time, 事件被处理时机器的系统时间</li>
-<li>Event Time, 事件发生的时间</li>
-<li>Ingestion Time, 事件进入 Flink 的时间</li>
-</ul>
-</li>
-<li>Watermark 机制<ul>
-<li>处理数据乱序的问题。在 Flink 的窗口处理过程中，如果确定<strong>全部数据到达</strong>，就可以对 Window 的所有数据做窗口计算操作（如汇总、分组等），如果数据没有全部到达，则继续等待该窗口中的数据全部到达才开始处理</li>
-<li><code>Watermark = 进入 Flink 的最大的事件时间（mxtEventTime）— 指定的延迟时间（t）</code></li>
-</ul>
-</li>
-</ul>
-<h4 id="Window"><a href="#Window" class="headerlink" title="Window"></a>Window</h4><p><img src="/images/Blink%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/image-20210228161951552.png" alt="image-20210228161951552"></p>
-<p>前文提过，flink中其实是通过流来模拟批处理的，而window就是实现的机制。window可以是时间驱动的，也可以是数据驱动的 ，几种不同的窗口还行，可以参看上图。</p>
-<h2 id="参考文档"><a href="#参考文档" class="headerlink" title="参考文档"></a>参考文档</h2><ul>
-<li><a href="https://flink.apache.org/">https://flink.apache.org/</a></li>
-<li><a href="https://ci.apache.org/projects/flink/flink-docs-release-1.12/zh/learn-flink/fault_tolerance.html">https://ci.apache.org/projects/flink/flink-docs-release-1.12/zh/learn-flink/fault_tolerance.html</a></li>
-<li><a href="https://cloud.tencent.com/developer/article/1478656">https://cloud.tencent.com/developer/article/1478656</a></li>
-<li><a href="https://mp.weixin.qq.com/s/AoSDPDKbTbjH9rviioK-5Q">https://mp.weixin.qq.com/s/AoSDPDKbTbjH9rviioK-5Q</a></li>
-<li><a href="https://arxiv.org/abs/1506.08603">https://arxiv.org/abs/1506.08603</a></li>
-<li></li>
-</ul>
-]]></content>
-      <categories>
-        <category>大数据</category>
-      </categories>
-      <tags>
-        <tag>大数据</tag>
-      </tags>
   </entry>
   <entry>
     <title>DDD 领域建模笔记</title>
@@ -495,128 +328,171 @@
       </tags>
   </entry>
   <entry>
-    <title>GraphQl 使用 - java</title>
-    <url>/2019/08/03/GraphQl-%E4%BD%BF%E7%94%A8-java/</url>
-    <content><![CDATA[<p>去年在做内容库的时候，涉及到了多系统多数据源互相查询的情景，当时就想要将内容库的所有数据，增加统一的数据接入层，通过graphql的方式提供给上层业务使用，后面受限于人力没有实施。目前从头开始做站群相关的业务，顺带着浅尝了一下graphql，感觉还不错。</p>
-<h2 id="GraphQL-是什么"><a href="#GraphQL-是什么" class="headerlink" title="GraphQL 是什么"></a>GraphQL 是什么</h2><blockquote>
-<p>GraphQL is a query language for APIs and a runtime for fulfilling those queries with your existing data. GraphQL provides a complete and understandable description of the data in your API, gives clients the power to ask for exactly what they need and nothing more, makes it easier to evolve APIs over time, and enables powerful developer tools.</p>
-</blockquote>
-<h3 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h3><p>参看:  <a href="https://www.youtube.com/watch?v=Ah6GSCK5Rfs">https://www.youtube.com/watch?v=Ah6GSCK5Rfs</a></p>
-<p>graphql 和 rest api 是同一层的东西，都是一种基于 http 之上的数据接口协议，两者设计理念完全不同。目前来说 graphql 在很多大小厂也都开始使用，确实会方便很多。 但是 rest api 还是最广泛应用的协议，比如 AMP (T T)。 事实上任何东西都有2面性，对于graphql 来说，优缺点都有</p>
-<h3 id="与-REST-API-相比的好处"><a href="#与-REST-API-相比的好处" class="headerlink" title="与 REST API 相比的好处"></a>与 REST API 相比的好处</h3><ul>
-<li>优点<ul>
-<li>一次提供，多次使用<ul>
-<li>作为后端，我们只需要关心数据字段的提供，不需要关心前端是怎么用这些字段，页面结构是怎样的</li>
-<li>真的不需要频繁的对接口了</li>
-</ul>
-</li>
-<li>动态可扩展，无冗余查询，所见即所得<ul>
-<li>因为前端只会请求需要的字段，增加新的字段后，不用担心老的业务请求这些冗余数据，很好的支撑了可扩展性</li>
-<li>所见即所得，能够帮助客户端代码不易出错</li>
-</ul>
-</li>
-<li>多个字段，一次请求<ul>
-<li>对于前端来说，面向schema编程，无需知道后端是多少个服务在支撑需要的这些字段，也无需频繁的更改接口去从新服务获取想要的字段，只需要在请求的时候增加一个 field 就好了</li>
-</ul>
-</li>
-<li>代码即文档<ul>
-<li>直接通过graphqli 等工具查看schema协议，不需要文档，写注释就好了</li>
-</ul>
-</li>
-<li>类型校验<ul>
-<li>在定义好schema的同时，就约束了接口类型，graphql支持强类型校验</li>
-</ul>
-</li>
-<li>…</li>
-</ul>
-</li>
-<li>缺点<ul>
-<li>基于post 请求<ul>
-<li>传统方式无法监控(nginx)</li>
-<li>不能利用 http 自身的缓存机制</li>
-</ul>
-</li>
-<li>没有充分利用http<ul>
-<li>只使用了 post 请求，没有其他http的方法：方法的幂等性</li>
-<li>缺失了http状态码</li>
-</ul>
-</li>
-<li>配套还不完善<ul>
-<li>微服务</li>
-<li>监控</li>
-<li>分流</li>
-</ul>
-</li>
-<li>…</li>
-</ul>
-</li>
-</ul>
-<h2 id="怎么用"><a href="#怎么用" class="headerlink" title="怎么用"></a>怎么用</h2><h3 id="几个基本概念"><a href="#几个基本概念" class="headerlink" title="几个基本概念"></a>几个基本概念</h3><p>最好参看官方文档：<a href="https://graphql.github.io/graphql-spec/June2018/">https://graphql.github.io/graphql-spec/June2018/</a></p>
-<p>中文版的可以查看：<a href="https://spec.graphql.cn/#sec-Overview-">https://spec.graphql.cn/#sec-Overview-</a></p>
-<p>概念很多，摘了几个出来，在实际业务场景中使用的话，还是有很多需要探的地方，这里只是大概的一个介绍</p>
-<ul>
-<li>schema<ul>
-<li>相当于协议文件，定义了所有对象的类型和查询接口</li>
-<li>一般定义的操作是2个： query/ mutation , 一个用于读，一个用于写，也存在subscription的操作</li>
-</ul>
-</li>
-<li>type<ul>
-<li>graphql 有自己的一套类型系统，有8种类型<ul>
-<li>scalars/标量</li>
-<li>objects/对象</li>
-<li>interfaces/接口</li>
-<li>unions/联合</li>
-<li>Enums/枚举</li>
-<li>Input objects/输入类型</li>
-<li>lists/列表</li>
-<li>Non-null/非空型</li>
-</ul>
-</li>
-<li>graphql 有自己的基本类型，也可以自定义一些类型，但是需要相应的解释器</li>
-</ul>
-</li>
-<li>内省 -&gt; 验证 -&gt; 执行 -&gt; 响应</li>
-<li>datafetcher<ul>
-<li>实现过程中，定义了字段的获取方法</li>
-</ul>
-</li>
-</ul>
-<h3 id="实操"><a href="#实操" class="headerlink" title="实操"></a>实操</h3><p>具体的代码可以参看： <a href="https://github.com/xtestw/graphql-demo">https://github.com/xtestw/graphql-demo</a></p>
-<ul>
-<li><p>引入 graphql 的依赖包</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;dependency&gt;</span><br><span class="line">	&lt;groupId&gt;com.graphql-java&lt;/groupId&gt;</span><br><span class="line">    &lt;artifactId&gt;graphql-java&lt;/artifactId&gt;</span><br><span class="line">    &lt;version&gt;13.0&lt;/version&gt;</span><br><span class="line">&lt;/dependency&gt;</span><br></pre></td></tr></table></figure></li>
-<li><p>定义 schema 文件</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">schema &#123;</span><br><span class="line">  query: Query</span><br><span class="line">  mutation: Mutation</span><br><span class="line">&#125;</span><br><span class="line">scalar Date</span><br><span class="line"></span><br><span class="line">type Query &#123;</span><br><span class="line">  student(id:Int!):Student</span><br><span class="line">  students(pagination:Pagination):[Student]</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">type Mutation &#123;</span><br><span class="line">  add(newStudent:NewStudent):Student</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">input Pagination&#123;</span><br><span class="line">  index: Int!</span><br><span class="line">  size: Int!</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">input NewStudent&#123;</span><br><span class="line">  name:String!</span><br><span class="line">  sex:Sex</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">type Student &#123;</span><br><span class="line">  id: Int</span><br><span class="line">  name: String</span><br><span class="line">  sex: Sex</span><br><span class="line">  creation: Date</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">enum Sex&#123;</span><br><span class="line">  MALE,FEMALE</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
-<li><p>实现 schema 文件</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> com.xtestw.graphql.demo.schema.wiring;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> com.fasterxml.jackson.databind.ObjectMapper;</span><br><span class="line"><span class="keyword">import</span> com.google.common.collect.ImmutableMap;</span><br><span class="line"><span class="keyword">import</span> com.xtestw.graphql.demo.schema.model.NewStudent;</span><br><span class="line"><span class="keyword">import</span> com.xtestw.graphql.demo.schema.model.Pagination;</span><br><span class="line"><span class="keyword">import</span> com.xtestw.graphql.demo.storage.Student;</span><br><span class="line"><span class="keyword">import</span> com.xtestw.graphql.demo.storage.Student.Sex;</span><br><span class="line"><span class="keyword">import</span> com.xtestw.graphql.demo.storage.repository.StudentRepository;</span><br><span class="line"><span class="keyword">import</span> graphql.schema.DataFetchingEnvironment;</span><br><span class="line"><span class="keyword">import</span> graphql.schema.idl.MapEnumValuesProvider;</span><br><span class="line"><span class="keyword">import</span> graphql.schema.idl.TypeRuntimeWiring;</span><br><span class="line"><span class="keyword">import</span> graphql.schema.idl.TypeRuntimeWiring.Builder;</span><br><span class="line"><span class="keyword">import</span> java.util.Collections;</span><br><span class="line"><span class="keyword">import</span> java.util.List;</span><br><span class="line"><span class="keyword">import</span> org.springframework.beans.factory.annotation.Autowired;</span><br><span class="line"><span class="keyword">import</span> org.springframework.stereotype.Component;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Create by xuwei on 2019/8/4</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@Component</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">StudentWiring</span> <span class="keyword">implements</span> <span class="title">Wiring</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">  <span class="meta">@Autowired</span></span><br><span class="line">  StudentRepository studentRepository;</span><br><span class="line">  ObjectMapper mapper = <span class="keyword">new</span> ObjectMapper();</span><br><span class="line"></span><br><span class="line">  <span class="meta">@Override</span></span><br><span class="line">  <span class="function"><span class="keyword">public</span> List&lt;TypeRuntimeWiring&gt; <span class="title">wireTypes</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> Collections.singletonList(</span><br><span class="line">        TypeRuntimeWiring.newTypeWiring(<span class="string">&quot;Sex&quot;</span>)</span><br><span class="line">            .enumValues(<span class="keyword">new</span> MapEnumValuesProvider(</span><br><span class="line">                ImmutableMap.of(</span><br><span class="line">                    <span class="string">&quot;MALE&quot;</span>, Sex.MALE,</span><br><span class="line">                    <span class="string">&quot;FEMALE&quot;</span>, Sex.FEMALE</span><br><span class="line">                )))</span><br><span class="line">            .build());</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="meta">@Override</span></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">wireQueries</span><span class="params">(Builder queryBuilder)</span> </span>&#123;</span><br><span class="line">    queryBuilder.dataFetcher(<span class="string">&quot;student&quot;</span>, <span class="keyword">this</span>::fetchStudentById)</span><br><span class="line">        .dataFetcher(<span class="string">&quot;students&quot;</span>, <span class="keyword">this</span>::fetchStudents);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">private</span> List&lt;Student&gt; <span class="title">fetchStudents</span><span class="params">(DataFetchingEnvironment dataFetchingEnvironment)</span> </span>&#123;</span><br><span class="line">    Pagination pagination = mapper</span><br><span class="line">        .convertValue(dataFetchingEnvironment.getArgument(<span class="string">&quot;pagination&quot;</span>), Pagination.class);</span><br><span class="line">    <span class="keyword">if</span> (pagination == <span class="keyword">null</span>) &#123;</span><br><span class="line">      pagination = Pagination.create(<span class="number">0</span>, <span class="number">20</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> studentRepository.findAll(pagination.toPageable()).getContent();</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">private</span> Student <span class="title">fetchStudentById</span><span class="params">(DataFetchingEnvironment dataFetchingEnvironment)</span> </span>&#123;</span><br><span class="line">    Integer id = dataFetchingEnvironment.getArgument(<span class="string">&quot;id&quot;</span>);</span><br><span class="line">    <span class="keyword">return</span> studentRepository.findById(id).orElse(<span class="keyword">null</span>);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="meta">@Override</span></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">wireMutations</span><span class="params">(Builder mutationBuilder)</span> </span>&#123;</span><br><span class="line">    mutationBuilder.dataFetcher(<span class="string">&quot;add&quot;</span>, <span class="keyword">this</span>::addNewStudent);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">private</span> Student <span class="title">addNewStudent</span><span class="params">(DataFetchingEnvironment dataFetchingEnvironment)</span> </span>&#123;</span><br><span class="line">    NewStudent newStudent = mapper</span><br><span class="line">        .convertValue(dataFetchingEnvironment.getArgument(<span class="string">&quot;newStudent&quot;</span>), NewStudent.class);</span><br><span class="line">    <span class="keyword">return</span> studentRepository.save(newStudent.toStudent());</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure></li>
-<li><p>构建 GraphqQL 对象实例</p>
-</li>
-</ul>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> com.xtestw.graphql.demo.config;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> com.xtestw.graphql.demo.schema.ExtendedScalars;</span><br><span class="line"><span class="keyword">import</span> com.xtestw.graphql.demo.schema.wiring.Wiring;</span><br><span class="line"><span class="keyword">import</span> graphql.GraphQL;</span><br><span class="line"><span class="keyword">import</span> graphql.GraphQLException;</span><br><span class="line"><span class="keyword">import</span> graphql.schema.GraphQLScalarType;</span><br><span class="line"><span class="keyword">import</span> graphql.schema.GraphQLSchema;</span><br><span class="line"><span class="keyword">import</span> graphql.schema.idl.RuntimeWiring;</span><br><span class="line"><span class="keyword">import</span> graphql.schema.idl.SchemaGenerator;</span><br><span class="line"><span class="keyword">import</span> graphql.schema.idl.SchemaParser;</span><br><span class="line"><span class="keyword">import</span> graphql.schema.idl.TypeDefinitionRegistry;</span><br><span class="line"><span class="keyword">import</span> graphql.schema.idl.TypeRuntimeWiring;</span><br><span class="line"><span class="keyword">import</span> graphql.schema.idl.errors.SchemaProblem;</span><br><span class="line"><span class="keyword">import</span> java.io.IOException;</span><br><span class="line"><span class="keyword">import</span> java.io.InputStreamReader;</span><br><span class="line"><span class="keyword">import</span> java.util.ArrayList;</span><br><span class="line"><span class="keyword">import</span> java.util.Arrays;</span><br><span class="line"><span class="keyword">import</span> java.util.Collections;</span><br><span class="line"><span class="keyword">import</span> java.util.List;</span><br><span class="line"><span class="keyword">import</span> java.util.Objects;</span><br><span class="line"><span class="keyword">import</span> java.util.stream.Collectors;</span><br><span class="line"><span class="keyword">import</span> lombok.extern.slf4j.Slf4j;</span><br><span class="line"><span class="keyword">import</span> org.springframework.beans.factory.annotation.Autowired;</span><br><span class="line"><span class="keyword">import</span> org.springframework.beans.factory.annotation.Value;</span><br><span class="line"><span class="keyword">import</span> org.springframework.context.annotation.Bean;</span><br><span class="line"><span class="keyword">import</span> org.springframework.context.annotation.Configuration;</span><br><span class="line"><span class="keyword">import</span> org.springframework.core.io.Resource;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Create by xuwei on 2019/8/3</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="meta">@Slf4j</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">GraphQLConfig</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">  <span class="meta">@Value(&quot;classpath*:schemas/*.graphqls&quot;)</span></span><br><span class="line">  <span class="keyword">private</span> Resource[] files;</span><br><span class="line"></span><br><span class="line">  <span class="meta">@Bean</span></span><br><span class="line">  <span class="function">GraphQL <span class="title">graphQL</span><span class="params">(<span class="meta">@Autowired</span> GraphQLSchema graphQLSchema)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> GraphQL.newGraphQL(graphQLSchema)</span><br><span class="line">        .build();</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">  <span class="meta">@Bean</span></span><br><span class="line">  <span class="function">GraphQLSchema <span class="title">graphQLSchema</span><span class="params">(<span class="meta">@Autowired</span> RuntimeWiring wiring)</span> </span>&#123;</span><br><span class="line">    SchemaParser parser = <span class="keyword">new</span> SchemaParser();</span><br><span class="line">    TypeDefinitionRegistry typeDefinitionRegistry = Arrays.stream(files).map(file -&gt; &#123;</span><br><span class="line">      <span class="keyword">try</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> file.getInputStream();</span><br><span class="line">      &#125; <span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">        log.error(<span class="string">&quot;Load graphql file error: &#123;&#125; - &#123;&#125;&quot;</span>, file, e);</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">    &#125;).filter(Objects::nonNull)</span><br><span class="line">        .map(inputStream -&gt; &#123;</span><br><span class="line">          <span class="keyword">try</span> &#123;</span><br><span class="line">            <span class="keyword">return</span> parser.parse(<span class="keyword">new</span> InputStreamReader(inputStream));</span><br><span class="line">          &#125; <span class="keyword">catch</span> (SchemaProblem e) &#123;</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> GraphQLException(</span><br><span class="line">                String.format(<span class="string">&quot;Compile schema &#x27;%s&#x27; failed: %s&quot;</span>, inputStream,</span><br><span class="line">                    e.getErrors().stream().map(Object::toString).collect(Collectors.toList())), e);</span><br><span class="line">          &#125;</span><br><span class="line">        &#125;).reduce(<span class="keyword">new</span> TypeDefinitionRegistry(), (all, cur) -&gt; &#123;</span><br><span class="line">          all.merge(cur);</span><br><span class="line">          <span class="keyword">return</span> all;</span><br><span class="line">        &#125;);</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> SchemaGenerator().makeExecutableSchema(typeDefinitionRegistry, wiring);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="meta">@Bean</span></span><br><span class="line">  <span class="function">RuntimeWiring <span class="title">wiring</span><span class="params">(<span class="meta">@Autowired</span> List&lt;GraphQLScalarType&gt; scalarTypes,</span></span></span><br><span class="line"><span class="params"><span class="function">      <span class="meta">@Autowired</span> List&lt;TypeRuntimeWiring&gt; types)</span> </span>&#123;</span><br><span class="line">    RuntimeWiring.Builder builder = RuntimeWiring.newRuntimeWiring();</span><br><span class="line">    <span class="keyword">if</span> (scalarTypes != <span class="keyword">null</span>) &#123;</span><br><span class="line">      scalarTypes.forEach(builder::scalar);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (types != <span class="keyword">null</span>) &#123;</span><br><span class="line">      types.forEach(builder::type);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> builder.build();</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="meta">@Bean</span></span><br><span class="line">  <span class="function">List&lt;GraphQLScalarType&gt; <span class="title">scalarTypes</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> Collections.singletonList(ExtendedScalars.GraphQLDate);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="meta">@Bean</span></span><br><span class="line">  <span class="function">List&lt;TypeRuntimeWiring&gt; <span class="title">types</span><span class="params">(<span class="meta">@Autowired</span> List&lt;Wiring&gt; wirings)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    TypeRuntimeWiring.Builder queryBuilder = TypeRuntimeWiring.newTypeWiring(<span class="string">&quot;Query&quot;</span>);</span><br><span class="line">    TypeRuntimeWiring.Builder mutationBuilder = TypeRuntimeWiring.newTypeWiring(<span class="string">&quot;Mutation&quot;</span>);</span><br><span class="line">    <span class="keyword">return</span> wirings.stream().map(wiring -&gt; &#123;</span><br><span class="line">      wiring.wireQueries(queryBuilder);</span><br><span class="line">      wiring.wireMutations(mutationBuilder);</span><br><span class="line">      <span class="keyword">return</span> wiring.wireTypes();</span><br><span class="line">    &#125;)</span><br><span class="line">        .reduce(<span class="keyword">new</span> ArrayList&lt;&gt;(Arrays.asList(queryBuilder.build(), mutationBuilder.build())),</span><br><span class="line">            (all, cur) -&gt; &#123;</span><br><span class="line">              all.addAll(cur);</span><br><span class="line">              <span class="keyword">return</span> all;</span><br><span class="line">            &#125;);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+    <title>Blink学习笔记</title>
+    <url>/2021/02/28/Blink%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</url>
+    <content><![CDATA[<h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><p>Blink 其实是阿里内部基于 flink 改造的系统，学习 Blink 首先要学习 flink 相关的知识，先了解一下 flink 产生的背景和要解决的问题。</p>
+<p>在大数据开始爆发的时代，mapreduce 作为初代的计算引擎，提供了分布式计算的核心思想，map&amp;reduce的分阶段处理。但是 map reduce 本质上还是批处理计算框架，随着业务发展，流式数据计算处理的需求越来越旺盛，storm 等应运而生，但是作为第一代流式计算框架，存在一些设计上的缺陷，包括 exactly once等语义的支持。而且批处理和流处理作为处理同一个业务逻辑的两套系统，需要维护两套代码，并不是很友好。而这个时候 spark也发展起来了，集批处理，流处理，SQL 功能，图计算，机器学习于一身，并且支持 SparkR 和 PySpark 来做科学计算。而同时支持流处理和批处理的计算引擎，只有2个选择，除了spark 便是 flink。</p>
+<p>spark 批流统一处理的核心思想其实是用批来模拟流的能力，而flink则完全相反，使用流计算来模拟批计算。flink在捐赠给apache后定位的主流方向便是 Streaming， 区别于Storm,Spark Streaming以及其他流式计算引擎的是：它不仅是一个高吞吐、低延迟的计算引擎，同时还提供很多高级的功能。比如它提供了有状态的计算，支持状态管理，支持强一致性的数据语义以及支持 Event Time,WaterMark 对消息乱序的处理。</p>
+<p>最后，回归到官网对它的定义：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">Apache Flink 是一个框架和分布式处理引擎，用于在无边界和有边界数据流上进行有状态的计算。Flink 能在所有常见集群环境中运行，并能以内存速度和任意规模进行计算。</span><br></pre></td></tr></table></figure>
 
-
-
+<p>关于应用场景， 官方主要给了3类应用和相应的事例可以参看：</p>
 <ul>
-<li><p>定义接口</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> com.xtestw.graphql.demo.controller;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> com.fasterxml.jackson.databind.JsonNode;</span><br><span class="line"><span class="keyword">import</span> com.fasterxml.jackson.databind.ObjectMapper;</span><br><span class="line"><span class="keyword">import</span> com.fasterxml.jackson.databind.type.MapType;</span><br><span class="line"><span class="keyword">import</span> com.xtestw.graphql.demo.schema.model.Query;</span><br><span class="line"><span class="keyword">import</span> graphql.GraphQL;</span><br><span class="line"><span class="keyword">import</span> java.io.IOException;</span><br><span class="line"><span class="keyword">import</span> java.util.Collections;</span><br><span class="line"><span class="keyword">import</span> java.util.HashMap;</span><br><span class="line"><span class="keyword">import</span> java.util.Map;</span><br><span class="line"><span class="keyword">import</span> javax.annotation.Resource;</span><br><span class="line"><span class="keyword">import</span> lombok.extern.slf4j.Slf4j;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.bind.annotation.CrossOrigin;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.bind.annotation.PostMapping;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.bind.annotation.RequestBody;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.bind.annotation.RequestMapping;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.bind.annotation.RestController;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Create by xuwei on 2019/8/3</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@RestController</span></span><br><span class="line"><span class="meta">@Slf4j</span></span><br><span class="line"><span class="meta">@RequestMapping(&quot;/graphql&quot;)</span></span><br><span class="line"><span class="meta">@CrossOrigin</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">GraphQLController</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">  <span class="meta">@Resource</span></span><br><span class="line">  GraphQL graphQL;</span><br><span class="line"></span><br><span class="line">  <span class="meta">@PostMapping(path = &#123;&quot;&quot;&#125;)</span></span><br><span class="line">  <span class="function"><span class="keyword">private</span> Object <span class="title">query</span><span class="params">(<span class="meta">@RequestBody</span> String queryStr)</span> <span class="keyword">throws</span> IOException </span>&#123;</span><br><span class="line">    Query query = getQuery(queryStr);</span><br><span class="line">    <span class="keyword">return</span> graphQL.execute(query.toExecutionInput());</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">private</span> <span class="keyword">static</span> ObjectMapper mapper = <span class="keyword">new</span> ObjectMapper();</span><br><span class="line">  <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> MapType VARIABLES_TYPE = mapper.getTypeFactory()</span><br><span class="line">      .constructMapType(HashMap.class,</span><br><span class="line">          String.class, Object.class);</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">private</span> Query <span class="title">getQuery</span><span class="params">(String queryText)</span> <span class="keyword">throws</span> IOException </span>&#123;</span><br><span class="line">    String operationName = <span class="keyword">null</span>;</span><br><span class="line">    String fullQueryText = queryText;</span><br><span class="line">    Map&lt;String, Object&gt; variables = <span class="keyword">null</span>;</span><br><span class="line">    JsonNode jsonBody = mapper.readTree(queryText);</span><br><span class="line">    <span class="keyword">if</span> (jsonBody != <span class="keyword">null</span>) &#123;</span><br><span class="line">      JsonNode queryNode = jsonBody.get(<span class="string">&quot;query&quot;</span>);</span><br><span class="line">      <span class="keyword">if</span> (queryNode != <span class="keyword">null</span> &amp;&amp; queryNode.isTextual()) &#123;</span><br><span class="line">        queryText = queryNode.asText();</span><br><span class="line">      &#125;</span><br><span class="line">      JsonNode operationNameNode = jsonBody.get(<span class="string">&quot;operationName&quot;</span>);</span><br><span class="line">      <span class="keyword">if</span> (operationNameNode != <span class="keyword">null</span> &amp;&amp; operationNameNode.isTextual()) &#123;</span><br><span class="line">        operationName = operationNameNode.asText();</span><br><span class="line">      &#125;</span><br><span class="line">      JsonNode variablesNode = jsonBody.get(<span class="string">&quot;variables&quot;</span>);</span><br><span class="line">      <span class="keyword">if</span> (variablesNode != <span class="keyword">null</span>) &#123;</span><br><span class="line">        <span class="keyword">if</span> (variablesNode.isTextual()) &#123;</span><br><span class="line">          String variablesJson = variablesNode.asText();</span><br><span class="line">          variables = mapper.convertValue(mapper.readTree(variablesJson), VARIABLES_TYPE);</span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (variablesNode.isObject()) &#123;</span><br><span class="line">          variables = mapper.convertValue(variablesNode, VARIABLES_TYPE);</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (variables == <span class="keyword">null</span>) &#123;</span><br><span class="line">      variables = Collections.emptyMap();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> Query(fullQueryText, queryText, operationName, variables);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure></li>
-<li><p>测试</p>
+<li><a href="https://flink.apache.org/zh/usecases.html#eventDrivenApps">事件驱动型应用</a></li>
+<li><a href="https://flink.apache.org/zh/usecases.html#analytics">数据分析应用</a></li>
+<li><a href="https://flink.apache.org/zh/usecases.html#pipelines">数据管道应用</a></li>
+</ul>
+<h2 id="设计架构"><a href="#设计架构" class="headerlink" title="设计架构"></a>设计架构</h2><p><img src="/images/Blink%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/image-20210218205017997.png" alt="image-20210218205017997"></p>
+<p>Client 构建dataflow graph 已经数据流下放到 jobmanager 去调度 taskmanager 执行。Flink 运行时由2种进程组成，JobManager 和 TaskManager。</p>
+<h4 id="JobManager"><a href="#JobManager" class="headerlink" title="JobManager"></a>JobManager</h4><p>JobManager  负责task的调度、失败处理、协调处理checkpoint等，主要由3个组件构成：</p>
+<ul>
+<li>ResourceManager：负责资源的申请、分配、回收(适配 YARN、Mesos、Kubernetes等)。管理TaskManager的Task Slots</li>
+<li>Dispacher：提供REST接口，用于提交Flink应用程序执行，并且为每一个Task启动一个新的JobMaster，同时提供一个WebUI反应作业执行情况。</li>
+<li>JobMaster: 负责管理单个<a href="https://ci.apache.org/projects/flink/flink-docs-release-1.12/zh/concepts/glossary.html#logical-graph">JobGraph</a>的执行。Flink 集群中可以同时运行多个作业，每个作业都有自己的 JobMaster。JobMaster可以有多个，其中一个事leader 其他的为Standby。JobMaster的HA有2种实现方式：Zookeeper 和 Kubernetes。</li>
+</ul>
+<h4 id="TaskManager"><a href="#TaskManager" class="headerlink" title="TaskManager"></a>TaskManager</h4><p>TaskManager 执行作业流的task，并且缓存和交换数据流。 本质上是一个 JVM 进程，可以在单独的线程中执行一个或多个 subtask，为了控制TaskManager接受多个task，也就是所谓的task slots。</p>
+<p>Task、Subtask、Slot 是 3 个不同层面的概念</p>
+<p>slot是独立资源，如果一个taskmanager有3个slot，那么每个slot独立分配1/3内存。同时同一个taskmanager下的slot共享同一个JVM。同一个JVM的多个task共享TCP链接和心跳信息。</p>
+<p>默认允许 SubTask 共享 slot， 即便是不同的task的subtask，只要是一个作业就可以。也就是说，一个slot可以持有整个作业的通道。</p>
+<h3 id="执行过程"><a href="#执行过程" class="headerlink" title="执行过程"></a>执行过程</h3><p>Flink的执行会被提交到3种类型的集群执行，其主要的差异在于执行的生命周期和资源的隔离保证：</p>
+<ul>
+<li>Flink Session 集群<ul>
+<li>生命周期：集群是长期运行的，可接受多个作业提交</li>
+<li>资源隔离：多个作业共享集群资源，如果 TaskManager 或者 JobManager 出问题，会影响所有集群运行</li>
+</ul>
+</li>
+<li>Flink Job 集群<ul>
+<li>生命周期：Yarn或者k8s 为每个作业启动一个集群，作业结束，则集群结束</li>
+<li>资源隔离：作业独占资源</li>
+</ul>
+</li>
+<li>Flink Application 集群<ul>
+<li>生命周期：专用的flink集群，运行不是通过作业提交的方式运行，而是以application的方式运行。</li>
+<li>资源隔离： ResourceManager 和 Dispatcher 作用于单个的 Flink 应用程序，相比于 Flink Session 集群，它提供了更好的隔离。</li>
+</ul>
 </li>
 </ul>
-<p><img src="/var/folders/84/6jh1114j4rx6m0b5h4w5_45h0000gn/T/abnerworks.Typora/image-20190804164253298.png" alt="image-20190804164253298"></p>
-<p><img src="/var/folders/84/6jh1114j4rx6m0b5h4w5_45h0000gn/T/abnerworks.Typora/image-20190804164354974.png" alt="image-20190804164354974"></p>
-<p><img src="/var/folders/84/6jh1114j4rx6m0b5h4w5_45h0000gn/T/abnerworks.Typora/image-20190804164517506.png" alt="image-20190804164517506"></p>
-<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>graphql 相比较 restapi 来说，各有优缺点。个人感觉 graphql的前景还是很大的，目前最大的问题其实还是相关的生态和基础设施还不够完善，也存在很大的迁移成本和学习成本。不过单纯从数据获取的角度来说，非常有优势！此处我们只做了一个非常浅的探索。</p>
+<h2 id="核心概念"><a href="#核心概念" class="headerlink" title="核心概念"></a>核心概念</h2><p>Flink的四大基石：</p>
+<ul>
+<li>Checkpoint: 快照；高容错</li>
+<li>State: 状态</li>
+<li>Time: 通过WaterMark支持基于Event Time的时间窗口</li>
+<li>Window: 窗口机制</li>
+</ul>
+<h4 id="Checkpoint"><a href="#Checkpoint" class="headerlink" title="Checkpoint"></a>Checkpoint</h4><p><img src="/images/Blink%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/image-20210228143710944.png" alt="image-20210228143710944"></p>
+<p>checkpoint是一种通过快找容错恢复的机制，这种机制保证实时程序运行的时候，即便出现异常，也可以自我恢复。 checkpoint 是flink系统自身的系统行为，用户无感知，只需要配置就可以了。</p>
+<ul>
+<li>checkpoint 的实现参考了 <a href="https://en.wikipedia.org/wiki/Chandy-Lamport_algorithm">Chandy-Lamport algorithm</a> 算法， 自己实现了一套异步barrier快照的算法，在数据流中设置屏障，记录屏障点的信息(比如kafka偏移量)以及每个算子的 state 的状态。 拥有2个输入流的Operators 会执行 Barrier 对齐，保证当前快照消费了输入流barrier之前的所有events。                                        </li>
+<li>checkpoint的状态备份存储主要分为2类<ul>
+<li>基于RocksDB内嵌k/v存储，将工作状态保存到磁盘上</li>
+<li>基于堆的 state backend.<ul>
+<li>FsStateBackend，将状态快照持久化到分布式文件系统中</li>
+<li>MemoryStateBackend, 使用JobManager的堆保存状态</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>在流处理过程中，对结果的保障分为3种<ul>
+<li>at most once (结果不会从快照中恢复)</li>
+<li>at least once（没有任何丢失，但是会有冗余结果）<ul>
+<li>souce 必须可以重放</li>
+</ul>
+</li>
+<li>Exactly once （没有丢失，没有冗余）<ul>
+<li>souce 必须可以重放</li>
+<li>sinks 必须是事务性的</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>checkpoint 状态保留策略<ul>
+<li>当程序取消时，删除checkpoint存储文件</li>
+<li>当程序取消时，保存之前的checkpoint文件</li>
+</ul>
+</li>
+<li>chekpoint 配置<ul>
+<li><em>Exactly-once/at-least-once 模式配置</em></li>
+<li><em>checkpoint 超时</em>： 如果执行时间超过配置，checkpoint操作会被丢弃</li>
+<li><em>并发checkpoint的数目</em>： 默认为1</li>
+<li><em>checkpoints之间的最小时间</em></li>
+<li><em>externalized checkpoints</em>: 周期存储 checkpoint 到外部系统中</li>
+<li><em>在 checkpoint 出错时使 task 失败或者继续进行 task</em></li>
+<li><em>优先从 checkpoint 恢复</em>: 在有savepoint的情况下的选择 (checkpoint 恢复的更快)</li>
+</ul>
+</li>
+</ul>
+<h4 id="State"><a href="#State" class="headerlink" title="State"></a>State</h4><p><img src="/images/Blink%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/image-20210228151711717.png" alt="image-20210228151711717"></p>
+<p>有状态的计算是流处理框架要实现的重要功能，因为稍复杂的流处理场景都需要记录状态，主要用来作为中间状态来进行去重/对比/聚合/更新等操作。 而在flink中，一个算子会有多个子任务，状态是和子任务绑定的，有子任务创建和管理。对于状态的管理，flink作为计算框架，封装了一些实现，也包括状态的高效存储/checkpoint/savepoint持久化/计算资源扩缩容等等。</p>
+<ul>
+<li>针对不同的场景，会有状态的类型的划分<ul>
+<li>托管状态(Managed State)，由flink帮忙存储、恢复和优化，支持一些常见数据结构，比如ValueState/ListState/MapState<ul>
+<li>Keyed State<ul>
+<li>Keyed State是<code>KeyedStream</code>上的状态。假如输入流按照id为Key进行了<code>keyBy</code>分组，形成一个<code>KeyedStream</code>，数据流中所有id为1的数据共享一个状态，可以访问和更新这个状态，以此类推，每个Key对应一个自己的状态。</li>
+<li>Flink提供了几种现成的数据结构供我们使用，包括<code>ValueState</code>、<code>ListState</code>等</li>
+</ul>
+</li>
+<li>Operator State<ul>
+<li>Operator State可以用在所有算子上，每个算子子任务或者说每个算子实例共享一个状态，流入这个算子子任务的数据可以访问和更新这个状态。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>原生状态(Raw State)，需要开发者自己管理, 只支持字节，需要自己序列化</li>
+</ul>
+</li>
+<li>横向扩展问题</li>
+</ul>
+<h4 id="Time"><a href="#Time" class="headerlink" title="Time"></a>Time</h4><p>Flink 在流程序中支持不同的Time概念；</p>
+<ul>
+<li>Time 类型<ul>
+<li>Processing Time, 事件被处理时机器的系统时间</li>
+<li>Event Time, 事件发生的时间</li>
+<li>Ingestion Time, 事件进入 Flink 的时间</li>
+</ul>
+</li>
+<li>Watermark 机制<ul>
+<li>处理数据乱序的问题。在 Flink 的窗口处理过程中，如果确定<strong>全部数据到达</strong>，就可以对 Window 的所有数据做窗口计算操作（如汇总、分组等），如果数据没有全部到达，则继续等待该窗口中的数据全部到达才开始处理</li>
+<li><code>Watermark = 进入 Flink 的最大的事件时间（mxtEventTime）— 指定的延迟时间（t）</code></li>
+</ul>
+</li>
+</ul>
+<h4 id="Window"><a href="#Window" class="headerlink" title="Window"></a>Window</h4><p><img src="/images/Blink%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/image-20210228161951552.png" alt="image-20210228161951552"></p>
+<p>前文提过，flink中其实是通过流来模拟批处理的，而window就是实现的机制。window可以是时间驱动的，也可以是数据驱动的 ，几种不同的窗口还行，可以参看上图。</p>
+<h2 id="参考文档"><a href="#参考文档" class="headerlink" title="参考文档"></a>参考文档</h2><ul>
+<li><a href="https://flink.apache.org/">https://flink.apache.org/</a></li>
+<li><a href="https://ci.apache.org/projects/flink/flink-docs-release-1.12/zh/learn-flink/fault_tolerance.html">https://ci.apache.org/projects/flink/flink-docs-release-1.12/zh/learn-flink/fault_tolerance.html</a></li>
+<li><a href="https://cloud.tencent.com/developer/article/1478656">https://cloud.tencent.com/developer/article/1478656</a></li>
+<li><a href="https://mp.weixin.qq.com/s/AoSDPDKbTbjH9rviioK-5Q">https://mp.weixin.qq.com/s/AoSDPDKbTbjH9rviioK-5Q</a></li>
+<li><a href="https://arxiv.org/abs/1506.08603">https://arxiv.org/abs/1506.08603</a></li>
+<li></li>
+</ul>
 ]]></content>
       <categories>
-        <category>Java</category>
-        <category>New Skill</category>
-        <category>GraphQL</category>
+        <category>大数据</category>
       </categories>
       <tags>
-        <tag>graphql</tag>
-        <tag>graphiql</tag>
-        <tag>github</tag>
+        <tag>大数据</tag>
       </tags>
+  </entry>
+  <entry>
+    <title>Xchart 源码分析（1）</title>
+    <url>/2014/12/22/%20Xchart%20%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90%EF%BC%881/</url>
+    <content><![CDATA[<p>   学校课程需要找一份代码，来讲讲代码里面用了哪些设计模式- -！ 还是要java的。。。 于是上github上面翻代码，偶然翻到一个java的xchart图标库，感觉可能以后会用的到，而且代码不是很长，就直接拿过来用了。具体的链接地址如下：<a href="https://github.com/timmolter/XChart" title="https://github.com/timmolter/XChart">https://github.com/timmolter/XChart</a></p>
+<p>   先看文件夹结构：<br> <a href="http://images.cnitblog.com/blog/372495/201412/212006353907368.png"><img src="http://images.cnitblog.com/blog/372495/201412/212021296717659.png" alt="image" title="image"></a>           </p>
+<p>一共有6个包，最后一个是用来测试的包，可以忽略不计，一共5个包，5个包的作用分别是
+  </p>
+<ul>
+<li>com.xeiam.xchart:<br>主要是图表生成的代码以及一些图表的功能包括导出功能的代码，是给我们使用该jar包人调用的结构，表示的是一个图表整体的构造，包括Chart,ChartBuild,Series等类。<br><a href="http://images.cnitblog.com/blog/372495/201412/212021311244117.png"><img src="http://images.cnitblog.com/blog/372495/201412/212021319529230.png" alt="image" title="image"></a>    </li>
+<li>com.xeiam.xchart.internal<br>这个package里面只有两个类，一个是package-info，我也不是很明白他的作用。。。就是写了一个license的地址。另一个类是Utils的类，提供了两个静态方法，一个求幂的，一个就是求差值的一半。      </li>
+<li>com.xeiam.xchart.internal.chartpart<br>这个包里面的东西，都是一些绘图的基本元素，全部是从chartpart中继承过来的，利用组合模式来进行绘制和构造，主要包括Axis,chartTitle,legend,plot等基本图表的元素。<br><a href="http://images.cnitblog.com/blog/372495/201412/212021324522145.png"><img src="http://images.cnitblog.com/blog/372495/201412/212021336403214.png" alt="image" title="image"></a>         </li>
+<li>com.xeiam.xchart.internal.markers<br>这个包里面，主要是针对刻度的一些绘图，包括圆形，矩形，上下三角形，菱形等。<br><a href="http://images.cnitblog.com/blog/372495/201412/212021341246600.png"><img src="http://images.cnitblog.com/blog/372495/201412/212021350622214.png" alt="image" title="image"></a>          </li>
+<li>com.xeiam.xchart.internal.style<br>这个类主要是针对图表的一系列的外观进行定义的包，给出了几个主题，以及对于线的一些类型外观的设置。<br><a href="http://images.cnitblog.com/blog/372495/201412/212021356089113.png"><img src="http://images.cnitblog.com/blog/372495/201412/212021364994442.png" alt="image" title="image"></a>            </li>
+</ul>
+<p>作为一个轻量级的图表库，xchart通过这几个包里面的类进行图像的构造，最终画出一个图形出来，不过目前只能支持有限的几种图表类型。</p>
+]]></content>
+      <categories>
+        <category>SourceReading</category>
+      </categories>
   </entry>
   <entry>
     <title>Ha3 学习笔记</title>
@@ -958,6 +834,21 @@
       </tags>
   </entry>
   <entry>
+    <title>Tarjan算法</title>
+    <url>/2013/07/28/Tarjan%E7%AE%97%E6%B3%95/</url>
+    <content><![CDATA[<p>两篇讲的比较好的文章: <a href="https://www.byvoid.com/blog/scc-tarjan/">https://www.byvoid.com/blog/scc-tarjan/</a> <a href="https://www.byvoid.com/blog/biconnect/">https://www.byvoid.com/blog/biconnect/</a> 对于有向图和无向图，处理的大体方法一样的，不过概念不同 /*****************************************************************************/ tarjan在处理无向图的时候，遇到两点之间的有多条边的时候处理方法，和如何缩点，缩边代码：</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">tarjan</span><span class="params">(<span class="keyword">int</span> s,<span class="keyword">int</span> pre)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    low[s]=dfn[s]=cnt++;</span><br><span class="line">    vis[s]=<span class="literal">true</span>;</span><br><span class="line">    <span class="keyword">int</span> f=<span class="number">0</span>;</span><br><span class="line">    stk.<span class="built_in">push</span>(s);</span><br><span class="line">    <span class="comment">//stk[stkCnt++]=s;</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i=head[s];i!=<span class="number">-1</span>;i=e[i].next)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">int</span> u=e[i].to;</span><br><span class="line">        <span class="keyword">if</span> (u==pre)&#123;f++; <span class="keyword">continue</span>;&#125;</span><br><span class="line">        <span class="keyword">if</span> (!dfn[u])&#123;</span><br><span class="line">            <span class="built_in">tarjan</span>(u,s);</span><br><span class="line">            low[s]=<span class="built_in">min</span>(low[s],low[u]);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span>(vis[u])</span><br><span class="line">            low[s]=<span class="built_in">min</span>(low[s],dfn[u]);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (f&gt;=<span class="number">2</span>) <span class="keyword">return</span>;<span class="comment">//这里用f处理了点与点之间如果遇到多条边的情况</span></span><br><span class="line">    <span class="keyword">if</span> (low[s]==dfn[s])&#123;</span><br><span class="line">            <span class="keyword">while</span> (<span class="literal">true</span>)</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="comment">//int t=stk[--stkCnt];//stk.pop();</span></span><br><span class="line">                <span class="keyword">int</span> t=stk.<span class="built_in">top</span>();stk.<span class="built_in">pop</span>();</span><br><span class="line">                flag[t]=xx;</span><br><span class="line">                vis[t]=<span class="literal">false</span>;</span><br><span class="line">                <span class="keyword">if</span> (t==s)</span><br><span class="line">                &#123;</span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            xx++;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">vector *nMp;<span class="comment">//[200010];</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">build</span><span class="params">(<span class="keyword">int</span> n)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">   <span class="keyword">for</span> (<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;n;i++)</span><br><span class="line">   &#123;<span class="comment">//遍历所有的边，判断边的两边是不是在一个集合中的，不是就是割边</span></span><br><span class="line">       <span class="keyword">int</span> s,t;</span><br><span class="line">       s=flag[e[i*<span class="number">2</span>].from];</span><br><span class="line">       t=flag[e[i*<span class="number">2</span>].to];</span><br><span class="line">       <span class="keyword">if</span> (s!=t)</span><br><span class="line">       &#123;</span><br><span class="line">           nMp[s].<span class="built_in">push_back</span>(t);</span><br><span class="line">           nMp[t].<span class="built_in">push_back</span>(s);</span><br><span class="line">       &#125;</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>  2013多校的第二场B题（hdu 4612） ac代码：</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">pragma</span> comment(linker, <span class="meta-string">&quot;/STACK:1024000000,1024000000&quot;</span>)</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstdlib&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;vector&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstring&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;string&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;map&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="keyword">int</span> n,m;</span><br><span class="line">vector mp[<span class="number">200010</span>];</span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">edge</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">    <span class="keyword">int</span> from;</span><br><span class="line">    <span class="keyword">int</span> to;</span><br><span class="line">    <span class="keyword">int</span> next;</span><br><span class="line">&#125;;</span><br><span class="line">edge e[<span class="number">2000020</span>];</span><br><span class="line"><span class="keyword">int</span> head[<span class="number">200020</span>];</span><br><span class="line">stack stk;</span><br><span class="line"><span class="comment">//int stk[200010];</span></span><br><span class="line"><span class="keyword">int</span> stkCnt=<span class="number">0</span>;</span><br><span class="line"><span class="keyword">int</span> flag[<span class="number">200010</span>];</span><br><span class="line"><span class="keyword">int</span> xx;</span><br><span class="line"><span class="keyword">int</span> low[<span class="number">200010</span>];</span><br><span class="line"><span class="keyword">int</span> dfn[<span class="number">200010</span>];</span><br><span class="line"><span class="keyword">bool</span> vis[<span class="number">200010</span>];</span><br><span class="line"><span class="keyword">int</span> cnt=<span class="number">0</span>;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">tarjan</span><span class="params">(<span class="keyword">int</span> s,<span class="keyword">int</span> pre)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    low[s]=dfn[s]=cnt++;</span><br><span class="line">    vis[s]=<span class="literal">true</span>;</span><br><span class="line">    <span class="keyword">int</span> f=<span class="number">0</span>;</span><br><span class="line">    stk.<span class="built_in">push</span>(s);</span><br><span class="line">    <span class="comment">//stk[stkCnt++]=s;</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i=head[s];i!=<span class="number">-1</span>;i=e[i].next)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">int</span> u=e[i].to;</span><br><span class="line">        <span class="keyword">if</span> (u==pre)&#123;f++; <span class="keyword">continue</span>;&#125;</span><br><span class="line">        <span class="keyword">if</span> (!dfn[u])&#123;</span><br><span class="line">            <span class="built_in">tarjan</span>(u,s);</span><br><span class="line">            low[s]=<span class="built_in">min</span>(low[s],low[u]);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span>(vis[u])</span><br><span class="line">            low[s]=<span class="built_in">min</span>(low[s],dfn[u]);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (f&gt;=<span class="number">2</span>) <span class="keyword">return</span>;</span><br><span class="line">    <span class="keyword">if</span> (low[s]==dfn[s])&#123;</span><br><span class="line">            <span class="keyword">while</span> (<span class="literal">true</span>)</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="comment">//int t=stk[--stkCnt];//stk.pop();</span></span><br><span class="line">                <span class="keyword">int</span> t=stk.<span class="built_in">top</span>();stk.<span class="built_in">pop</span>();</span><br><span class="line">                flag[t]=xx;</span><br><span class="line">                vis[t]=<span class="literal">false</span>;</span><br><span class="line">                <span class="keyword">if</span> (t==s)</span><br><span class="line">                &#123;</span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            xx++;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">vector *nMp;<span class="comment">//[200010];</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">build</span><span class="params">(<span class="keyword">int</span> n)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  /\*  <span class="keyword">for</span> (<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=n;i++)</span><br><span class="line">   &#123;</span><br><span class="line">       <span class="keyword">for</span> (<span class="keyword">int</span> j=head[i];j!=<span class="number">-1</span>;j=e[j].next)</span><br><span class="line">       &#123;</span><br><span class="line">           <span class="keyword">if</span> (flag[e[j].to]!=flag[i])</span><br><span class="line">           &#123;</span><br><span class="line">               nMp[flag[i]].<span class="built_in">push_back</span>(flag[e[j].to]);</span><br><span class="line">               nMp[flag[e[j].to]].<span class="built_in">push_back</span>(flag[i]);</span><br><span class="line">           &#125;</span><br><span class="line">       &#125;</span><br><span class="line">   &#125;*/</span><br><span class="line">   <span class="keyword">for</span> (<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;n;i++)</span><br><span class="line">   &#123;</span><br><span class="line">       <span class="keyword">int</span> s,t;</span><br><span class="line">       s=flag[e[i*<span class="number">2</span>].from];</span><br><span class="line">       t=flag[e[i*<span class="number">2</span>].to];</span><br><span class="line">       <span class="keyword">if</span> (s!=t)</span><br><span class="line">       &#123;</span><br><span class="line">           nMp[s].<span class="built_in">push_back</span>(t);</span><br><span class="line">           nMp[t].<span class="built_in">push_back</span>(s);</span><br><span class="line">       &#125;</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> ans,root;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">dfs</span><span class="params">(<span class="keyword">int</span> now,<span class="keyword">int</span> pre,<span class="keyword">int</span> cnt)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (ans&lt;=cnt)</span><br><span class="line">    &#123;</span><br><span class="line">        ans=cnt;</span><br><span class="line">        root=now;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;nMp[now].<span class="built_in">size</span>();i++)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span> (nMp[now][i]==pre) <span class="keyword">continue</span>;</span><br><span class="line">        <span class="built_in">dfs</span>(nMp[now][i],now,cnt+<span class="number">1</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line"><span class="comment">//  int size = 256 &lt;&lt; 20; // 256MB</span></span><br><span class="line"><span class="comment">//  char \*p = (char\*)malloc(size) + size;</span></span><br><span class="line"><span class="comment">//  \_\_asm\_\_(&quot;movl %0, %%esp\\n&quot; :: &quot;r&quot;(p) );</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">while</span> (<span class="built_in">scanf</span>(<span class="string">&quot;%d%d&quot;</span>,&amp;n,&amp;m)!=EOF)</span><br><span class="line">&#123;</span><br><span class="line">    xx=<span class="number">0</span>;</span><br><span class="line">    <span class="built_in">memset</span>(flag,<span class="number">-1</span>,<span class="built_in"><span class="keyword">sizeof</span></span>(flag));</span><br><span class="line">    <span class="built_in">memset</span>(low,<span class="number">0</span>,<span class="built_in"><span class="keyword">sizeof</span></span>(low));</span><br><span class="line">    <span class="built_in">memset</span>(dfn,<span class="number">0</span>,<span class="built_in"><span class="keyword">sizeof</span></span>(dfn));</span><br><span class="line">    <span class="built_in">memset</span>(vis,<span class="literal">false</span>,<span class="built_in"><span class="keyword">sizeof</span></span>(vis));</span><br><span class="line">   <span class="comment">// memset(stk,0,sizeof(stk));</span></span><br><span class="line">    <span class="built_in">memset</span>(head,<span class="number">-1</span>,<span class="built_in"><span class="keyword">sizeof</span></span>(head));</span><br><span class="line">    stkCnt=<span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;n+<span class="number">5</span>;i++) mp[i].<span class="built_in">clear</span>();</span><br><span class="line">    <span class="keyword">if</span> (m+n==<span class="number">0</span>) <span class="keyword">break</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;<span class="number">2</span>*m;i++)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">int</span> a,b;</span><br><span class="line">        <span class="built_in">scanf</span>(<span class="string">&quot;%d%d&quot;</span>,&amp;a,&amp;b);</span><br><span class="line">        e[i].to=b;</span><br><span class="line">        e[i].from=a;</span><br><span class="line">        e[i].next=head[a];</span><br><span class="line">        head[a]=i;</span><br><span class="line">        i++;</span><br><span class="line">        e[i].to=a;</span><br><span class="line">        e[i].from=b;</span><br><span class="line">        e[i].next=head[b];</span><br><span class="line">        head[b]=i;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">tarjan</span>(<span class="number">1</span>,<span class="number">1</span>);</span><br><span class="line">    nMp=<span class="keyword">new</span> vector[xx+<span class="number">10</span>];</span><br><span class="line">    <span class="built_in">build</span>(m);</span><br><span class="line">    ans=<span class="number">0</span>;</span><br><span class="line">    root=<span class="number">0</span>;</span><br><span class="line">    <span class="built_in">dfs</span>(<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>);</span><br><span class="line">    <span class="built_in">dfs</span>(root,root,<span class="number">0</span>);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;%d\\n&quot;</span>,xx<span class="number">-1</span>-ans);</span><br><span class="line">   <span class="comment">// delete mp;</span></span><br><span class="line">    <span class="keyword">delete</span> nMp;</span><br><span class="line">&#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>ACMICPC</category>
+      </categories>
+      <tags>
+        <tag>prof</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Millar_rabin和Pollard_Rho</title>
     <url>/2014/06/09/Millar_rabin%E5%92%8CPollard_Rho/</url>
     <content><![CDATA[<p>1.Millar_rabin 素数判定</p>
@@ -983,21 +874,6 @@
       <categories>
         <category>ACMICPC</category>
       </categories>
-  </entry>
-  <entry>
-    <title>Tarjan算法</title>
-    <url>/2013/07/28/Tarjan%E7%AE%97%E6%B3%95/</url>
-    <content><![CDATA[<p>两篇讲的比较好的文章: <a href="https://www.byvoid.com/blog/scc-tarjan/">https://www.byvoid.com/blog/scc-tarjan/</a> <a href="https://www.byvoid.com/blog/biconnect/">https://www.byvoid.com/blog/biconnect/</a> 对于有向图和无向图，处理的大体方法一样的，不过概念不同 /*****************************************************************************/ tarjan在处理无向图的时候，遇到两点之间的有多条边的时候处理方法，和如何缩点，缩边代码：</p>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">tarjan</span><span class="params">(<span class="keyword">int</span> s,<span class="keyword">int</span> pre)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    low[s]=dfn[s]=cnt++;</span><br><span class="line">    vis[s]=<span class="literal">true</span>;</span><br><span class="line">    <span class="keyword">int</span> f=<span class="number">0</span>;</span><br><span class="line">    stk.<span class="built_in">push</span>(s);</span><br><span class="line">    <span class="comment">//stk[stkCnt++]=s;</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i=head[s];i!=<span class="number">-1</span>;i=e[i].next)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">int</span> u=e[i].to;</span><br><span class="line">        <span class="keyword">if</span> (u==pre)&#123;f++; <span class="keyword">continue</span>;&#125;</span><br><span class="line">        <span class="keyword">if</span> (!dfn[u])&#123;</span><br><span class="line">            <span class="built_in">tarjan</span>(u,s);</span><br><span class="line">            low[s]=<span class="built_in">min</span>(low[s],low[u]);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span>(vis[u])</span><br><span class="line">            low[s]=<span class="built_in">min</span>(low[s],dfn[u]);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (f&gt;=<span class="number">2</span>) <span class="keyword">return</span>;<span class="comment">//这里用f处理了点与点之间如果遇到多条边的情况</span></span><br><span class="line">    <span class="keyword">if</span> (low[s]==dfn[s])&#123;</span><br><span class="line">            <span class="keyword">while</span> (<span class="literal">true</span>)</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="comment">//int t=stk[--stkCnt];//stk.pop();</span></span><br><span class="line">                <span class="keyword">int</span> t=stk.<span class="built_in">top</span>();stk.<span class="built_in">pop</span>();</span><br><span class="line">                flag[t]=xx;</span><br><span class="line">                vis[t]=<span class="literal">false</span>;</span><br><span class="line">                <span class="keyword">if</span> (t==s)</span><br><span class="line">                &#123;</span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            xx++;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">vector *nMp;<span class="comment">//[200010];</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">build</span><span class="params">(<span class="keyword">int</span> n)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">   <span class="keyword">for</span> (<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;n;i++)</span><br><span class="line">   &#123;<span class="comment">//遍历所有的边，判断边的两边是不是在一个集合中的，不是就是割边</span></span><br><span class="line">       <span class="keyword">int</span> s,t;</span><br><span class="line">       s=flag[e[i*<span class="number">2</span>].from];</span><br><span class="line">       t=flag[e[i*<span class="number">2</span>].to];</span><br><span class="line">       <span class="keyword">if</span> (s!=t)</span><br><span class="line">       &#123;</span><br><span class="line">           nMp[s].<span class="built_in">push_back</span>(t);</span><br><span class="line">           nMp[t].<span class="built_in">push_back</span>(s);</span><br><span class="line">       &#125;</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<p>  2013多校的第二场B题（hdu 4612） ac代码：</p>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">pragma</span> comment(linker, <span class="meta-string">&quot;/STACK:1024000000,1024000000&quot;</span>)</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstdlib&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;vector&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstring&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;string&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;map&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="keyword">int</span> n,m;</span><br><span class="line">vector mp[<span class="number">200010</span>];</span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">edge</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">    <span class="keyword">int</span> from;</span><br><span class="line">    <span class="keyword">int</span> to;</span><br><span class="line">    <span class="keyword">int</span> next;</span><br><span class="line">&#125;;</span><br><span class="line">edge e[<span class="number">2000020</span>];</span><br><span class="line"><span class="keyword">int</span> head[<span class="number">200020</span>];</span><br><span class="line">stack stk;</span><br><span class="line"><span class="comment">//int stk[200010];</span></span><br><span class="line"><span class="keyword">int</span> stkCnt=<span class="number">0</span>;</span><br><span class="line"><span class="keyword">int</span> flag[<span class="number">200010</span>];</span><br><span class="line"><span class="keyword">int</span> xx;</span><br><span class="line"><span class="keyword">int</span> low[<span class="number">200010</span>];</span><br><span class="line"><span class="keyword">int</span> dfn[<span class="number">200010</span>];</span><br><span class="line"><span class="keyword">bool</span> vis[<span class="number">200010</span>];</span><br><span class="line"><span class="keyword">int</span> cnt=<span class="number">0</span>;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">tarjan</span><span class="params">(<span class="keyword">int</span> s,<span class="keyword">int</span> pre)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    low[s]=dfn[s]=cnt++;</span><br><span class="line">    vis[s]=<span class="literal">true</span>;</span><br><span class="line">    <span class="keyword">int</span> f=<span class="number">0</span>;</span><br><span class="line">    stk.<span class="built_in">push</span>(s);</span><br><span class="line">    <span class="comment">//stk[stkCnt++]=s;</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i=head[s];i!=<span class="number">-1</span>;i=e[i].next)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">int</span> u=e[i].to;</span><br><span class="line">        <span class="keyword">if</span> (u==pre)&#123;f++; <span class="keyword">continue</span>;&#125;</span><br><span class="line">        <span class="keyword">if</span> (!dfn[u])&#123;</span><br><span class="line">            <span class="built_in">tarjan</span>(u,s);</span><br><span class="line">            low[s]=<span class="built_in">min</span>(low[s],low[u]);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span>(vis[u])</span><br><span class="line">            low[s]=<span class="built_in">min</span>(low[s],dfn[u]);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (f&gt;=<span class="number">2</span>) <span class="keyword">return</span>;</span><br><span class="line">    <span class="keyword">if</span> (low[s]==dfn[s])&#123;</span><br><span class="line">            <span class="keyword">while</span> (<span class="literal">true</span>)</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="comment">//int t=stk[--stkCnt];//stk.pop();</span></span><br><span class="line">                <span class="keyword">int</span> t=stk.<span class="built_in">top</span>();stk.<span class="built_in">pop</span>();</span><br><span class="line">                flag[t]=xx;</span><br><span class="line">                vis[t]=<span class="literal">false</span>;</span><br><span class="line">                <span class="keyword">if</span> (t==s)</span><br><span class="line">                &#123;</span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            xx++;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">vector *nMp;<span class="comment">//[200010];</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">build</span><span class="params">(<span class="keyword">int</span> n)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  /\*  <span class="keyword">for</span> (<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=n;i++)</span><br><span class="line">   &#123;</span><br><span class="line">       <span class="keyword">for</span> (<span class="keyword">int</span> j=head[i];j!=<span class="number">-1</span>;j=e[j].next)</span><br><span class="line">       &#123;</span><br><span class="line">           <span class="keyword">if</span> (flag[e[j].to]!=flag[i])</span><br><span class="line">           &#123;</span><br><span class="line">               nMp[flag[i]].<span class="built_in">push_back</span>(flag[e[j].to]);</span><br><span class="line">               nMp[flag[e[j].to]].<span class="built_in">push_back</span>(flag[i]);</span><br><span class="line">           &#125;</span><br><span class="line">       &#125;</span><br><span class="line">   &#125;*/</span><br><span class="line">   <span class="keyword">for</span> (<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;n;i++)</span><br><span class="line">   &#123;</span><br><span class="line">       <span class="keyword">int</span> s,t;</span><br><span class="line">       s=flag[e[i*<span class="number">2</span>].from];</span><br><span class="line">       t=flag[e[i*<span class="number">2</span>].to];</span><br><span class="line">       <span class="keyword">if</span> (s!=t)</span><br><span class="line">       &#123;</span><br><span class="line">           nMp[s].<span class="built_in">push_back</span>(t);</span><br><span class="line">           nMp[t].<span class="built_in">push_back</span>(s);</span><br><span class="line">       &#125;</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> ans,root;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">dfs</span><span class="params">(<span class="keyword">int</span> now,<span class="keyword">int</span> pre,<span class="keyword">int</span> cnt)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (ans&lt;=cnt)</span><br><span class="line">    &#123;</span><br><span class="line">        ans=cnt;</span><br><span class="line">        root=now;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;nMp[now].<span class="built_in">size</span>();i++)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span> (nMp[now][i]==pre) <span class="keyword">continue</span>;</span><br><span class="line">        <span class="built_in">dfs</span>(nMp[now][i],now,cnt+<span class="number">1</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line"><span class="comment">//  int size = 256 &lt;&lt; 20; // 256MB</span></span><br><span class="line"><span class="comment">//  char \*p = (char\*)malloc(size) + size;</span></span><br><span class="line"><span class="comment">//  \_\_asm\_\_(&quot;movl %0, %%esp\\n&quot; :: &quot;r&quot;(p) );</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">while</span> (<span class="built_in">scanf</span>(<span class="string">&quot;%d%d&quot;</span>,&amp;n,&amp;m)!=EOF)</span><br><span class="line">&#123;</span><br><span class="line">    xx=<span class="number">0</span>;</span><br><span class="line">    <span class="built_in">memset</span>(flag,<span class="number">-1</span>,<span class="built_in"><span class="keyword">sizeof</span></span>(flag));</span><br><span class="line">    <span class="built_in">memset</span>(low,<span class="number">0</span>,<span class="built_in"><span class="keyword">sizeof</span></span>(low));</span><br><span class="line">    <span class="built_in">memset</span>(dfn,<span class="number">0</span>,<span class="built_in"><span class="keyword">sizeof</span></span>(dfn));</span><br><span class="line">    <span class="built_in">memset</span>(vis,<span class="literal">false</span>,<span class="built_in"><span class="keyword">sizeof</span></span>(vis));</span><br><span class="line">   <span class="comment">// memset(stk,0,sizeof(stk));</span></span><br><span class="line">    <span class="built_in">memset</span>(head,<span class="number">-1</span>,<span class="built_in"><span class="keyword">sizeof</span></span>(head));</span><br><span class="line">    stkCnt=<span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;n+<span class="number">5</span>;i++) mp[i].<span class="built_in">clear</span>();</span><br><span class="line">    <span class="keyword">if</span> (m+n==<span class="number">0</span>) <span class="keyword">break</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;<span class="number">2</span>*m;i++)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">int</span> a,b;</span><br><span class="line">        <span class="built_in">scanf</span>(<span class="string">&quot;%d%d&quot;</span>,&amp;a,&amp;b);</span><br><span class="line">        e[i].to=b;</span><br><span class="line">        e[i].from=a;</span><br><span class="line">        e[i].next=head[a];</span><br><span class="line">        head[a]=i;</span><br><span class="line">        i++;</span><br><span class="line">        e[i].to=a;</span><br><span class="line">        e[i].from=b;</span><br><span class="line">        e[i].next=head[b];</span><br><span class="line">        head[b]=i;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">tarjan</span>(<span class="number">1</span>,<span class="number">1</span>);</span><br><span class="line">    nMp=<span class="keyword">new</span> vector[xx+<span class="number">10</span>];</span><br><span class="line">    <span class="built_in">build</span>(m);</span><br><span class="line">    ans=<span class="number">0</span>;</span><br><span class="line">    root=<span class="number">0</span>;</span><br><span class="line">    <span class="built_in">dfs</span>(<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>);</span><br><span class="line">    <span class="built_in">dfs</span>(root,root,<span class="number">0</span>);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;%d\\n&quot;</span>,xx<span class="number">-1</span>-ans);</span><br><span class="line">   <span class="comment">// delete mp;</span></span><br><span class="line">    <span class="keyword">delete</span> nMp;</span><br><span class="line">&#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-]]></content>
-      <categories>
-        <category>ACMICPC</category>
-      </categories>
-      <tags>
-        <tag>prof</tag>
-      </tags>
   </entry>
   <entry>
     <title>UndeclaredThrowableException原因</title>
@@ -1395,6 +1271,16 @@ f1
       </categories>
   </entry>
   <entry>
+    <title>POJ 1422</title>
+    <url>/2013/04/28/poj1422/</url>
+    <content><![CDATA[<p>   题意不追溯，关于匈牙利算法看：<a href="http://my.oschina.net/xuwei8091/blog/126320">http://my.oschina.net/xuwei8091/blog/126320</a>。 最小路径覆盖等于N-最大匹配</p>
+<p>#include #include #include using namespace std;<br>int T;<br>int n,m;<br>int map[200][200];<br>int vis[200];<br>int result[200];<br>bool find(int s)<br>{<br>        for (int i=1;i&lt;=n;i++)<br>        {<br>            if (map[s][i] &amp;&amp; !vis[i])<br>            {<br>                vis[i]=1;<br>                if (result[i]==0 || find(result[i]))<br>                {<br>                    result[i]=s;<br>                    return true;<br>                }<br>            }<br>        }<br>        return false;<br>}<br>int main()<br>{<br>    scanf(“%d”,&amp;T);<br>    while (T–){<br>        memset(map,0,sizeof(map));<br>        memset(result,0,sizeof(result));<br>        scanf(“%d%d”,&amp;n,&amp;m);<br>        for (int i=0;i</p>
+]]></content>
+      <categories>
+        <category>ACMICPC</category>
+      </categories>
+  </entry>
+  <entry>
     <title>POJ 1061</title>
     <url>/2013/04/28/poj1061/</url>
     <content><![CDATA[<p>  题意就不赘诉了，青蛙约会。是一个关于欧几里得扩展的定理的题目</p>
@@ -1403,16 +1289,6 @@ f1
 <p>针对本题，需要注意的是，    1.数据比较大，需要用long long 2.因为是时间，所以x不能是负数，如果出现负数怎么办呢？ a*x1+b*y1=d(d=gcd(a,b)),那个转换成 a*(x1+b*n）+b*（y1-a*n)=d 最终x=(x1%b+b)%b;或者(x1+(abs([x1/b])+1)*b)%b; AC代码：</p>
 <p>#include #include #include #include #include using namespace std;</p>
 <p>int gcd(int a,int b)<br>{<br>    if (b==0) return a;<br>    return gcd(b,a%b);<br>}<br>long long exgcd(long long a,long long b,long long &amp;x,long long &amp;y)<br>{<br>    if (b==0){ x=1;y=0;return a;}<br>    long long r=exgcd(b,a%b,x,y);<br>    long long t=x;<br>    x=y;<br>    y=t-(a/b)*y;<br>    return r;<br>}<br>int main()<br>{<br>    long long x,y,m,n,L;<br>    cin&gt;&gt;x&gt;&gt;y&gt;&gt;m&gt;&gt;n&gt;&gt;L;<br>    long long s=gcd(n-m,L);<br>    if ((x-y)%s!=0){<br>    cout&lt;&lt;”Impossible”&lt;</p>
-]]></content>
-      <categories>
-        <category>ACMICPC</category>
-      </categories>
-  </entry>
-  <entry>
-    <title>POJ 1422</title>
-    <url>/2013/04/28/poj1422/</url>
-    <content><![CDATA[<p>   题意不追溯，关于匈牙利算法看：<a href="http://my.oschina.net/xuwei8091/blog/126320">http://my.oschina.net/xuwei8091/blog/126320</a>。 最小路径覆盖等于N-最大匹配</p>
-<p>#include #include #include using namespace std;<br>int T;<br>int n,m;<br>int map[200][200];<br>int vis[200];<br>int result[200];<br>bool find(int s)<br>{<br>        for (int i=1;i&lt;=n;i++)<br>        {<br>            if (map[s][i] &amp;&amp; !vis[i])<br>            {<br>                vis[i]=1;<br>                if (result[i]==0 || find(result[i]))<br>                {<br>                    result[i]=s;<br>                    return true;<br>                }<br>            }<br>        }<br>        return false;<br>}<br>int main()<br>{<br>    scanf(“%d”,&amp;T);<br>    while (T–){<br>        memset(map,0,sizeof(map));<br>        memset(result,0,sizeof(result));<br>        scanf(“%d%d”,&amp;n,&amp;m);<br>        for (int i=0;i</p>
 ]]></content>
       <categories>
         <category>ACMICPC</category>
@@ -1720,6 +1596,130 @@ f1
       </categories>
       <tags>
         <tag>FE</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>GraphQl 使用 - java</title>
+    <url>/2019/08/03/GraphQl-%E4%BD%BF%E7%94%A8-java/</url>
+    <content><![CDATA[<p>去年在做内容库的时候，涉及到了多系统多数据源互相查询的情景，当时就想要将内容库的所有数据，增加统一的数据接入层，通过graphql的方式提供给上层业务使用，后面受限于人力没有实施。目前从头开始做站群相关的业务，顺带着浅尝了一下graphql，感觉还不错。</p>
+<h2 id="GraphQL-是什么"><a href="#GraphQL-是什么" class="headerlink" title="GraphQL 是什么"></a>GraphQL 是什么</h2><blockquote>
+<p>GraphQL is a query language for APIs and a runtime for fulfilling those queries with your existing data. GraphQL provides a complete and understandable description of the data in your API, gives clients the power to ask for exactly what they need and nothing more, makes it easier to evolve APIs over time, and enables powerful developer tools.</p>
+</blockquote>
+<h3 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h3><p>参看:  <a href="https://www.youtube.com/watch?v=Ah6GSCK5Rfs">https://www.youtube.com/watch?v=Ah6GSCK5Rfs</a></p>
+<p>graphql 和 rest api 是同一层的东西，都是一种基于 http 之上的数据接口协议，两者设计理念完全不同。目前来说 graphql 在很多大小厂也都开始使用，确实会方便很多。 但是 rest api 还是最广泛应用的协议，比如 AMP (T T)。 事实上任何东西都有2面性，对于graphql 来说，优缺点都有</p>
+<h3 id="与-REST-API-相比的好处"><a href="#与-REST-API-相比的好处" class="headerlink" title="与 REST API 相比的好处"></a>与 REST API 相比的好处</h3><ul>
+<li>优点<ul>
+<li>一次提供，多次使用<ul>
+<li>作为后端，我们只需要关心数据字段的提供，不需要关心前端是怎么用这些字段，页面结构是怎样的</li>
+<li>真的不需要频繁的对接口了</li>
+</ul>
+</li>
+<li>动态可扩展，无冗余查询，所见即所得<ul>
+<li>因为前端只会请求需要的字段，增加新的字段后，不用担心老的业务请求这些冗余数据，很好的支撑了可扩展性</li>
+<li>所见即所得，能够帮助客户端代码不易出错</li>
+</ul>
+</li>
+<li>多个字段，一次请求<ul>
+<li>对于前端来说，面向schema编程，无需知道后端是多少个服务在支撑需要的这些字段，也无需频繁的更改接口去从新服务获取想要的字段，只需要在请求的时候增加一个 field 就好了</li>
+</ul>
+</li>
+<li>代码即文档<ul>
+<li>直接通过graphqli 等工具查看schema协议，不需要文档，写注释就好了</li>
+</ul>
+</li>
+<li>类型校验<ul>
+<li>在定义好schema的同时，就约束了接口类型，graphql支持强类型校验</li>
+</ul>
+</li>
+<li>…</li>
+</ul>
+</li>
+<li>缺点<ul>
+<li>基于post 请求<ul>
+<li>传统方式无法监控(nginx)</li>
+<li>不能利用 http 自身的缓存机制</li>
+</ul>
+</li>
+<li>没有充分利用http<ul>
+<li>只使用了 post 请求，没有其他http的方法：方法的幂等性</li>
+<li>缺失了http状态码</li>
+</ul>
+</li>
+<li>配套还不完善<ul>
+<li>微服务</li>
+<li>监控</li>
+<li>分流</li>
+</ul>
+</li>
+<li>…</li>
+</ul>
+</li>
+</ul>
+<h2 id="怎么用"><a href="#怎么用" class="headerlink" title="怎么用"></a>怎么用</h2><h3 id="几个基本概念"><a href="#几个基本概念" class="headerlink" title="几个基本概念"></a>几个基本概念</h3><p>最好参看官方文档：<a href="https://graphql.github.io/graphql-spec/June2018/">https://graphql.github.io/graphql-spec/June2018/</a></p>
+<p>中文版的可以查看：<a href="https://spec.graphql.cn/#sec-Overview-">https://spec.graphql.cn/#sec-Overview-</a></p>
+<p>概念很多，摘了几个出来，在实际业务场景中使用的话，还是有很多需要探的地方，这里只是大概的一个介绍</p>
+<ul>
+<li>schema<ul>
+<li>相当于协议文件，定义了所有对象的类型和查询接口</li>
+<li>一般定义的操作是2个： query/ mutation , 一个用于读，一个用于写，也存在subscription的操作</li>
+</ul>
+</li>
+<li>type<ul>
+<li>graphql 有自己的一套类型系统，有8种类型<ul>
+<li>scalars/标量</li>
+<li>objects/对象</li>
+<li>interfaces/接口</li>
+<li>unions/联合</li>
+<li>Enums/枚举</li>
+<li>Input objects/输入类型</li>
+<li>lists/列表</li>
+<li>Non-null/非空型</li>
+</ul>
+</li>
+<li>graphql 有自己的基本类型，也可以自定义一些类型，但是需要相应的解释器</li>
+</ul>
+</li>
+<li>内省 -&gt; 验证 -&gt; 执行 -&gt; 响应</li>
+<li>datafetcher<ul>
+<li>实现过程中，定义了字段的获取方法</li>
+</ul>
+</li>
+</ul>
+<h3 id="实操"><a href="#实操" class="headerlink" title="实操"></a>实操</h3><p>具体的代码可以参看： <a href="https://github.com/xtestw/graphql-demo">https://github.com/xtestw/graphql-demo</a></p>
+<ul>
+<li><p>引入 graphql 的依赖包</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;dependency&gt;</span><br><span class="line">	&lt;groupId&gt;com.graphql-java&lt;/groupId&gt;</span><br><span class="line">    &lt;artifactId&gt;graphql-java&lt;/artifactId&gt;</span><br><span class="line">    &lt;version&gt;13.0&lt;/version&gt;</span><br><span class="line">&lt;/dependency&gt;</span><br></pre></td></tr></table></figure></li>
+<li><p>定义 schema 文件</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">schema &#123;</span><br><span class="line">  query: Query</span><br><span class="line">  mutation: Mutation</span><br><span class="line">&#125;</span><br><span class="line">scalar Date</span><br><span class="line"></span><br><span class="line">type Query &#123;</span><br><span class="line">  student(id:Int!):Student</span><br><span class="line">  students(pagination:Pagination):[Student]</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">type Mutation &#123;</span><br><span class="line">  add(newStudent:NewStudent):Student</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">input Pagination&#123;</span><br><span class="line">  index: Int!</span><br><span class="line">  size: Int!</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">input NewStudent&#123;</span><br><span class="line">  name:String!</span><br><span class="line">  sex:Sex</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">type Student &#123;</span><br><span class="line">  id: Int</span><br><span class="line">  name: String</span><br><span class="line">  sex: Sex</span><br><span class="line">  creation: Date</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">enum Sex&#123;</span><br><span class="line">  MALE,FEMALE</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li><p>实现 schema 文件</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> com.xtestw.graphql.demo.schema.wiring;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> com.fasterxml.jackson.databind.ObjectMapper;</span><br><span class="line"><span class="keyword">import</span> com.google.common.collect.ImmutableMap;</span><br><span class="line"><span class="keyword">import</span> com.xtestw.graphql.demo.schema.model.NewStudent;</span><br><span class="line"><span class="keyword">import</span> com.xtestw.graphql.demo.schema.model.Pagination;</span><br><span class="line"><span class="keyword">import</span> com.xtestw.graphql.demo.storage.Student;</span><br><span class="line"><span class="keyword">import</span> com.xtestw.graphql.demo.storage.Student.Sex;</span><br><span class="line"><span class="keyword">import</span> com.xtestw.graphql.demo.storage.repository.StudentRepository;</span><br><span class="line"><span class="keyword">import</span> graphql.schema.DataFetchingEnvironment;</span><br><span class="line"><span class="keyword">import</span> graphql.schema.idl.MapEnumValuesProvider;</span><br><span class="line"><span class="keyword">import</span> graphql.schema.idl.TypeRuntimeWiring;</span><br><span class="line"><span class="keyword">import</span> graphql.schema.idl.TypeRuntimeWiring.Builder;</span><br><span class="line"><span class="keyword">import</span> java.util.Collections;</span><br><span class="line"><span class="keyword">import</span> java.util.List;</span><br><span class="line"><span class="keyword">import</span> org.springframework.beans.factory.annotation.Autowired;</span><br><span class="line"><span class="keyword">import</span> org.springframework.stereotype.Component;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Create by xuwei on 2019/8/4</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@Component</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">StudentWiring</span> <span class="keyword">implements</span> <span class="title">Wiring</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">  <span class="meta">@Autowired</span></span><br><span class="line">  StudentRepository studentRepository;</span><br><span class="line">  ObjectMapper mapper = <span class="keyword">new</span> ObjectMapper();</span><br><span class="line"></span><br><span class="line">  <span class="meta">@Override</span></span><br><span class="line">  <span class="function"><span class="keyword">public</span> List&lt;TypeRuntimeWiring&gt; <span class="title">wireTypes</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> Collections.singletonList(</span><br><span class="line">        TypeRuntimeWiring.newTypeWiring(<span class="string">&quot;Sex&quot;</span>)</span><br><span class="line">            .enumValues(<span class="keyword">new</span> MapEnumValuesProvider(</span><br><span class="line">                ImmutableMap.of(</span><br><span class="line">                    <span class="string">&quot;MALE&quot;</span>, Sex.MALE,</span><br><span class="line">                    <span class="string">&quot;FEMALE&quot;</span>, Sex.FEMALE</span><br><span class="line">                )))</span><br><span class="line">            .build());</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="meta">@Override</span></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">wireQueries</span><span class="params">(Builder queryBuilder)</span> </span>&#123;</span><br><span class="line">    queryBuilder.dataFetcher(<span class="string">&quot;student&quot;</span>, <span class="keyword">this</span>::fetchStudentById)</span><br><span class="line">        .dataFetcher(<span class="string">&quot;students&quot;</span>, <span class="keyword">this</span>::fetchStudents);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">private</span> List&lt;Student&gt; <span class="title">fetchStudents</span><span class="params">(DataFetchingEnvironment dataFetchingEnvironment)</span> </span>&#123;</span><br><span class="line">    Pagination pagination = mapper</span><br><span class="line">        .convertValue(dataFetchingEnvironment.getArgument(<span class="string">&quot;pagination&quot;</span>), Pagination.class);</span><br><span class="line">    <span class="keyword">if</span> (pagination == <span class="keyword">null</span>) &#123;</span><br><span class="line">      pagination = Pagination.create(<span class="number">0</span>, <span class="number">20</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> studentRepository.findAll(pagination.toPageable()).getContent();</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">private</span> Student <span class="title">fetchStudentById</span><span class="params">(DataFetchingEnvironment dataFetchingEnvironment)</span> </span>&#123;</span><br><span class="line">    Integer id = dataFetchingEnvironment.getArgument(<span class="string">&quot;id&quot;</span>);</span><br><span class="line">    <span class="keyword">return</span> studentRepository.findById(id).orElse(<span class="keyword">null</span>);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="meta">@Override</span></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">wireMutations</span><span class="params">(Builder mutationBuilder)</span> </span>&#123;</span><br><span class="line">    mutationBuilder.dataFetcher(<span class="string">&quot;add&quot;</span>, <span class="keyword">this</span>::addNewStudent);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">private</span> Student <span class="title">addNewStudent</span><span class="params">(DataFetchingEnvironment dataFetchingEnvironment)</span> </span>&#123;</span><br><span class="line">    NewStudent newStudent = mapper</span><br><span class="line">        .convertValue(dataFetchingEnvironment.getArgument(<span class="string">&quot;newStudent&quot;</span>), NewStudent.class);</span><br><span class="line">    <span class="keyword">return</span> studentRepository.save(newStudent.toStudent());</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure></li>
+<li><p>构建 GraphqQL 对象实例</p>
+</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> com.xtestw.graphql.demo.config;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> com.xtestw.graphql.demo.schema.ExtendedScalars;</span><br><span class="line"><span class="keyword">import</span> com.xtestw.graphql.demo.schema.wiring.Wiring;</span><br><span class="line"><span class="keyword">import</span> graphql.GraphQL;</span><br><span class="line"><span class="keyword">import</span> graphql.GraphQLException;</span><br><span class="line"><span class="keyword">import</span> graphql.schema.GraphQLScalarType;</span><br><span class="line"><span class="keyword">import</span> graphql.schema.GraphQLSchema;</span><br><span class="line"><span class="keyword">import</span> graphql.schema.idl.RuntimeWiring;</span><br><span class="line"><span class="keyword">import</span> graphql.schema.idl.SchemaGenerator;</span><br><span class="line"><span class="keyword">import</span> graphql.schema.idl.SchemaParser;</span><br><span class="line"><span class="keyword">import</span> graphql.schema.idl.TypeDefinitionRegistry;</span><br><span class="line"><span class="keyword">import</span> graphql.schema.idl.TypeRuntimeWiring;</span><br><span class="line"><span class="keyword">import</span> graphql.schema.idl.errors.SchemaProblem;</span><br><span class="line"><span class="keyword">import</span> java.io.IOException;</span><br><span class="line"><span class="keyword">import</span> java.io.InputStreamReader;</span><br><span class="line"><span class="keyword">import</span> java.util.ArrayList;</span><br><span class="line"><span class="keyword">import</span> java.util.Arrays;</span><br><span class="line"><span class="keyword">import</span> java.util.Collections;</span><br><span class="line"><span class="keyword">import</span> java.util.List;</span><br><span class="line"><span class="keyword">import</span> java.util.Objects;</span><br><span class="line"><span class="keyword">import</span> java.util.stream.Collectors;</span><br><span class="line"><span class="keyword">import</span> lombok.extern.slf4j.Slf4j;</span><br><span class="line"><span class="keyword">import</span> org.springframework.beans.factory.annotation.Autowired;</span><br><span class="line"><span class="keyword">import</span> org.springframework.beans.factory.annotation.Value;</span><br><span class="line"><span class="keyword">import</span> org.springframework.context.annotation.Bean;</span><br><span class="line"><span class="keyword">import</span> org.springframework.context.annotation.Configuration;</span><br><span class="line"><span class="keyword">import</span> org.springframework.core.io.Resource;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Create by xuwei on 2019/8/3</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="meta">@Slf4j</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">GraphQLConfig</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">  <span class="meta">@Value(&quot;classpath*:schemas/*.graphqls&quot;)</span></span><br><span class="line">  <span class="keyword">private</span> Resource[] files;</span><br><span class="line"></span><br><span class="line">  <span class="meta">@Bean</span></span><br><span class="line">  <span class="function">GraphQL <span class="title">graphQL</span><span class="params">(<span class="meta">@Autowired</span> GraphQLSchema graphQLSchema)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> GraphQL.newGraphQL(graphQLSchema)</span><br><span class="line">        .build();</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">  <span class="meta">@Bean</span></span><br><span class="line">  <span class="function">GraphQLSchema <span class="title">graphQLSchema</span><span class="params">(<span class="meta">@Autowired</span> RuntimeWiring wiring)</span> </span>&#123;</span><br><span class="line">    SchemaParser parser = <span class="keyword">new</span> SchemaParser();</span><br><span class="line">    TypeDefinitionRegistry typeDefinitionRegistry = Arrays.stream(files).map(file -&gt; &#123;</span><br><span class="line">      <span class="keyword">try</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> file.getInputStream();</span><br><span class="line">      &#125; <span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">        log.error(<span class="string">&quot;Load graphql file error: &#123;&#125; - &#123;&#125;&quot;</span>, file, e);</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">    &#125;).filter(Objects::nonNull)</span><br><span class="line">        .map(inputStream -&gt; &#123;</span><br><span class="line">          <span class="keyword">try</span> &#123;</span><br><span class="line">            <span class="keyword">return</span> parser.parse(<span class="keyword">new</span> InputStreamReader(inputStream));</span><br><span class="line">          &#125; <span class="keyword">catch</span> (SchemaProblem e) &#123;</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> GraphQLException(</span><br><span class="line">                String.format(<span class="string">&quot;Compile schema &#x27;%s&#x27; failed: %s&quot;</span>, inputStream,</span><br><span class="line">                    e.getErrors().stream().map(Object::toString).collect(Collectors.toList())), e);</span><br><span class="line">          &#125;</span><br><span class="line">        &#125;).reduce(<span class="keyword">new</span> TypeDefinitionRegistry(), (all, cur) -&gt; &#123;</span><br><span class="line">          all.merge(cur);</span><br><span class="line">          <span class="keyword">return</span> all;</span><br><span class="line">        &#125;);</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> SchemaGenerator().makeExecutableSchema(typeDefinitionRegistry, wiring);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="meta">@Bean</span></span><br><span class="line">  <span class="function">RuntimeWiring <span class="title">wiring</span><span class="params">(<span class="meta">@Autowired</span> List&lt;GraphQLScalarType&gt; scalarTypes,</span></span></span><br><span class="line"><span class="params"><span class="function">      <span class="meta">@Autowired</span> List&lt;TypeRuntimeWiring&gt; types)</span> </span>&#123;</span><br><span class="line">    RuntimeWiring.Builder builder = RuntimeWiring.newRuntimeWiring();</span><br><span class="line">    <span class="keyword">if</span> (scalarTypes != <span class="keyword">null</span>) &#123;</span><br><span class="line">      scalarTypes.forEach(builder::scalar);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (types != <span class="keyword">null</span>) &#123;</span><br><span class="line">      types.forEach(builder::type);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> builder.build();</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="meta">@Bean</span></span><br><span class="line">  <span class="function">List&lt;GraphQLScalarType&gt; <span class="title">scalarTypes</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> Collections.singletonList(ExtendedScalars.GraphQLDate);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="meta">@Bean</span></span><br><span class="line">  <span class="function">List&lt;TypeRuntimeWiring&gt; <span class="title">types</span><span class="params">(<span class="meta">@Autowired</span> List&lt;Wiring&gt; wirings)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    TypeRuntimeWiring.Builder queryBuilder = TypeRuntimeWiring.newTypeWiring(<span class="string">&quot;Query&quot;</span>);</span><br><span class="line">    TypeRuntimeWiring.Builder mutationBuilder = TypeRuntimeWiring.newTypeWiring(<span class="string">&quot;Mutation&quot;</span>);</span><br><span class="line">    <span class="keyword">return</span> wirings.stream().map(wiring -&gt; &#123;</span><br><span class="line">      wiring.wireQueries(queryBuilder);</span><br><span class="line">      wiring.wireMutations(mutationBuilder);</span><br><span class="line">      <span class="keyword">return</span> wiring.wireTypes();</span><br><span class="line">    &#125;)</span><br><span class="line">        .reduce(<span class="keyword">new</span> ArrayList&lt;&gt;(Arrays.asList(queryBuilder.build(), mutationBuilder.build())),</span><br><span class="line">            (all, cur) -&gt; &#123;</span><br><span class="line">              all.addAll(cur);</span><br><span class="line">              <span class="keyword">return</span> all;</span><br><span class="line">            &#125;);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+
+<ul>
+<li><p>定义接口</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> com.xtestw.graphql.demo.controller;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> com.fasterxml.jackson.databind.JsonNode;</span><br><span class="line"><span class="keyword">import</span> com.fasterxml.jackson.databind.ObjectMapper;</span><br><span class="line"><span class="keyword">import</span> com.fasterxml.jackson.databind.type.MapType;</span><br><span class="line"><span class="keyword">import</span> com.xtestw.graphql.demo.schema.model.Query;</span><br><span class="line"><span class="keyword">import</span> graphql.GraphQL;</span><br><span class="line"><span class="keyword">import</span> java.io.IOException;</span><br><span class="line"><span class="keyword">import</span> java.util.Collections;</span><br><span class="line"><span class="keyword">import</span> java.util.HashMap;</span><br><span class="line"><span class="keyword">import</span> java.util.Map;</span><br><span class="line"><span class="keyword">import</span> javax.annotation.Resource;</span><br><span class="line"><span class="keyword">import</span> lombok.extern.slf4j.Slf4j;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.bind.annotation.CrossOrigin;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.bind.annotation.PostMapping;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.bind.annotation.RequestBody;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.bind.annotation.RequestMapping;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.bind.annotation.RestController;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Create by xuwei on 2019/8/3</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@RestController</span></span><br><span class="line"><span class="meta">@Slf4j</span></span><br><span class="line"><span class="meta">@RequestMapping(&quot;/graphql&quot;)</span></span><br><span class="line"><span class="meta">@CrossOrigin</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">GraphQLController</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">  <span class="meta">@Resource</span></span><br><span class="line">  GraphQL graphQL;</span><br><span class="line"></span><br><span class="line">  <span class="meta">@PostMapping(path = &#123;&quot;&quot;&#125;)</span></span><br><span class="line">  <span class="function"><span class="keyword">private</span> Object <span class="title">query</span><span class="params">(<span class="meta">@RequestBody</span> String queryStr)</span> <span class="keyword">throws</span> IOException </span>&#123;</span><br><span class="line">    Query query = getQuery(queryStr);</span><br><span class="line">    <span class="keyword">return</span> graphQL.execute(query.toExecutionInput());</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">private</span> <span class="keyword">static</span> ObjectMapper mapper = <span class="keyword">new</span> ObjectMapper();</span><br><span class="line">  <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> MapType VARIABLES_TYPE = mapper.getTypeFactory()</span><br><span class="line">      .constructMapType(HashMap.class,</span><br><span class="line">          String.class, Object.class);</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">private</span> Query <span class="title">getQuery</span><span class="params">(String queryText)</span> <span class="keyword">throws</span> IOException </span>&#123;</span><br><span class="line">    String operationName = <span class="keyword">null</span>;</span><br><span class="line">    String fullQueryText = queryText;</span><br><span class="line">    Map&lt;String, Object&gt; variables = <span class="keyword">null</span>;</span><br><span class="line">    JsonNode jsonBody = mapper.readTree(queryText);</span><br><span class="line">    <span class="keyword">if</span> (jsonBody != <span class="keyword">null</span>) &#123;</span><br><span class="line">      JsonNode queryNode = jsonBody.get(<span class="string">&quot;query&quot;</span>);</span><br><span class="line">      <span class="keyword">if</span> (queryNode != <span class="keyword">null</span> &amp;&amp; queryNode.isTextual()) &#123;</span><br><span class="line">        queryText = queryNode.asText();</span><br><span class="line">      &#125;</span><br><span class="line">      JsonNode operationNameNode = jsonBody.get(<span class="string">&quot;operationName&quot;</span>);</span><br><span class="line">      <span class="keyword">if</span> (operationNameNode != <span class="keyword">null</span> &amp;&amp; operationNameNode.isTextual()) &#123;</span><br><span class="line">        operationName = operationNameNode.asText();</span><br><span class="line">      &#125;</span><br><span class="line">      JsonNode variablesNode = jsonBody.get(<span class="string">&quot;variables&quot;</span>);</span><br><span class="line">      <span class="keyword">if</span> (variablesNode != <span class="keyword">null</span>) &#123;</span><br><span class="line">        <span class="keyword">if</span> (variablesNode.isTextual()) &#123;</span><br><span class="line">          String variablesJson = variablesNode.asText();</span><br><span class="line">          variables = mapper.convertValue(mapper.readTree(variablesJson), VARIABLES_TYPE);</span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (variablesNode.isObject()) &#123;</span><br><span class="line">          variables = mapper.convertValue(variablesNode, VARIABLES_TYPE);</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (variables == <span class="keyword">null</span>) &#123;</span><br><span class="line">      variables = Collections.emptyMap();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> Query(fullQueryText, queryText, operationName, variables);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure></li>
+<li><p>测试</p>
+</li>
+</ul>
+<p><img src="/var/folders/84/6jh1114j4rx6m0b5h4w5_45h0000gn/T/abnerworks.Typora/image-20190804164253298.png" alt="image-20190804164253298"></p>
+<p><img src="/var/folders/84/6jh1114j4rx6m0b5h4w5_45h0000gn/T/abnerworks.Typora/image-20190804164354974.png" alt="image-20190804164354974"></p>
+<p><img src="/var/folders/84/6jh1114j4rx6m0b5h4w5_45h0000gn/T/abnerworks.Typora/image-20190804164517506.png" alt="image-20190804164517506"></p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>graphql 相比较 restapi 来说，各有优缺点。个人感觉 graphql的前景还是很大的，目前最大的问题其实还是相关的生态和基础设施还不够完善，也存在很大的迁移成本和学习成本。不过单纯从数据获取的角度来说，非常有优势！此处我们只做了一个非常浅的探索。</p>
+]]></content>
+      <categories>
+        <category>Java</category>
+        <category>New Skill</category>
+        <category>GraphQL</category>
+      </categories>
+      <tags>
+        <tag>graphql</tag>
+        <tag>graphiql</tag>
+        <tag>github</tag>
       </tags>
   </entry>
   <entry>

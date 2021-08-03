@@ -331,14 +331,14 @@
   </url>
   
   <url>
-    <loc>http://xtestw.com/2013/04/28/poj1061/</loc>
+    <loc>http://xtestw.com/2013/04/28/poj1422/</loc>
     
     <lastmod>2019-07-29</lastmod>
     
   </url>
   
   <url>
-    <loc>http://xtestw.com/2013/04/28/poj1422/</loc>
+    <loc>http://xtestw.com/2013/04/28/poj1061/</loc>
     
     <lastmod>2019-07-29</lastmod>
     
@@ -361,13 +361,6 @@
   </url>
   
   <url>
-    <loc>http://xtestw.com/tags/%E5%A4%A7%E6%95%B0%E6%8D%AE/</loc>
-    <lastmod>2021-08-03</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
     <loc>http://xtestw.com/tags/DDD/</loc>
     <lastmod>2021-08-03</lastmod>
     <changefreq>daily</changefreq>
@@ -375,21 +368,7 @@
   </url>
   
   <url>
-    <loc>http://xtestw.com/tags/graphql/</loc>
-    <lastmod>2021-08-03</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>http://xtestw.com/tags/graphiql/</loc>
-    <lastmod>2021-08-03</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>http://xtestw.com/tags/github/</loc>
+    <loc>http://xtestw.com/tags/%E5%A4%A7%E6%95%B0%E6%8D%AE/</loc>
     <lastmod>2021-08-03</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
@@ -459,6 +438,27 @@
   </url>
   
   <url>
+    <loc>http://xtestw.com/tags/graphql/</loc>
+    <lastmod>2021-08-03</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://xtestw.com/tags/graphiql/</loc>
+    <lastmod>2021-08-03</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://xtestw.com/tags/github/</loc>
+    <lastmod>2021-08-03</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>http://xtestw.com/tags/%E7%90%86%E8%AE%BA/</loc>
     <lastmod>2021-08-03</lastmod>
     <changefreq>daily</changefreq>
@@ -482,13 +482,6 @@
 
   
   <url>
-    <loc>http://xtestw.com/categories/SourceReading/</loc>
-    <lastmod>2021-08-03</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
     <loc>http://xtestw.com/categories/Design-Pattern/</loc>
     <lastmod>2021-08-03</lastmod>
     <changefreq>daily</changefreq>
@@ -503,13 +496,6 @@
   </url>
   
   <url>
-    <loc>http://xtestw.com/categories/%E5%A4%A7%E6%95%B0%E6%8D%AE/</loc>
-    <lastmod>2021-08-03</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
     <loc>http://xtestw.com/categories/%E6%9E%B6%E6%9E%84/</loc>
     <lastmod>2021-08-03</lastmod>
     <changefreq>daily</changefreq>
@@ -517,7 +503,14 @@
   </url>
   
   <url>
-    <loc>http://xtestw.com/categories/Java/</loc>
+    <loc>http://xtestw.com/categories/%E5%A4%A7%E6%95%B0%E6%8D%AE/</loc>
+    <lastmod>2021-08-03</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://xtestw.com/categories/SourceReading/</loc>
     <lastmod>2021-08-03</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
@@ -538,13 +531,6 @@
   </url>
   
   <url>
-    <loc>http://xtestw.com/categories/Java/New-Skill/</loc>
-    <lastmod>2021-08-03</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
     <loc>http://xtestw.com/categories/Theory/</loc>
     <lastmod>2021-08-03</lastmod>
     <changefreq>daily</changefreq>
@@ -553,6 +539,20 @@
   
   <url>
     <loc>http://xtestw.com/categories/FE/</loc>
+    <lastmod>2021-08-03</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://xtestw.com/categories/Java/</loc>
+    <lastmod>2021-08-03</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://xtestw.com/categories/Java/New-Skill/</loc>
     <lastmod>2021-08-03</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
