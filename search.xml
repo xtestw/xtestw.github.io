@@ -54,6 +54,28 @@
       </tags>
   </entry>
   <entry>
+    <title>AC 自动机</title>
+    <url>/2014/07/07/AC%20%E8%87%AA%E5%8A%A8%E6%9C%BA/</url>
+    <content><![CDATA[<p>AC 自动机主要有3个步骤：</p>
+<ol>
+<li>构造trie树</li>
+<li>在trie树的基础上，添加失败指针，其添加方法就是一句话：由父亲节点开始，沿着失败指针向上找，一直找到一个节点p的next[i]不为空或者到根节点，把当前节点的next[i]的失败指针指向p的next[i] </li>
+<li>进行模式串的匹配</li>
+</ol>
+<p> hdu 2222 代码，可兼作模板： </p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="comment">/* * Author: xtestw </span></span><br><span class="line"><span class="comment">	* Created Time: 2014/7/7 8:54:30 </span></span><br><span class="line"><span class="comment">	* File Name: 2222.cpp **/</span> </span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstring&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;string&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstdlib&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> maxint = <span class="number">-1u</span> &gt;&gt; <span class="number">1</span>;</span><br><span class="line">string image;</span><br><span class="line">string strs[<span class="number">10010</span>];</span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Node</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">    Node *next[<span class="number">26</span>];</span><br><span class="line">    Node *fail;</span><br><span class="line">    <span class="keyword">int</span> count;</span><br><span class="line">    <span class="built_in">Node</span>()</span><br><span class="line">    &#123;</span><br><span class="line">        fail = <span class="literal">NULL</span>;</span><br><span class="line">        <span class="built_in">memset</span>(next, <span class="literal">NULL</span>, <span class="built_in"><span class="keyword">sizeof</span></span>(next));</span><br><span class="line">        count = <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125; q[<span class="number">500010</span>];</span><br><span class="line">Node *root;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">insert</span><span class="params">(string str, Node *root)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    Node *p = root;</span><br><span class="line">    <span class="keyword">int</span> i = <span class="number">0</span>, index;</span><br><span class="line">    <span class="keyword">while</span> (str[i])</span><br><span class="line">    &#123;</span><br><span class="line">        index = str[i] - <span class="string">&#x27;a&#x27;</span>;</span><br><span class="line">        <span class="keyword">if</span> (p-&gt;next[index] == <span class="literal">NULL</span>)</span><br><span class="line">            p-&gt;next[index] = <span class="keyword">new</span> <span class="built_in">Node</span>();</span><br><span class="line">        p = p-&gt;next[index];</span><br><span class="line">        i++;</span><br><span class="line">    &#125;</span><br><span class="line">    p-&gt;count++;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">buildfail</span><span class="params">(Node *root)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> i;</span><br><span class="line">    root-&gt;fail = <span class="literal">NULL</span>;</span><br><span class="line">    <span class="keyword">int</span> head, tail;</span><br><span class="line">    head = tail = <span class="number">0</span>;</span><br><span class="line">    q[head++] = root;</span><br><span class="line">    <span class="keyword">while</span> (head != tail)</span><br><span class="line">    &#123;</span><br><span class="line">        Node *tmp = q[tail++];</span><br><span class="line">        Node *p = <span class="literal">NULL</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">26</span>; i++)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">if</span> (tmp-&gt;next[i] != <span class="literal">NULL</span>)</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="keyword">if</span> (tmp == root)</span><br><span class="line">                    tmp-&gt;next[i]-&gt;fail = root;</span><br><span class="line">                <span class="keyword">else</span></span><br><span class="line">                &#123;</span><br><span class="line">                    p = tmp-&gt;fail;</span><br><span class="line">                    <span class="keyword">while</span> (p != <span class="literal">NULL</span>)</span><br><span class="line">                    &#123;</span><br><span class="line">                        <span class="keyword">if</span> (p-&gt;next[i] != <span class="literal">NULL</span>)</span><br><span class="line">                        &#123;</span><br><span class="line">                            tmp-&gt;next[i]-&gt;fail = p-&gt;next[i];</span><br><span class="line">                            <span class="keyword">break</span>;</span><br><span class="line">                        &#125;</span><br><span class="line">                        p = p-&gt;fail;</span><br><span class="line">                    &#125;</span><br><span class="line">                    <span class="keyword">if</span> (p == <span class="literal">NULL</span>)</span><br><span class="line">                        tmp-&gt;next[i]-&gt;fail = root;</span><br><span class="line">                &#125;</span><br><span class="line">                q[head++] = tmp-&gt;next[i];</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">query</span><span class="params">(Node *root)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> i = <span class="number">0</span>, cnt = <span class="number">0</span>, index, len = image.<span class="built_in">size</span>();</span><br><span class="line">    Node *p = root;</span><br><span class="line">    <span class="keyword">while</span> (image[i])</span><br><span class="line">    &#123;</span><br><span class="line">        index = image[i] - <span class="string">&#x27;a&#x27;</span>;</span><br><span class="line">        <span class="keyword">while</span> (p-&gt;next[index] == <span class="literal">NULL</span> &amp;&amp; p != root)</span><br><span class="line">            p = p-&gt;fail;</span><br><span class="line">        p = p-&gt;next[index];</span><br><span class="line">        p = (p == <span class="literal">NULL</span>) ? root : p;</span><br><span class="line">        Node *tmp = p;</span><br><span class="line">        <span class="keyword">while</span> (tmp != root &amp;&amp; tmp-&gt;count != <span class="number">-1</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            cnt += tmp-&gt;count;</span><br><span class="line">            tmp-&gt;count = <span class="number">-1</span>;</span><br><span class="line">            tmp = tmp-&gt;fail;</span><br><span class="line">        &#125;</span><br><span class="line">        i++;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> cnt;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line"><span class="meta">#<span class="meta-keyword">ifndef</span> ONLINE_JUDGE freopen(<span class="meta-string">&quot;f:/in.txt&quot;</span>, <span class="meta-string">&quot;r&quot;</span>, stdin);</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">endif</span> ios::sync_with_stdio(0);</span></span><br><span class="line">    <span class="keyword">int</span> T;</span><br><span class="line">    cin &gt;&gt; T;</span><br><span class="line">    <span class="keyword">while</span> (T--)</span><br><span class="line">    &#123;</span><br><span class="line">        root = <span class="keyword">new</span> <span class="built_in">Node</span>();</span><br><span class="line">        <span class="keyword">int</span> n;</span><br><span class="line">        cin &gt;&gt; n;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i++)</span><br><span class="line">            cin &gt;&gt; strs[i];</span><br><span class="line">        cin &gt;&gt; image;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i++)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="built_in">insert</span>(strs[i], root);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="built_in">buildfail</span>(root);</span><br><span class="line">        cout &lt;&lt; <span class="built_in">query</span>(root) &lt;&lt; endl;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<p>详细的参看：<a href="http://www.cppblog.com/mythit/archive/2009/04/21/80633.html">http://www.cppblog.com/mythit/archive/2009/04/21/80633.html</a></p>
+]]></content>
+      <categories>
+        <category>ACMICPC</category>
+      </categories>
+  </entry>
+  <entry>
     <title>Blink学习笔记</title>
     <url>/2021/02/28/Blink%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</url>
     <content><![CDATA[<h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><p>Blink 其实是阿里内部基于 flink 改造的系统，学习 Blink 首先要学习 flink 相关的知识，先了解一下 flink 产生的背景和要解决的问题。</p>
@@ -199,28 +221,6 @@
       <tags>
         <tag>大数据</tag>
       </tags>
-  </entry>
-  <entry>
-    <title>AC 自动机</title>
-    <url>/2014/07/07/AC%20%E8%87%AA%E5%8A%A8%E6%9C%BA/</url>
-    <content><![CDATA[<p>AC 自动机主要有3个步骤：</p>
-<ol>
-<li>构造trie树</li>
-<li>在trie树的基础上，添加失败指针，其添加方法就是一句话：由父亲节点开始，沿着失败指针向上找，一直找到一个节点p的next[i]不为空或者到根节点，把当前节点的next[i]的失败指针指向p的next[i] </li>
-<li>进行模式串的匹配</li>
-</ol>
-<p> hdu 2222 代码，可兼作模板： </p>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="comment">/* * Author: xtestw </span></span><br><span class="line"><span class="comment">	* Created Time: 2014/7/7 8:54:30 </span></span><br><span class="line"><span class="comment">	* File Name: 2222.cpp **/</span> </span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstring&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;string&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstdlib&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> maxint = <span class="number">-1u</span> &gt;&gt; <span class="number">1</span>;</span><br><span class="line">string image;</span><br><span class="line">string strs[<span class="number">10010</span>];</span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Node</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">    Node *next[<span class="number">26</span>];</span><br><span class="line">    Node *fail;</span><br><span class="line">    <span class="keyword">int</span> count;</span><br><span class="line">    <span class="built_in">Node</span>()</span><br><span class="line">    &#123;</span><br><span class="line">        fail = <span class="literal">NULL</span>;</span><br><span class="line">        <span class="built_in">memset</span>(next, <span class="literal">NULL</span>, <span class="built_in"><span class="keyword">sizeof</span></span>(next));</span><br><span class="line">        count = <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125; q[<span class="number">500010</span>];</span><br><span class="line">Node *root;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">insert</span><span class="params">(string str, Node *root)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    Node *p = root;</span><br><span class="line">    <span class="keyword">int</span> i = <span class="number">0</span>, index;</span><br><span class="line">    <span class="keyword">while</span> (str[i])</span><br><span class="line">    &#123;</span><br><span class="line">        index = str[i] - <span class="string">&#x27;a&#x27;</span>;</span><br><span class="line">        <span class="keyword">if</span> (p-&gt;next[index] == <span class="literal">NULL</span>)</span><br><span class="line">            p-&gt;next[index] = <span class="keyword">new</span> <span class="built_in">Node</span>();</span><br><span class="line">        p = p-&gt;next[index];</span><br><span class="line">        i++;</span><br><span class="line">    &#125;</span><br><span class="line">    p-&gt;count++;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">buildfail</span><span class="params">(Node *root)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> i;</span><br><span class="line">    root-&gt;fail = <span class="literal">NULL</span>;</span><br><span class="line">    <span class="keyword">int</span> head, tail;</span><br><span class="line">    head = tail = <span class="number">0</span>;</span><br><span class="line">    q[head++] = root;</span><br><span class="line">    <span class="keyword">while</span> (head != tail)</span><br><span class="line">    &#123;</span><br><span class="line">        Node *tmp = q[tail++];</span><br><span class="line">        Node *p = <span class="literal">NULL</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">26</span>; i++)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">if</span> (tmp-&gt;next[i] != <span class="literal">NULL</span>)</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="keyword">if</span> (tmp == root)</span><br><span class="line">                    tmp-&gt;next[i]-&gt;fail = root;</span><br><span class="line">                <span class="keyword">else</span></span><br><span class="line">                &#123;</span><br><span class="line">                    p = tmp-&gt;fail;</span><br><span class="line">                    <span class="keyword">while</span> (p != <span class="literal">NULL</span>)</span><br><span class="line">                    &#123;</span><br><span class="line">                        <span class="keyword">if</span> (p-&gt;next[i] != <span class="literal">NULL</span>)</span><br><span class="line">                        &#123;</span><br><span class="line">                            tmp-&gt;next[i]-&gt;fail = p-&gt;next[i];</span><br><span class="line">                            <span class="keyword">break</span>;</span><br><span class="line">                        &#125;</span><br><span class="line">                        p = p-&gt;fail;</span><br><span class="line">                    &#125;</span><br><span class="line">                    <span class="keyword">if</span> (p == <span class="literal">NULL</span>)</span><br><span class="line">                        tmp-&gt;next[i]-&gt;fail = root;</span><br><span class="line">                &#125;</span><br><span class="line">                q[head++] = tmp-&gt;next[i];</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">query</span><span class="params">(Node *root)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> i = <span class="number">0</span>, cnt = <span class="number">0</span>, index, len = image.<span class="built_in">size</span>();</span><br><span class="line">    Node *p = root;</span><br><span class="line">    <span class="keyword">while</span> (image[i])</span><br><span class="line">    &#123;</span><br><span class="line">        index = image[i] - <span class="string">&#x27;a&#x27;</span>;</span><br><span class="line">        <span class="keyword">while</span> (p-&gt;next[index] == <span class="literal">NULL</span> &amp;&amp; p != root)</span><br><span class="line">            p = p-&gt;fail;</span><br><span class="line">        p = p-&gt;next[index];</span><br><span class="line">        p = (p == <span class="literal">NULL</span>) ? root : p;</span><br><span class="line">        Node *tmp = p;</span><br><span class="line">        <span class="keyword">while</span> (tmp != root &amp;&amp; tmp-&gt;count != <span class="number">-1</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            cnt += tmp-&gt;count;</span><br><span class="line">            tmp-&gt;count = <span class="number">-1</span>;</span><br><span class="line">            tmp = tmp-&gt;fail;</span><br><span class="line">        &#125;</span><br><span class="line">        i++;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> cnt;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line"><span class="meta">#<span class="meta-keyword">ifndef</span> ONLINE_JUDGE freopen(<span class="meta-string">&quot;f:/in.txt&quot;</span>, <span class="meta-string">&quot;r&quot;</span>, stdin);</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">endif</span> ios::sync_with_stdio(0);</span></span><br><span class="line">    <span class="keyword">int</span> T;</span><br><span class="line">    cin &gt;&gt; T;</span><br><span class="line">    <span class="keyword">while</span> (T--)</span><br><span class="line">    &#123;</span><br><span class="line">        root = <span class="keyword">new</span> <span class="built_in">Node</span>();</span><br><span class="line">        <span class="keyword">int</span> n;</span><br><span class="line">        cin &gt;&gt; n;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i++)</span><br><span class="line">            cin &gt;&gt; strs[i];</span><br><span class="line">        cin &gt;&gt; image;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i++)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="built_in">insert</span>(strs[i], root);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="built_in">buildfail</span>(root);</span><br><span class="line">        cout &lt;&lt; <span class="built_in">query</span>(root) &lt;&lt; endl;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-
-
-
-<p>详细的参看：<a href="http://www.cppblog.com/mythit/archive/2009/04/21/80633.html">http://www.cppblog.com/mythit/archive/2009/04/21/80633.html</a></p>
-]]></content>
-      <categories>
-        <category>ACMICPC</category>
-      </categories>
   </entry>
   <entry>
     <title>DDD 领域建模笔记</title>
@@ -1000,21 +1000,6 @@
       </tags>
   </entry>
   <entry>
-    <title>c++ 默认构造函数</title>
-    <url>/2015/04/03/c++%20%E9%BB%98%E8%AE%A4%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0/</url>
-    <content><![CDATA[<p><strong>关于c++构造函数两个误解</strong> </p>
-<ol>
-<li><p>任何class只要没有定义构造函数，就会被编译器自动合成一个。 有些构造函数在实际中有和没有是没有任何用处的，所以无用的构造函数是不会被构建出来</p>
-</li>
-<li><p>编译器合成的构造函数，会为每个成员变量设定初始值 在我看来，编译器合成的构造函数，是为了调用成员类或者父类的构造函数，而这个成员类的构造函数的调用顺序则是按照申明的顺序来调用。</p>
-</li>
-</ol>
-]]></content>
-      <categories>
-        <category>C++</category>
-      </categories>
-  </entry>
-  <entry>
     <title>UndeclaredThrowableException原因</title>
     <url>/2021/01/17/UndeclaredThrowableException%E5%8E%9F%E5%9B%A0/</url>
     <content><![CDATA[<h1 id="UndeclaredThrowableException-原因"><a href="#UndeclaredThrowableException-原因" class="headerlink" title="UndeclaredThrowableException 原因"></a><em>UndeclaredThrowableException</em> 原因</h1><p>RPC 请求的时候抛出该异常，异常点是 RPC 调用的地方抛出的该异常，除此之外没有其他的异常信息。仔细排查，实际的异常应该是网络IO的TIMEOUT导致的。 那么，就有2个问题需要探讨：</p>
@@ -1048,6 +1033,21 @@
       <tags>
         <tag>Java</tag>
       </tags>
+  </entry>
+  <entry>
+    <title>c++ 默认构造函数</title>
+    <url>/2015/04/03/c++%20%E9%BB%98%E8%AE%A4%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0/</url>
+    <content><![CDATA[<p><strong>关于c++构造函数两个误解</strong> </p>
+<ol>
+<li><p>任何class只要没有定义构造函数，就会被编译器自动合成一个。 有些构造函数在实际中有和没有是没有任何用处的，所以无用的构造函数是不会被构建出来</p>
+</li>
+<li><p>编译器合成的构造函数，会为每个成员变量设定初始值 在我看来，编译器合成的构造函数，是为了调用成员类或者父类的构造函数，而这个成员类的构造函数的调用顺序则是按照申明的顺序来调用。</p>
+</li>
+</ol>
+]]></content>
+      <categories>
+        <category>C++</category>
+      </categories>
   </entry>
   <entry>
     <title>c++ 子类要正确的调用父类构造函数</title>
@@ -1585,19 +1585,6 @@ f1
       </categories>
   </entry>
   <entry>
-    <title>windows核心编程-错误处理</title>
-    <url>/2015/01/29/windows-e6-a0-b8-e5-bf-83-e7-bc-96-e7-a8-8b-e9-94-99-e8-af-af-e5-a4-84-e7-90-86/</url>
-    <content><![CDATA[<p>1.常见的错误返回类型</p>
-<p>VOID/BOOL/HANDLE/PVOID/LONG/DWORD VOID 不可能失败 BOOL 错误返回false 编码的时候最好测试是否不为FALSE HANDLE 错误 NULL/INVALID_HANDLE_VALUE PVOID  失败返回NULL,成功返回一个数据块的地址 LONG/DWORD 0或-1，不绝对 2.GetLastError函数   DWORD GetLastError(); 3.WinError.h 头文件定义了若干的Mircosoft定义的代码列表 4.</p>
-]]></content>
-      <categories>
-        <category>ACMICPC</category>
-      </categories>
-      <tags>
-        <tag>windows</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>并查集</title>
     <url>/2013/04/27/set/</url>
     <content><![CDATA[<p>  好吧，前两天做了一场CF，遇到一道并查集的题目，感觉并查集还需学习啊，记录一下 具体的算法如下</p>
@@ -1614,6 +1601,19 @@ f1
       <categories>
         <category>ACMICPC</category>
       </categories>
+  </entry>
+  <entry>
+    <title>windows核心编程-错误处理</title>
+    <url>/2015/01/29/windows-e6-a0-b8-e5-bf-83-e7-bc-96-e7-a8-8b-e9-94-99-e8-af-af-e5-a4-84-e7-90-86/</url>
+    <content><![CDATA[<p>1.常见的错误返回类型</p>
+<p>VOID/BOOL/HANDLE/PVOID/LONG/DWORD VOID 不可能失败 BOOL 错误返回false 编码的时候最好测试是否不为FALSE HANDLE 错误 NULL/INVALID_HANDLE_VALUE PVOID  失败返回NULL,成功返回一个数据块的地址 LONG/DWORD 0或-1，不绝对 2.GetLastError函数   DWORD GetLastError(); 3.WinError.h 头文件定义了若干的Mircosoft定义的代码列表 4.</p>
+]]></content>
+      <categories>
+        <category>ACMICPC</category>
+      </categories>
+      <tags>
+        <tag>windows</tag>
+      </tags>
   </entry>
   <entry>
     <title>关于大数据的C(M,N)</title>
@@ -1681,25 +1681,6 @@ f1
       </categories>
   </entry>
   <entry>
-    <title>图论入门算法理解</title>
-    <url>/2014/06/09/%E5%9B%BE%E8%AE%BA%E5%85%A5%E9%97%A8%E7%AE%97%E6%B3%95%E7%90%86%E8%A7%A3/</url>
-    <content><![CDATA[<p> 1.Dijsktra 算法</p>
-<p>​        Dijsktra算法是基于贪心的，从源点开始扩展，将当前已经是最短路的点加入集合中。dist[i]表示源点s到i的距离，那么初始的时候，找距离源点最近的一个点t0,那么dist[t0]必定是s到t0最短的距离，因为不可能通过其他的点转到t0再让t0最短了（这也是为什么Dijsktra不能处理负权边的原因），同理，扩展第二点的时候也是一样，因为 在扩展第二个点的时候，已经用 第一个点 优化了所有其他的点，那么最近的那个点，一定无法 通过剩余的其他的那个点来 优化自己的距离了，也就是说这个点dist[t1]必定是s到t1的最短路径。</p>
-<p>2.floyd：</p>
-<p>　　每个点而言，剩余的点的两两最短路，要么经过这个点，要么不经过这个点 ，只要看经过它是否能更短。从另一个角度来理解的话,c[i][j][k]表示i,j经过的中间节点最大的点的标号不超过k的最短路，那么dp的 转移方程就是c[i][j][k]=min(c[i][k][k-1]+c[k][j][k-1],c[i][j][k]).</p>
-<p>3.Bellman-ford </p>
-<p>​     进行n次按边松弛的操作，之所以是n次，因为每次松弛过程中，都能保证至少一个点获得了最短路，且每个点最多被经过1次，从DP角度来理解的话，d[k][v]=min(d[k-1][v]+e[u][v],d[k-1][v]),其中e[u][v]代表的是边，d[k][v]表示的是k次以内到达v的最短距离。</p>
-<p>4.SPFA</p>
-<p>　　最差的情况是n*(n-1)*e,每个点被松弛n-1次,dp[i]=min(dp[v]+mp[v][i],dp[i])</p>
-]]></content>
-      <categories>
-        <category>ACMICPC</category>
-      </categories>
-      <tags>
-        <tag>理论</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>国内NextJs代理支持amp</title>
     <url>/2021/02/12/%E5%9B%BD%E5%86%85NextJs%E4%BB%A3%E7%90%86%E6%94%AF%E6%8C%81amp/</url>
     <content><![CDATA[<h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><p>最近学习了一下 nextjs，用这个写了个小网站 cushiwen.cn.  过程中发现 nextjs 天然支持 amp，虽然只有css-in-js的方式支持css， 但是还是很方便的，就尝试了一下。 发现过程中总是出现以下错误：</p>
@@ -1739,6 +1720,25 @@ f1
       </categories>
       <tags>
         <tag>FE</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>图论入门算法理解</title>
+    <url>/2014/06/09/%E5%9B%BE%E8%AE%BA%E5%85%A5%E9%97%A8%E7%AE%97%E6%B3%95%E7%90%86%E8%A7%A3/</url>
+    <content><![CDATA[<p> 1.Dijsktra 算法</p>
+<p>​        Dijsktra算法是基于贪心的，从源点开始扩展，将当前已经是最短路的点加入集合中。dist[i]表示源点s到i的距离，那么初始的时候，找距离源点最近的一个点t0,那么dist[t0]必定是s到t0最短的距离，因为不可能通过其他的点转到t0再让t0最短了（这也是为什么Dijsktra不能处理负权边的原因），同理，扩展第二点的时候也是一样，因为 在扩展第二个点的时候，已经用 第一个点 优化了所有其他的点，那么最近的那个点，一定无法 通过剩余的其他的那个点来 优化自己的距离了，也就是说这个点dist[t1]必定是s到t1的最短路径。</p>
+<p>2.floyd：</p>
+<p>　　每个点而言，剩余的点的两两最短路，要么经过这个点，要么不经过这个点 ，只要看经过它是否能更短。从另一个角度来理解的话,c[i][j][k]表示i,j经过的中间节点最大的点的标号不超过k的最短路，那么dp的 转移方程就是c[i][j][k]=min(c[i][k][k-1]+c[k][j][k-1],c[i][j][k]).</p>
+<p>3.Bellman-ford </p>
+<p>​     进行n次按边松弛的操作，之所以是n次，因为每次松弛过程中，都能保证至少一个点获得了最短路，且每个点最多被经过1次，从DP角度来理解的话，d[k][v]=min(d[k-1][v]+e[u][v],d[k-1][v]),其中e[u][v]代表的是边，d[k][v]表示的是k次以内到达v的最短距离。</p>
+<p>4.SPFA</p>
+<p>　　最差的情况是n*(n-1)*e,每个点被松弛n-1次,dp[i]=min(dp[v]+mp[v][i],dp[i])</p>
+]]></content>
+      <categories>
+        <category>ACMICPC</category>
+      </categories>
+      <tags>
+        <tag>理论</tag>
       </tags>
   </entry>
   <entry>
@@ -1830,6 +1830,27 @@ f1
       </tags>
   </entry>
   <entry>
+    <title>设计模式-模板方法</title>
+    <url>/2014/09/05/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E6%A8%A1%E6%9D%BF%E6%96%B9%E6%B3%95/</url>
+    <content><![CDATA[<p>前面学习过了策略模式，策略模式是对一类的算法进行封装，利用组合，算法之间可以互相替换，但是这个是针对算法过程不是一样的算法。但是如果一系列的算法的步骤都是一样的，且算法的很多过程都是一样的处理，那么，用策略模式的话，会导致算法的重用不高，我们采用模板方法来实现：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">模板方法模式：在一个方法中定义一个算法的骨架，而将一些步骤延迟到子类中。模板方法使得子类可以在不改变算法结构的情况下，重新定义算法中的某些步骤。</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">public abstract class CAL&#123;</span><br><span class="line">    public final void algorithm()</span><br><span class="line">    &#123;</span><br><span class="line">        A1();</span><br><span class="line">        A2();</span><br><span class="line">        if (Judge())</span><br><span class="line">            A3();</span><br><span class="line">        A4();</span><br><span class="line">    &#125;</span><br><span class="line">    public void A1()&#123;</span><br><span class="line">        //实现</span><br><span class="line">        .....</span><br><span class="line">    &#125;</span><br><span class="line">    public  void A2()&#123;</span><br><span class="line">        //实现</span><br><span class="line">        .....</span><br><span class="line">    &#125;</span><br><span class="line">    public abstract void A3()&#123;&#125;</span><br><span class="line">    public abstract void A4()&#123;&#125;</span><br><span class="line">    public boolean Judge()&#123;</span><br><span class="line">        return true;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>其中模板类是一个抽象类，其中算法是确定了的，A1，A2是公共的方法，所有的子类都是一样的，A3，A4是子类自己实现的不一样的函数，定义为抽象方法，子类实现，而Judge方法被成为钩子，默认返回true，而子类可以重写这个方法，这样就能让子类拥有自己的方法。但是这个也反应了模板方法的一个缺点，就是与策略模式相比，弹性不足。</p>
+<p>设计模式-好莱坞模式</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">好莱坞模式：别调用我们，我们会调用你。</span><br></pre></td></tr></table></figure>
+
+<p>允许低层组件将自己挂钩到系统上，但是高层组件会决定什么时候和怎样使用这些低层组件。</p>
+]]></content>
+      <categories>
+        <category>Design Pattern</category>
+      </categories>
+      <tags>
+        <tag>设计模式</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>设计模式-状态模式</title>
     <url>/2014/09/07/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E7%8A%B6%E6%80%81%E6%A8%A1%E5%BC%8F/</url>
     <content><![CDATA[<p>状态模式是针对系统的状态转换的，其主要的定义如下：</p>
@@ -1848,18 +1869,20 @@ f1
       </tags>
   </entry>
   <entry>
-    <title>设计模式-模板方法</title>
-    <url>/2014/09/05/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E6%A8%A1%E6%9D%BF%E6%96%B9%E6%B3%95/</url>
-    <content><![CDATA[<p>前面学习过了策略模式，策略模式是对一类的算法进行封装，利用组合，算法之间可以互相替换，但是这个是针对算法过程不是一样的算法。但是如果一系列的算法的步骤都是一样的，且算法的很多过程都是一样的处理，那么，用策略模式的话，会导致算法的重用不高，我们采用模板方法来实现：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">模板方法模式：在一个方法中定义一个算法的骨架，而将一些步骤延迟到子类中。模板方法使得子类可以在不改变算法结构的情况下，重新定义算法中的某些步骤。</span><br></pre></td></tr></table></figure>
+    <title>设计模式-策略模式</title>
+    <url>/2014/08/29/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E7%AD%96%E7%95%A5%E6%A8%A1%E5%BC%8F/</url>
+    <content><![CDATA[<p>​ 在实际开发过程中，经常会发生这样的一件事，我们需要实现一系列的功能，这些功能在逻辑上是可以抽象成一样的方法，不同的实现，也就是多态，有一种解决方法是，设计一个基类，然后我们定义一些方法，然后继承这个类，设计不同的子类，不同的实现，这样子我们就可以定义基类来调用子类的方法，实现多态，这种方法一定程度上是实现了代码复用。</p>
+<p>​ 但是会有一个问题，假设，基类BaseClass具有一个方法，他们的子类都具有两个方法A和B，其中方法A的实现，所有的子类都一样，很明显A的实现方法是放在基类中实现的，如果B的方法每个子类的实现都不是一样的，那么毫无疑问的是我们会在每个子类中重写B的实现。这些都是显而易见的，但是某一天需求变了，BaseClass的子类childClass1，childClass2的B方法的实现是完全一样的，childClass3，childClass4的B方法的实现也是一样的，如果我们再在每个子类中实现这个方法，很明显，代码复用很不完美。也许我们会这样子解决这个问题:</p>
+<p>​ 在现有的基类和子类中再添加一层，分别为childClass1，childClass2添加由BaseClass继承而来的一个父类，使得这两个子类从新增的这个类中继承，而他们的B方法的实现放在这个新增的类中，同样的操作对childClass3,childClass4进行。</p>
+<p>​ 这个方法一定程度上是解决了上面的问题，但是新的问题又出现了，如果再来一个方法C，childClass2和childClass3的方法C的实现又是一样的，那又该怎么办？显然我们的设计很有问题。此时我们就需要题目中所说的设计模式—-策略模式。</p>
+<pre><code>  策略模式的概念太过抽象，我们先看看如何解决上诉问题:
+</code></pre>
+<p>​ 我们通过接口来解决这些变化的方法，我们针对可能会变化的B,C两个方法分别定义一个接口interfaceB，interfaceC,针对childClass1,childClass2我们定义一个类classB1用他们的方法B来实现interfaceB，同理我们生成classB2,classC1,classC2,classC3分别对应不同的方法B和C的实现，这样子，我们只要在基类中定义一个B，C类型为interfaceB，interfaceC的方法引用变量和两个引用对应的setter方法，就可以在子类的构造函数中通过setter方法定制属于自已的方法B,C了，从而很好的实现了代码复用的同时，降低了耦合性，增强了可扩展性。</p>
+<pre><code> 我们将这种方法B和C称为策略，那么我们的策略模式，就是针对每一类方法我们定义一套策略，这一套策略是对一类方法的不同实现，他们之间可以互相替换，这种方法可以让算法的变化独立在了使用算法的客户。
 
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">public abstract class CAL&#123;</span><br><span class="line">    public final void algorithm()</span><br><span class="line">    &#123;</span><br><span class="line">        A1();</span><br><span class="line">        A2();</span><br><span class="line">        if (Judge())</span><br><span class="line">            A3();</span><br><span class="line">        A4();</span><br><span class="line">    &#125;</span><br><span class="line">    public void A1()&#123;</span><br><span class="line">        //实现</span><br><span class="line">        .....</span><br><span class="line">    &#125;</span><br><span class="line">    public  void A2()&#123;</span><br><span class="line">        //实现</span><br><span class="line">        .....</span><br><span class="line">    &#125;</span><br><span class="line">    public abstract void A3()&#123;&#125;</span><br><span class="line">    public abstract void A4()&#123;&#125;</span><br><span class="line">    public boolean Judge()&#123;</span><br><span class="line">        return true;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>其中模板类是一个抽象类，其中算法是确定了的，A1，A2是公共的方法，所有的子类都是一样的，A3，A4是子类自己实现的不一样的函数，定义为抽象方法，子类实现，而Judge方法被成为钩子，默认返回true，而子类可以重写这个方法，这样就能让子类拥有自己的方法。但是这个也反应了模板方法的一个缺点，就是与策略模式相比，弹性不足。</p>
-<p>设计模式-好莱坞模式</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">好莱坞模式：别调用我们，我们会调用你。</span><br></pre></td></tr></table></figure>
-
-<p>允许低层组件将自己挂钩到系统上，但是高层组件会决定什么时候和怎样使用这些低层组件。</p>
+ 这一章里面，也抽象出了下面的3种设计原则：
+</code></pre>
+<p>1、封装变化<br>2、多用组合，少用继承<br>3、针对接口编程，不针对实现编程</p>
 ]]></content>
       <categories>
         <category>Design Pattern</category>
@@ -1902,29 +1925,6 @@ f1
       </tags>
   </entry>
   <entry>
-    <title>设计模式-策略模式</title>
-    <url>/2014/08/29/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E7%AD%96%E7%95%A5%E6%A8%A1%E5%BC%8F/</url>
-    <content><![CDATA[<p>​ 在实际开发过程中，经常会发生这样的一件事，我们需要实现一系列的功能，这些功能在逻辑上是可以抽象成一样的方法，不同的实现，也就是多态，有一种解决方法是，设计一个基类，然后我们定义一些方法，然后继承这个类，设计不同的子类，不同的实现，这样子我们就可以定义基类来调用子类的方法，实现多态，这种方法一定程度上是实现了代码复用。</p>
-<p>​ 但是会有一个问题，假设，基类BaseClass具有一个方法，他们的子类都具有两个方法A和B，其中方法A的实现，所有的子类都一样，很明显A的实现方法是放在基类中实现的，如果B的方法每个子类的实现都不是一样的，那么毫无疑问的是我们会在每个子类中重写B的实现。这些都是显而易见的，但是某一天需求变了，BaseClass的子类childClass1，childClass2的B方法的实现是完全一样的，childClass3，childClass4的B方法的实现也是一样的，如果我们再在每个子类中实现这个方法，很明显，代码复用很不完美。也许我们会这样子解决这个问题:</p>
-<p>​ 在现有的基类和子类中再添加一层，分别为childClass1，childClass2添加由BaseClass继承而来的一个父类，使得这两个子类从新增的这个类中继承，而他们的B方法的实现放在这个新增的类中，同样的操作对childClass3,childClass4进行。</p>
-<p>​ 这个方法一定程度上是解决了上面的问题，但是新的问题又出现了，如果再来一个方法C，childClass2和childClass3的方法C的实现又是一样的，那又该怎么办？显然我们的设计很有问题。此时我们就需要题目中所说的设计模式—-策略模式。</p>
-<pre><code>  策略模式的概念太过抽象，我们先看看如何解决上诉问题:
-</code></pre>
-<p>​ 我们通过接口来解决这些变化的方法，我们针对可能会变化的B,C两个方法分别定义一个接口interfaceB，interfaceC,针对childClass1,childClass2我们定义一个类classB1用他们的方法B来实现interfaceB，同理我们生成classB2,classC1,classC2,classC3分别对应不同的方法B和C的实现，这样子，我们只要在基类中定义一个B，C类型为interfaceB，interfaceC的方法引用变量和两个引用对应的setter方法，就可以在子类的构造函数中通过setter方法定制属于自已的方法B,C了，从而很好的实现了代码复用的同时，降低了耦合性，增强了可扩展性。</p>
-<pre><code> 我们将这种方法B和C称为策略，那么我们的策略模式，就是针对每一类方法我们定义一套策略，这一套策略是对一类方法的不同实现，他们之间可以互相替换，这种方法可以让算法的变化独立在了使用算法的客户。
-
- 这一章里面，也抽象出了下面的3种设计原则：
-</code></pre>
-<p>1、封装变化<br>2、多用组合，少用继承<br>3、针对接口编程，不针对实现编程</p>
-]]></content>
-      <categories>
-        <category>Design Pattern</category>
-      </categories>
-      <tags>
-        <tag>设计模式</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>设计模式-观察者模式</title>
     <url>/2014/08/30/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E8%A7%82%E5%AF%9F%E8%80%85%E6%A8%A1%E5%BC%8F/</url>
     <content><![CDATA[<p>在项目设计阶段，处理一对多的依赖关系类的时候，我们需要降低代码的耦合性从而增强可扩展性，比如一个班级，班主任老师和学生的关系，对于学校的通知，必定不会是学生没事的时候就问一下班主任”学校有通知没啊？”（铁定会把班主任搞毛的），明智的做法则是等着班主任在班级里面通知（对于学校的通知，班主任不会不通知学生的）,在这个关系里，班主任就是所谓的被观察者，而学生则是观察者，也就是所谓的观察者模式：</p>
@@ -1946,6 +1946,37 @@ f1
 <blockquote>
 <p>为交互对象间的松耦合设计而努力</p>
 </blockquote>
+]]></content>
+      <categories>
+        <category>Design Pattern</category>
+      </categories>
+      <tags>
+        <tag>设计模式</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>设计模式-迭代器模式和组合模式</title>
+    <url>/2014/09/06/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E8%BF%AD%E4%BB%A3%E5%99%A8%E6%A8%A1%E5%BC%8F%E5%92%8C%E7%BB%84%E5%90%88%E6%A8%A1%E5%BC%8F/</url>
+    <content><![CDATA[<p>1.迭代器模式完成的功能是和迭代器一样的，封装了对对象的顺序遍历，因为子类的对象集合的存储方式可能并不一致。但是存储的对象是一致的。</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">public classItem&#123;</span><br><span class="line">    .....//各种属性</span><br><span class="line">&#125;</span><br><span class="line">public class Set1&#123;</span><br><span class="line">    item[] items;</span><br><span class="line">    ...</span><br><span class="line">    public Iterator createIterator()&#123;</span><br><span class="line">        return new ItemIterator(items);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">public class Set2&#123;</span><br><span class="line">    ArrayList items;</span><br><span class="line">    ...</span><br><span class="line">    public Iterator createIterator()&#123;</span><br><span class="line">        return  items.iterator();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">public class ItemIterator implements Iterator&#123;</span><br><span class="line">    Item[] items;</span><br><span class="line">     int position;</span><br><span class="line">    public ItemIterator(Item[] items)</span><br><span class="line">    &#123;</span><br><span class="line">        this.items=items;</span><br><span class="line">        position=0;</span><br><span class="line">    &#125;</span><br><span class="line">    public Object next()</span><br><span class="line">    &#123;</span><br><span class="line">        Item i=items[position];</span><br><span class="line">        position=position+1;</span><br><span class="line">        return i;</span><br><span class="line">    &#125;</span><br><span class="line">    public boolean hasNext()</span><br><span class="line">    &#123;</span><br><span class="line">        if (position&gt;=items.lenght || items[position]==null)</span><br><span class="line">            return false;</span><br><span class="line">        else</span><br><span class="line">            return true;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>通过这种方法，我们就可以通过自己定义的一个迭代器来访问数组，同时通过createIterator的方法来顺序遍历存储结构不一样的Set1和Set2中item对象。所以迭代器模式就是:</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">迭代器模式：提供一种方法顺序访问一个聚合对象中的各种元素，而又不暴露其内部的表示。</span><br></pre></td></tr></table></figure>
+
+<p>2.组合模式</p>
+<p>组合模式其实就是整体与部分的一个关系，其实就是一个树形结构，根节点由他的子节点组合而成，而子节点又有自己的子节点来组合而成，所以组合模式的定义如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">组合模式：允许你将对象组合成树形结构来表现“整体/部分”的层次结构，组合能让客户以一致的方法处理个别对象以及对象组合。</span><br></pre></td></tr></table></figure>
+
+<p>现在我们需要对组合模式下的对象这棵进行遍历怎么办？</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">public abstract class ItemComponent&#123;</span><br><span class="line">    ....//方法</span><br><span class="line">    public void method1()&#123;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">public classItem extends ItemComponent&#123;</span><br><span class="line">    .....//各种属性</span><br><span class="line">    public void method1()</span><br><span class="line">    &#123;</span><br><span class="line">        System.out.println(&quot;leaf&quot;);</span><br><span class="line">    &#125;    </span><br><span class="line">&#125;</span><br><span class="line">public class Set1 extends ItemComponent&#123;</span><br><span class="line">    item[] items;</span><br><span class="line">    ...</span><br><span class="line">    public Iterator Iterator()&#123;</span><br><span class="line">        return new ItemIterator(items);</span><br><span class="line">    &#125;</span><br><span class="line">    public void method1()</span><br><span class="line">    &#123;</span><br><span class="line">        System.out.println(&quot;not leaf&quot;);</span><br><span class="line">        Iterator iterator=itemComponent.iterator();//重写</span><br><span class="line">        while (iterator.hasNext())</span><br><span class="line">        &#123;</span><br><span class="line">            ItemComponent t=(ItemComponent) iterator.next();</span><br><span class="line">            t.method1();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">public class Set2 extends ItemComponent&#123;</span><br><span class="line">    ArrayList items;</span><br><span class="line">    ...</span><br><span class="line">    public Iterator Iterator()&#123;</span><br><span class="line">        return  items.iterator();</span><br><span class="line">    &#125;</span><br><span class="line">        public void method1()</span><br><span class="line">    &#123;</span><br><span class="line">        System.out.println(&quot;not leaf&quot;);</span><br><span class="line">        Iterator iterator=itemComponent.iterator();//重写</span><br><span class="line">        while (iterator.hasNext())</span><br><span class="line">        &#123;</span><br><span class="line">            ItemComponent t=(ItemComponent) iterator.next();</span><br><span class="line">            t.method1();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>上面这种方式是一种通过递归的方式来实现全部遍历的</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">public class ItemIterator implements Iterator&#123;</span><br><span class="line">    stack stack = new Stack();</span><br><span class="line">    public ItemIterator(Iterator iter)</span><br><span class="line">    &#123;</span><br><span class="line">        stack.push(iter);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">     public Object next()</span><br><span class="line">    &#123;</span><br><span class="line">        if (hasNext())&#123;</span><br><span class="line">            Iterator iterator=(Iterator)stack.peek();</span><br><span class="line">            ItemComponent t=(ItemComponent) iterator.next();</span><br><span class="line">            if (t instanceof Set1)</span><br><span class="line">            &#123;</span><br><span class="line">                stack.push(t.createIterator());    </span><br><span class="line">            &#125;</span><br><span class="line">            return t;</span><br><span class="line">        &#125;else&#123;</span><br><span class="line">            return null;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    public boolean hasNext()</span><br><span class="line">    &#123;</span><br><span class="line">        if (stack.empty())&#123;</span><br><span class="line">            return false;</span><br><span class="line">        &#125;else&#123;</span><br><span class="line">            Iterator iterator=(Iterator) stack.peek();</span><br><span class="line">            if (!iterator.hasNext())&#123;</span><br><span class="line">                stack.pop();</span><br><span class="line">                return hasNext();</span><br><span class="line">            &#125;else &#123;</span><br><span class="line">                return true;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>现在定义的这种方式，是通过迭代器用栈模拟递归的一种方式。</p>
+<p>3。设计模式-职责单一</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">单一责任： 一个类应该只有一个引起变化的原因。</span><br></pre></td></tr></table></figure>
+
 ]]></content>
       <categories>
         <category>Design Pattern</category>
@@ -1980,37 +2011,6 @@ f1
 
 <p>需要做到这个原则，建议只调用一下的范围的方法：</p>
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">对象本身</span><br><span class="line">被当作方法的参数而传递进来的对象</span><br><span class="line">此方法所创建或实例化的任何对象</span><br><span class="line">对象的任何组组件</span><br></pre></td></tr></table></figure>
-
-]]></content>
-      <categories>
-        <category>Design Pattern</category>
-      </categories>
-      <tags>
-        <tag>设计模式</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>设计模式-迭代器模式和组合模式</title>
-    <url>/2014/09/06/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E8%BF%AD%E4%BB%A3%E5%99%A8%E6%A8%A1%E5%BC%8F%E5%92%8C%E7%BB%84%E5%90%88%E6%A8%A1%E5%BC%8F/</url>
-    <content><![CDATA[<p>1.迭代器模式完成的功能是和迭代器一样的，封装了对对象的顺序遍历，因为子类的对象集合的存储方式可能并不一致。但是存储的对象是一致的。</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">public classItem&#123;</span><br><span class="line">    .....//各种属性</span><br><span class="line">&#125;</span><br><span class="line">public class Set1&#123;</span><br><span class="line">    item[] items;</span><br><span class="line">    ...</span><br><span class="line">    public Iterator createIterator()&#123;</span><br><span class="line">        return new ItemIterator(items);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">public class Set2&#123;</span><br><span class="line">    ArrayList items;</span><br><span class="line">    ...</span><br><span class="line">    public Iterator createIterator()&#123;</span><br><span class="line">        return  items.iterator();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">public class ItemIterator implements Iterator&#123;</span><br><span class="line">    Item[] items;</span><br><span class="line">     int position;</span><br><span class="line">    public ItemIterator(Item[] items)</span><br><span class="line">    &#123;</span><br><span class="line">        this.items=items;</span><br><span class="line">        position=0;</span><br><span class="line">    &#125;</span><br><span class="line">    public Object next()</span><br><span class="line">    &#123;</span><br><span class="line">        Item i=items[position];</span><br><span class="line">        position=position+1;</span><br><span class="line">        return i;</span><br><span class="line">    &#125;</span><br><span class="line">    public boolean hasNext()</span><br><span class="line">    &#123;</span><br><span class="line">        if (position&gt;=items.lenght || items[position]==null)</span><br><span class="line">            return false;</span><br><span class="line">        else</span><br><span class="line">            return true;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>通过这种方法，我们就可以通过自己定义的一个迭代器来访问数组，同时通过createIterator的方法来顺序遍历存储结构不一样的Set1和Set2中item对象。所以迭代器模式就是:</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">迭代器模式：提供一种方法顺序访问一个聚合对象中的各种元素，而又不暴露其内部的表示。</span><br></pre></td></tr></table></figure>
-
-<p>2.组合模式</p>
-<p>组合模式其实就是整体与部分的一个关系，其实就是一个树形结构，根节点由他的子节点组合而成，而子节点又有自己的子节点来组合而成，所以组合模式的定义如下：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">组合模式：允许你将对象组合成树形结构来表现“整体/部分”的层次结构，组合能让客户以一致的方法处理个别对象以及对象组合。</span><br></pre></td></tr></table></figure>
-
-<p>现在我们需要对组合模式下的对象这棵进行遍历怎么办？</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">public abstract class ItemComponent&#123;</span><br><span class="line">    ....//方法</span><br><span class="line">    public void method1()&#123;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">public classItem extends ItemComponent&#123;</span><br><span class="line">    .....//各种属性</span><br><span class="line">    public void method1()</span><br><span class="line">    &#123;</span><br><span class="line">        System.out.println(&quot;leaf&quot;);</span><br><span class="line">    &#125;    </span><br><span class="line">&#125;</span><br><span class="line">public class Set1 extends ItemComponent&#123;</span><br><span class="line">    item[] items;</span><br><span class="line">    ...</span><br><span class="line">    public Iterator Iterator()&#123;</span><br><span class="line">        return new ItemIterator(items);</span><br><span class="line">    &#125;</span><br><span class="line">    public void method1()</span><br><span class="line">    &#123;</span><br><span class="line">        System.out.println(&quot;not leaf&quot;);</span><br><span class="line">        Iterator iterator=itemComponent.iterator();//重写</span><br><span class="line">        while (iterator.hasNext())</span><br><span class="line">        &#123;</span><br><span class="line">            ItemComponent t=(ItemComponent) iterator.next();</span><br><span class="line">            t.method1();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">public class Set2 extends ItemComponent&#123;</span><br><span class="line">    ArrayList items;</span><br><span class="line">    ...</span><br><span class="line">    public Iterator Iterator()&#123;</span><br><span class="line">        return  items.iterator();</span><br><span class="line">    &#125;</span><br><span class="line">        public void method1()</span><br><span class="line">    &#123;</span><br><span class="line">        System.out.println(&quot;not leaf&quot;);</span><br><span class="line">        Iterator iterator=itemComponent.iterator();//重写</span><br><span class="line">        while (iterator.hasNext())</span><br><span class="line">        &#123;</span><br><span class="line">            ItemComponent t=(ItemComponent) iterator.next();</span><br><span class="line">            t.method1();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>上面这种方式是一种通过递归的方式来实现全部遍历的</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">public class ItemIterator implements Iterator&#123;</span><br><span class="line">    stack stack = new Stack();</span><br><span class="line">    public ItemIterator(Iterator iter)</span><br><span class="line">    &#123;</span><br><span class="line">        stack.push(iter);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">     public Object next()</span><br><span class="line">    &#123;</span><br><span class="line">        if (hasNext())&#123;</span><br><span class="line">            Iterator iterator=(Iterator)stack.peek();</span><br><span class="line">            ItemComponent t=(ItemComponent) iterator.next();</span><br><span class="line">            if (t instanceof Set1)</span><br><span class="line">            &#123;</span><br><span class="line">                stack.push(t.createIterator());    </span><br><span class="line">            &#125;</span><br><span class="line">            return t;</span><br><span class="line">        &#125;else&#123;</span><br><span class="line">            return null;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    public boolean hasNext()</span><br><span class="line">    &#123;</span><br><span class="line">        if (stack.empty())&#123;</span><br><span class="line">            return false;</span><br><span class="line">        &#125;else&#123;</span><br><span class="line">            Iterator iterator=(Iterator) stack.peek();</span><br><span class="line">            if (!iterator.hasNext())&#123;</span><br><span class="line">                stack.pop();</span><br><span class="line">                return hasNext();</span><br><span class="line">            &#125;else &#123;</span><br><span class="line">                return true;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>现在定义的这种方式，是通过迭代器用栈模拟递归的一种方式。</p>
-<p>3。设计模式-职责单一</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">单一责任： 一个类应该只有一个引起变化的原因。</span><br></pre></td></tr></table></figure>
 
 ]]></content>
       <categories>
