@@ -2950,3 +2950,11 @@ mjx-container[display="true"] + br {
     margin-bottom: 10px;
   }
 }
+.post-adsense {
+  margin: 20px 0;
+  text-align: center;
+}
+.sidebar-adsense {
+  margin: 20px 0;
+  text-align: center;
+}

@@ -1126,19 +1126,6 @@ f1
       </categories>
   </entry>
   <entry>
-    <title>IOCP</title>
-    <url>/2015/01/29/iocp/</url>
-    <content><![CDATA[<p>IOCP是windows下的一种异步IO通信模式（linux下面对应epoll，二者有区别—&gt;<a href="http://www.cnblogs.com/uzhang/archive/2012/02/24/2365980.html%EF%BC%89">http://www.cnblogs.com/uzhang/archive/2012/02/24/2365980.html）</a></p>
-<p>一样的socket的绑定通信的过程，不同的是并不对每一个用户请求单独开设一个线程去处理用户请求，而是在后面一线程池的方式，开固定的线程，轮流处理用户请求，减少线程的上下文切换损耗，同时利用重叠IO，减低内存等资源的消耗。 关于具体的一些内容，见：<a href="http://blog.csdn.net/neicole/article/details/7549497">http://blog.csdn.net/neicole/article/details/7549497</a></p>
-]]></content>
-      <categories>
-        <category>Theory</category>
-      </categories>
-      <tags>
-        <tag>windows</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>hibernate ID 生成方式</title>
     <url>/2015/02/10/hibernate%20ID%20%E7%94%9F%E6%88%90%E6%96%B9%E5%BC%8F/</url>
     <content><![CDATA[<h1 id="1、assigned"><a href="#1、assigned" class="headerlink" title="1、assigned"></a>1、assigned</h1><p>主键由外部程序负责生成，在 save() 之前必须指定一个。Hibernate不负责维护主键生成。与Hibernate和底层数据库都无关，可以跨数据库。在存储对象前，必须要使用主键的setter方法给主键赋值，至于这个值怎么生成，完全由自己决定，这种方法应该尽量避免。</p>
@@ -1345,6 +1332,19 @@ f1
       </categories>
   </entry>
   <entry>
+    <title>IOCP</title>
+    <url>/2015/01/29/iocp/</url>
+    <content><![CDATA[<p>IOCP是windows下的一种异步IO通信模式（linux下面对应epoll，二者有区别—&gt;<a href="http://www.cnblogs.com/uzhang/archive/2012/02/24/2365980.html%EF%BC%89">http://www.cnblogs.com/uzhang/archive/2012/02/24/2365980.html）</a></p>
+<p>一样的socket的绑定通信的过程，不同的是并不对每一个用户请求单独开设一个线程去处理用户请求，而是在后面一线程池的方式，开固定的线程，轮流处理用户请求，减少线程的上下文切换损耗，同时利用重叠IO，减低内存等资源的消耗。 关于具体的一些内容，见：<a href="http://blog.csdn.net/neicole/article/details/7549497">http://blog.csdn.net/neicole/article/details/7549497</a></p>
+]]></content>
+      <categories>
+        <category>Theory</category>
+      </categories>
+      <tags>
+        <tag>windows</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>kruskal 算法</title>
     <url>/2013/04/29/kruskal-e7-ae-97-e6-b3-95/</url>
     <content><![CDATA[<p>  kruskal算法的主要思想就是从当前路径中选择一个不能构成环的最小边加入</p>
@@ -1539,16 +1539,6 @@ init─┬─Xvnc
       </tags>
   </entry>
   <entry>
-    <title>POJ 1015</title>
-    <url>/2013/04/25/poj1015/</url>
-    <content><![CDATA[<p>  原题的题意是给n个人，每个人对于控辩两方都有一个值，现在选择m个人，使得控辩两方的值的差的和最小，如果有相同的最小值，那么就选择最大的一个。 本题的关键是模型的构建，对于每个人都有两种选择，一个是选择，一个是不选择，对于相同的差值，维护一个最大的和值，换言之，就是假设差值一定，从n个人选择m个人使得和最大.可以转换为背包问题。状态转移的方程为f[i][j][k+p[i]]=max{f[i-1][j][k+p[i]],f[i-1][j-1][k]+v[i]},表示前i个人中选择j个人差的和为k的最大的和的和（p[i]是第i个人的控辩双方的值差，v[i]是第i个人的控辩双方的值和）.本题的另外一个难点在于路径的记录，我们知道，动态规划的一个本质就是状态转移，也就是在当前状态记录是由哪个值推倒过来的，就可以逆序退出上个状态的值。同时通过对路径的遍历，从而可以判断当前的第i个人是否被选择过，从而达到了降维的作用。</p>
-<p>#include #include #include #include #include using namespace std;<br>int a[201],b[201];<br>int f[30][801],path[30][801];<br>int p[205],v[205];<br>bool select(int i,int j,int k)<br>{<br>    while (true)<br>    {<br>        if (path[i][k]&lt;0 || i&lt;0) break;<br>         if (j==path[i][k]) return true;<br>        k=k-p[path[i][k]];<br>        i–;<br>    }<br>    return false;<br>}<br>int main()<br>{<br>    int n,m;<br>    int No=0;<br>    while (scanf(“%d%d”,&amp;n,&amp;m)!=EOF &amp;&amp; n+m!=0){<br>        cout&lt;&lt;”Jury #”&lt;&lt;++No&lt;=0){<br>                for (int j=0;j=0 &amp;&amp; f[m][m*20+i]&gt;=f[m][m*20-i])<br>                {<br>                    k=m<em>20+i;<br>                    break;<br>                }<br>                if (f[m][m</em>20-i]&gt;=0){<br>                    k=m<em>20-i;<br>                    break;<br>                }<br>            }<br>        int suma=0,sumb=0;<br>        int id[300];<br>        int sum=0;<br>        while (true)<br>        {<br>            int i=path[m–][k];<br>            if (i==-1 || m&lt;0) break;<br>            id[sum++]=i;<br>            suma+=a[i];<br>            sumb+=b[i];<br>            k=k-p[i];<br>        }<br>        cout&lt;&lt;”Best jury has value “&lt; #include #include #include #include using namespace std;<br>int a[201],b[201];<br>int f[30][801],path[30][801];<br>int p[205],v[205];<br>bool select(int i,int j,int k)<br>{<br>    while (true)<br>    {<br>        if (path[i][k]&lt;0 || i&lt;0) break;<br>         if (j==path[i][k]) return true;<br>        k=k-p[path[i][k]];<br>        i–;<br>    }<br>    return false;<br>}<br>int main()<br>{<br>    int n,m;<br>    int No=0;<br>    while (scanf(“%d%d”,&amp;n,&amp;m)!=EOF &amp;&amp; n+m!=0){<br>        cout&lt;&lt;”Jury #”&lt;&lt;++No&lt;=0){<br>                for (int j=0;j=0 &amp;&amp; f[m][m*20+i]&gt;=f[m][m*20-i])<br>                {<br>                    k=m</em>20+i;<br>                    break;<br>                }<br>                if (f[m][m<em>20-i]&gt;=0){<br>                    k=m</em>20-i;<br>                    break;<br>                }<br>            }<br>        int suma=0,sumb=0;<br>        int id[300];<br>        int sum=0;<br>        while (true)<br>        {<br>            int i=path[m–][k];<br>            if (i==-1 || m&lt;0) break;<br>            id[sum++]=i;<br>            suma+=a[i];<br>            sumb+=b[i];<br>            k=k-p[i];<br>        }<br>        cout&lt;&lt;”Best jury has value “&lt;</p>
-]]></content>
-      <categories>
-        <category>ACMICPC</category>
-      </categories>
-  </entry>
-  <entry>
     <title>POJ 1061</title>
     <url>/2013/04/28/poj1061/</url>
     <content><![CDATA[<p>  题意就不赘诉了，青蛙约会。是一个关于欧几里得扩展的定理的题目</p>
@@ -1557,6 +1547,16 @@ init─┬─Xvnc
 <p>针对本题，需要注意的是，    1.数据比较大，需要用long long 2.因为是时间，所以x不能是负数，如果出现负数怎么办呢？ a*x1+b*y1=d(d=gcd(a,b)),那个转换成 a*(x1+b*n）+b*（y1-a*n)=d 最终x=(x1%b+b)%b;或者(x1+(abs([x1/b])+1)*b)%b; AC代码：</p>
 <p>#include #include #include #include #include using namespace std;</p>
 <p>int gcd(int a,int b)<br>{<br>    if (b==0) return a;<br>    return gcd(b,a%b);<br>}<br>long long exgcd(long long a,long long b,long long &amp;x,long long &amp;y)<br>{<br>    if (b==0){ x=1;y=0;return a;}<br>    long long r=exgcd(b,a%b,x,y);<br>    long long t=x;<br>    x=y;<br>    y=t-(a/b)*y;<br>    return r;<br>}<br>int main()<br>{<br>    long long x,y,m,n,L;<br>    cin&gt;&gt;x&gt;&gt;y&gt;&gt;m&gt;&gt;n&gt;&gt;L;<br>    long long s=gcd(n-m,L);<br>    if ((x-y)%s!=0){<br>    cout&lt;&lt;”Impossible”&lt;</p>
+]]></content>
+      <categories>
+        <category>ACMICPC</category>
+      </categories>
+  </entry>
+  <entry>
+    <title>POJ 1015</title>
+    <url>/2013/04/25/poj1015/</url>
+    <content><![CDATA[<p>  原题的题意是给n个人，每个人对于控辩两方都有一个值，现在选择m个人，使得控辩两方的值的差的和最小，如果有相同的最小值，那么就选择最大的一个。 本题的关键是模型的构建，对于每个人都有两种选择，一个是选择，一个是不选择，对于相同的差值，维护一个最大的和值，换言之，就是假设差值一定，从n个人选择m个人使得和最大.可以转换为背包问题。状态转移的方程为f[i][j][k+p[i]]=max{f[i-1][j][k+p[i]],f[i-1][j-1][k]+v[i]},表示前i个人中选择j个人差的和为k的最大的和的和（p[i]是第i个人的控辩双方的值差，v[i]是第i个人的控辩双方的值和）.本题的另外一个难点在于路径的记录，我们知道，动态规划的一个本质就是状态转移，也就是在当前状态记录是由哪个值推倒过来的，就可以逆序退出上个状态的值。同时通过对路径的遍历，从而可以判断当前的第i个人是否被选择过，从而达到了降维的作用。</p>
+<p>#include #include #include #include #include using namespace std;<br>int a[201],b[201];<br>int f[30][801],path[30][801];<br>int p[205],v[205];<br>bool select(int i,int j,int k)<br>{<br>    while (true)<br>    {<br>        if (path[i][k]&lt;0 || i&lt;0) break;<br>         if (j==path[i][k]) return true;<br>        k=k-p[path[i][k]];<br>        i–;<br>    }<br>    return false;<br>}<br>int main()<br>{<br>    int n,m;<br>    int No=0;<br>    while (scanf(“%d%d”,&amp;n,&amp;m)!=EOF &amp;&amp; n+m!=0){<br>        cout&lt;&lt;”Jury #”&lt;&lt;++No&lt;=0){<br>                for (int j=0;j=0 &amp;&amp; f[m][m*20+i]&gt;=f[m][m*20-i])<br>                {<br>                    k=m<em>20+i;<br>                    break;<br>                }<br>                if (f[m][m</em>20-i]&gt;=0){<br>                    k=m<em>20-i;<br>                    break;<br>                }<br>            }<br>        int suma=0,sumb=0;<br>        int id[300];<br>        int sum=0;<br>        while (true)<br>        {<br>            int i=path[m–][k];<br>            if (i==-1 || m&lt;0) break;<br>            id[sum++]=i;<br>            suma+=a[i];<br>            sumb+=b[i];<br>            k=k-p[i];<br>        }<br>        cout&lt;&lt;”Best jury has value “&lt; #include #include #include #include using namespace std;<br>int a[201],b[201];<br>int f[30][801],path[30][801];<br>int p[205],v[205];<br>bool select(int i,int j,int k)<br>{<br>    while (true)<br>    {<br>        if (path[i][k]&lt;0 || i&lt;0) break;<br>         if (j==path[i][k]) return true;<br>        k=k-p[path[i][k]];<br>        i–;<br>    }<br>    return false;<br>}<br>int main()<br>{<br>    int n,m;<br>    int No=0;<br>    while (scanf(“%d%d”,&amp;n,&amp;m)!=EOF &amp;&amp; n+m!=0){<br>        cout&lt;&lt;”Jury #”&lt;&lt;++No&lt;=0){<br>                for (int j=0;j=0 &amp;&amp; f[m][m*20+i]&gt;=f[m][m*20-i])<br>                {<br>                    k=m</em>20+i;<br>                    break;<br>                }<br>                if (f[m][m<em>20-i]&gt;=0){<br>                    k=m</em>20-i;<br>                    break;<br>                }<br>            }<br>        int suma=0,sumb=0;<br>        int id[300];<br>        int sum=0;<br>        while (true)<br>        {<br>            int i=path[m–][k];<br>            if (i==-1 || m&lt;0) break;<br>            id[sum++]=i;<br>            suma+=a[i];<br>            sumb+=b[i];<br>            k=k-p[i];<br>        }<br>        cout&lt;&lt;”Best jury has value “&lt;</p>
 ]]></content>
       <categories>
         <category>ACMICPC</category>
@@ -1604,42 +1604,6 @@ init─┬─Xvnc
 <pre><code>                    X&amp;(-X)= 0,0,0….1, 0,0,0,….
 </code></pre>
 <p><strong>除了第i位是1，其他每一位的值都是0</strong>， 而根据我们最开始所说的，<strong>X的第i位的1就是X当前二进制编码的最后一个1</strong>，所以通过 x &amp;(-x) 我们能够得到x的最后一个</p>
-]]></content>
-      <categories>
-        <category>ACMICPC</category>
-      </categories>
-  </entry>
-  <entry>
-    <title>sdk篡改</title>
-    <url>/2017/07/23/sdk-e7-af-a1-e6-94-b9/</url>
-    <content><![CDATA[<p>前段时间，因为一年前篡改了一个sdk的包，导致了一系列不可预知的损失，这也充分说明了技术的正确性，需要决策的正确性来支撑的。作为技术人员，不仅仅要考虑技术的可行性，也要考虑实施后的风险和结果的预期假设。 从工程角度，简单记录一下篡改sdk包的技术。 </p>
-<ol>
-<li>解压jar或者apk的包 </li>
-<li>JD-GUI 反编译查看class的相关代码，找到修改点</li>
-<li>自己编写相应的方法或者类，使用 <code>javaassist</code> 注入到class文件 </li>
-<li>重新打包</li>
-</ol>
-<p> <code>javassist</code> 使用方法参考： <a href="https://jboss-javassist.github.io/javassist/tutorial/tutorial.html">https://jboss-javassist.github.io/javassist/tutorial/tutorial.html</a> 附上测试代码，修改一个方法</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">      javassist.tools.reflect.<span class="type">Loader</span> <span class="variable">cl</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">javassist</span>.tools.reflect.Loader();</span><br><span class="line">      <span class="type">ClassPool</span> <span class="variable">pool</span> <span class="operator">=</span> ClassPool.getDefault();</span><br><span class="line">      pool.insertClassPath(<span class="string">&quot;/tmp/aa/&quot;</span>);</span><br><span class="line">      <span class="type">CtClass</span> <span class="variable">cc</span> <span class="operator">=</span> pool.get(<span class="string">&quot;com.facebook.ads.internal.d.g&quot;</span>);</span><br><span class="line">      <span class="type">CtMethod</span> <span class="variable">ctmethod</span> <span class="operator">=</span> cc.getDeclaredMethod(<span class="string">&quot;c&quot;</span>);</span><br><span class="line">      cc.getDeclaredField(<span class="string">&quot;c&quot;</span>);</span><br><span class="line">      <span class="comment">// getCode()即为需要替换的的代码</span></span><br><span class="line">      ctmethod.setBody(getCode());</span><br><span class="line">      cc.writeFile(<span class="string">&quot;/tmp/aa/&quot;</span>);</span><br><span class="line">    &#125; <span class="keyword">catch</span> (CannotCompileException e) &#123;</span><br><span class="line">      e.printStackTrace();</span><br><span class="line">    &#125; <span class="keyword">catch</span> (NotFoundException e) &#123;</span><br><span class="line">      e.printStackTrace();</span><br><span class="line">    &#125; <span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">      e.printStackTrace();</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-]]></content>
-      <categories>
-        <category>JAVA</category>
-      </categories>
-  </entry>
-  <entry>
-    <title>并查集</title>
-    <url>/2013/04/27/set/</url>
-    <content><![CDATA[<p>  好吧，前两天做了一场CF，遇到一道并查集的题目，感觉并查集还需学习啊，记录一下 具体的算法如下</p>
-<ol>
-<li>有father数组，全部初始化为本身 </li>
-<li>添加一个关系进来的时候，s–t，找到s的祖先a,t的祖先b，将a的father设为b </li>
-<li>通过查找祖先，来确定是否在一个集合内</li>
-</ol>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">init</span><span class="params">(<span class="type">int</span> n)</span></span>&#123;<span class="comment">//初始化，节点编号1-n</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i=<span class="number">1</span>;i&lt;=n;i++) father[i]=i;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">find</span><span class="params">(<span class="type">int</span> x)</span><span class="comment">//查找祖先节点</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">while</span> (father[x]!=x) x=father[x];</span><br><span class="line">	<span class="keyword">return</span> x;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">add</span><span class="params">(<span class="type">int</span> s,<span class="type">int</span> t)</span><span class="comment">//增加一个关系，改变集合</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  <span class="type">int</span> a=<span class="built_in">find</span>(s);</span><br><span class="line">  <span class="type">int</span> b=<span class="built_in">find</span>(t);</span><br><span class="line">  father[a]=b;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">bool</span> <span class="title">judge</span><span class="params">(<span class="type">int</span> s,<span class="type">int</span> t)</span><span class="comment">//判断是不是一个集合</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">find</span>(s)==<span class="built_in">find</span>(t);</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-
-
 ]]></content>
       <categories>
         <category>ACMICPC</category>
@@ -1755,6 +1719,42 @@ init─┬─Xvnc
       <tags>
         <tag>RSA</tag>
       </tags>
+  </entry>
+  <entry>
+    <title>sdk篡改</title>
+    <url>/2017/07/23/sdk-e7-af-a1-e6-94-b9/</url>
+    <content><![CDATA[<p>前段时间，因为一年前篡改了一个sdk的包，导致了一系列不可预知的损失，这也充分说明了技术的正确性，需要决策的正确性来支撑的。作为技术人员，不仅仅要考虑技术的可行性，也要考虑实施后的风险和结果的预期假设。 从工程角度，简单记录一下篡改sdk包的技术。 </p>
+<ol>
+<li>解压jar或者apk的包 </li>
+<li>JD-GUI 反编译查看class的相关代码，找到修改点</li>
+<li>自己编写相应的方法或者类，使用 <code>javaassist</code> 注入到class文件 </li>
+<li>重新打包</li>
+</ol>
+<p> <code>javassist</code> 使用方法参考： <a href="https://jboss-javassist.github.io/javassist/tutorial/tutorial.html">https://jboss-javassist.github.io/javassist/tutorial/tutorial.html</a> 附上测试代码，修改一个方法</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">      javassist.tools.reflect.<span class="type">Loader</span> <span class="variable">cl</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">javassist</span>.tools.reflect.Loader();</span><br><span class="line">      <span class="type">ClassPool</span> <span class="variable">pool</span> <span class="operator">=</span> ClassPool.getDefault();</span><br><span class="line">      pool.insertClassPath(<span class="string">&quot;/tmp/aa/&quot;</span>);</span><br><span class="line">      <span class="type">CtClass</span> <span class="variable">cc</span> <span class="operator">=</span> pool.get(<span class="string">&quot;com.facebook.ads.internal.d.g&quot;</span>);</span><br><span class="line">      <span class="type">CtMethod</span> <span class="variable">ctmethod</span> <span class="operator">=</span> cc.getDeclaredMethod(<span class="string">&quot;c&quot;</span>);</span><br><span class="line">      cc.getDeclaredField(<span class="string">&quot;c&quot;</span>);</span><br><span class="line">      <span class="comment">// getCode()即为需要替换的的代码</span></span><br><span class="line">      ctmethod.setBody(getCode());</span><br><span class="line">      cc.writeFile(<span class="string">&quot;/tmp/aa/&quot;</span>);</span><br><span class="line">    &#125; <span class="keyword">catch</span> (CannotCompileException e) &#123;</span><br><span class="line">      e.printStackTrace();</span><br><span class="line">    &#125; <span class="keyword">catch</span> (NotFoundException e) &#123;</span><br><span class="line">      e.printStackTrace();</span><br><span class="line">    &#125; <span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">      e.printStackTrace();</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+]]></content>
+      <categories>
+        <category>JAVA</category>
+      </categories>
+  </entry>
+  <entry>
+    <title>并查集</title>
+    <url>/2013/04/27/set/</url>
+    <content><![CDATA[<p>  好吧，前两天做了一场CF，遇到一道并查集的题目，感觉并查集还需学习啊，记录一下 具体的算法如下</p>
+<ol>
+<li>有father数组，全部初始化为本身 </li>
+<li>添加一个关系进来的时候，s–t，找到s的祖先a,t的祖先b，将a的father设为b </li>
+<li>通过查找祖先，来确定是否在一个集合内</li>
+</ol>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">init</span><span class="params">(<span class="type">int</span> n)</span></span>&#123;<span class="comment">//初始化，节点编号1-n</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i=<span class="number">1</span>;i&lt;=n;i++) father[i]=i;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">find</span><span class="params">(<span class="type">int</span> x)</span><span class="comment">//查找祖先节点</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">while</span> (father[x]!=x) x=father[x];</span><br><span class="line">	<span class="keyword">return</span> x;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">add</span><span class="params">(<span class="type">int</span> s,<span class="type">int</span> t)</span><span class="comment">//增加一个关系，改变集合</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  <span class="type">int</span> a=<span class="built_in">find</span>(s);</span><br><span class="line">  <span class="type">int</span> b=<span class="built_in">find</span>(t);</span><br><span class="line">  father[a]=b;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">bool</span> <span class="title">judge</span><span class="params">(<span class="type">int</span> s,<span class="type">int</span> t)</span><span class="comment">//判断是不是一个集合</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">find</span>(s)==<span class="built_in">find</span>(t);</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+
+]]></content>
+      <categories>
+        <category>ACMICPC</category>
+      </categories>
   </entry>
   <entry>
     <title>windows核心编程-错误处理</title>
