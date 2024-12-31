@@ -1,0 +1,461 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>XtestW&#39;s Blog</title>
+  
+  
+  <link href="http://xtestw.com/atom.xml" rel="self"/>
+  
+  <link href="http://xtestw.com/"/>
+  <updated>2021-03-15T13:42:13.198Z</updated>
+  <id>http://xtestw.com/</id>
+  
+  <author>
+    <name>xtestw</name>
+    
+  </author>
+  
+  <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>DDD 领域建模笔记</title>
+    <link href="http://xtestw.com/2021/03/15/DDD-%E9%A2%86%E5%9F%9F%E5%BB%BA%E6%A8%A1/"/>
+    <id>http://xtestw.com/2021/03/15/DDD-%E9%A2%86%E5%9F%9F%E5%BB%BA%E6%A8%A1/</id>
+    <published>2021-03-15T12:34:25.000Z</published>
+    <updated>2021-03-15T13:42:13.198Z</updated>
+    
+    
+      
+      
+    <summary type="html">&lt;h4 id=&quot;核心概念&quot;&gt;&lt;a href=&quot;#核心概念&quot; class=&quot;headerlink&quot; title=&quot;核心概念&quot;&gt;&lt;/a&gt;核心概念&lt;/h4&gt;&lt;blockquote&gt;
+&lt;p&gt;战术设计(Tactic DDD): Entity, Value Object; Aggregate</summary>
+      
+    
+    
+    
+    <category term="架构" scheme="http://xtestw.com/categories/%E6%9E%B6%E6%9E%84/"/>
+    
+    
+    <category term="DDD" scheme="http://xtestw.com/tags/DDD/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Ha3 学习笔记</title>
+    <link href="http://xtestw.com/2021/02/28/Ha3-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
+    <id>http://xtestw.com/2021/02/28/Ha3-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</id>
+    <published>2021-02-28T10:07:13.000Z</published>
+    <updated>2021-03-15T13:43:07.792Z</updated>
+    
+    
+      
+      
+    <summary type="html">&lt;h2 id=&quot;整体架构&quot;&gt;&lt;a href=&quot;#整体架构&quot; class=&quot;headerlink&quot; title=&quot;整体架构&quot;&gt;&lt;/a&gt;整体架构&lt;/h2&gt;&lt;p&gt;&lt;img src=&quot;/images/Ha3-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/ima</summary>
+      
+    
+    
+    
+    
+    <category term="搜索引擎" scheme="http://xtestw.com/tags/%E6%90%9C%E7%B4%A2%E5%BC%95%E6%93%8E/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Blink学习笔记</title>
+    <link href="http://xtestw.com/2021/02/28/Blink%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
+    <id>http://xtestw.com/2021/02/28/Blink%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</id>
+    <published>2021-02-28T08:37:08.000Z</published>
+    <updated>2021-02-28T08:37:08.237Z</updated>
+    
+    
+      
+      
+    <summary type="html">&lt;h2 id=&quot;背景&quot;&gt;&lt;a href=&quot;#背景&quot; class=&quot;headerlink&quot; title=&quot;背景&quot;&gt;&lt;/a&gt;背景&lt;/h2&gt;&lt;p&gt;Blink 其实是阿里内部基于 flink 改造的系统，学习 Blink 首先要学习 flink 相关的知识，先了解一下 flink 产生的</summary>
+      
+    
+    
+    
+    <category term="大数据" scheme="http://xtestw.com/categories/%E5%A4%A7%E6%95%B0%E6%8D%AE/"/>
+    
+    
+    <category term="大数据" scheme="http://xtestw.com/tags/%E5%A4%A7%E6%95%B0%E6%8D%AE/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>nextjs静态页面github pages资源文件404</title>
+    <link href="http://xtestw.com/2021/02/12/nextjs%E9%9D%99%E6%80%81%E9%A1%B5%E9%9D%A2github-pages%E8%B5%84%E6%BA%90%E6%96%87%E4%BB%B6404/"/>
+    <id>http://xtestw.com/2021/02/12/nextjs%E9%9D%99%E6%80%81%E9%A1%B5%E9%9D%A2github-pages%E8%B5%84%E6%BA%90%E6%96%87%E4%BB%B6404/</id>
+    <published>2021-02-12T14:47:08.000Z</published>
+    <updated>2021-02-12T14:47:08.098Z</updated>
+    
+    
+      
+      
+    <summary type="html">&lt;h2 id=&quot;背景&quot;&gt;&lt;a href=&quot;#背景&quot; class=&quot;headerlink&quot; title=&quot;背景&quot;&gt;&lt;/a&gt;背景&lt;/h2&gt;&lt;p&gt;通过把nextjs的静态文件放到github pages上，省一波流量钱，但是发现资源文件总是会404，本来以为是github pages构</summary>
+      
+    
+    
+    
+    <category term="FE" scheme="http://xtestw.com/categories/FE/"/>
+    
+    
+    <category term="FE" scheme="http://xtestw.com/tags/FE/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>国内NextJs代理支持amp</title>
+    <link href="http://xtestw.com/2021/02/12/%E5%9B%BD%E5%86%85NextJs%E4%BB%A3%E7%90%86%E6%94%AF%E6%8C%81amp/"/>
+    <id>http://xtestw.com/2021/02/12/%E5%9B%BD%E5%86%85NextJs%E4%BB%A3%E7%90%86%E6%94%AF%E6%8C%81amp/</id>
+    <published>2021-02-12T14:31:43.000Z</published>
+    <updated>2021-02-12T14:31:43.591Z</updated>
+    
+    
+      
+      
+    <summary type="html">&lt;h2 id=&quot;背景&quot;&gt;&lt;a href=&quot;#背景&quot; class=&quot;headerlink&quot; title=&quot;背景&quot;&gt;&lt;/a&gt;背景&lt;/h2&gt;&lt;p&gt;最近学习了一下 nextjs，用这个写了个小网站 cushiwen.cn.  过程中发现 nextjs 天然支持 amp，虽然只有css-i</summary>
+      
+    
+    
+    
+    <category term="FE" scheme="http://xtestw.com/categories/FE/"/>
+    
+    
+    <category term="FE" scheme="http://xtestw.com/tags/FE/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>UndeclaredThrowableException原因</title>
+    <link href="http://xtestw.com/2021/01/17/UndeclaredThrowableException%E5%8E%9F%E5%9B%A0/"/>
+    <id>http://xtestw.com/2021/01/17/UndeclaredThrowableException%E5%8E%9F%E5%9B%A0/</id>
+    <published>2021-01-17T07:33:20.000Z</published>
+    <updated>2021-01-17T14:07:05.247Z</updated>
+    
+    
+      
+      
+    <summary type="html">&lt;h1 id=&quot;UndeclaredThrowableException-原因&quot;&gt;&lt;a href=&quot;#UndeclaredThrowableException-原因&quot; class=&quot;headerlink&quot; title=&quot;UndeclaredThrowableException 原</summary>
+      
+    
+    
+    
+    
+    <category term="Java" scheme="http://xtestw.com/tags/Java/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>GraphQl 使用 - java</title>
+    <link href="http://xtestw.com/2019/08/03/GraphQl-%E4%BD%BF%E7%94%A8-java/"/>
+    <id>http://xtestw.com/2019/08/03/GraphQl-%E4%BD%BF%E7%94%A8-java/</id>
+    <published>2019-08-03T06:26:05.000Z</published>
+    <updated>2021-01-16T23:10:47.580Z</updated>
+    
+    
+      
+      
+    <summary type="html">&lt;p&gt;去年在做内容库的时候，涉及到了多系统多数据源互相查询的情景，当时就想要将内容库的所有数据，增加统一的数据接入层，通过graphql的方式提供给上层业务使用，后面受限于人力没有实施。目前从头开始做站群相关的业务，顺带着浅尝了一下graphql，感觉还不错。&lt;/p&gt;
+&lt;h2 i</summary>
+      
+    
+    
+    
+    <category term="Java" scheme="http://xtestw.com/categories/Java/"/>
+    
+    <category term="New Skill" scheme="http://xtestw.com/categories/Java/New-Skill/"/>
+    
+    <category term="GraphQL" scheme="http://xtestw.com/categories/Java/New-Skill/GraphQL/"/>
+    
+    
+    <category term="graphql" scheme="http://xtestw.com/tags/graphql/"/>
+    
+    <category term="graphiql" scheme="http://xtestw.com/tags/graphiql/"/>
+    
+    <category term="github" scheme="http://xtestw.com/tags/github/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>HttpURLConnection使用http代理</title>
+    <link href="http://xtestw.com/2017/08/13/HttpURLConnection%E4%BD%BF%E7%94%A8http%E4%BB%A3%E7%90%86/"/>
+    <id>http://xtestw.com/2017/08/13/HttpURLConnection%E4%BD%BF%E7%94%A8http%E4%BB%A3%E7%90%86/</id>
+    <published>2017-08-13T14:38:08.000Z</published>
+    <updated>2021-01-16T22:05:22.432Z</updated>
+    
+    
+      
+      
+    <summary type="html">&lt;p&gt;工程中的网络请求，有时会需要使用http代理，比较简单的方法是使用apache的httpclient 直接设置代理，但有的时候使用java自带的HttpURLConnection的时候，就需要注意多线程的问题了。 使用HttpURLConnection 实现代理的方法也很简</summary>
+      
+    
+    
+    
+    <category term="JAVA" scheme="http://xtestw.com/categories/JAVA/"/>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>sdk篡改</title>
+    <link href="http://xtestw.com/2017/07/23/sdk-e7-af-a1-e6-94-b9/"/>
+    <id>http://xtestw.com/2017/07/23/sdk-e7-af-a1-e6-94-b9/</id>
+    <published>2017-07-23T12:51:22.000Z</published>
+    <updated>2019-08-10T21:16:47.351Z</updated>
+    
+    
+      
+      
+    <summary type="html">&lt;p&gt;前段时间，因为一年前篡改了一个sdk的包，导致了一系列不可预知的损失，这也充分说明了技术的正确性，需要决策的正确性来支撑的。作为技术人员，不仅仅要考虑技术的可行性，也要考虑实施后的风险和结果的预期假设。 从工程角度，简单记录一下篡改sdk包的技术。 &lt;/p&gt;
+&lt;ol&gt;
+&lt;l</summary>
+      
+    
+    
+    
+    <category term="JAVA" scheme="http://xtestw.com/categories/JAVA/"/>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>RSA整理</title>
+    <link href="http://xtestw.com/2016/05/24/rsa-e6-95-b4-e7-90-86/"/>
+    <id>http://xtestw.com/2016/05/24/rsa-e6-95-b4-e7-90-86/</id>
+    <published>2016-05-24T15:17:24.000Z</published>
+    <updated>2019-07-29T15:22:50.131Z</updated>
+    
+    
+      
+      
+    <summary type="html">&lt;p&gt;最近的论文用到了RSA相关的东西，做一个整理。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;#toc_0&quot;&gt;RSA&lt;/a&gt;&lt;ul&gt;
+&lt;li&gt;  &lt;a href=&quot;#toc_1&quot;&gt;流程图&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;  &lt;a href=&quot;#toc_2&quot;&gt;选取2个质数p、q&lt;/a</summary>
+      
+    
+    
+    
+    <category term="Theory" scheme="http://xtestw.com/categories/Theory/"/>
+    
+    
+    <category term="RSA" scheme="http://xtestw.com/tags/RSA/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>c++对象模型</title>
+    <link href="http://xtestw.com/2016/05/05/cplusplusobjectmodel/"/>
+    <id>http://xtestw.com/2016/05/05/cplusplusobjectmodel/</id>
+    <published>2016-05-04T16:22:50.000Z</published>
+    <updated>2021-01-16T21:26:13.899Z</updated>
+    
+    
+      
+      
+    <summary type="html">&lt;p&gt;最近在看《深度探索c++对象模型》对于对象模型有了一点了解，做一个总结。以下的一些结论的实验见：&lt;a href=&quot;https://github.com/xtestw/CPPObjModelTest&quot;&gt;https://github.com/xtestw/CPPObjModel</summary>
+      
+    
+    
+    
+    <category term="C++" scheme="http://xtestw.com/categories/C/"/>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>Linux 技巧：让进程在后台可靠运行的几种方法</title>
+    <link href="http://xtestw.com/2016/01/29/linuxrunonbackground/"/>
+    <id>http://xtestw.com/2016/01/29/linuxrunonbackground/</id>
+    <published>2016-01-29T07:18:00.000Z</published>
+    <updated>2021-01-16T22:05:04.004Z</updated>
+    
+    
+      
+      
+    <summary type="html">&lt;p&gt;转自：&lt;a href=&quot;http://www.ibm.com/developerworks/cn/linux/l-cn-nohup/&quot;&gt;http://www.ibm.com/developerworks/cn/linux/l-cn-nohup/&lt;/a&gt; 我们经常会碰到这样的</summary>
+      
+    
+    
+    
+    <category term="Linux" scheme="http://xtestw.com/categories/Linux/"/>
+    
+    
+    <category term="linux" scheme="http://xtestw.com/tags/linux/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>x&amp;(-x)取x的最后一个1的证明</title>
+    <link href="http://xtestw.com/2015/04/22/proof/"/>
+    <id>http://xtestw.com/2015/04/22/proof/</id>
+    <published>2015-04-22T10:49:00.000Z</published>
+    <updated>2021-01-16T22:06:48.474Z</updated>
+    
+    
+      
+      
+    <summary type="html">&lt;p&gt;&lt;a href=&quot;http://xtestw.site/?p=29&quot;&gt;http://xtestw.site/?p=29&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;##x&amp;amp;(-x)取x的最后一个1的证明##&lt;br&gt;明天要给新队员讲树状数组，避不开的一个证明，之前教主讲过，当时没听明白给忘</summary>
+      
+    
+    
+    
+    <category term="ACMICPC" scheme="http://xtestw.com/categories/ACMICPC/"/>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>c++ 子类要正确的调用父类构造函数</title>
+    <link href="http://xtestw.com/2015/04/05/cplusplus/"/>
+    <id>http://xtestw.com/2015/04/05/cplusplus/</id>
+    <published>2015-04-04T22:36:00.000Z</published>
+    <updated>2019-08-10T21:21:31.862Z</updated>
+    
+    
+      
+      
+    <summary type="html">&lt;figure class=&quot;highlight c++&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;</summary>
+      
+    
+    
+    
+    <category term="C++" scheme="http://xtestw.com/categories/C/"/>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>c++ 默认构造函数</title>
+    <link href="http://xtestw.com/2015/04/03/c++%20%E9%BB%98%E8%AE%A4%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0/"/>
+    <id>http://xtestw.com/2015/04/03/c++%20%E9%BB%98%E8%AE%A4%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0/</id>
+    <published>2015-04-03T05:37:00.000Z</published>
+    <updated>2021-01-16T21:07:59.647Z</updated>
+    
+    
+      
+      
+    <summary type="html">&lt;p&gt;&lt;strong&gt;关于c++构造函数两个误解&lt;/strong&gt; &lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;任何class只要没有定义构造函数，就会被编译器自动合成一个。 有些构造函数在实际中有和没有是没有任何用处的，所以无用的构造函数是不会被构建出来&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p</summary>
+      
+    
+    
+    
+    <category term="C++" scheme="http://xtestw.com/categories/C/"/>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>hibernate ID 生成方式</title>
+    <link href="http://xtestw.com/2015/02/10/hibernate%20ID%20%E7%94%9F%E6%88%90%E6%96%B9%E5%BC%8F/"/>
+    <id>http://xtestw.com/2015/02/10/hibernate%20ID%20%E7%94%9F%E6%88%90%E6%96%B9%E5%BC%8F/</id>
+    <published>2015-02-10T05:08:00.000Z</published>
+    <updated>2021-01-16T21:48:10.549Z</updated>
+    
+    
+      
+      
+    <summary type="html">&lt;h1 id=&quot;1、assigned&quot;&gt;&lt;a href=&quot;#1、assigned&quot; class=&quot;headerlink&quot; title=&quot;1、assigned&quot;&gt;&lt;/a&gt;1、assigned&lt;/h1&gt;&lt;p&gt;主键由外部程序负责生成，在 save() 之前必须指定一个。Hibernat</summary>
+      
+    
+    
+    
+    <category term="JAVA" scheme="http://xtestw.com/categories/JAVA/"/>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>windows核心编程-错误处理</title>
+    <link href="http://xtestw.com/2015/01/29/windows-e6-a0-b8-e5-bf-83-e7-bc-96-e7-a8-8b-e9-94-99-e8-af-af-e5-a4-84-e7-90-86/"/>
+    <id>http://xtestw.com/2015/01/29/windows-e6-a0-b8-e5-bf-83-e7-bc-96-e7-a8-8b-e9-94-99-e8-af-af-e5-a4-84-e7-90-86/</id>
+    <published>2015-01-29T06:04:00.000Z</published>
+    <updated>2021-01-16T22:04:23.919Z</updated>
+    
+    
+      
+      
+    <summary type="html">&lt;p&gt;1.常见的错误返回类型&lt;/p&gt;
+&lt;p&gt;VOID/BOOL/HANDLE/PVOID/LONG/DWORD VOID 不可能失败 BOOL 错误返回false 编码的时候最好测试是否不为FALSE HANDLE 错误 NULL/INVALID_HANDLE_VALUE PVO</summary>
+      
+    
+    
+    
+    <category term="ACMICPC" scheme="http://xtestw.com/categories/ACMICPC/"/>
+    
+    
+    <category term="windows" scheme="http://xtestw.com/tags/windows/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>IOCP</title>
+    <link href="http://xtestw.com/2015/01/29/iocp/"/>
+    <id>http://xtestw.com/2015/01/29/iocp/</id>
+    <published>2015-01-29T05:41:00.000Z</published>
+    <updated>2021-01-16T22:05:13.230Z</updated>
+    
+    
+      
+      
+    <summary type="html">&lt;p&gt;IOCP是windows下的一种异步IO通信模式（linux下面对应epoll，二者有区别—&amp;gt;&lt;a href=&quot;http://www.cnblogs.com/uzhang/archive/2012/02/24/2365980.html%EF%BC%89&quot;&gt;http:/</summary>
+      
+    
+    
+    
+    <category term="Theory" scheme="http://xtestw.com/categories/Theory/"/>
+    
+    
+    <category term="windows" scheme="http://xtestw.com/tags/windows/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Xchart 源码分析（1）</title>
+    <link href="http://xtestw.com/2014/12/22/%20Xchart%20%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90%EF%BC%881/"/>
+    <id>http://xtestw.com/2014/12/22/%20Xchart%20%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90%EF%BC%881/</id>
+    <published>2014-12-21T23:04:00.000Z</published>
+    <updated>2021-01-16T23:29:56.696Z</updated>
+    
+    
+      
+      
+    <summary type="html">&lt;p&gt;   学校课程需要找一份代码，来讲讲代码里面用了哪些设计模式- -！ 还是要java的。。。 于是上github上面翻代码，偶然翻到一个java的xchart图标库，感觉可能以后会用的到，而且代码不是很长，就直接拿过来用了。具体的链接地址如下：&lt;a href=&quot;https:</summary>
+      
+    
+    
+    
+    <category term="SourceReading" scheme="http://xtestw.com/categories/SourceReading/"/>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>设计模式-代理模式</title>
+    <link href="http://xtestw.com/2014/09/08/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E4%BB%A3%E7%90%86%E6%A8%A1%E5%BC%8F/"/>
+    <id>http://xtestw.com/2014/09/08/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E4%BB%A3%E7%90%86%E6%A8%A1%E5%BC%8F/</id>
+    <published>2014-09-08T01:11:00.000Z</published>
+    <updated>2021-01-16T22:23:34.121Z</updated>
+    
+    
+      
+      
+    <summary type="html">&lt;p&gt;在实际开发的时候，我们同样的一个对象，对于不同的客户，可能能够调用的方法是不一样的，就是权限的控制，这个时候，对象的方法都应该是public，那么就要给对象加上一层，通过客户的类型，决定是否可以访问，也就是说，客户不直接访问对象，而是访问给对象加上的这一层，就是代理层。&lt;/</summary>
+      
+    
+    
+    
+    <category term="Design Pattern" scheme="http://xtestw.com/categories/Design-Pattern/"/>
+    
+    
+    <category term="设计模式" scheme="http://xtestw.com/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
+    
+  </entry>
+  
+</feed>

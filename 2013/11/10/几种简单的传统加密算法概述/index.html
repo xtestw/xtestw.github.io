@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 7.3.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="https://fonts.loli.net/css?family=Ubuntu:300,300italic,400,400italic,700,700italic%7CCourier+New:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.3/css/all.min.css" integrity="sha256-2H3fkXt6FEmrReK448mDVGKb3WW2ZZw35gI7vqHOE4Y=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" integrity="sha256-Vzbj7sDDS/woiFS3uNKo8eIuni59rjyNGtXfstRzStA=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"xtestw.com","root":"/","images":"/images","scheme":"Pisces","version":"8.7.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"gitalk","storage":true,"lazyload":false,"nav":null,"activeClass":"gitalk"},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+<meta name="description" content="本文只是概述几种简单的传统加密算法，没有DES,没有RSA，没有想象中的高端大气上档次的东东。。。但是都是很传统很经典的一些算法 首先，提到加密，比如加密一段文字，让其不可读，一般人首先会想到的是将其中的各个字符用其他一些特定的字符代替，比如，讲所有的A用C来表示，所有的C用E表示等等…其中早的代替算法就是由Julius Caesar发明的Caesar，它是用字母表中每个字母的之后的第三个字母来代">
+<meta property="og:type" content="article">
+<meta property="og:title" content="几种简单的传统加密算法概述">
+<meta property="og:url" content="http://xtestw.com/2013/11/10/%E5%87%A0%E7%A7%8D%E7%AE%80%E5%8D%95%E7%9A%84%E4%BC%A0%E7%BB%9F%E5%8A%A0%E5%AF%86%E7%AE%97%E6%B3%95%E6%A6%82%E8%BF%B0/index.html">
+<meta property="og:site_name" content="XtestW&#39;s Blog">
+<meta property="og:description" content="本文只是概述几种简单的传统加密算法，没有DES,没有RSA，没有想象中的高端大气上档次的东东。。。但是都是很传统很经典的一些算法 首先，提到加密，比如加密一段文字，让其不可读，一般人首先会想到的是将其中的各个字符用其他一些特定的字符代替，比如，讲所有的A用C来表示，所有的C用E表示等等…其中早的代替算法就是由Julius Caesar发明的Caesar，它是用字母表中每个字母的之后的第三个字母来代">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://static.oschina.net/uploads/img/201311/10123647_Q0Ls.png">
+<meta property="article:published_time" content="2013-11-10T04:36:48.000Z">
+<meta property="article:modified_time" content="2021-01-16T22:04:17.437Z">
+<meta property="article:author" content="xtestw">
+<meta property="article:tag" content="proof">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://static.oschina.net/uploads/img/201311/10123647_Q0Ls.png">
+
+
+<link rel="canonical" href="http://xtestw.com/2013/11/10/%E5%87%A0%E7%A7%8D%E7%AE%80%E5%8D%95%E7%9A%84%E4%BC%A0%E7%BB%9F%E5%8A%A0%E5%AF%86%E7%AE%97%E6%B3%95%E6%A6%82%E8%BF%B0/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://xtestw.com/2013/11/10/%E5%87%A0%E7%A7%8D%E7%AE%80%E5%8D%95%E7%9A%84%E4%BC%A0%E7%BB%9F%E5%8A%A0%E5%AF%86%E7%AE%97%E6%B3%95%E6%A6%82%E8%BF%B0/","path":"2013/11/10/几种简单的传统加密算法概述/","title":"几种简单的传统加密算法概述"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- blog_article_banner -->
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+<meta name="msvalidate.01" content="3C4547C38326EF91B680BBDFBC0AC931" />
+<meta name="360-site-verification" content="dfc59046d613abde699ce261c16bbc58" />
+<meta name="sogou_site_verification" content="tfVqHGohqj"/>
+<meta name="shenma-site-verification" content="d58ad9b11af72e2fc607a1fd9bcbcbcf_1588396059">
+<title>几种简单的传统加密算法概述 | XtestW's Blog</title>
+  
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-144813087-1"></script>
+  <script class="next-config" data-name="google_analytics" type="application/json">{"tracking_id":"UA-144813087-1","only_pageview":false}</script>
+  <script src="/js/third-party/analytics/google-analytics.js"></script>
+
+  <script src="/js/third-party/analytics/baidu-analytics.js"></script>
+  <script async src="https://hm.baidu.com/hm.js?5678ede667e5d471807033f33ed70e0e"></script>
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+<link rel="alternate" href="/atom.xml" title="XtestW's Blog" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">XtestW's Blog</h1>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li>
+        <li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li>
+        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li>
+        <li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li>
+        <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-overview-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-overview">
+            <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="xtestw"
+      src="/images/avatar.jpg">
+  <p class="site-author-name" itemprop="name">xtestw</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">46</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">13</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">18</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/xtestw" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;xtestw" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:xuwei8091@gmail.com" title="E-Mail → mailto:xuwei8091@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+  <a href="https://github.com/xtestw" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://xtestw.com/2013/11/10/%E5%87%A0%E7%A7%8D%E7%AE%80%E5%8D%95%E7%9A%84%E4%BC%A0%E7%BB%9F%E5%8A%A0%E5%AF%86%E7%AE%97%E6%B3%95%E6%A6%82%E8%BF%B0/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="xtestw">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="XtestW's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          几种简单的传统加密算法概述
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2013-11-10 12:36:48" itemprop="dateCreated datePublished" datetime="2013-11-10T12:36:48+08:00">2013-11-10</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新于</span>
+        <time title="修改时间：2021-01-17 06:04:17" itemprop="dateModified" datetime="2021-01-17T06:04:17+08:00">2021-01-17</time>
+      </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Theory/" itemprop="url" rel="index"><span itemprop="name">Theory</span></a>
+        </span>
+    </span>
+
+  
+    <span id="/2013/11/10/%E5%87%A0%E7%A7%8D%E7%AE%80%E5%8D%95%E7%9A%84%E4%BC%A0%E7%BB%9F%E5%8A%A0%E5%AF%86%E7%AE%97%E6%B3%95%E6%A6%82%E8%BF%B0/" class="post-meta-item leancloud_visitors" data-flag-title="几种简单的传统加密算法概述" title="阅读次数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span class="leancloud-visitors-count"></span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <p>本文只是概述几种简单的传统加密算法，没有DES,没有RSA，没有想象中的高端大气上档次的东东。。。但是都是很传统很经典的一些算法 首先，提到加密，比如加密一段文字，让其不可读，一般人首先会想到的是将其中的各个字符用其他一些特定的字符代替，比如，讲所有的A用C来表示，所有的C用E表示等等…其中早的代替算法就是由Julius Caesar发明的Caesar，它是用字母表中每个字母的之后的第三个字母来代替其本身的（C=E(3，p)=（p+3) mod 26)，但是，这种加密方式，很容易可以用穷举算法来破解，毕竟只有25种可能的情况.. 为了改进上诉算法，增加其破解的难度，我们不用简单的有序的替代方式，我们让替代无序化，用其中字母表的一个置换（置换：有限元素的集合S的置换就是S的所有元素的有序排列，且每个元素就出现一次，如S={a,b}其置换就只有两种:ab,ba），这样的话，就有26！种方式，大大的增加了破解的难度，但是这个世界聪明人太多，虽然26！很多，但是语言本身有一定的特性，每个字母在语言中出现的相对频率可以统计出来的，这样子，只要密文有了一定数量，就可以从统计学的角度，得到准确的字母匹配了。 上面的算法我们称之为单表代替，其实单表代替密码之所以较容易被攻破，因为它带有原始字母使用频率的一些统计学特征。有两种主要的方法可以减少代替密码里明文结构在密文中的残留度，一种是对明文中的多个字母一起加密，另一种是采用多表代替密码。 先说多字母代替吧，最著名的就是playfair密码，它把明文中的双字母音节作为一个单元并将其转换成密文的双字母音节，它是一个基于由密钥词构成的5<em>5的字母矩阵中的，一个例子，如密钥为monarchy，将其从左往右从上往下填入后，将剩余的字母依次填入剩下的空格，其中I/J填入同一个空格: <a target="_blank" rel="noopener" href="http://static.oschina.net/uploads/img/201311/10123647_Q0Ls.png"><img src="http://static.oschina.net/uploads/img/201311/10123647_Q0Ls.png"></a> 对明文加密规则如下： 1 若p1 p2在同一行，对应密文c1 c2分别是紧靠p1 p2 右端的字母。其中第一列被看做是最后一列的右方。 2 若p1 p2在同一列，对应密文c1 c2分别是紧靠p1 p2 下方的字母。其中第一行被看做是最后一行的下方。 3 若p1 p2不在同一行，不在同一列，则c1 c2是由p1 p2确定的矩形的其他两角的字母，并且c1和p1， c2和p2同行。 4 若p1 p2相同，则插入一个事先约定的字母，比如Q 。 5 若明文字母数为奇数时，则在明文的末端添加某个事先约定的字母作为填充。 虽然相对简单加密，安全性有所提高，但是还是保留了明文语言的大部分结构特征，依旧可以破解出来，另一个有意思的多表代替密码是Hill密码，由数学家Lester Hill提出来的，其实就是利用了线性代数中的可逆矩阵，一个矩阵乘以它的逆矩阵得到单位矩阵，那么假设我们对密文每m个字母进行加密，那么将这m个字母在字母表中的序号写成矩阵形式设为P（如abc，[1,2,3])，密钥就是一个m阶的矩阵K，则C=P</em>K mod26，，解密的时候只要将密文乘上K的逆矩阵模26就可以了。该方法大大的增加了安全性。 上面的算法主要是多字母代替，现在再说说另一种多表代替的加密算法吧，其中最著名最简单的是vigenere密码，它的主要思想是对明文每m个字母进行加密，将每个字母加密，和Caesar算法一样，每个字母用后面的第k个字母来代替，只不过是m个字母中，每一个字母的k值不同，简单的说就是C=C0C1C2C3…=E(K,P)=(p0+k0）mod26,(p1+k1)mod26,(p2+k2)mod26…..但是这样的算法也是比较容易破解的，可以对相同字母的组合（如都是KATB）间隔数（存在偶然性，可以进行取舍），取公约数，那么m就是这个约数的某个因子，之后通过观察，如果长度为m，其实就是m个单表，进行分离就是m个单表分离，然后就很容易的破解了。。 另外一种加密手段，是选择一个与明文无关的，且与他长度一致的密钥，进行异或，解密的时候再一次异或就OK了，这也是基于两次异或同一个值，值不变的结论，大家可以尝试一下的~ 上面主要说的是替换技术，其实传统加密算法除了替换的技术，还有一种就是置换的技术了，简单的说就是将明文的序列打乱，比如栅栏技术，就是按照对角线的顺序写出明文，而按行的顺序读出作为密文。当然这种技术太简单了，更复杂一点的就是将消息一行行的写成矩阵块，然后按列读出，但是把列的次序打乱的，为了增加安全性，还可以多次置换来着。 传统加密高端一点的就是转轮机和隐写术了，转轮机是一种多重加密的技术，其主要的意义就是为DES加密提供了方向…隐写术是个神奇的东西，比如我们经常在电视剧中看到的隐形药水啥的…这些东西，就问度娘吧…..</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="reward-container">
+  <div></div>
+  <button>
+    赞赏
+  </button>
+  <div class="post-reward">
+      <div>
+        <img src="/images/wechatpay.png" alt="xtestw 微信">
+        <span>微信</span>
+      </div>
+
+  </div>
+</div>
+
+          <div class="followme">
+  <span>欢迎关注我的其它发布渠道</span>
+
+  <div class="social-list">
+
+      <div class="social-item">
+        <a target="_blank" class="social-link" href="/atom.xml">
+          <span class="icon">
+            <i class="fa fa-rss"></i>
+          </span>
+
+          <span class="label">RSS</span>
+        </a>
+      </div>
+  </div>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/proof/" rel="tag"># proof</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2013/07/28/Tarjan%E7%AE%97%E6%B3%95/" rel="prev" title="Tarjan算法">
+                  <i class="fa fa-chevron-left"></i> Tarjan算法
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2014/06/09/%E5%9B%BE%E8%AE%BA%E5%85%A5%E9%97%A8%E7%AE%97%E6%B3%95%E7%90%86%E8%A7%A3/" rel="next" title="图论入门算法理解">
+                  图论入门算法理解 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments gitalk-container"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="beian"><a href="https://beian.miit.gov.cn/" rel="noopener" target="_blank">苏ICP备19065574号-1 </a>
+  </div>
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2025</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">xtestw</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/pisces/" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" integrity="sha256-yt2kYMy0w8AbtF89WXb2P1rfjcP/HTHLT7097U8Y5b8=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+
+  
+
+
+  <script class="next-config" data-name="leancloud_visitors" type="application/json">{"enable":true,"app_id":"P8HgKTTYwmpQX0NS1UFfXvUA-gzGzoHsz","app_key":"jlQNHhRgIup0JU78DCDJiX2Q","server_url":"https://p8hgktty.lc-cn-n1-shared.com","security":true}</script>
+  <script src="/js/third-party/statistics/lean-analytics.js"></script>
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">false</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"none","js":{"url":"https://cdn.jsdelivr.net/npm/mathjax@3.2.0/es5/tex-mml-chtml.js","integrity":"sha256-r+3itOMtGGjap0x+10hu6jW/gZCzxHsoKrOd7gyRSGY="}}</script>
+<script src="/js/third-party/math/mathjax.js"></script>
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1.7.2/dist/gitalk.css" integrity="sha256-AJnUHL7dBv6PGaeyPQJcgQPDjt/Hn/PvYZde1iqfp8U=" crossorigin="anonymous">
+
+<script class="next-config" data-name="gitalk" type="application/json">{"enable":true,"github_id":"xtestw","repo":"xtestw.github.io","client_id":"76ac809eebae5aded61d","client_secret":"a9c003726fcdec4f8a58716dd939d7b257c6b72c","admin_user":"xtestw","distraction_free_mode":true,"proxy":"https://cors-anywhere.azm.workers.dev/https://github.com/login/oauth/access_token","language":null,"js":{"url":"https://cdn.jsdelivr.net/npm/gitalk@1.7.2/dist/gitalk.min.js","integrity":"sha256-Pmj85ojLaPOWwRtlMJwmezB/Qg8BzvJp5eTzvXaYAfA="},"path_md5":"3ae66be39fb1e8fdfec2904bd949c698"}</script>
+<script src="/js/third-party/comments/gitalk.js"></script>
+
+</body>
+</html>

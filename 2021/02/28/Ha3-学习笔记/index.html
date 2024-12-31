@@ -1,0 +1,666 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 7.3.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="https://fonts.loli.net/css?family=Ubuntu:300,300italic,400,400italic,700,700italic%7CCourier+New:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.3/css/all.min.css" integrity="sha256-2H3fkXt6FEmrReK448mDVGKb3WW2ZZw35gI7vqHOE4Y=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" integrity="sha256-Vzbj7sDDS/woiFS3uNKo8eIuni59rjyNGtXfstRzStA=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"xtestw.com","root":"/","images":"/images","scheme":"Pisces","version":"8.7.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"gitalk","storage":true,"lazyload":false,"nav":null,"activeClass":"gitalk"},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+<meta name="description" content="整体架构 ha3本身是阿里系针对自己的场景自己研发的搜索引擎平台，也是基于自身的技术积累之上构建的，包括依赖的系统和代码库，都是自研自足的。经历了近10年的发展，也经受了核心场景双十一的考验，已经是一套非常完善成熟的系统，值得学习和研究。 图中为ha3的基本架构，比较简洁，主要分为数据源聚合(俗称 dump)、全量&#x2F;增量&#x2F;实时索引构建及在线服务等部分，其中数据源聚合在 tisplus 平台和 Bl">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Ha3 学习笔记">
+<meta property="og:url" content="http://xtestw.com/2021/02/28/Ha3-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/index.html">
+<meta property="og:site_name" content="XtestW&#39;s Blog">
+<meta property="og:description" content="整体架构 ha3本身是阿里系针对自己的场景自己研发的搜索引擎平台，也是基于自身的技术积累之上构建的，包括依赖的系统和代码库，都是自研自足的。经历了近10年的发展，也经受了核心场景双十一的考验，已经是一套非常完善成熟的系统，值得学习和研究。 图中为ha3的基本架构，比较简洁，主要分为数据源聚合(俗称 dump)、全量&#x2F;增量&#x2F;实时索引构建及在线服务等部分，其中数据源聚合在 tisplus 平台和 Bl">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://xtestw.com/images/Ha3-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/image-20210228184558960.png">
+<meta property="og:image" content="http://xtestw.com/images/Ha3-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/image-20210228195329797.png">
+<meta property="og:image" content="http://xtestw.com/images/Ha3-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/image-20210228205126548.png">
+<meta property="og:image" content="http://xtestw.com/images/Ha3-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/image-20210228214152893.png">
+<meta property="og:image" content="http://xtestw.com/images/Ha3-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/image-20210228221141255.png">
+<meta property="article:published_time" content="2021-02-28T10:07:13.000Z">
+<meta property="article:modified_time" content="2021-03-15T13:43:07.792Z">
+<meta property="article:author" content="xtestw">
+<meta property="article:tag" content="搜索引擎">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://xtestw.com/images/Ha3-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/image-20210228184558960.png">
+
+
+<link rel="canonical" href="http://xtestw.com/2021/02/28/Ha3-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://xtestw.com/2021/02/28/Ha3-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/","path":"2021/02/28/Ha3-学习笔记/","title":"Ha3 学习笔记"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- blog_article_banner -->
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+<meta name="msvalidate.01" content="3C4547C38326EF91B680BBDFBC0AC931" />
+<meta name="360-site-verification" content="dfc59046d613abde699ce261c16bbc58" />
+<meta name="sogou_site_verification" content="tfVqHGohqj"/>
+<meta name="shenma-site-verification" content="d58ad9b11af72e2fc607a1fd9bcbcbcf_1588396059">
+<title>Ha3 学习笔记 | XtestW's Blog</title>
+  
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-144813087-1"></script>
+  <script class="next-config" data-name="google_analytics" type="application/json">{"tracking_id":"UA-144813087-1","only_pageview":false}</script>
+  <script src="/js/third-party/analytics/google-analytics.js"></script>
+
+  <script src="/js/third-party/analytics/baidu-analytics.js"></script>
+  <script async src="https://hm.baidu.com/hm.js?5678ede667e5d471807033f33ed70e0e"></script>
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+<link rel="alternate" href="/atom.xml" title="XtestW's Blog" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">XtestW's Blog</h1>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li>
+        <li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li>
+        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li>
+        <li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li>
+        <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%95%B4%E4%BD%93%E6%9E%B6%E6%9E%84"><span class="nav-number">1.</span> <span class="nav-text">整体架构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%B4%A2%E5%BC%95"><span class="nav-number">2.</span> <span class="nav-text">索引</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%B4%A2%E5%BC%95%E6%A0%BC%E5%BC%8F"><span class="nav-number">2.1.</span> <span class="nav-text">索引格式</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%80%92%E6%8E%92%E7%B4%A2%E5%BC%95"><span class="nav-number">2.1.1.</span> <span class="nav-text">倒排索引</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%AD%A3%E6%8E%92%E7%B4%A2%E5%BC%95"><span class="nav-number">2.1.2.</span> <span class="nav-text">正排索引</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%91%98%E8%A6%81%E7%B4%A2%E5%BC%95"><span class="nav-number">2.1.3.</span> <span class="nav-text">摘要索引</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%B4%A2%E5%BC%95%E6%9E%84%E5%BB%BA"><span class="nav-number">2.2.</span> <span class="nav-text">索引构建</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%B4%A2%E5%BC%95%E5%8A%A0%E8%BD%BD"><span class="nav-number">2.3.</span> <span class="nav-text">索引加载</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%A3%80%E7%B4%A2"><span class="nav-number">3.</span> <span class="nav-text">检索</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%99%84%E5%BD%95"><span class="nav-number">4.</span> <span class="nav-text">附录</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-overview">
+            <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="xtestw"
+      src="/images/avatar.jpg">
+  <p class="site-author-name" itemprop="name">xtestw</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">46</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">13</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">18</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/xtestw" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;xtestw" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:xuwei8091@gmail.com" title="E-Mail → mailto:xuwei8091@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+  <a href="https://github.com/xtestw" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://xtestw.com/2021/02/28/Ha3-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="xtestw">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="XtestW's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Ha3 学习笔记
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2021-02-28 18:07:13" itemprop="dateCreated datePublished" datetime="2021-02-28T18:07:13+08:00">2021-02-28</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新于</span>
+        <time title="修改时间：2021-03-15 21:43:07" itemprop="dateModified" datetime="2021-03-15T21:43:07+08:00">2021-03-15</time>
+      </span>
+
+  
+    <span id="/2021/02/28/Ha3-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" class="post-meta-item leancloud_visitors" data-flag-title="Ha3 学习笔记" title="阅读次数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span class="leancloud-visitors-count"></span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h2 id="整体架构"><a href="#整体架构" class="headerlink" title="整体架构"></a>整体架构</h2><p><img src="/images/Ha3-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/image-20210228184558960.png" alt="image-20210228184558960"></p>
+<p>ha3本身是阿里系针对自己的场景自己研发的搜索引擎平台，也是基于自身的技术积累之上构建的，包括依赖的系统和代码库，都是自研自足的。经历了近10年的发展，也经受了核心场景双十一的考验，已经是一套非常完善成熟的系统，值得学习和研究。 图中为ha3的基本架构，比较简洁，主要分为数据源聚合(俗称 dump)、全量/增量/实时索引构建及在线服务等部分，其中数据源聚合在 tisplus 平台和 Blink 平台完成，核心有以下几个模块：</p>
+<ul>
+<li>QRS<ul>
+<li>输入的查询解析/校验，转发searcher</li>
+<li>searcher 结果合并加工返回用户</li>
+</ul>
+</li>
+<li>Searcher<ul>
+<li>文档召回服务，包含打分/排序/summary</li>
+</ul>
+</li>
+<li>Build Service<ul>
+<li>全量/增量/实时索引构建，提供给在线服务使用</li>
+</ul>
+</li>
+<li>其他<ul>
+<li>hippo: 调度系统，分配机器</li>
+<li>suez/suze_ops，引擎管控/任务分发</li>
+<li>deploy express，用于分发包，索引，配置等数据</li>
+<li>swift，消息队列</li>
+<li>cm2/vipserver，域名解析/服务发现</li>
+</ul>
+</li>
+</ul>
+<p>整个ha3作为一个完善的搜索引擎，方方面面都很涉及，本文主要围绕索引和检索两个过程进行讨论，其他的包括插件、检索语法、配置、运维等方面，不在本文叙述。</p>
+<h2 id="索引"><a href="#索引" class="headerlink" title="索引"></a>索引</h2><p>索引的作用是为了增加检索速度，ha3索引主要是基于indexlib库构建的。indexlib的索引类型支持 index索引/kv索引/kkv索引/时序索引等。</p>
+<p>在我们搜索场景中，主要使用index索引，index索引主要用于基于关键词进行文档检索召回的场景，并对召回的文档基于文档属性进行进一步的过滤、统计、排序等操作。 </p>
+<p>index索引是基于文档进行的，每个文档都会有一个docid(docid类型为int32_t，所以最多支持20亿文档)。 而每个文档都是由多个field组成，每个field会对应为：主键索引(primary key index)、倒排索引(index)、正排索引(attribute)、摘要(summary)</p>
+<p>本章主要针对index索引，介绍其索引的结构和构建的过程，以便我们更好的理解索引的作用，以及后面的检索过程。</p>
+<h3 id="索引格式"><a href="#索引格式" class="headerlink" title="索引格式"></a>索引格式</h3><p><img src="/images/Ha3-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/image-20210228195329797.png" alt="image-20210228195329797"></p>
+<p>上图是整个索引文件列表，针对目录的说明如下：</p>
+<table>
+<thead>
+<tr>
+<th>结构名称</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>generation</td>
+<td>generation_x是引擎区分不同版本全量索引的标识。</td>
+</tr>
+<tr>
+<td>partition</td>
+<td>partition是searcher加载索引的基本单位。如果一个partition中数据过多，会导致searcher性能降低。线上数据一般通过划分多个partition的方式来保证每个searcher的检索效率。</td>
+</tr>
+<tr>
+<td>segment</td>
+<td>segment是索引组成的基本单位。segment中包含了文档的倒排和正排结构。index builder每次dump都会生成一个segment。多个segment可以通过merge策略进行合并。一个partition中可用的segment在version文件中指明。</td>
+</tr>
+<tr>
+<td>index</td>
+<td>倒排索引的基本单位。</td>
+</tr>
+<tr>
+<td>attribute</td>
+<td>正排索引的基本单位。</td>
+</tr>
+<tr>
+<td>deletionmap</td>
+<td>删除的doc记录。</td>
+</tr>
+<tr>
+<td>truncate_meta</td>
+<td>截断索引meta数据文件（Index表倒排截断场景 ）。</td>
+</tr>
+<tr>
+<td>adaptive_bitmap_meta</td>
+<td>自适应bitmap高频词表文件（Index表倒排应用adaptive_bitmap场景）。</td>
+</tr>
+</tbody></table>
+<p>涉及到的文件如下：</p>
+<table>
+<thead>
+<tr>
+<th>文件名称</th>
+<th>存储内容</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>index_format_version</td>
+<td>索引的版本信息。用于检查索引文件是否符合binary要求。</td>
+</tr>
+<tr>
+<td>index_partition_meta</td>
+<td>存储了全局排序的信息。包括排序字段和升降序。</td>
+</tr>
+<tr>
+<td>schema.json</td>
+<td>索引配置文件。主要记录fields，index, attribute 和summary等信息。引擎通过该文件来加载索引。</td>
+</tr>
+<tr>
+<td>version.0</td>
+<td>version文件。主要记录当前partition中引擎需要加载的segment和最新doc的时间戳。在实时build中，引擎会根据增量version的时间戳过滤旧的原始文档。</td>
+</tr>
+<tr>
+<td>segment_info</td>
+<td>segment信息摘要。记录了当前segment中文档数目，当前segment是否merge过，locator信息和最新doc时间戳信息。</td>
+</tr>
+</tbody></table>
+<h4 id="倒排索引"><a href="#倒排索引" class="headerlink" title="倒排索引"></a>倒排索引</h4><p><img src="/images/Ha3-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/image-20210228205126548.png" alt="image-20210228205126548"></p>
+<p>倒排索引核心解决的问题是建立关键词到doc_id的映射, 通过倒排索引，我们可以快速获取相关的文档列表，以及倒排词在文档中的位置词频等信息。 整个检索流程可以参考上图，先通过词典文件查询索引词在索引文件中的位置，在对应位置获取关联的文档列表信息，以及关键词和关键词在文档中的信息。</p>
+<p>除了上图存在的内容外，还存在一个截断索引的概念，这是一种辅助索引，对于原始索引中高频词的倒排链，按照某些feature，截取权重较高的文档形成截断索引，提高检索速度。实际应用中，可以更具多个截断方式，生成多条截断链。</p>
+<p>此外，在ha3中，倒排索引记录的主要信息如下, 对于不同的索引(NUMBER/TEXT/PACK/EXPACK/PRIMARYKEY64/RANGE/SPATIAL)，支持也不一样，具体参看文档：</p>
+<table>
+<thead>
+<tr>
+<th>信息名称</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>ttf</td>
+<td>全称：total term frequency, 表示检索词在所有文档中出现的总次数</td>
+</tr>
+<tr>
+<td>df</td>
+<td>全称：document frequency, 表示包含检索词的文档总数</td>
+</tr>
+<tr>
+<td>tf</td>
+<td>全称：term frequency, 表示检索词在文档中出现的次数</td>
+</tr>
+<tr>
+<td>docid</td>
+<td>全称：document id, 是文档在引擎中的唯一标识，可以通过docid获取到原文档的其他信息</td>
+</tr>
+<tr>
+<td>fieldmap</td>
+<td>全称：field map, 用于记录包含检索词的field信息</td>
+</tr>
+<tr>
+<td>section 信息</td>
+<td>用户可以为某些文档分段，然后为每一段添加附属信息。该信息可以在检索时取出，供后续处理使用</td>
+</tr>
+<tr>
+<td>position</td>
+<td>用于记录检索词在文档中的位置信息</td>
+</tr>
+<tr>
+<td>positionpayload</td>
+<td>全称：position payload, 用户可以为文档不同位置设置payload信息，并可以在检索时取出，供后续处理用</td>
+</tr>
+<tr>
+<td>docpayload</td>
+<td>全称：document payload, 用户可以为某些文档添加附属信息，并可以在检索时取出，供后续处理使用</td>
+</tr>
+<tr>
+<td>termpayload</td>
+<td>全称：term payload, 用户可以为某些词添加附属信息，并可以在检索时取出，供后续处理使用</td>
+</tr>
+</tbody></table>
+<h4 id="正排索引"><a href="#正排索引" class="headerlink" title="正排索引"></a>正排索引</h4><p>正排索引主要是简历 doc_id -&gt;field 的映射，主要用于检索到 doc_id 后，可以根据 doc_id 快速获取关键字段的值用来统计、排序、过滤。 正派索引支持的字段类型主要包括单值类型和多值类型：</p>
+<ul>
+<li>单值类型<ul>
+<li>只有一个data文件, 其为每一个doc分配固定大小的空间，用来存储对应正排字段的取值，可以通过docID直接定位到data文件中该doc对应信息的存储位置，完成获取信息的操作</li>
+</ul>
+</li>
+<li>多值类型<ul>
+<li>有两个文件——data文件和offset文件，其中data文件存储着对应正排字段的字段值信息，offset文件记录了doc对应在data中的偏移量，它为每个doc按照doc顺序分配固定大小的空间，来存储其在data文件中的偏移量，从而获取到对应的正排字段信息</li>
+</ul>
+</li>
+</ul>
+<h4 id="摘要索引"><a href="#摘要索引" class="headerlink" title="摘要索引"></a>摘要索引</h4><p>摘要索引将一片文档对应的信息存储在一起，通过docID可以定位该文档信息的存储位置，从而为用户提供摘要信息的存储获取服务。</p>
+<p>摘要索引只有两个文件——data文件和offset文件。 通过offset可以直接定位到data中doc的信息。</p>
+<h3 id="索引构建"><a href="#索引构建" class="headerlink" title="索引构建"></a>索引构建</h3><p>从构建的角度来说，索引分为全量索引/增量索引/实时索引。ha3 通过 buildservice 来构建索引，基本的流程如下：</p>
+<p><img src="/images/Ha3-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/image-20210228214152893.png" alt="image-20210228214152893"></p>
+<p>全量和增量索引属于离线索引，离线索引依赖于三类BS内部的worker：</p>
+<ul>
+<li>Processor 从数据源获取原始文档，经过文档处理插件后，转换为Processed文档写入SWIFT中转topic</li>
+<li>Builder 负责从SWIFT中读取Processed文档，根据此文档构建索引写入到文件系统。</li>
+<li>Merger 对Builder产出全量索引或增量索引文件，按照合并策略进行索引合并，并将产出后的索引写到文件系统中。</li>
+</ul>
+<p>实时索引属于在线索引，构建在在线服务内部，通过RealtimeBuilder模块，直接从中转swift topic(s) 中读取数据（对应图中的实时数据流）、构建索引。可以达到秒级延迟。</p>
+<h3 id="索引加载"><a href="#索引加载" class="headerlink" title="索引加载"></a>索引加载</h3><p>索引的加载方式目前只支持mmap加载和blockcache加载 2 种方式：</p>
+<ul>
+<li><p>mmap 加载</p>
+<p>通过系统调用mmap将索引文件映射到进程内存地址空间中。加载过程支持mmap lock到内存来保证全内存场景下数据读取完全不读取磁盘数据；也支持mmap非lock场景加载，由操作系统进行内存页缓存管理（采用系统cache方式）。</p>
+</li>
+<li><p>blockcache 加载</p>
+<p>通过blockcache加载模式，可以将索引文件读取的热数据缓存到blockcache中，减少磁盘读取操作。同时数据淘汰策略采用了lru策略，加载和淘汰更加可控（对比mmap非lock的系统cache）。</p>
+</li>
+</ul>
+<h2 id="检索"><a href="#检索" class="headerlink" title="检索"></a>检索</h2><p><img src="/images/Ha3-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/image-20210228221141255.png" alt="image-20210228221141255"></p>
+<p>检索流程更多是在线过程，整体流程参看照爷整理的流程图，如上图。检索过程主要分为2个阶段，一阶段负责文档的召回和排序，二阶段则是summary的信息不全。</p>
+<p>对于多集群召回的结果，默认支持去重机制。 整体查询支持一些高级查询：</p>
+<ul>
+<li>一阶段/二阶段的独立查询</li>
+<li>索引分层，第一层数量不够后重查后面几层</li>
+<li>结果数不同重查机制：<ul>
+<li>返回的结果数小于research_threshold，同时过程中触发了有可能影响结果数优化的逻辑，才会触发重查</li>
+<li>重查时，会关掉所有对结果数有影响的优化逻辑</li>
+</ul>
+</li>
+<li>分层查询</li>
+<li>截断链查询</li>
+</ul>
+<p>此外因为属于在线服务，在每个阶段都会有相应的指标监控，具体如下：</p>
+<ul>
+<li><p>qrsSessionLatencyIndependentPhase1 : qrs 创建session -&gt; end session</p>
+</li>
+<li><p>qrsProcessLatencyIndependentPhase1 : qrs begin session -&gt; end session</p>
+</li>
+<li><p>searcherProcessLatencyPhase1 : searcher begin search -&gt; end serach</p>
+</li>
+<li><p>sessionLatencyPhase1 : searcher 创建 session -&gt; end search</p>
+</li>
+<li><p>afterRunGraphLatency ：search图执行完 -&gt; end serach</p>
+</li>
+<li><p>afterSearchLatency : searcher final sort完 -&gt; end serach</p>
+</li>
+<li><p>beforeRunGraphLatency : searcher begin search -&gt; 图中第一个节点IsPhaseOneOp开始</p>
+</li>
+<li><p>beforeSearchLatency : searcher begin search -&gt; 图中seek op开始 multi layer search</p>
+</li>
+<li><p>extraRankLatency : Ha3SorterOp(final sort)耗时</p>
+</li>
+<li><p>mergeLatencyPhase1 : qrs result merge， run qrs graph耗时</p>
+</li>
+<li><p>rankLatency : multi layer search</p>
+</li>
+<li><p>rerankLatency ：rerank 耗时， rankLatency和rerankLatency加起来是seek op 耗时</p>
+</li>
+<li><p>runGraphLatency ：search 图执行耗时</p>
+</li>
+</ul>
+<h2 id="附录"><a href="#附录" class="headerlink" title="附录"></a>附录</h2><ul>
+<li><a target="_blank" rel="noopener" href="https://www.infoq.cn/article/uyfnarvkz0zxg7ir6beq">https://www.infoq.cn/article/uyfnarvkz0zxg7ir6beq</a></li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="reward-container">
+  <div></div>
+  <button>
+    赞赏
+  </button>
+  <div class="post-reward">
+      <div>
+        <img src="/images/wechatpay.png" alt="xtestw 微信">
+        <span>微信</span>
+      </div>
+
+  </div>
+</div>
+
+          <div class="followme">
+  <span>欢迎关注我的其它发布渠道</span>
+
+  <div class="social-list">
+
+      <div class="social-item">
+        <a target="_blank" class="social-link" href="/atom.xml">
+          <span class="icon">
+            <i class="fa fa-rss"></i>
+          </span>
+
+          <span class="label">RSS</span>
+        </a>
+      </div>
+  </div>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/%E6%90%9C%E7%B4%A2%E5%BC%95%E6%93%8E/" rel="tag"># 搜索引擎</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2021/02/28/Blink%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" rel="prev" title="Blink学习笔记">
+                  <i class="fa fa-chevron-left"></i> Blink学习笔记
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2021/03/15/DDD-%E9%A2%86%E5%9F%9F%E5%BB%BA%E6%A8%A1/" rel="next" title="DDD 领域建模笔记">
+                  DDD 领域建模笔记 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments gitalk-container"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="beian"><a href="https://beian.miit.gov.cn/" rel="noopener" target="_blank">苏ICP备19065574号-1 </a>
+  </div>
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2025</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">xtestw</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/pisces/" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" integrity="sha256-yt2kYMy0w8AbtF89WXb2P1rfjcP/HTHLT7097U8Y5b8=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+
+  
+
+
+  <script class="next-config" data-name="leancloud_visitors" type="application/json">{"enable":true,"app_id":"P8HgKTTYwmpQX0NS1UFfXvUA-gzGzoHsz","app_key":"jlQNHhRgIup0JU78DCDJiX2Q","server_url":"https://p8hgktty.lc-cn-n1-shared.com","security":true}</script>
+  <script src="/js/third-party/statistics/lean-analytics.js"></script>
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">false</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"none","js":{"url":"https://cdn.jsdelivr.net/npm/mathjax@3.2.0/es5/tex-mml-chtml.js","integrity":"sha256-r+3itOMtGGjap0x+10hu6jW/gZCzxHsoKrOd7gyRSGY="}}</script>
+<script src="/js/third-party/math/mathjax.js"></script>
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1.7.2/dist/gitalk.css" integrity="sha256-AJnUHL7dBv6PGaeyPQJcgQPDjt/Hn/PvYZde1iqfp8U=" crossorigin="anonymous">
+
+<script class="next-config" data-name="gitalk" type="application/json">{"enable":true,"github_id":"xtestw","repo":"xtestw.github.io","client_id":"76ac809eebae5aded61d","client_secret":"a9c003726fcdec4f8a58716dd939d7b257c6b72c","admin_user":"xtestw","distraction_free_mode":true,"proxy":"https://cors-anywhere.azm.workers.dev/https://github.com/login/oauth/access_token","language":null,"js":{"url":"https://cdn.jsdelivr.net/npm/gitalk@1.7.2/dist/gitalk.min.js","integrity":"sha256-Pmj85ojLaPOWwRtlMJwmezB/Qg8BzvJp5eTzvXaYAfA="},"path_md5":"8340319d1b1f1ac141c4ecdde6cd1ffd"}</script>
+<script src="/js/third-party/comments/gitalk.js"></script>
+
+</body>
+</html>

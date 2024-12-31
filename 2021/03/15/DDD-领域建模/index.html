@@ -1,0 +1,697 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 7.3.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="https://fonts.loli.net/css?family=Ubuntu:300,300italic,400,400italic,700,700italic%7CCourier+New:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.3/css/all.min.css" integrity="sha256-2H3fkXt6FEmrReK448mDVGKb3WW2ZZw35gI7vqHOE4Y=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" integrity="sha256-Vzbj7sDDS/woiFS3uNKo8eIuni59rjyNGtXfstRzStA=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"xtestw.com","root":"/","images":"/images","scheme":"Pisces","version":"8.7.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"gitalk","storage":true,"lazyload":false,"nav":null,"activeClass":"gitalk"},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+<meta name="description" content="核心概念 战术设计(Tactic DDD): Entity, Value Object; Aggregate, Root Entity, Service, Domain Event; Factory, Repository战略设计(Strategic DDD): Bounded Context, Context Map; Published Language, Shared Kernel, Ope">
+<meta property="og:type" content="article">
+<meta property="og:title" content="DDD 领域建模笔记">
+<meta property="og:url" content="http://xtestw.com/2021/03/15/DDD-%E9%A2%86%E5%9F%9F%E5%BB%BA%E6%A8%A1/index.html">
+<meta property="og:site_name" content="XtestW&#39;s Blog">
+<meta property="og:description" content="核心概念 战术设计(Tactic DDD): Entity, Value Object; Aggregate, Root Entity, Service, Domain Event; Factory, Repository战略设计(Strategic DDD): Bounded Context, Context Map; Published Language, Shared Kernel, Ope">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://xtestw.com/images/DDD-%E9%A2%86%E5%9F%9F%E5%BB%BA%E6%A8%A1/image-20210311142539037.png">
+<meta property="og:image" content="http://xtestw.com/images/DDD-%E9%A2%86%E5%9F%9F%E5%BB%BA%E6%A8%A1/image-20210311111555717.png">
+<meta property="og:image" content="http://xtestw.com/images/DDD-%E9%A2%86%E5%9F%9F%E5%BB%BA%E6%A8%A1/image-20210311111942873.png">
+<meta property="og:image" content="http://xtestw.com/images/DDD-%E9%A2%86%E5%9F%9F%E5%BB%BA%E6%A8%A1/image-20210315200928557.png">
+<meta property="og:image" content="http://xtestw.com/images/DDD-%E9%A2%86%E5%9F%9F%E5%BB%BA%E6%A8%A1/image-20210315201429551.png">
+<meta property="article:published_time" content="2021-03-15T12:34:25.000Z">
+<meta property="article:modified_time" content="2021-03-15T13:42:13.198Z">
+<meta property="article:author" content="xtestw">
+<meta property="article:tag" content="DDD">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://xtestw.com/images/DDD-%E9%A2%86%E5%9F%9F%E5%BB%BA%E6%A8%A1/image-20210311142539037.png">
+
+
+<link rel="canonical" href="http://xtestw.com/2021/03/15/DDD-%E9%A2%86%E5%9F%9F%E5%BB%BA%E6%A8%A1/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://xtestw.com/2021/03/15/DDD-%E9%A2%86%E5%9F%9F%E5%BB%BA%E6%A8%A1/","path":"2021/03/15/DDD-领域建模/","title":"DDD 领域建模笔记"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- blog_article_banner -->
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+<meta name="msvalidate.01" content="3C4547C38326EF91B680BBDFBC0AC931" />
+<meta name="360-site-verification" content="dfc59046d613abde699ce261c16bbc58" />
+<meta name="sogou_site_verification" content="tfVqHGohqj"/>
+<meta name="shenma-site-verification" content="d58ad9b11af72e2fc607a1fd9bcbcbcf_1588396059">
+<title>DDD 领域建模笔记 | XtestW's Blog</title>
+  
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-144813087-1"></script>
+  <script class="next-config" data-name="google_analytics" type="application/json">{"tracking_id":"UA-144813087-1","only_pageview":false}</script>
+  <script src="/js/third-party/analytics/google-analytics.js"></script>
+
+  <script src="/js/third-party/analytics/baidu-analytics.js"></script>
+  <script async src="https://hm.baidu.com/hm.js?5678ede667e5d471807033f33ed70e0e"></script>
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+<link rel="alternate" href="/atom.xml" title="XtestW's Blog" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">XtestW's Blog</h1>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li>
+        <li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li>
+        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li>
+        <li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li>
+        <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%A0%B8%E5%BF%83%E6%A6%82%E5%BF%B5"><span class="nav-number">1.</span> <span class="nav-text">核心概念</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#Entity%EF%BC%88%E5%AE%9E%E4%BD%93%EF%BC%89"><span class="nav-number">1.1.</span> <span class="nav-text">Entity（实体）</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Value-Object%EF%BC%88%E5%80%BC%E5%AF%B9%E8%B1%A1%EF%BC%89"><span class="nav-number">1.2.</span> <span class="nav-text">Value Object（值对象）</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Aggregate%EF%BC%88%E8%81%9A%E5%90%88%EF%BC%89-amp-Root-Entity%EF%BC%88%E6%A0%B9%E5%AF%B9%E8%B1%A1%EF%BC%89"><span class="nav-number">1.3.</span> <span class="nav-text">Aggregate（聚合）&amp; Root Entity（根对象）</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Service%EF%BC%88%E9%A2%86%E5%9F%9F%E6%9C%8D%E5%8A%A1%EF%BC%89"><span class="nav-number">1.4.</span> <span class="nav-text">Service（领域服务）</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BD%AC%E6%8D%A2%E8%BF%87%E7%A8%8B"><span class="nav-number"></span> <span class="nav-text">转换过程</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#Domain-Event%EF%BC%88%E9%A2%86%E5%9F%9F%E4%BA%8B%E4%BB%B6%EF%BC%89"><span class="nav-number">0.1.</span> <span class="nav-text">Domain Event（领域事件）</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Factory"><span class="nav-number">0.2.</span> <span class="nav-text">Factory</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Repository"><span class="nav-number">0.3.</span> <span class="nav-text">Repository</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Bounded-Context-%E9%99%90%E5%AE%9A%E4%B8%8A%E4%B8%8B%E6%96%87"><span class="nav-number">0.4.</span> <span class="nav-text">Bounded Context (限定上下文)</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Context-Map%EF%BC%88%E4%B8%8A%E4%B8%8B%E6%96%87%E6%98%A0%E5%B0%84%EF%BC%89"><span class="nav-number">0.5.</span> <span class="nav-text">Context Map（上下文映射）</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%AE%BE%E8%AE%A1%E6%96%B9%E6%B3%95"><span class="nav-number">1.</span> <span class="nav-text">设计方法</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%88%86%E5%B1%82%E6%9E%B6%E6%9E%84"><span class="nav-number">1.1.</span> <span class="nav-text">分层架构</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%85%AD%E8%BE%B9%E5%BD%A2%E6%9E%B6%E6%9E%84"><span class="nav-number">1.2.</span> <span class="nav-text">六边形架构</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#SOA"><span class="nav-number">1.3.</span> <span class="nav-text">SOA</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#RESTful"><span class="nav-number">1.4.</span> <span class="nav-text">RESTful</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#CQRS"><span class="nav-number">1.5.</span> <span class="nav-text">CQRS</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E4%BA%8B%E4%BB%B6%E9%A9%B1%E5%8A%A8"><span class="nav-number">1.6.</span> <span class="nav-text">事件驱动</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#ContextMapper"><span class="nav-number">2.</span> <span class="nav-text">ContextMapper</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#ContextMap"><span class="nav-number">2.1.</span> <span class="nav-text">ContextMap</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#BoundedContext"><span class="nav-number">2.2.</span> <span class="nav-text">BoundedContext</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Domain-and-Subdomain"><span class="nav-number">2.3.</span> <span class="nav-text">Domain and Subdomain</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-overview">
+            <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="xtestw"
+      src="/images/avatar.jpg">
+  <p class="site-author-name" itemprop="name">xtestw</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">46</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">13</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">18</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/xtestw" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;xtestw" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:xuwei8091@gmail.com" title="E-Mail → mailto:xuwei8091@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+  <a href="https://github.com/xtestw" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://xtestw.com/2021/03/15/DDD-%E9%A2%86%E5%9F%9F%E5%BB%BA%E6%A8%A1/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="xtestw">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="XtestW's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          DDD 领域建模笔记
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2021-03-15 20:34:25 / 修改时间：21:42:13" itemprop="dateCreated datePublished" datetime="2021-03-15T20:34:25+08:00">2021-03-15</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E6%9E%B6%E6%9E%84/" itemprop="url" rel="index"><span itemprop="name">架构</span></a>
+        </span>
+    </span>
+
+  
+    <span id="/2021/03/15/DDD-%E9%A2%86%E5%9F%9F%E5%BB%BA%E6%A8%A1/" class="post-meta-item leancloud_visitors" data-flag-title="DDD 领域建模笔记" title="阅读次数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span class="leancloud-visitors-count"></span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h4 id="核心概念"><a href="#核心概念" class="headerlink" title="核心概念"></a>核心概念</h4><blockquote>
+<p>战术设计(Tactic DDD): Entity, Value Object; Aggregate, Root Entity, Service, Domain Event; Factory, Repository<br>战略设计(Strategic DDD): Bounded Context, Context Map; Published Language, Shared Kernel, Open Host Service, Customer-Supplier, Conformist, Anti Corruption Layer (context relationship types)</p>
+</blockquote>
+<h5 id="Entity（实体）"><a href="#Entity（实体）" class="headerlink" title="Entity（实体）"></a>Entity（实体）</h5><ul>
+<li>存在 2 点特征<ul>
+<li>唯一标志：当一些对象不是由属性定义，而是由一个唯一标志定义的话，我们就可以认为它是一个实体。</li>
+<li>连续性：对象的连续性体现在对象是有生命周期的。</li>
+</ul>
+</li>
+<li>由上2点可以看出，实体并非一定是映射到我们现实世界的某个具体事物</li>
+<li>生成实体唯一标识的 4 种方法<ul>
+<li>用户提供一个或者多个初始唯一值作为输入时</li>
+<li>程序内部通过某种算法自动生成身份标识，例如UUID、雪花ID等</li>
+<li>程序依赖于持久化存储，比如数据库生成的自增主键</li>
+<li>通过其他的限界上下文决定出的唯一标识，作为程序的输入。</li>
+</ul>
+</li>
+<li>实体不变性<ul>
+<li>一个实体维护了一个或者多个不变条件</li>
+<li>不变条件主要是由聚合所关注</li>
+</ul>
+</li>
+</ul>
+<h5 id="Value-Object（值对象）"><a href="#Value-Object（值对象）" class="headerlink" title="Value Object（值对象）"></a>Value Object（值对象）</h5><ul>
+<li>当我们只关心一个模型元素的属性时，应把它归类为值对象。</li>
+<li>它度量或者描述了领域中的一件东西。</li>
+<li>它将不同的相关属性组合成了一个概念整体。</li>
+<li>它可以和其他值对象进行相等性比较。</li>
+<li>值对象应该是不可变的，不要为它分配任何标识，不要将它设计得跟实体一样复杂。</li>
+<li>值对象应该具有无副作用性</li>
+</ul>
+<h5 id="Aggregate（聚合）-amp-Root-Entity（根对象）"><a href="#Aggregate（聚合）-amp-Root-Entity（根对象）" class="headerlink" title="Aggregate（聚合）&amp; Root Entity（根对象）"></a>Aggregate（聚合）&amp; Root Entity（根对象）</h5><ul>
+<li>描述<ul>
+<li>每个聚合都有一个根和一个边界，边界内定义了聚合的内部有什么。”根” 是聚合所包含的一个特定的实体。</li>
+<li>外部对象可以引用根，但不能引用聚合内部的其他对象，聚合内的对象之间可以相互引用，除了根实体外，其他实体拥有本地标识。</li>
+</ul>
+</li>
+<li>定义<ul>
+<li>我们应该将实体和值对象分门别类的聚集到聚合当中，并定义聚合的边界。并通过根来控制边界内其他对象的所有访问。只允许外部对象保持对根的引用。对内部成员的临时引用可以被传递出去，但仅在一次操作中有效。</li>
+</ul>
+</li>
+<li>不变性和一致性边界即是聚合的设计依据和精髓。<ul>
+<li>这里的不变性指的是业务规则，该规则应该始终保持一致</li>
+<li>一致性边界的意思是单个事务的修改范围。 原则上我们应该在一个事务里只修改一个聚合。</li>
+</ul>
+</li>
+<li>聚合的作用<ul>
+<li>为了维护对象生命周期内的完整性</li>
+<li>通过定义清晰的所属关系和边界，在这个边界中的模型元素在生命周期内必须维护一致性，通俗的讲就是业务规则。</li>
+</ul>
+</li>
+<li>聚合特征<ul>
+<li>根实体具有全局的标识，它最终负责检查固定规则。</li>
+<li>边界内的实体具有本地标识，这些标识只在聚合内部才是唯一的。</li>
+<li>聚合外部的对象不能引用根实体之外的聚合内部对象。根实体可以将内部实体的引用传递给它们，但只能临时使用。或者传递一个值对象的副本出去，而不用关心它发生了什么变化。</li>
+<li>只有根实体才能直接通过数据库直接查询，其他对象必须通过遍历关联来发现。</li>
+<li>根实体可以保持其他根实体的引用。</li>
+<li>当对聚合边界内的任何对象做了修改时，整个聚合的所有固定规则都必须被满足。</li>
+</ul>
+</li>
+<li>原则<ul>
+<li>通过唯一标识去引用其他聚合<ul>
+<li>引用聚合和被引用的聚合不可以在同一个事务中进行修改</li>
+<li>如果你在试图在单个事务中修改多个聚合，这往往意味着此时的一致性边界是错误的，发生这样的情况通常是我们遗留了某些建模点，或者尚未发现通用语言中的某个概念。</li>
+<li>当试图修改多个聚合的话，我们也应该采用最终一致性而非原子一致性。</li>
+</ul>
+</li>
+<li>利用应用层来处理聚合内的依赖关系，避免在聚合中使用资源库或者领域服务。</li>
+<li>边界之外使用最终一致性</li>
+</ul>
+</li>
+</ul>
+<h5 id="Service（领域服务）"><a href="#Service（领域服务）" class="headerlink" title="Service（领域服务）"></a>Service（领域服务）</h5><ul>
+<li>三个特征<ul>
+<li>它是与领域相关的操作如执行一个显著的业务操作过程，但它又并不适合放入实体与值对象中。</li>
+<li>操作是无状态的。</li>
+<li>对领域对象进行转换，或以多个领域对象作为输入进行计算，结果产生一个值对象。</li>
+</ul>
+</li>
+<li>区分不同的服务<ul>
+<li>应用服务：获取输入，发送消息给领域层，监听确认消息，决定使用基础服务来发送邮件。</li>
+<li>领域服务：协调账户模型和总账模型进行交互，执行相应的领域行为。</li>
+<li>基础服务：按照应用服务的指示发送邮件。</li>
+</ul>
+</li>
+<li>粒度<ul>
+<li>我们应该尽量避免领域知识泄露到应用层当中去。那此时领域服务就不失为一种良好的处理方式，通过将细粒度的领域对象封装到领域服务当中去，将领域知识限制在领域服务当中，形成粗粒度的领域对象。</li>
+</ul>
+</li>
+<li><h2 id="转换过程"><a href="#转换过程" class="headerlink" title="转换过程"></a>转换过程</h2></li>
+</ul>
+<h5 id="Domain-Event（领域事件）"><a href="#Domain-Event（领域事件）" class="headerlink" title="Domain Event（领域事件）"></a>Domain Event（领域事件）</h5><ul>
+<li><p>领域专家所关心的发生在领域中的一些事件。将领域中所发生的活动建模成一系列的离散事件。每个事件都用领域对象来表示…领域事件是领域模型的组成部分，表示领域中所发生的事情。</p>
+</li>
+<li><p>一个领域事件必须对业务有价值，有助于形成完整的业务闭环，也即一个领域事件将导致进一步的业务操作。</p>
+</li>
+<li><p>事件风暴</p>
+<ul>
+<li><p>事件风暴是一项团队活动，旨在通过领域事件识别出聚合根，进而划分微服务的限界上下文。</p>
+<blockquote>
+<p>在活动中，团队先通过头脑风暴的形式罗列出领域中所有的领域事件，整合之后形成最终的领域事件集合，然后对于每一个事件，标注出导致该事件的命令（Command），再然后为每个事件标注出命令发起方的角色，命令可以是用户发起，也可以是第三方系统调用或者是定时器触发等。最后对事件进行分类整理出聚合根以及限界上下文。</p>
+</blockquote>
+</li>
+</ul>
+</li>
+</ul>
+<h5 id="Factory"><a href="#Factory" class="headerlink" title="Factory"></a>Factory</h5><ul>
+<li>why<ul>
+<li>隐藏创建的细节</li>
+<li>对内，复杂对象除了本身生命周期的维护外，如果再承担自身的创建，会导致负载过重</li>
+<li>对外，不需要客户理解对象创建过程</li>
+</ul>
+</li>
+<li>定义<ul>
+<li>复杂对象的创建是领域层的职责，但这项任务并不一定属于那些用于表示模型的对象，他们没有对应模型中的事物，但又确实承担了领域层的职责。</li>
+<li>应该将创建复杂对象和聚合的职责转移给单独的对象，这个对象本身可能没有承担领域模型中的职责，但它仍然领域设计的一部分。</li>
+<li>在创建聚合时要把它作为一个整体，并确保它满足固定规则。</li>
+</ul>
+</li>
+<li>设计要点<ul>
+<li>每个创建方法都应该是原子的，并保证生成的对象处于一致的状态。</li>
+<li>可以使用独立的工厂或者在聚合根上使用工厂方法。</li>
+<li>工厂方法的参数应该是较低层的对象。</li>
+<li>非必要场景，直接构造函数即可<ul>
+<li>类仅仅是一种类型，没有其他子类，没有实现多态性。</li>
+<li>客户关心的是实现类。</li>
+<li>客户可以访问对象的所有属性，因此向客户公开的构造函数中没有嵌套的对象创建。</li>
+<li>构造过程很简单。</li>
+<li>公共构造函数必须遵守与工厂相同的规则，必须是原子操作且满足所有固定规则。</li>
+<li>不要在构造函数中调用其他构造函数，应保持构造函数的简单。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h5 id="Repository"><a href="#Repository" class="headerlink" title="Repository"></a>Repository</h5><ul>
+<li>实现<ul>
+<li>对类型抽象</li>
+<li>充分利用与客户进行解藕</li>
+<li>事务的控制权交给客户</li>
+</ul>
+</li>
+<li>优点<ul>
+<li>为客户提供了一个简单的模型，可用来获取持久化对象并管理他们的生命周期</li>
+<li>他们将应用程序和领域设计与持久化技术进行解耦</li>
+<li>它们体现了有关对象访问的设计决策</li>
+<li>很容易测试，将利用集合直接替换资源库进行测试</li>
+</ul>
+</li>
+</ul>
+<h5 id="Bounded-Context-限定上下文"><a href="#Bounded-Context-限定上下文" class="headerlink" title="Bounded Context (限定上下文)"></a>Bounded Context (限定上下文)</h5><ul>
+<li>领域、子域、限界上下文<ul>
+<li>领域即是一个组织所做的事情以及其中所包含的一切</li>
+<li>模型只在限界上下文中变动，不影响其他限界上下文，将变动的影响范围控制在单个限界上下文中</li>
+<li>一般来说，一个子域对应一个限界上下文，但是子域并不一定与限界上下文一一对应</li>
+<li>领域种类划分<ul>
+<li>核心域：公司主要的业务领域，比如生鲜的商品子域以及订单子域（核心域并不绝对）</li>
+<li>支撑子域：公司的库存帮助公司完成销售。他们就属于支撑子域。</li>
+<li>通用子域：会员子域，在许多的网上购物平台上都会使用到的会员体系。它属于通用子域。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>限界上下文是一个显式的边界，领域存在于这个边界之内。</li>
+</ul>
+<h5 id="Context-Map（上下文映射）"><a href="#Context-Map（上下文映射）" class="headerlink" title="Context Map（上下文映射）"></a>Context Map（上下文映射）</h5><img src="/images/DDD-领域建模/image-20210311142539037.png" alt="image-20210311142539037" style="zoom:30%;" />
+
+<ul>
+<li>继承方式<ul>
+<li>RPC</li>
+<li>Restful等api</li>
+<li>消息队列</li>
+</ul>
+</li>
+<li>种类<ul>
+<li>共享内核-Shared Kernel</li>
+<li>客户/供应商-Customer/Supplier</li>
+<li>追随者-Conformist</li>
+<li>防腐层-Anticorruption Layer</li>
+<li>公开主机服务-Open Host Service</li>
+<li>各行其道  - Separate Way</li>
+<li>合作关系 - Partnership</li>
+</ul>
+</li>
+</ul>
+<h4 id="设计方法"><a href="#设计方法" class="headerlink" title="设计方法"></a>设计方法</h4><h5 id="分层架构"><a href="#分层架构" class="headerlink" title="分层架构"></a>分层架构</h5><img src="/images/DDD-领域建模/image-20210311111555717.png" alt="image-20210311111555717" style="zoom:35%;" />
+
+<ul>
+<li>基本原则：每层只能和位于下方的层产生耦合<ul>
+<li>严格分层架构：每层只能与直接位于下方的层发生耦合</li>
+<li>松散分层架构：任意上层和任意下层发生耦合</li>
+<li>可以通过观察者等模式，让下层和上层发生耦合</li>
+</ul>
+</li>
+</ul>
+<h5 id="六边形架构"><a href="#六边形架构" class="headerlink" title="六边形架构"></a>六边形架构</h5><img src="/images/DDD-领域建模/image-20210311111942873.png" alt="image-20210311111942873" style="zoom:35%;" />
+
+<ul>
+<li>六边形架构 其实是分层架构的一种扩展，是原来分层架构的另外一种解读，是一种端口+适配器风格的架构</li>
+<li>通过端口+适配器将领域包裹起来， 形成清晰的应用程序边界</li>
+</ul>
+<h5 id="SOA"><a href="#SOA" class="headerlink" title="SOA"></a>SOA</h5><ul>
+<li>SOA原则<ul>
+<li>服务契约</li>
+<li>松耦合</li>
+<li>服务抽象</li>
+<li>服务重用性</li>
+<li>服务自治性</li>
+<li>服务无状态性</li>
+<li>服务可发现性</li>
+<li>服务组合性</li>
+</ul>
+</li>
+<li>SOA 精神所在<ul>
+<li>业务价值高于技术策略</li>
+<li>战略目标高于项目利益</li>
+</ul>
+</li>
+</ul>
+<h5 id="RESTful"><a href="#RESTful" class="headerlink" title="RESTful"></a>RESTful</h5><ul>
+<li>将RESTful和DDD结合的2种方式<ul>
+<li>为系统接口层单独创建一个限界上下文</li>
+<li>使用标准媒体类型的时候，如果某种媒体类型不用于支持单个系统接口，我们可以可以创建一个领域模型来处理。</li>
+</ul>
+</li>
+</ul>
+<h5 id="CQRS"><a href="#CQRS" class="headerlink" title="CQRS"></a>CQRS</h5><h5 id="事件驱动"><a href="#事件驱动" class="headerlink" title="事件驱动"></a>事件驱动</h5><h4 id="ContextMapper"><a href="#ContextMapper" class="headerlink" title="ContextMapper"></a>ContextMapper</h4><img src="/images/DDD-领域建模/image-20210315200928557.png" alt="image-20210315200928557" style="zoom:50%;" />
+
+<h5 id="ContextMap"><a href="#ContextMap" class="headerlink" title="ContextMap"></a>ContextMap</h5><ul>
+<li>contextMap 只有2种type<ul>
+<li>SYSTEM_LANDSCAPE 这个是从系统层面描述 ContextMap</li>
+<li>ORGANIZATIONAL 这个是从组织团队层面描述 ContextMap</li>
+</ul>
+</li>
+</ul>
+<h5 id="BoundedContext"><a href="#BoundedContext" class="headerlink" title="BoundedContext"></a>BoundedContext</h5><ul>
+<li>一个BoundedContext 可以实现多个domain</li>
+<li>一个BoundedContext 可以 refines 另外一个</li>
+<li>BoundedContext  类型有4种<ul>
+<li>FEATURE</li>
+<li>APPLICATION</li>
+<li>SYSTEM</li>
+<li>TEAM</li>
+</ul>
+</li>
+<li>Knowage level 有2个<ul>
+<li>CONCRETE</li>
+<li>META</li>
+</ul>
+</li>
+</ul>
+<h5 id="Domain-and-Subdomain"><a href="#Domain-and-Subdomain" class="headerlink" title="Domain and Subdomain"></a>Domain and Subdomain</h5><img src="/images/DDD-领域建模/image-20210315201429551.png" alt="image-20210315201429551" style="zoom:33%;" />
+
+<ul>
+<li>Subdomain 类型<ul>
+<li>CORE_DOMAIN</li>
+<li>SUPPORTING_DOMAIN</li>
+<li>GENERIC_SUBDOMAIN</li>
+</ul>
+</li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="reward-container">
+  <div></div>
+  <button>
+    赞赏
+  </button>
+  <div class="post-reward">
+      <div>
+        <img src="/images/wechatpay.png" alt="xtestw 微信">
+        <span>微信</span>
+      </div>
+
+  </div>
+</div>
+
+          <div class="followme">
+  <span>欢迎关注我的其它发布渠道</span>
+
+  <div class="social-list">
+
+      <div class="social-item">
+        <a target="_blank" class="social-link" href="/atom.xml">
+          <span class="icon">
+            <i class="fa fa-rss"></i>
+          </span>
+
+          <span class="label">RSS</span>
+        </a>
+      </div>
+  </div>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/DDD/" rel="tag"># DDD</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2021/02/28/Ha3-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" rel="prev" title="Ha3 学习笔记">
+                  <i class="fa fa-chevron-left"></i> Ha3 学习笔记
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments gitalk-container"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="beian"><a href="https://beian.miit.gov.cn/" rel="noopener" target="_blank">苏ICP备19065574号-1 </a>
+  </div>
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2025</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">xtestw</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/pisces/" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" integrity="sha256-yt2kYMy0w8AbtF89WXb2P1rfjcP/HTHLT7097U8Y5b8=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+
+  
+
+
+  <script class="next-config" data-name="leancloud_visitors" type="application/json">{"enable":true,"app_id":"P8HgKTTYwmpQX0NS1UFfXvUA-gzGzoHsz","app_key":"jlQNHhRgIup0JU78DCDJiX2Q","server_url":"https://p8hgktty.lc-cn-n1-shared.com","security":true}</script>
+  <script src="/js/third-party/statistics/lean-analytics.js"></script>
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">false</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"none","js":{"url":"https://cdn.jsdelivr.net/npm/mathjax@3.2.0/es5/tex-mml-chtml.js","integrity":"sha256-r+3itOMtGGjap0x+10hu6jW/gZCzxHsoKrOd7gyRSGY="}}</script>
+<script src="/js/third-party/math/mathjax.js"></script>
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1.7.2/dist/gitalk.css" integrity="sha256-AJnUHL7dBv6PGaeyPQJcgQPDjt/Hn/PvYZde1iqfp8U=" crossorigin="anonymous">
+
+<script class="next-config" data-name="gitalk" type="application/json">{"enable":true,"github_id":"xtestw","repo":"xtestw.github.io","client_id":"76ac809eebae5aded61d","client_secret":"a9c003726fcdec4f8a58716dd939d7b257c6b72c","admin_user":"xtestw","distraction_free_mode":true,"proxy":"https://cors-anywhere.azm.workers.dev/https://github.com/login/oauth/access_token","language":null,"js":{"url":"https://cdn.jsdelivr.net/npm/gitalk@1.7.2/dist/gitalk.min.js","integrity":"sha256-Pmj85ojLaPOWwRtlMJwmezB/Qg8BzvJp5eTzvXaYAfA="},"path_md5":"2f86d0fe06f8fc74b7d0d3f2cea99555"}</script>
+<script src="/js/third-party/comments/gitalk.js"></script>
+
+</body>
+</html>
