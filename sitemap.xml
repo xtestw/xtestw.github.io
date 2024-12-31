@@ -368,27 +368,6 @@
   </url>
   
   <url>
-    <loc>http://xtestw.com/tags/windows/</loc>
-    <lastmod>2024-12-31</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>http://xtestw.com/tags/DDD/</loc>
-    <lastmod>2024-12-31</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>http://xtestw.com/tags/%E6%90%9C%E7%B4%A2%E5%BC%95%E6%93%8E/</loc>
-    <lastmod>2024-12-31</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
     <loc>http://xtestw.com/tags/graphql/</loc>
     <lastmod>2024-12-31</lastmod>
     <changefreq>daily</changefreq>
@@ -410,7 +389,21 @@
   </url>
   
   <url>
-    <loc>http://xtestw.com/tags/prof/</loc>
+    <loc>http://xtestw.com/tags/%E6%90%9C%E7%B4%A2%E5%BC%95%E6%93%8E/</loc>
+    <lastmod>2024-12-31</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://xtestw.com/tags/windows/</loc>
+    <lastmod>2024-12-31</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://xtestw.com/tags/DDD/</loc>
     <lastmod>2024-12-31</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
@@ -424,6 +417,13 @@
   </url>
   
   <url>
+    <loc>http://xtestw.com/tags/prof/</loc>
+    <lastmod>2024-12-31</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>http://xtestw.com/tags/prof-acm/</loc>
     <lastmod>2024-12-31</lastmod>
     <changefreq>daily</changefreq>
@@ -431,14 +431,14 @@
   </url>
   
   <url>
-    <loc>http://xtestw.com/tags/linux/</loc>
+    <loc>http://xtestw.com/tags/FE/</loc>
     <lastmod>2024-12-31</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
-    <loc>http://xtestw.com/tags/FE/</loc>
+    <loc>http://xtestw.com/tags/linux/</loc>
     <lastmod>2024-12-31</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
@@ -510,6 +510,13 @@
   </url>
   
   <url>
+    <loc>http://xtestw.com/categories/Java/</loc>
+    <lastmod>2024-12-31</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>http://xtestw.com/categories/JAVA/</loc>
     <lastmod>2024-12-31</lastmod>
     <changefreq>daily</changefreq>
@@ -531,7 +538,7 @@
   </url>
   
   <url>
-    <loc>http://xtestw.com/categories/Java/</loc>
+    <loc>http://xtestw.com/categories/Java/New-Skill/</loc>
     <lastmod>2024-12-31</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
@@ -545,13 +552,6 @@
   </url>
   
   <url>
-    <loc>http://xtestw.com/categories/Linux/</loc>
-    <lastmod>2024-12-31</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
     <loc>http://xtestw.com/categories/FE/</loc>
     <lastmod>2024-12-31</lastmod>
     <changefreq>daily</changefreq>
@@ -559,7 +559,7 @@
   </url>
   
   <url>
-    <loc>http://xtestw.com/categories/Java/New-Skill/</loc>
+    <loc>http://xtestw.com/categories/Linux/</loc>
     <lastmod>2024-12-31</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>

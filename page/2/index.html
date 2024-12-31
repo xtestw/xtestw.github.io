@@ -72,7 +72,10 @@
   <script async src="https://hm.baidu.com/hm.js?5678ede667e5d471807033f33ed70e0e"></script>
 
 
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1217509255829092"
+     crossorigin="anonymous"></script>
+
 <script>
 (function(){
     var bp = document.createElement('script');
@@ -1285,15 +1288,6 @@
   <div class="beian"><a href="https://beian.miit.gov.cn/" rel="noopener" target="_blank">苏ICP备19065574号-1 </a>
   </div>
 
-
-  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-  <script>
-       (adsbygoogle = window.adsbygoogle || []).push({
-            google_ad_client: "ca-pub-1217509255829092",
-            enable_page_level_ads: true
-       });
-  </script>
-
 <div class="copyright">
   &copy; 
   <span itemprop="copyrightYear">2025</span>
@@ -1303,9 +1297,7 @@
   <span class="author" itemprop="copyrightHolder">xtestw</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/pisces/" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
-  </div>
-  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1217509255829092"
-     crossorigin="anonymous"></script> 
+  </div> 
 
     </div>
   </footer>
@@ -1343,31 +1335,40 @@
 <div class="fixed-bottom-adsense" id="fixedBottomAd" style="display:none;">
   <div class="close-btn" onclick="document.getElementById('fixedBottomAd').style.display='none'">×</div>
   <ins class="adsbygoogle"
-       style="display:inline-block;"
+       style="display:block; width:100%; height:90px; min-width:300px;"
        data-ad-client="ca-pub-1217509255829092"
-       data-ad-slot="9558262455"></ins>
-  <script>
-       (adsbygoogle = window.adsbygoogle || []).push({});
-  </script>
+       data-ad-slot="9558262455"
+       data-ad-format="horizontal"
+       data-full-width-responsive="true"></ins>
 </div>
 <script>
-  // 延迟 3 秒显示广告
-  setTimeout(function() {
-    document.getElementById('fixedBottomAd').style.display = 'block';
-  }, 3000);
+  // 等待 DOM 和广告脚本加载完成
+  window.addEventListener('load', function() {
+    // 确保广告容器有足够宽度
+    var adContainer = document.getElementById('fixedBottomAd');
+    if (adContainer && window.innerWidth >= 300) {
+      setTimeout(function() {
+        try {
+          (adsbygoogle = window.adsbygoogle || []).push({});
+          adContainer.style.display = 'block';
+        } catch(e) {
+          console.error('Ad load error:', e);
+        }
+      }, 2000); // 延迟2秒加载
+    }
+  });
   
   // 30 分钟内不再显示（如果用户关闭了广告）
-  document.querySelector('.close-btn').addEventListener('click', function() {
+  document.querySelector('.close-btn').addEventListener('click', function(e) {
+    e.stopPropagation();
     localStorage.setItem('adClosedTime', Date.now());
   });
   
   // 检查是否应该显示广告
-  window.addEventListener('load', function() {
-    var lastClosedTime = localStorage.getItem('adClosedTime');
-    if (lastClosedTime && Date.now() - lastClosedTime < 30 * 60 * 1000) {
-      document.getElementById('fixedBottomAd').style.display = 'none';
-    }
-  });
+  var lastClosedTime = localStorage.getItem('adClosedTime');
+  if (lastClosedTime && Date.now() - lastClosedTime < 30 * 60 * 1000) {
+    document.getElementById('fixedBottomAd').style.display = 'none';
+  }
 </script> 
 </body>
 </html>

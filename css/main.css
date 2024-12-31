@@ -2964,6 +2964,7 @@ mjx-container[display="true"] + br {
   bottom: 0;
   left: 0;
   width: 100%;
+  min-width: 300px;
   background: #fff;
   z-index: 999;
   text-align: center;
@@ -2975,6 +2976,9 @@ mjx-container[display="true"] + br {
     display: block;
   }
 }
+.fixed-bottom-adsense .adsbygoogle {
+  margin: 0 auto;
+}
 .fixed-bottom-adsense .close-btn {
   position: absolute;
   right: 5px;
@@ -2982,4 +2986,5 @@ mjx-container[display="true"] + br {
   cursor: pointer;
   font-size: 18px;
   color: #666;
+  z-index: 1000;
 }
