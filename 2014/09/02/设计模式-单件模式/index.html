@@ -29,7 +29,7 @@
 <meta property="og:description" content="工程中，某些对象我们只需要一个，比如线程池，缓存，对话框等的对象，我们通常的做法是可以定一个全局静态变量，然后通过程序初始化的时候就实例化他们，然后直接调用这个全局变量，但是这样有个问题，如果我的这个对象消耗的资源很多，而有的时候，我的程序在运行过程中又没用到这个对象，岂不是浪费了很多资源。通常的做法就是定义全局静态变量的时候，不初始化他，而是在调用过程中实例化，这样的话，对于全局变量的实例化，我">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2014-09-01T22:42:00.000Z">
-<meta property="article:modified_time" content="2021-01-16T22:23:29.784Z">
+<meta property="article:modified_time" content="2024-12-31T17:54:51.902Z">
 <meta property="article:author" content="xtestw">
 <meta property="article:tag" content="设计模式">
 <meta name="twitter:card" content="summary">
@@ -77,17 +77,6 @@
 
 
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-<!-- blog_article_banner -->
-<ins class="adsbygoogle"
-      style="display:inline-block;width:728px;height:90px"
-     data-ad-client="ca-pub-1217509255829092"
-     data-ad-slot="9558262455"
-     data-ad-format="auto"
-     data-full-width-responsive="true"></ins>
-<script>
-     (adsbygoogle = window.adsbygoogle || []).push({});
-</script>
-
 <script>
 (function(){
     var bp = document.createElement('script');
@@ -337,7 +326,7 @@
           <i class="far fa-calendar-check"></i>
         </span>
         <span class="post-meta-item-text">更新于</span>
-        <time title="修改时间：2021-01-17 06:23:29" itemprop="dateModified" datetime="2021-01-17T06:23:29+08:00">2021-01-17</time>
+        <time title="修改时间：2025-01-01 01:54:51" itemprop="dateModified" datetime="2025-01-01T01:54:51+08:00">2025-01-01</time>
       </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -367,6 +356,8 @@
     
     <div class="post-body" itemprop="articleBody">
         <p>工程中，某些对象我们只需要一个，比如线程池，缓存，对话框等的对象，我们通常的做法是可以定一个全局静态变量，然后通过程序初始化的时候就实例化他们，然后直接调用这个全局变量，但是这样有个问题，如果我的这个对象消耗的资源很多，而有的时候，我的程序在运行过程中又没用到这个对象，岂不是浪费了很多资源。通常的做法就是定义全局静态变量的时候，不初始化他，而是在调用过程中实例化，这样的话，对于全局变量的实例化，我们就要判断这个变量是否已经实例化了，如果实例化了的吧，我们就不对它进行实例化，所以代码如下：</p>
+<span id="more"></span>
+
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">public class A</span><br><span class="line">&#123;</span><br><span class="line">    private A()&#123;&#125;</span><br><span class="line">    public static A cla;</span><br><span class="line">    public static A getInstance()</span><br><span class="line">    &#123;</span><br><span class="line">        if (cla == null)&#123;</span><br><span class="line">            cla=new A();</span><br><span class="line">        &#125;</span><br><span class="line">        return cla;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>这里的A的构造器是私有的，这样子可以有效的保证A这个类不会再外部被实例化，从而保证他的唯一性，我们通过getInstance来获取A的全局唯一变量cla，这样就有效的解决了上面这个问题，但是问题又来了，多线程访问getInstance()的时候？cla完全可能出现实例化一次之后又被实例化，怎么办？</p>
@@ -532,5 +523,34 @@
 <script class="next-config" data-name="gitalk" type="application/json">{"enable":true,"github_id":"xtestw","repo":"xtestw.github.io","client_id":"76ac809eebae5aded61d","client_secret":"a9c003726fcdec4f8a58716dd939d7b257c6b72c","admin_user":"xtestw","distraction_free_mode":true,"proxy":"https://cors-anywhere.azm.workers.dev/https://github.com/login/oauth/access_token","language":null,"js":{"url":"https://cdn.jsdelivr.net/npm/gitalk@1.7.2/dist/gitalk.min.js","integrity":"sha256-Pmj85ojLaPOWwRtlMJwmezB/Qg8BzvJp5eTzvXaYAfA="},"path_md5":"db05ba0c56f19a20ddc7b837b40b412d"}</script>
 <script src="/js/third-party/comments/gitalk.js"></script>
 
+<div class="fixed-bottom-adsense" id="fixedBottomAd" style="display:none;">
+  <div class="close-btn" onclick="document.getElementById('fixedBottomAd').style.display='none'">×</div>
+  <ins class="adsbygoogle"
+       style="display:inline-block;width:728px;height:90px"
+       data-ad-client="ca-pub-1217509255829092"
+       data-ad-slot="9558262455"></ins>
+  <script>
+       (adsbygoogle = window.adsbygoogle || []).push({});
+  </script>
+</div>
+<script>
+  // 延迟 3 秒显示广告
+  setTimeout(function() {
+    document.getElementById('fixedBottomAd').style.display = 'block';
+  }, 3000);
+  
+  // 30 分钟内不再显示（如果用户关闭了广告）
+  document.querySelector('.close-btn').addEventListener('click', function() {
+    localStorage.setItem('adClosedTime', Date.now());
+  });
+  
+  // 检查是否应该显示广告
+  window.addEventListener('load', function() {
+    var lastClosedTime = localStorage.getItem('adClosedTime');
+    if (lastClosedTime && Date.now() - lastClosedTime < 30 * 60 * 1000) {
+      document.getElementById('fixedBottomAd').style.display = 'none';
+    }
+  });
+</script> 
 </body>
 </html>

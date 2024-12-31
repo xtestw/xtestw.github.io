@@ -29,7 +29,7 @@
 <meta property="og:description" content="命令模式这个设计模式更像是对接口编程的一种应用，比如给小朋友穿衣服，但是不一样的衣服有不一样的穿法，裤子，衬衫，鞋，T恤都是不一样的，但是小朋友不知道怎么穿，只知道想穿什么，那么怎么办呢，小朋友会让他的妈妈帮他穿，这里面的“让妈妈帮忙”，就是给妈妈一个命令（虽然不是很恰当- -！），对小朋友而言，怎么穿他并不关心，反正只要有只要让妈妈穿就行了，所以我们只要定义一个穿的接口就行 1234public">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2014-09-02T21:26:00.000Z">
-<meta property="article:modified_time" content="2021-01-16T22:24:19.365Z">
+<meta property="article:modified_time" content="2024-12-31T17:54:51.715Z">
 <meta property="article:author" content="xtestw">
 <meta property="article:tag" content="设计模式">
 <meta name="twitter:card" content="summary">
@@ -77,17 +77,6 @@
 
 
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-<!-- blog_article_banner -->
-<ins class="adsbygoogle"
-      style="display:inline-block;width:728px;height:90px"
-     data-ad-client="ca-pub-1217509255829092"
-     data-ad-slot="9558262455"
-     data-ad-format="auto"
-     data-full-width-responsive="true"></ins>
-<script>
-     (adsbygoogle = window.adsbygoogle || []).push({});
-</script>
-
 <script>
 (function(){
     var bp = document.createElement('script');
@@ -337,7 +326,7 @@
           <i class="far fa-calendar-check"></i>
         </span>
         <span class="post-meta-item-text">更新于</span>
-        <time title="修改时间：2021-01-17 06:24:19" itemprop="dateModified" datetime="2021-01-17T06:24:19+08:00">2021-01-17</time>
+        <time title="修改时间：2025-01-01 01:54:51" itemprop="dateModified" datetime="2025-01-01T01:54:51+08:00">2025-01-01</time>
       </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -371,6 +360,8 @@
 
 <p>然后继承这个穿，有很多种执行方式，比如穿鞋，穿衬衫，穿裤子</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">public class WearShoe implements Wear&#123;</span><br><span class="line">    public void excute()</span><br><span class="line">    &#123;</span><br><span class="line">        .....//穿鞋的动作    </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">public class WearShirt implements Wear&#123;</span><br><span class="line">    public void excute()</span><br><span class="line">    &#123;</span><br><span class="line">        .....//穿衬衫的动作    </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">public class WearPants implements Wear&#123;</span><br><span class="line">    public void excute()</span><br><span class="line">    &#123;</span><br><span class="line">        .....//穿裤子的动作    </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<span id="more"></span>
 
 <p>对于妈妈来说，只要知道小朋友要穿什么，帮他穿上就好了：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">public class Mom&#123;</span><br><span class="line">    Wear wear;</span><br><span class="line">    public setCommand(Wear wear)</span><br><span class="line">    &#123;</span><br><span class="line">        this.wear = wear;</span><br><span class="line">    &#125;</span><br><span class="line">    public void Do()</span><br><span class="line">    &#123;</span><br><span class="line">        wear.excute();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -541,5 +532,34 @@
 <script class="next-config" data-name="gitalk" type="application/json">{"enable":true,"github_id":"xtestw","repo":"xtestw.github.io","client_id":"76ac809eebae5aded61d","client_secret":"a9c003726fcdec4f8a58716dd939d7b257c6b72c","admin_user":"xtestw","distraction_free_mode":true,"proxy":"https://cors-anywhere.azm.workers.dev/https://github.com/login/oauth/access_token","language":null,"js":{"url":"https://cdn.jsdelivr.net/npm/gitalk@1.7.2/dist/gitalk.min.js","integrity":"sha256-Pmj85ojLaPOWwRtlMJwmezB/Qg8BzvJp5eTzvXaYAfA="},"path_md5":"5e2907294a7dbb775d65024809fd661c"}</script>
 <script src="/js/third-party/comments/gitalk.js"></script>
 
+<div class="fixed-bottom-adsense" id="fixedBottomAd" style="display:none;">
+  <div class="close-btn" onclick="document.getElementById('fixedBottomAd').style.display='none'">×</div>
+  <ins class="adsbygoogle"
+       style="display:inline-block;width:728px;height:90px"
+       data-ad-client="ca-pub-1217509255829092"
+       data-ad-slot="9558262455"></ins>
+  <script>
+       (adsbygoogle = window.adsbygoogle || []).push({});
+  </script>
+</div>
+<script>
+  // 延迟 3 秒显示广告
+  setTimeout(function() {
+    document.getElementById('fixedBottomAd').style.display = 'block';
+  }, 3000);
+  
+  // 30 分钟内不再显示（如果用户关闭了广告）
+  document.querySelector('.close-btn').addEventListener('click', function() {
+    localStorage.setItem('adClosedTime', Date.now());
+  });
+  
+  // 检查是否应该显示广告
+  window.addEventListener('load', function() {
+    var lastClosedTime = localStorage.getItem('adClosedTime');
+    if (lastClosedTime && Date.now() - lastClosedTime < 30 * 60 * 1000) {
+      document.getElementById('fixedBottomAd').style.display = 'none';
+    }
+  });
+</script> 
 </body>
 </html>

@@ -29,7 +29,7 @@
 <meta property="og:description" content="转自：http:&#x2F;&#x2F;www.ibm.com&#x2F;developerworks&#x2F;cn&#x2F;linux&#x2F;l-cn-nohup&#x2F; 我们经常会碰到这样的问题，用 telnet&#x2F;ssh 登录了远程的 Linux 服务器，运行了一些耗时较长的任务， 结果却由于网络的不稳定导致任务中途失败。如何让命令提交后不受本地关闭终端窗口&#x2F;网络断开连接的干扰呢？下面举了一些例子， 您可以针对不同的场景选择不同的方式来处理这个问题。">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2016-01-29T07:18:00.000Z">
-<meta property="article:modified_time" content="2021-01-16T22:05:04.004Z">
+<meta property="article:modified_time" content="2024-12-31T17:54:51.712Z">
 <meta property="article:author" content="xtestw">
 <meta property="article:tag" content="linux">
 <meta name="twitter:card" content="summary">
@@ -77,17 +77,6 @@
 
 
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-<!-- blog_article_banner -->
-<ins class="adsbygoogle"
-      style="display:inline-block;width:728px;height:90px"
-     data-ad-client="ca-pub-1217509255829092"
-     data-ad-slot="9558262455"
-     data-ad-format="auto"
-     data-full-width-responsive="true"></ins>
-<script>
-     (adsbygoogle = window.adsbygoogle || []).push({});
-</script>
-
 <script>
 (function(){
     var bp = document.createElement('script');
@@ -338,7 +327,7 @@
           <i class="far fa-calendar-check"></i>
         </span>
         <span class="post-meta-item-text">更新于</span>
-        <time title="修改时间：2021-01-17 06:05:04" itemprop="dateModified" datetime="2021-01-17T06:05:04+08:00">2021-01-17</time>
+        <time title="修改时间：2025-01-01 01:54:51" itemprop="dateModified" datetime="2025-01-01T01:54:51+08:00">2025-01-01</time>
       </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -372,6 +361,8 @@
 <blockquote>
 <h5 id="hangup-名称的来由"><a href="#hangup-名称的来由" class="headerlink" title="hangup 名称的来由"></a>hangup 名称的来由</h5><p>在 Unix 的早期版本中，每个终端都会通过 modem 和系统通讯。当用户 logout 时，modem 就会挂断（hang up）电话。 同理，当 modem 断开连接时，就会给终端发送 hangup 信号来通知其关闭所有子进程。</p>
 </blockquote>
+<span id="more"></span>
+
 <h4 id="解决方法："><a href="#解决方法：" class="headerlink" title="解决方法："></a>解决方法：</h4><p>我们知道，当用户注销（logout）或者网络断开时，终端会收到 HUP（hangup）信号从而关闭其所有子进程。因此，我们的解决办法就有两种途径：要么让进程忽略 HUP 信号，要么让进程运行在新的会话里从而成为不属于此终端的子进程。</p>
 <h3 id="1-nohup"><a href="#1-nohup" class="headerlink" title="1. nohup"></a>1. nohup</h3><p>nohup 无疑是我们首先想到的办法。顾名思义，nohup 的用途就是让提交的命令忽略 hangup 信号。让我们先来看一下 nohup 的帮助信息： NOHUP(1) User Commands NOHUP(1)</p>
 <pre><code>NAME
@@ -481,10 +472,15 @@ DESCRIPTION
 </code></pre>
 <p>使用 screen 很方便，有以下几个常用选项：</p>
 <ul>
-<li>  用screen -dmS session name来建立一个处于断开模式下的会话（并指定其会话名）。</li>
-<li>  用screen -list 来列出所有会话。</li>
-<li>  用screen -r session name来重新连接指定会话。</li>
-<li>用快捷键CTRL-a d 来暂时断开当前会话。<h5 id="screen-示例"><a href="#screen-示例" class="headerlink" title="screen 示例"></a>screen 示例</h5>  [root@pvcent107 ~]# screen -dmS Urumchi [root@pvcent107 ~]# screen -list There is a screen on: 12842.Urumchi (Detached) 1 Socket in /tmp/screens/S-root. [root@pvcent107 ~]# screen -r Urumchi</li>
+<li><p>  用screen -dmS session name来建立一个处于断开模式下的会话（并指定其会话名）。</p>
+</li>
+<li><p>  用screen -list 来列出所有会话。</p>
+</li>
+<li><p>  用screen -r session name来重新连接指定会话。</p>
+</li>
+<li><p>用快捷键CTRL-a d 来暂时断开当前会话。</p>
+<h5 id="screen-示例"><a href="#screen-示例" class="headerlink" title="screen 示例"></a>screen 示例</h5><p>  [root@pvcent107 ~]# screen -dmS Urumchi [root@pvcent107 ~]# screen -list There is a screen on: 12842.Urumchi (Detached) 1 Socket in /tmp/screens/S-root. [root@pvcent107 ~]# screen -r Urumchi</p>
+</li>
 </ul>
 <p>当我们用“-r”连接到 screen 会话后，我们就可以在这个伪终端里面为所欲为，再也不用担心 HUP 信号会对我们的进程造成影响，也不用给每个命令前都加上“nohup”或者“setsid”了。这是为什么呢？让我来看一下下面两个例子吧。</p>
 <h5 id="1-未使用-screen-时新进程的进程树"><a href="#1-未使用-screen-时新进程的进程树" class="headerlink" title="1. 未使用 screen 时新进程的进程树"></a>1. 未使用 screen 时新进程的进程树</h5><pre><code>[root@pvcent107 ~]# ping www.google.com &amp;
@@ -663,5 +659,34 @@ init─┬─Xvnc
 <script class="next-config" data-name="gitalk" type="application/json">{"enable":true,"github_id":"xtestw","repo":"xtestw.github.io","client_id":"76ac809eebae5aded61d","client_secret":"a9c003726fcdec4f8a58716dd939d7b257c6b72c","admin_user":"xtestw","distraction_free_mode":true,"proxy":"https://cors-anywhere.azm.workers.dev/https://github.com/login/oauth/access_token","language":null,"js":{"url":"https://cdn.jsdelivr.net/npm/gitalk@1.7.2/dist/gitalk.min.js","integrity":"sha256-Pmj85ojLaPOWwRtlMJwmezB/Qg8BzvJp5eTzvXaYAfA="},"path_md5":"1d9e2c237def548fb8d160f5a474bdda"}</script>
 <script src="/js/third-party/comments/gitalk.js"></script>
 
+<div class="fixed-bottom-adsense" id="fixedBottomAd" style="display:none;">
+  <div class="close-btn" onclick="document.getElementById('fixedBottomAd').style.display='none'">×</div>
+  <ins class="adsbygoogle"
+       style="display:inline-block;width:728px;height:90px"
+       data-ad-client="ca-pub-1217509255829092"
+       data-ad-slot="9558262455"></ins>
+  <script>
+       (adsbygoogle = window.adsbygoogle || []).push({});
+  </script>
+</div>
+<script>
+  // 延迟 3 秒显示广告
+  setTimeout(function() {
+    document.getElementById('fixedBottomAd').style.display = 'block';
+  }, 3000);
+  
+  // 30 分钟内不再显示（如果用户关闭了广告）
+  document.querySelector('.close-btn').addEventListener('click', function() {
+    localStorage.setItem('adClosedTime', Date.now());
+  });
+  
+  // 检查是否应该显示广告
+  window.addEventListener('load', function() {
+    var lastClosedTime = localStorage.getItem('adClosedTime');
+    if (lastClosedTime && Date.now() - lastClosedTime < 30 * 60 * 1000) {
+      document.getElementById('fixedBottomAd').style.display = 'none';
+    }
+  });
+</script> 
 </body>
 </html>

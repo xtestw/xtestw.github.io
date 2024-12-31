@@ -73,17 +73,6 @@
 
 
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-<!-- blog_article_banner -->
-<ins class="adsbygoogle"
-      style="display:inline-block;width:728px;height:90px"
-     data-ad-client="ca-pub-1217509255829092"
-     data-ad-slot="9558262455"
-     data-ad-format="auto"
-     data-full-width-responsive="true"></ins>
-<script>
-     (adsbygoogle = window.adsbygoogle || []).push({});
-</script>
-
 <script>
 (function(){
     var bp = document.createElement('script');
@@ -332,7 +321,7 @@
           <i class="far fa-calendar-check"></i>
         </span>
         <span class="post-meta-item-text">更新于</span>
-        <time title="修改时间：2021-01-17 06:23:11" itemprop="dateModified" datetime="2021-01-17T06:23:11+08:00">2021-01-17</time>
+        <time title="修改时间：2025-01-01 01:54:10" itemprop="dateModified" datetime="2025-01-01T01:54:10+08:00">2025-01-01</time>
       </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -366,6 +355,8 @@
 
 <p>为了方便状态转移 我们为状态定义一个通用的接口，然后每一种状态都实现这个接口，而在系统类中，通过构造函数，将系统本身传入状态类中，这样，每一种状态的改变，都可以在自己类的内部完成，同时提高了可扩展性：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><span class="line">public interface State&#123;</span><br><span class="line">    public void des();</span><br><span class="line">    public void action();</span><br><span class="line">&#125;</span><br><span class="line">public class State1 implements State&#123;</span><br><span class="line">    Sys sys;</span><br><span class="line">    public Sate1(Sys s)</span><br><span class="line">    &#123;</span><br><span class="line">        this.sys=sys;</span><br><span class="line">    &#125;</span><br><span class="line">    public void des()&#123;</span><br><span class="line">        .../ implements</span><br><span class="line">    &#125;</span><br><span class="line">    public void action()&#123;</span><br><span class="line">        .../ change the state</span><br><span class="line">        sys.setState(s.getState2());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">public class State2 implements State&#123;</span><br><span class="line">    Sys sys;</span><br><span class="line">    public Sate2(Sys s)</span><br><span class="line">    &#123;</span><br><span class="line">        this.sys=sys;</span><br><span class="line">    &#125;</span><br><span class="line">    public void des()&#123;</span><br><span class="line">        .../ implements</span><br><span class="line">    &#125;</span><br><span class="line">    public void action()&#123;</span><br><span class="line">        .../ change the state</span><br><span class="line">        sys.setState(s.getState1());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">public class Sys &#123;</span><br><span class="line">    private State1 state1;</span><br><span class="line">    private State2 state2;</span><br><span class="line">    private State state;//record the system&#x27;s state</span><br><span class="line">    ....//state1 &amp; state2&#x27;s setter &amp; getter</span><br><span class="line">    public Sys(State state)</span><br><span class="line">    &#123;</span><br><span class="line">        this.state=state;</span><br><span class="line">    &#125;</span><br><span class="line">    public void setState(State state)</span><br><span class="line">    &#123;    </span><br><span class="line">        this.state=state;</span><br><span class="line">    &#125;    </span><br><span class="line">    public void aciton()</span><br><span class="line">    &#123;</span><br><span class="line">        state.action();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
 
 <p>虽然在实现上 状态模式和策略模式以及模板方法有些相似 但是几个设计模式完全不一样，策略模式是将可以互换的行为封装起来，然后使用委托的方法决定使用哪一个行为，模板方法则是由子类决定具体的如何实现算法中的某些步骤，而算法的流程是给定的，而状态模式则封装的是基于状态的行为，并将行为委托到当前状态，由当前状态来决定具体行为。</p>
 
@@ -425,7 +416,7 @@
           <i class="far fa-calendar-check"></i>
         </span>
         <span class="post-meta-item-text">更新于</span>
-        <time title="修改时间：2021-01-17 06:22:48" itemprop="dateModified" datetime="2021-01-17T06:22:48+08:00">2021-01-17</time>
+        <time title="修改时间：2025-01-01 01:54:51" itemprop="dateModified" datetime="2025-01-01T01:54:51+08:00">2025-01-01</time>
       </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -462,19 +453,14 @@
 
 <p>2.组合模式</p>
 <p>组合模式其实就是整体与部分的一个关系，其实就是一个树形结构，根节点由他的子节点组合而成，而子节点又有自己的子节点来组合而成，所以组合模式的定义如下：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">组合模式：允许你将对象组合成树形结构来表现“整体/部分”的层次结构，组合能让客户以一致的方法处理个别对象以及对象组合。</span><br></pre></td></tr></table></figure>
-
-<p>现在我们需要对组合模式下的对象这棵进行遍历怎么办？</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line">public abstract class ItemComponent&#123;</span><br><span class="line">    ....//方法</span><br><span class="line">    public void method1()&#123;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">public classItem extends ItemComponent&#123;</span><br><span class="line">    .....//各种属性</span><br><span class="line">    public void method1()</span><br><span class="line">    &#123;</span><br><span class="line">        System.out.println(&quot;leaf&quot;);</span><br><span class="line">    &#125;    </span><br><span class="line">&#125;</span><br><span class="line">public class Set1 extends ItemComponent&#123;</span><br><span class="line">    item[] items;</span><br><span class="line">    ...</span><br><span class="line">    public Iterator Iterator()&#123;</span><br><span class="line">        return new ItemIterator(items);</span><br><span class="line">    &#125;</span><br><span class="line">    public void method1()</span><br><span class="line">    &#123;</span><br><span class="line">        System.out.println(&quot;not leaf&quot;);</span><br><span class="line">        Iterator iterator=itemComponent.iterator();//重写</span><br><span class="line">        while (iterator.hasNext())</span><br><span class="line">        &#123;</span><br><span class="line">            ItemComponent t=(ItemComponent) iterator.next();</span><br><span class="line">            t.method1();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">public class Set2 extends ItemComponent&#123;</span><br><span class="line">    ArrayList items;</span><br><span class="line">    ...</span><br><span class="line">    public Iterator Iterator()&#123;</span><br><span class="line">        return  items.iterator();</span><br><span class="line">    &#125;</span><br><span class="line">        public void method1()</span><br><span class="line">    &#123;</span><br><span class="line">        System.out.println(&quot;not leaf&quot;);</span><br><span class="line">        Iterator iterator=itemComponent.iterator();//重写</span><br><span class="line">        while (iterator.hasNext())</span><br><span class="line">        &#123;</span><br><span class="line">            ItemComponent t=(ItemComponent) iterator.next();</span><br><span class="line">            t.method1();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>上面这种方式是一种通过递归的方式来实现全部遍历的</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line">public class ItemIterator implements Iterator&#123;</span><br><span class="line">    stack stack = new Stack();</span><br><span class="line">    public ItemIterator(Iterator iter)</span><br><span class="line">    &#123;</span><br><span class="line">        stack.push(iter);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">     public Object next()</span><br><span class="line">    &#123;</span><br><span class="line">        if (hasNext())&#123;</span><br><span class="line">            Iterator iterator=(Iterator)stack.peek();</span><br><span class="line">            ItemComponent t=(ItemComponent) iterator.next();</span><br><span class="line">            if (t instanceof Set1)</span><br><span class="line">            &#123;</span><br><span class="line">                stack.push(t.createIterator());    </span><br><span class="line">            &#125;</span><br><span class="line">            return t;</span><br><span class="line">        &#125;else&#123;</span><br><span class="line">            return null;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    public boolean hasNext()</span><br><span class="line">    &#123;</span><br><span class="line">        if (stack.empty())&#123;</span><br><span class="line">            return false;</span><br><span class="line">        &#125;else&#123;</span><br><span class="line">            Iterator iterator=(Iterator) stack.peek();</span><br><span class="line">            if (!iterator.hasNext())&#123;</span><br><span class="line">                stack.pop();</span><br><span class="line">                return hasNext();</span><br><span class="line">            &#125;else &#123;</span><br><span class="line">                return true;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>现在定义的这种方式，是通过迭代器用栈模拟递归的一种方式。</p>
-<p>3。设计模式-职责单一</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">单一责任： 一个类应该只有一个引起变化的原因。</span><br></pre></td></tr></table></figure>
-
-
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2014/09/06/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E8%BF%AD%E4%BB%A3%E5%99%A8%E6%A8%A1%E5%BC%8F%E5%92%8C%E7%BB%84%E5%90%88%E6%A8%A1%E5%BC%8F/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
@@ -531,7 +517,7 @@
           <i class="far fa-calendar-check"></i>
         </span>
         <span class="post-meta-item-text">更新于</span>
-        <time title="修改时间：2021-01-17 06:23:17" itemprop="dateModified" datetime="2021-01-17T06:23:17+08:00">2021-01-17</time>
+        <time title="修改时间：2025-01-01 01:54:10" itemprop="dateModified" datetime="2025-01-01T01:54:10+08:00">2025-01-01</time>
       </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -566,11 +552,14 @@
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">public abstract class CAL&#123;</span><br><span class="line">    public final void algorithm()</span><br><span class="line">    &#123;</span><br><span class="line">        A1();</span><br><span class="line">        A2();</span><br><span class="line">        if (Judge())</span><br><span class="line">            A3();</span><br><span class="line">        A4();</span><br><span class="line">    &#125;</span><br><span class="line">    public void A1()&#123;</span><br><span class="line">        //实现</span><br><span class="line">        .....</span><br><span class="line">    &#125;</span><br><span class="line">    public  void A2()&#123;</span><br><span class="line">        //实现</span><br><span class="line">        .....</span><br><span class="line">    &#125;</span><br><span class="line">    public abstract void A3()&#123;&#125;</span><br><span class="line">    public abstract void A4()&#123;&#125;</span><br><span class="line">    public boolean Judge()&#123;</span><br><span class="line">        return true;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>其中模板类是一个抽象类，其中算法是确定了的，A1，A2是公共的方法，所有的子类都是一样的，A3，A4是子类自己实现的不一样的函数，定义为抽象方法，子类实现，而Judge方法被成为钩子，默认返回true，而子类可以重写这个方法，这样就能让子类拥有自己的方法。但是这个也反应了模板方法的一个缺点，就是与策略模式相比，弹性不足。</p>
-<p>设计模式-好莱坞模式</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">好莱坞模式：别调用我们，我们会调用你。</span><br></pre></td></tr></table></figure>
-
-<p>允许低层组件将自己挂钩到系统上，但是高层组件会决定什么时候和怎样使用这些低层组件。</p>
-
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2014/09/05/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E6%A8%A1%E6%9D%BF%E6%96%B9%E6%B3%95/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
@@ -627,7 +616,7 @@
           <i class="far fa-calendar-check"></i>
         </span>
         <span class="post-meta-item-text">更新于</span>
-        <time title="修改时间：2021-01-17 06:22:37" itemprop="dateModified" datetime="2021-01-17T06:22:37+08:00">2021-01-17</time>
+        <time title="修改时间：2025-01-01 01:54:51" itemprop="dateModified" datetime="2025-01-01T01:54:51+08:00">2025-01-01</time>
       </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -661,26 +650,17 @@
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">public interface IInterface1()&#123;</span><br><span class="line">    public void method1();</span><br><span class="line">&#125;</span><br><span class="line">public interface IInterface2()&#123;</span><br><span class="line">    public void method2();</span><br><span class="line">&#125;</span><br><span class="line">public class adapter implements IInterface1&#123;</span><br><span class="line">    IInterface2 v;</span><br><span class="line">    public adapter(IInterface2 t)&#123;</span><br><span class="line">        this.v=t;</span><br><span class="line">    &#125;</span><br><span class="line">    public void method1()&#123;</span><br><span class="line">        v.method2();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>现在我们调用IIterface2的method1的方法的时候，就是可以直接构造一个适配器来完成</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">public class A&#123;</span><br><span class="line">    </span><br><span class="line">    public void method3(IInterface1 t)</span><br><span class="line">    &#123;</span><br><span class="line">        t.method1();</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    public static void main(String[] arg)</span><br><span class="line">    &#123;</span><br><span class="line">        (new A()).method3(new adapter(claimplementInterfce2));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">public class A&#123;</span><br><span class="line"></span><br><span class="line">    public void method3(IInterface1 t)</span><br><span class="line">    &#123;</span><br><span class="line">        t.method1();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public static void main(String[] arg)</span><br><span class="line">    &#123;</span><br><span class="line">        (new A()).method3(new adapter(claimplementInterfce2));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>其中claimplementInterface2是实现Interface2的一个类的实例。这种适配器的方法被称作为对象适配器，还有一种适配器，叫做类适配器，是基于类的多继承的，其中适配器继承自要适配的两个类，用其中一个类的方法调用另一个类，思想是一致的，不过java不支持多继承，所以也就是只能用对象适配器。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">适配器模式：将一个类的接口，转换成客户期望的另一个接口，适配器让原本接口不兼容的类可以合作无间</span><br></pre></td></tr></table></figure>
-
-<p>2.外观模式</p>
-<p>  外观模式，其实就是对一个子系统的方法进行整理，对外公开一些方法，方便外部的调用，但是并不是对这些类的一个封装，只是提供了一个简单的接口，用户如果觉得没什么用出，可以直接调用子系统的方法，而且，一个子系统可以有很多个外观。所以外观模式的定义如下</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">外观模式：提供一个统一的接口，用来访问子系统的一群接口。外观定义了一个高层接口，让子系统更容易使用。</span><br></pre></td></tr></table></figure>
-
-<p>比如我们用电脑，怎么开机，怎么关机呢：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">public class UseComputer&#123;</span><br><span class="line">    ZHUJI zhuji;</span><br><span class="line">                XIANSHIQI xianshiqi;</span><br><span class="line">            ...</span><br><span class="line">    public UseComputer(ZHUJI zhuji,XIANSHIQI xianshiqi,....)</span><br><span class="line">    &#123;</span><br><span class="line">        this.zhuji=zhuji;</span><br><span class="line">        this.xianshiqi=xianshiqi;</span><br><span class="line">        .....</span><br><span class="line">    &#125;</span><br><span class="line">    public void guanji()</span><br><span class="line">    &#123;</span><br><span class="line">        zhuji.off();</span><br><span class="line">        xianshiqi.off();</span><br><span class="line">    &#125;</span><br><span class="line">    public void kaiji()</span><br><span class="line">    &#123;</span><br><span class="line">        xianshiqi.on();</span><br><span class="line">        zhuji.on();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>这样就直接提供给用户开机和关机的操作了，而不用用户自己去调用开机关机的一系列的方法了。</p>
-<p>3.设计原则</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">最少知识原则：只和你的密友谈话</span><br></pre></td></tr></table></figure>
-
-<p>需要做到这个原则，建议只调用一下的范围的方法：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">对象本身</span><br><span class="line">被当作方法的参数而传递进来的对象</span><br><span class="line">此方法所创建或实例化的任何对象</span><br><span class="line">对象的任何组组件</span><br></pre></td></tr></table></figure>
-
-
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2014/09/04/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E9%80%82%E9%85%8D%E5%99%A8%E6%A8%A1%E5%BC%8F%E5%92%8C%E5%A4%96%E8%A7%82%E6%A8%A1%E5%BC%8F/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
@@ -737,7 +717,7 @@
           <i class="far fa-calendar-check"></i>
         </span>
         <span class="post-meta-item-text">更新于</span>
-        <time title="修改时间：2021-01-17 06:24:19" itemprop="dateModified" datetime="2021-01-17T06:24:19+08:00">2021-01-17</time>
+        <time title="修改时间：2025-01-01 01:54:51" itemprop="dateModified" datetime="2025-01-01T01:54:51+08:00">2025-01-01</time>
       </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -771,24 +751,14 @@
 
 <p>然后继承这个穿，有很多种执行方式，比如穿鞋，穿衬衫，穿裤子</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">public class WearShoe implements Wear&#123;</span><br><span class="line">    public void excute()</span><br><span class="line">    &#123;</span><br><span class="line">        .....//穿鞋的动作    </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">public class WearShirt implements Wear&#123;</span><br><span class="line">    public void excute()</span><br><span class="line">    &#123;</span><br><span class="line">        .....//穿衬衫的动作    </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">public class WearPants implements Wear&#123;</span><br><span class="line">    public void excute()</span><br><span class="line">    &#123;</span><br><span class="line">        .....//穿裤子的动作    </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>对于妈妈来说，只要知道小朋友要穿什么，帮他穿上就好了：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">public class Mom&#123;</span><br><span class="line">    Wear wear;</span><br><span class="line">    public setCommand(Wear wear)</span><br><span class="line">    &#123;</span><br><span class="line">        this.wear = wear;</span><br><span class="line">    &#125;</span><br><span class="line">    public void Do()</span><br><span class="line">    &#123;</span><br><span class="line">        wear.excute();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>小朋友要做的事就是告诉妈妈我想穿什么，让妈妈帮它穿好就行了，具体怎么穿，他才不管呢</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">public class Child&#123;</span><br><span class="line">    public static void main()</span><br><span class="line">    &#123;</span><br><span class="line">        Mom mom=new Mom();</span><br><span class="line">        WearShoe wearShoe=new WearShoe();</span><br><span class="line">        WearPants wearPants=new WearPants();</span><br><span class="line">        mom.setCommand(wearShoe);</span><br><span class="line">        mom.excute();</span><br><span class="line">        mom.setCommand(wearPants);</span><br><span class="line">        mom.excute();    </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>所以可以看出命令模式其实就是：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">命令模式：将“请求”封装成对象，以便使用不同的请求、队列或者日志来参数化其他对象，命令模式也支持可撤销的操作</span><br></pre></td></tr></table></figure>
-
-<p>其中可撤销的操作其实就是在接口中加入脱衣服的接口，这样子既可以帮小朋友穿衣服也可以帮他脱掉衣服：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">public interface Wear()</span><br><span class="line">&#123;</span><br><span class="line">    public void excute();</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">    public void undo();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>然后再实现接口的对象中实现它就可以了。</p>
-<p>命令模式在多线程处理任务的时候非常有效，只要将命令封装的对象，放入任务队列中，不同的线程通过队列获取对象，直接执行对象的excute()方法就行，而不用管具体命令是怎么执行的。</p>
-
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2014/09/03/%20%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E5%91%BD%E4%BB%A4%E6%A8%A1%E5%BC%8F/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
@@ -845,7 +815,7 @@
           <i class="far fa-calendar-check"></i>
         </span>
         <span class="post-meta-item-text">更新于</span>
-        <time title="修改时间：2021-01-17 06:23:29" itemprop="dateModified" datetime="2021-01-17T06:23:29+08:00">2021-01-17</time>
+        <time title="修改时间：2025-01-01 01:54:51" itemprop="dateModified" datetime="2025-01-01T01:54:51+08:00">2025-01-01</time>
       </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -875,19 +845,14 @@
     
     <div class="post-body" itemprop="articleBody">
           <p>工程中，某些对象我们只需要一个，比如线程池，缓存，对话框等的对象，我们通常的做法是可以定一个全局静态变量，然后通过程序初始化的时候就实例化他们，然后直接调用这个全局变量，但是这样有个问题，如果我的这个对象消耗的资源很多，而有的时候，我的程序在运行过程中又没用到这个对象，岂不是浪费了很多资源。通常的做法就是定义全局静态变量的时候，不初始化他，而是在调用过程中实例化，这样的话，对于全局变量的实例化，我们就要判断这个变量是否已经实例化了，如果实例化了的吧，我们就不对它进行实例化，所以代码如下：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">public class A</span><br><span class="line">&#123;</span><br><span class="line">    private A()&#123;&#125;</span><br><span class="line">    public static A cla;</span><br><span class="line">    public static A getInstance()</span><br><span class="line">    &#123;</span><br><span class="line">        if (cla == null)&#123;</span><br><span class="line">            cla=new A();</span><br><span class="line">        &#125;</span><br><span class="line">        return cla;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>这里的A的构造器是私有的，这样子可以有效的保证A这个类不会再外部被实例化，从而保证他的唯一性，我们通过getInstance来获取A的全局唯一变量cla，这样就有效的解决了上面这个问题，但是问题又来了，多线程访问getInstance()的时候？cla完全可能出现实例化一次之后又被实例化，怎么办？</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">public class A</span><br><span class="line">&#123;</span><br><span class="line">    private A()&#123;&#125;</span><br><span class="line">    public static A cla;</span><br><span class="line">    public static synchronized A getInstance()</span><br><span class="line">    &#123;</span><br><span class="line">        if (cla == null)&#123;</span><br><span class="line">            cla=new A();</span><br><span class="line">        &#125;</span><br><span class="line">        return cla;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>我们就为A获取实力的方法getInstance增加一个同步锁来保证方法只能被唯一访问，可是，同步锁势必会降低运行效率，而且我们发现，事实上，也就是第一次实例化的时候会出现问题需要同步锁，以后再需要获取这个对象的时候完全不需要，如果我们频繁的获取对象的话，效率的影响就会相当大。回到最开始的做法?设置全局变量，程序运行的时候就实例化对象？</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">public class A</span><br><span class="line">&#123;</span><br><span class="line">    private A()&#123;&#125;</span><br><span class="line">    public static A cla = new A();</span><br><span class="line">    public static synchronized A getInstance()</span><br><span class="line">    &#123;</span><br><span class="line">        return cla;</span><br><span class="line">     &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>这个确实是种方法，但始终不是最好的方法，我们想到，之前所说的，只有在实例化的时候才需要同步锁，那么我们就想到采用双重检查加锁的方法，只在实例化的时候加锁：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">public class A</span><br><span class="line">&#123;</span><br><span class="line">    private A()&#123;&#125;</span><br><span class="line">    public volatile static A cla;</span><br><span class="line">    public static A getInstance()</span><br><span class="line">    &#123;</span><br><span class="line">         if (cla == null)&#123;</span><br><span class="line">            synchronized(A.class)&#123;</span><br><span class="line">                if (cla==null)&#123;</span><br><span class="line">                    cla=new A();</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">          &#125;</span><br><span class="line">        return cla;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>其中volatile的关键字是确保多线程在cla变量初始化的时候，正确的处理cla变量。(volatile用在多线程，同步变量。 线程为了提高效率，将某成员变量(如A)拷贝了一份（如B），线程中对A的访问其实访问的是B。只在某些动作时才进行A和B的同步。因此存在A和B不一致的情况。volatile就是用来避免这种情况的。volatile告诉jvm， 它所修饰的变量不保留拷贝，直接访问主内存中的（也就是上面说的A))</p>
-
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2014/09/02/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E5%8D%95%E4%BB%B6%E6%A8%A1%E5%BC%8F/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
@@ -944,7 +909,7 @@
           <i class="far fa-calendar-check"></i>
         </span>
         <span class="post-meta-item-text">更新于</span>
-        <time title="修改时间：2021-01-17 06:23:23" itemprop="dateModified" datetime="2021-01-17T06:23:23+08:00">2021-01-17</time>
+        <time title="修改时间：2025-01-01 01:54:51" itemprop="dateModified" datetime="2025-01-01T01:54:51+08:00">2025-01-01</time>
       </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -975,21 +940,14 @@
     <div class="post-body" itemprop="articleBody">
           <p>在面向对象的编程中，我们常常会用到new这个关键字，同时，面向对象可以实现多态，这样的话，我们常常就会用父类或者接口定义一个变量，在用到这个变量的时候，再new一个具体的对象，但是有的时候，这个new的对象不是确定的，可能是要根据不同的场景，new出不同的子类，这个很简单的就可以通过if 或者switch来判断实现，但是，这样子以来的话，如果在很多个地方都出现了这种情况，岂不是都要在这些个地方来写这些一样的代码？这样真的好么？</p>
 <p>工厂模式就是用来解决这种对象的生成的办法。工厂模式主要分为3种：简单工厂，工厂方法，抽象工厂。</p>
-<p>简单工厂：</p>
-<pre><code> 简单工厂其实就是将对象的生成单独抽象出来成为一个单独的类，这样子就可以在生成对象的时候，直接调用这个类的create的方法来返回一个对象。有的时候，这个生成类的方法可以写成静态的，也就是所说的静态工厂.
-
-  但是有的时候，这个类生成方法，对于不同的类，生成的过程是不一样的，比如A类，只需要1、2、3这3个类，B类只会生成4,5，6这3个类，如果用简单工厂的话，一是会显得很冗余，逻辑处理很烦，二是每多一个if的判定都会降低效率。我们就把对应的工厂方法放到了不同的类中
-</code></pre>
-<p>工厂方法:</p>
-<pre><code>  工厂方法就是不把具体的生成类的过程单独抽象成一个类，而是在A,B这两个父类中，定义一个抽象方法createXX（），然后在A，B这两个子类中针对自己实现createXX（）方法。
-</code></pre>
-<p>抽象工厂：</p>
-<p>抽象工厂可以针对一组对象的生成，比如A类B类都要有一个1 2 3 这3个类，这3个类是3种类别是一个父类，又分别分为几种，1类中有1a,1b,1c,2类3类中一样，我们的A对象需要的是1a,2b,3a,B对象需要的是1b,2a,3c，那么我们就定义个抽象的工厂类，分别分为create1(),create2(),creat3()，3个方法，然后继承过来两个工厂类，分别返回A,B类需要的工厂，我们在A类,B类的构造函数中注入这两个工厂实现类，就可以调用他们的create1,create2,create3的方法来获取自己想要的1,2,3这3种类了。</p>
-<p>设计原则：</p>
-<p>工厂模式中用到了一个设计原则，依赖倒置原则：</p>
-<p>依赖倒置原则：依赖抽象，不要依赖具体类<br>其实我的感觉就是定义变量的时候定义父类，而不是具体子类，对象的构建就需要动态的生成，要完成依赖倒置，可以依据下面的方法：</p>
-<p>变量不可以持有具体类的引用<br>不要让类派生自具体类<br>不要覆盖基类中已实现的方法</p>
-
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2014/09/01/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E5%B7%A5%E5%8E%82%E6%A8%A1%E5%BC%8F/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
@@ -1046,7 +1004,7 @@
           <i class="far fa-calendar-check"></i>
         </span>
         <span class="post-meta-item-text">更新于</span>
-        <time title="修改时间：2021-01-17 06:23:06" itemprop="dateModified" datetime="2021-01-17T06:23:06+08:00">2021-01-17</time>
+        <time title="修改时间：2025-01-01 01:52:20" itemprop="dateModified" datetime="2025-01-01T01:52:20+08:00">2025-01-01</time>
       </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -1077,6 +1035,8 @@
     <div class="post-body" itemprop="articleBody">
           <blockquote>
 <p>​     这一章看完之后，我感觉，装饰者模式就是对类继承的一种递归调用式的组合应用，很好的是实现了开闭原则，可以有效的扩展应用程序。比如书中的例子，有几种饮料，每种饮料的价格已经知道了，但是我们又有很多种的调料，每种调料也有它的价格，我们现在需要是在饮料中加调料，那么这样一来，饮料的售价就会变化，如何来描述这种售价呢？如果通过对调料种类的组合来定义若干的类，肯定是非常愚蠢的行为。</p>
+</blockquote>
+<blockquote>
 <p>​     通过装饰者模式，就能很好的解决这个问题，我们将这些类分为装饰类（调料），待装饰类（饮料）两种，这两种类继承同一个父类，不同的是装饰类中的构造函数有一个父类引用的构造函数，这样子就可以递归调用构造函数来进行 装饰了。</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">public class A extends BaseClass&#123;</span><br><span class="line">    </span><br><span class="line">    public string who()</span><br><span class="line">    &#123;</span><br><span class="line">        return &quot;A&quot;;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public int cost()</span><br><span class="line">    &#123;</span><br><span class="line">        return 5;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
@@ -1154,7 +1114,7 @@
           <i class="far fa-calendar-check"></i>
         </span>
         <span class="post-meta-item-text">更新于</span>
-        <time title="修改时间：2021-01-17 06:22:55" itemprop="dateModified" datetime="2021-01-17T06:22:55+08:00">2021-01-17</time>
+        <time title="修改时间：2025-01-01 01:54:51" itemprop="dateModified" datetime="2025-01-01T01:54:51+08:00">2025-01-01</time>
       </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -1187,22 +1147,14 @@
 <blockquote>
 <p>观察者模式：定义了对象之间的一对多的依赖，这样一来，当一个对象改变状态的时候，他的所有依赖都会收到通知并自动更新</p>
 </blockquote>
-<p>对于观察者模式中所说的通知，就是在被观察者的状态改变的时候，能够让所有观察者根据这种变化作出反应,对于被观察者，他的手里应该有一张观察者的名单，只有这样，才能在状态改变的时候，给出观察者通知，就如上面的例子，班主任只有知道他们班有哪些学生，才能通知到位，当然有的时候，有的学生并不想知道学校的那些通知，那么他就要从老师那边把自己的名字从通知名单中删除掉，但是如果有一天他又想听了，那么对名单还有提供增加一个观察者的名单，之所以命名为观察者和被观察者，而不是通知者和被通知者，就是因为观察者有是否观察的主动权，按照前面一章所讲的，针对接口编程，我们就可以设计出一个被观察者的接口:</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> interface Observerable&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="type">void</span> <span class="title">addObserver</span><span class="params">(Observer o)</span></span>;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="type">void</span> <span class="title">deleteObserver</span><span class="params">(Observer o)</span></span>;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="type">void</span> <span class="title">notifyChanged</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>对于观察者，他的职责就是等着被观察者的更新，然后更新自己的状态，我们也设计出他的接口</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> interface Observer&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="type">void</span> <span class="title">update</span><span class="params">(object[] data)</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>很明显的观察者在运行的时候，必须知道知道自己的观察对象是谁，所以在观察者类中应该有个变量记录被观察者：</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Observer1</span> implements Observer&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> Observerable subject;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Observer1</span><span class="params">(Observerable subject)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.subject=subject;</span><br><span class="line">        subject.<span class="built_in">addObserver</span>(<span class="keyword">this</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="type">void</span> <span class="title">update</span><span class="params">(object\[\] data)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        ........</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-
-<p>在java的java.until包中 也提供了这两个接口，但是与我们不同的是，他的被观察者ObserverAble不是一个接口而是一个类，其中提供了setChanged()的这个函数，这个函数的作用就是设定changed的值从而决定是否通知所有的观察者是否更新，因为有些变化并不一定是要通知观察者，比如学校专门给老师发的工资调整的通知，这个真的有必要告诉学生么？(另外需要注意的是，java这个ObserverAble类，提供的setChanged方法是protected的，所以你要是用它，就必须继承这个类，如果你要同时继承另外一个类的话，….) 另一个问题，学生向学校提交了一份申请，但是，老师那边久久没有回应，怎么办，学生一直等下去么？肯定不行的，必定是要主动向老师询问结果的，这也就意味着，我们的观察者可以主动的从被观察者那边获取数据，那么观察者就必须提供对应数据的get方法。 另外这一章中也提到了一个新的设计原则：</p>
-<blockquote>
-<p>为交互对象间的松耦合设计而努力</p>
-</blockquote>
-
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2014/08/30/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E8%A7%82%E5%AF%9F%E8%80%85%E6%A8%A1%E5%BC%8F/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
@@ -1259,7 +1211,7 @@
           <i class="far fa-calendar-check"></i>
         </span>
         <span class="post-meta-item-text">更新于</span>
-        <time title="修改时间：2021-01-17 06:23:05" itemprop="dateModified" datetime="2021-01-17T06:23:05+08:00">2021-01-17</time>
+        <time title="修改时间：2025-01-01 01:52:20" itemprop="dateModified" datetime="2025-01-01T01:52:20+08:00">2025-01-01</time>
       </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -1290,17 +1242,14 @@
     <div class="post-body" itemprop="articleBody">
           <p>​ 在实际开发过程中，经常会发生这样的一件事，我们需要实现一系列的功能，这些功能在逻辑上是可以抽象成一样的方法，不同的实现，也就是多态，有一种解决方法是，设计一个基类，然后我们定义一些方法，然后继承这个类，设计不同的子类，不同的实现，这样子我们就可以定义基类来调用子类的方法，实现多态，这种方法一定程度上是实现了代码复用。</p>
 <p>​ 但是会有一个问题，假设，基类BaseClass具有一个方法，他们的子类都具有两个方法A和B，其中方法A的实现，所有的子类都一样，很明显A的实现方法是放在基类中实现的，如果B的方法每个子类的实现都不是一样的，那么毫无疑问的是我们会在每个子类中重写B的实现。这些都是显而易见的，但是某一天需求变了，BaseClass的子类childClass1，childClass2的B方法的实现是完全一样的，childClass3，childClass4的B方法的实现也是一样的，如果我们再在每个子类中实现这个方法，很明显，代码复用很不完美。也许我们会这样子解决这个问题:</p>
-<p>​ 在现有的基类和子类中再添加一层，分别为childClass1，childClass2添加由BaseClass继承而来的一个父类，使得这两个子类从新增的这个类中继承，而他们的B方法的实现放在这个新增的类中，同样的操作对childClass3,childClass4进行。</p>
-<p>​ 这个方法一定程度上是解决了上面的问题，但是新的问题又出现了，如果再来一个方法C，childClass2和childClass3的方法C的实现又是一样的，那又该怎么办？显然我们的设计很有问题。此时我们就需要题目中所说的设计模式—-策略模式。</p>
-<pre><code>  策略模式的概念太过抽象，我们先看看如何解决上诉问题:
-</code></pre>
-<p>​ 我们通过接口来解决这些变化的方法，我们针对可能会变化的B,C两个方法分别定义一个接口interfaceB，interfaceC,针对childClass1,childClass2我们定义一个类classB1用他们的方法B来实现interfaceB，同理我们生成classB2,classC1,classC2,classC3分别对应不同的方法B和C的实现，这样子，我们只要在基类中定义一个B，C类型为interfaceB，interfaceC的方法引用变量和两个引用对应的setter方法，就可以在子类的构造函数中通过setter方法定制属于自已的方法B,C了，从而很好的实现了代码复用的同时，降低了耦合性，增强了可扩展性。</p>
-<pre><code> 我们将这种方法B和C称为策略，那么我们的策略模式，就是针对每一类方法我们定义一套策略，这一套策略是对一类方法的不同实现，他们之间可以互相替换，这种方法可以让算法的变化独立在了使用算法的客户。
-
- 这一章里面，也抽象出了下面的3种设计原则：
-</code></pre>
-<p>1、封装变化<br>2、多用组合，少用继承<br>3、针对接口编程，不针对实现编程</p>
-
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2014/08/29/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E7%AD%96%E7%95%A5%E6%A8%A1%E5%BC%8F/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
@@ -1386,5 +1335,34 @@
 <script class="next-config" data-name="gitalk" type="application/json">{"enable":true,"github_id":"xtestw","repo":"xtestw.github.io","client_id":"76ac809eebae5aded61d","client_secret":"a9c003726fcdec4f8a58716dd939d7b257c6b72c","admin_user":"xtestw","distraction_free_mode":true,"proxy":"https://cors-anywhere.azm.workers.dev/https://github.com/login/oauth/access_token","language":null,"js":{"url":"https://cdn.jsdelivr.net/npm/gitalk@1.7.2/dist/gitalk.min.js","integrity":"sha256-Pmj85ojLaPOWwRtlMJwmezB/Qg8BzvJp5eTzvXaYAfA="},"path_md5":"9d8d3da09189165dcde8f1d3e109ad78"}</script>
 <script src="/js/third-party/comments/gitalk.js"></script>
 
+<div class="fixed-bottom-adsense" id="fixedBottomAd" style="display:none;">
+  <div class="close-btn" onclick="document.getElementById('fixedBottomAd').style.display='none'">×</div>
+  <ins class="adsbygoogle"
+       style="display:inline-block;width:728px;height:90px"
+       data-ad-client="ca-pub-1217509255829092"
+       data-ad-slot="9558262455"></ins>
+  <script>
+       (adsbygoogle = window.adsbygoogle || []).push({});
+  </script>
+</div>
+<script>
+  // 延迟 3 秒显示广告
+  setTimeout(function() {
+    document.getElementById('fixedBottomAd').style.display = 'block';
+  }, 3000);
+  
+  // 30 分钟内不再显示（如果用户关闭了广告）
+  document.querySelector('.close-btn').addEventListener('click', function() {
+    localStorage.setItem('adClosedTime', Date.now());
+  });
+  
+  // 检查是否应该显示广告
+  window.addEventListener('load', function() {
+    var lastClosedTime = localStorage.getItem('adClosedTime');
+    if (lastClosedTime && Date.now() - lastClosedTime < 30 * 60 * 1000) {
+      document.getElementById('fixedBottomAd').style.display = 'none';
+    }
+  });
+</script> 
 </body>
 </html>

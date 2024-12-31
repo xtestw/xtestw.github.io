@@ -73,17 +73,6 @@
 
 
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-<!-- blog_article_banner -->
-<ins class="adsbygoogle"
-      style="display:inline-block;width:728px;height:90px"
-     data-ad-client="ca-pub-1217509255829092"
-     data-ad-slot="9558262455"
-     data-ad-format="auto"
-     data-full-width-responsive="true"></ins>
-<script>
-     (adsbygoogle = window.adsbygoogle || []).push({});
-</script>
-
 <script>
 (function(){
     var bp = document.createElement('script');
@@ -400,5 +389,34 @@
 <script class="next-config" data-name="gitalk" type="application/json">{"enable":true,"github_id":"xtestw","repo":"xtestw.github.io","client_id":"76ac809eebae5aded61d","client_secret":"a9c003726fcdec4f8a58716dd939d7b257c6b72c","admin_user":"xtestw","distraction_free_mode":true,"proxy":"https://cors-anywhere.azm.workers.dev/https://github.com/login/oauth/access_token","language":null,"js":{"url":"https://cdn.jsdelivr.net/npm/gitalk@1.7.2/dist/gitalk.min.js","integrity":"sha256-Pmj85ojLaPOWwRtlMJwmezB/Qg8BzvJp5eTzvXaYAfA="},"path_md5":"b82768b2937ceb65561af2612a36da28"}</script>
 <script src="/js/third-party/comments/gitalk.js"></script>
 
+<div class="fixed-bottom-adsense" id="fixedBottomAd" style="display:none;">
+  <div class="close-btn" onclick="document.getElementById('fixedBottomAd').style.display='none'">×</div>
+  <ins class="adsbygoogle"
+       style="display:inline-block;width:728px;height:90px"
+       data-ad-client="ca-pub-1217509255829092"
+       data-ad-slot="9558262455"></ins>
+  <script>
+       (adsbygoogle = window.adsbygoogle || []).push({});
+  </script>
+</div>
+<script>
+  // 延迟 3 秒显示广告
+  setTimeout(function() {
+    document.getElementById('fixedBottomAd').style.display = 'block';
+  }, 3000);
+  
+  // 30 分钟内不再显示（如果用户关闭了广告）
+  document.querySelector('.close-btn').addEventListener('click', function() {
+    localStorage.setItem('adClosedTime', Date.now());
+  });
+  
+  // 检查是否应该显示广告
+  window.addEventListener('load', function() {
+    var lastClosedTime = localStorage.getItem('adClosedTime');
+    if (lastClosedTime && Date.now() - lastClosedTime < 30 * 60 * 1000) {
+      document.getElementById('fixedBottomAd').style.display = 'none';
+    }
+  });
+</script> 
 </body>
 </html>

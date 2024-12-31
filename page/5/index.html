@@ -73,17 +73,6 @@
 
 
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-<!-- blog_article_banner -->
-<ins class="adsbygoogle"
-      style="display:inline-block;width:728px;height:90px"
-     data-ad-client="ca-pub-1217509255829092"
-     data-ad-slot="9558262455"
-     data-ad-format="auto"
-     data-full-width-responsive="true"></ins>
-<script>
-     (adsbygoogle = window.adsbygoogle || []).push({});
-</script>
-
 <script>
 (function(){
     var bp = document.createElement('script');
@@ -332,7 +321,7 @@
           <i class="far fa-calendar-check"></i>
         </span>
         <span class="post-meta-item-text">更新于</span>
-        <time title="修改时间：2021-01-17 06:05:08" itemprop="dateModified" datetime="2021-01-17T06:05:08+08:00">2021-01-17</time>
+        <time title="修改时间：2025-01-01 01:54:10" itemprop="dateModified" datetime="2025-01-01T01:54:10+08:00">2025-01-01</time>
       </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -361,7 +350,7 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <p>  kruskal算法的主要思想就是从当前路径中选择一个不能构成环的最小边加入</p>
+          <p>kruskal算法的主要思想就是从当前路径中选择一个不能构成环的最小边加入</p>
 <p>for (int i=1;i&lt;n;i++)<br>    {<br>        int mi=1000000,k;<br>        for (int j=0;j&lt;m;j++)<br>        {<br>            if ((v[e[j].x] + v[e[j].y]==1 || i==1 ) &amp;&amp; e[j].d&lt;mi){ mi=e[j].d; k=j; } } result.push_back(k); v[e[k].x]=1; v[e[k].y]=1; if (mi&gt;ma) ma=mi;<br>    }</p>
 <p>因为此算法本质上是一个贪心策略，可以通过并查集进行优化，现将其从小到大排序</p>
 <p>int kruskal()//返回最小生成树的和<br>{<br>    int ans=0;<br>    qsort(e,e+n,cmp);//cmp是将其按d值从小到大排序<br>    for (int i=0;i&lt;m;i++)//m is the number of edges<br>    {<br>        if (find(e[i].x)!=find(e[i].y)) {//判断边的两个端点是否在一个集合<br>             result.push_back(i);<br>             ans+=e[i].d;<br>        }<br>    }<br>    return ans;<br>}</p>
@@ -424,7 +413,7 @@
           <i class="far fa-calendar-check"></i>
         </span>
         <span class="post-meta-item-text">更新于</span>
-        <time title="修改时间：2019-07-29 23:22:50" itemprop="dateModified" datetime="2019-07-29T23:22:50+08:00">2019-07-29</time>
+        <time title="修改时间：2025-01-01 01:52:20" itemprop="dateModified" datetime="2025-01-01T01:52:20+08:00">2025-01-01</time>
       </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -453,7 +442,7 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <p>   题意不追溯，关于匈牙利算法看：<a target="_blank" rel="noopener" href="http://my.oschina.net/xuwei8091/blog/126320">http://my.oschina.net/xuwei8091/blog/126320</a>。 最小路径覆盖等于N-最大匹配</p>
+          <p>题意不追溯，关于匈牙利算法看：<a target="_blank" rel="noopener" href="http://my.oschina.net/xuwei8091/blog/126320">http://my.oschina.net/xuwei8091/blog/126320</a>。 最小路径覆盖等于N-最大匹配</p>
 <p>#include #include #include using namespace std;<br>int T;<br>int n,m;<br>int map[200][200];<br>int vis[200];<br>int result[200];<br>bool find(int s)<br>{<br>        for (int i=1;i&lt;=n;i++)<br>        {<br>            if (map[s][i] &amp;&amp; !vis[i])<br>            {<br>                vis[i]=1;<br>                if (result[i]==0 || find(result[i]))<br>                {<br>                    result[i]=s;<br>                    return true;<br>                }<br>            }<br>        }<br>        return false;<br>}<br>int main()<br>{<br>    scanf(“%d”,&amp;T);<br>    while (T–){<br>        memset(map,0,sizeof(map));<br>        memset(result,0,sizeof(result));<br>        scanf(“%d%d”,&amp;n,&amp;m);<br>        for (int i=0;i</p>
 
       
@@ -512,7 +501,7 @@
           <i class="far fa-calendar-check"></i>
         </span>
         <span class="post-meta-item-text">更新于</span>
-        <time title="修改时间：2021-01-17 05:08:12" itemprop="dateModified" datetime="2021-01-17T05:08:12+08:00">2021-01-17</time>
+        <time title="修改时间：2025-01-01 01:52:20" itemprop="dateModified" datetime="2025-01-01T01:52:20+08:00">2025-01-01</time>
       </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -541,7 +530,7 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <p>    关于算法的说明，可以参看这个大牛的讲解，很详细： <a target="_blank" rel="noopener" href="http://imlazy.ycool.com/post.1603708.html">http://imlazy.ycool.com/post.1603708.html</a> 直接上代码</p>
+          <p>关于算法的说明，可以参看这个大牛的讲解，很详细： <a target="_blank" rel="noopener" href="http://imlazy.ycool.com/post.1603708.html">http://imlazy.ycool.com/post.1603708.html</a> 直接上代码</p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">bool</span> <span class="title">find</span><span class="params">(<span class="type">int</span> s)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i=<span class="number">1</span>;i&lt;=n;i++)<span class="comment">//从1到n编号</span></span><br><span class="line">    &#123;</span><br><span class="line">         <span class="keyword">if</span> (map[s][i] &amp;&amp; !visit[i])</span><br><span class="line">        &#123;</span><br><span class="line">            visit[i]=<span class="number">1</span>;</span><br><span class="line">            <span class="keyword">if</span> (pre[i]==<span class="number">0</span> || <span class="built_in">find</span>(pre[i]))</span><br><span class="line">             &#123;</span><br><span class="line">                 pre[i]=s;</span><br><span class="line">                 <span class="keyword">return</span> <span class="literal">true</span>;      </span><br><span class="line">             &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">hungary</span><span class="params">()</span><span class="comment">//返回最大匹配数</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">     <span class="type">int</span> ans=<span class="number">0</span>;</span><br><span class="line">     <span class="keyword">for</span> (<span class="type">int</span> i=<span class="number">1</span>;i&lt;=n;i++)</span><br><span class="line">     &#123;</span><br><span class="line">        <span class="built_in">memset</span>(visit,<span class="number">0</span>,<span class="built_in">sizeof</span>(visit));</span><br><span class="line">        <span class="keyword">if</span> (<span class="built_in">find</span>(i)) ans++;</span><br><span class="line">     &#125;</span><br><span class="line">     <span class="keyword">return</span> ans;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 
 
@@ -606,7 +595,7 @@
           <i class="far fa-calendar-check"></i>
         </span>
         <span class="post-meta-item-text">更新于</span>
-        <time title="修改时间：2019-07-29 23:22:50" itemprop="dateModified" datetime="2019-07-29T23:22:50+08:00">2019-07-29</time>
+        <time title="修改时间：2025-01-01 01:54:10" itemprop="dateModified" datetime="2025-01-01T01:54:10+08:00">2025-01-01</time>
       </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -635,7 +624,7 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <p>  题意就不赘诉了，青蛙约会。是一个关于欧几里得扩展的定理的题目</p>
+          <p>题意就不赘诉了，青蛙约会。是一个关于欧几里得扩展的定理的题目</p>
 <p>int gcd(int a,int b)//欧几里得求最大公约数<br>{<br>    if (b==0) return a;<br>    return gcd(b,a%b);<br>}</p>
 <p>int exgcd(int a,int b,int &amp;x,int &amp;y)//欧几里得扩展求ax+by=gcd(a,b)的一组解<br>{<br>   if (b==0) {x=1;y=0;return a;}<br>   int r=exgcd(b,a%b,x,y);<br>   int t=x;<br>   x=y;<br>   y=t-a/b*y;<br>   return r;<br>}</p>
 <p>针对本题，需要注意的是，    1.数据比较大，需要用long long 2.因为是时间，所以x不能是负数，如果出现负数怎么办呢？ a*x1+b*y1=d(d=gcd(a,b)),那个转换成 a*(x1+b*n）+b*（y1-a*n)=d 最终x=(x1%b+b)%b;或者(x1+(abs([x1/b])+1)*b)%b; AC代码：</p>
@@ -698,7 +687,7 @@
           <i class="far fa-calendar-check"></i>
         </span>
         <span class="post-meta-item-text">更新于</span>
-        <time title="修改时间：2019-08-11 05:19:06" itemprop="dateModified" datetime="2019-08-11T05:19:06+08:00">2019-08-11</time>
+        <time title="修改时间：2025-01-01 01:54:10" itemprop="dateModified" datetime="2025-01-01T01:54:10+08:00">2025-01-01</time>
       </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -727,17 +716,13 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <p>  好吧，前两天做了一场CF，遇到一道并查集的题目，感觉并查集还需学习啊，记录一下 具体的算法如下</p>
+          <p>好吧，前两天做了一场CF，遇到一道并查集的题目，感觉并查集还需学习啊，记录一下 具体的算法如下</p>
 <ol>
 <li>有father数组，全部初始化为本身 </li>
 <li>添加一个关系进来的时候，s–t，找到s的祖先a,t的祖先b，将a的father设为b </li>
 <li>通过查找祖先，来确定是否在一个集合内</li>
 </ol>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">init</span><span class="params">(<span class="type">int</span> n)</span></span>&#123;<span class="comment">//初始化，节点编号1-n</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i=<span class="number">1</span>;i&lt;=n;i++) father[i]=i;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">find</span><span class="params">(<span class="type">int</span> x)</span><span class="comment">//查找祖先节点</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">while</span> (father[x]!=x) x=father[x];</span><br><span class="line">	<span class="keyword">return</span> x;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">add</span><span class="params">(<span class="type">int</span> s,<span class="type">int</span> t)</span><span class="comment">//增加一个关系，改变集合</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  <span class="type">int</span> a=<span class="built_in">find</span>(s);</span><br><span class="line">  <span class="type">int</span> b=<span class="built_in">find</span>(t);</span><br><span class="line">  father[a]=b;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">bool</span> <span class="title">judge</span><span class="params">(<span class="type">int</span> s,<span class="type">int</span> t)</span><span class="comment">//判断是不是一个集合</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">find</span>(s)==<span class="built_in">find</span>(t);</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-
-
-
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">init</span><span class="params">(<span class="type">int</span> n)</span></span>&#123;<span class="comment">//初始化，节点编号1-n</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i=<span class="number">1</span>;i&lt;=n;i++) father[i]=i;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">find</span><span class="params">(<span class="type">int</span> x)</span><span class="comment">//查找祖先节点</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">while</span> (father[x]!=x) x=father[x];</span><br><span class="line">	<span class="keyword">return</span> x;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">add</span><span class="params">(<span class="type">int</span> s,<span class="type">int</span> t)</span><span class="comment">//增加一个关系，改变集合</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  <span class="type">int</span> a=<span class="built_in">find</span>(s);</span><br><span class="line">  <span class="type">int</span> b=<span class="built_in">find</span>(t);</span><br><span class="line">  father[a]=b;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">bool</span> <span class="title">judge</span><span class="params">(<span class="type">int</span> s,<span class="type">int</span> t)</span><span class="comment">//判断是不是一个集合</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">find</span>(s)==<span class="built_in">find</span>(t);</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
       
     </div>
 
@@ -794,7 +779,7 @@
           <i class="far fa-calendar-check"></i>
         </span>
         <span class="post-meta-item-text">更新于</span>
-        <time title="修改时间：2019-07-29 23:22:50" itemprop="dateModified" datetime="2019-07-29T23:22:50+08:00">2019-07-29</time>
+        <time title="修改时间：2025-01-01 01:49:23" itemprop="dateModified" datetime="2025-01-01T01:49:23+08:00">2025-01-01</time>
       </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -823,9 +808,15 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <p>  原题的题意是给n个人，每个人对于控辩两方都有一个值，现在选择m个人，使得控辩两方的值的差的和最小，如果有相同的最小值，那么就选择最大的一个。 本题的关键是模型的构建，对于每个人都有两种选择，一个是选择，一个是不选择，对于相同的差值，维护一个最大的和值，换言之，就是假设差值一定，从n个人选择m个人使得和最大.可以转换为背包问题。状态转移的方程为f[i][j][k+p[i]]=max{f[i-1][j][k+p[i]],f[i-1][j-1][k]+v[i]},表示前i个人中选择j个人差的和为k的最大的和的和（p[i]是第i个人的控辩双方的值差，v[i]是第i个人的控辩双方的值和）.本题的另外一个难点在于路径的记录，我们知道，动态规划的一个本质就是状态转移，也就是在当前状态记录是由哪个值推倒过来的，就可以逆序退出上个状态的值。同时通过对路径的遍历，从而可以判断当前的第i个人是否被选择过，从而达到了降维的作用。</p>
-<p>#include #include #include #include #include using namespace std;<br>int a[201],b[201];<br>int f[30][801],path[30][801];<br>int p[205],v[205];<br>bool select(int i,int j,int k)<br>{<br>    while (true)<br>    {<br>        if (path[i][k]&lt;0 || i&lt;0) break;<br>         if (j==path[i][k]) return true;<br>        k=k-p[path[i][k]];<br>        i–;<br>    }<br>    return false;<br>}<br>int main()<br>{<br>    int n,m;<br>    int No=0;<br>    while (scanf(“%d%d”,&amp;n,&amp;m)!=EOF &amp;&amp; n+m!=0){<br>        cout&lt;&lt;”Jury #”&lt;&lt;++No&lt;=0){<br>                for (int j=0;j=0 &amp;&amp; f[m][m*20+i]&gt;=f[m][m*20-i])<br>                {<br>                    k=m<em>20+i;<br>                    break;<br>                }<br>                if (f[m][m</em>20-i]&gt;=0){<br>                    k=m<em>20-i;<br>                    break;<br>                }<br>            }<br>        int suma=0,sumb=0;<br>        int id[300];<br>        int sum=0;<br>        while (true)<br>        {<br>            int i=path[m–][k];<br>            if (i==-1 || m&lt;0) break;<br>            id[sum++]=i;<br>            suma+=a[i];<br>            sumb+=b[i];<br>            k=k-p[i];<br>        }<br>        cout&lt;&lt;”Best jury has value “&lt; #include #include #include #include using namespace std;<br>int a[201],b[201];<br>int f[30][801],path[30][801];<br>int p[205],v[205];<br>bool select(int i,int j,int k)<br>{<br>    while (true)<br>    {<br>        if (path[i][k]&lt;0 || i&lt;0) break;<br>         if (j==path[i][k]) return true;<br>        k=k-p[path[i][k]];<br>        i–;<br>    }<br>    return false;<br>}<br>int main()<br>{<br>    int n,m;<br>    int No=0;<br>    while (scanf(“%d%d”,&amp;n,&amp;m)!=EOF &amp;&amp; n+m!=0){<br>        cout&lt;&lt;”Jury #”&lt;&lt;++No&lt;=0){<br>                for (int j=0;j=0 &amp;&amp; f[m][m*20+i]&gt;=f[m][m*20-i])<br>                {<br>                    k=m</em>20+i;<br>                    break;<br>                }<br>                if (f[m][m<em>20-i]&gt;=0){<br>                    k=m</em>20-i;<br>                    break;<br>                }<br>            }<br>        int suma=0,sumb=0;<br>        int id[300];<br>        int sum=0;<br>        while (true)<br>        {<br>            int i=path[m–][k];<br>            if (i==-1 || m&lt;0) break;<br>            id[sum++]=i;<br>            suma+=a[i];<br>            sumb+=b[i];<br>            k=k-p[i];<br>        }<br>        cout&lt;&lt;”Best jury has value “&lt;</p>
-
+          <p>原题的题意是给n个人，每个人对于控辩两方都有一个值，现在选择m个人，使得控辩两方的值的差的和最小，如果有相同的最小值，那么就选择最大的一个。 本题的关键是模型的构建，对于每个人都有两种选择，一个是选择，一个是不选择，对于相同的差值，维护一个最大的和值，换言之，就是假设差值一定，从n个人选择m个人使得和最大.可以转换为背包问题。状态转移的方程为f[i][j][k+p[i]]=max{f[i-1][j][k+p[i]],f[i-1][j-1][k]+v[i]},表示前i个人中选择j个人差的和为k的最大的和的和（p[i]是第i个人的控辩双方的值差，v[i]是第i个人的控辩双方的值和）.本题的另外一个难点在于路径的记录，我们知道，动态规划的一个本质就是状态转移，也就是在当前状态记录是由哪个值推倒过来的，就可以逆序退出上个状态的值。同时通过对路径的遍历，从而可以判断当前的第i个人是否被选择过，从而达到了降维的作用。</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2013/04/25/poj1015/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
@@ -911,5 +902,34 @@
 <script class="next-config" data-name="gitalk" type="application/json">{"enable":true,"github_id":"xtestw","repo":"xtestw.github.io","client_id":"76ac809eebae5aded61d","client_secret":"a9c003726fcdec4f8a58716dd939d7b257c6b72c","admin_user":"xtestw","distraction_free_mode":true,"proxy":"https://cors-anywhere.azm.workers.dev/https://github.com/login/oauth/access_token","language":null,"js":{"url":"https://cdn.jsdelivr.net/npm/gitalk@1.7.2/dist/gitalk.min.js","integrity":"sha256-Pmj85ojLaPOWwRtlMJwmezB/Qg8BzvJp5eTzvXaYAfA="},"path_md5":"82ca3c470e333e0bd93410abdccf0f6d"}</script>
 <script src="/js/third-party/comments/gitalk.js"></script>
 
+<div class="fixed-bottom-adsense" id="fixedBottomAd" style="display:none;">
+  <div class="close-btn" onclick="document.getElementById('fixedBottomAd').style.display='none'">×</div>
+  <ins class="adsbygoogle"
+       style="display:inline-block;width:728px;height:90px"
+       data-ad-client="ca-pub-1217509255829092"
+       data-ad-slot="9558262455"></ins>
+  <script>
+       (adsbygoogle = window.adsbygoogle || []).push({});
+  </script>
+</div>
+<script>
+  // 延迟 3 秒显示广告
+  setTimeout(function() {
+    document.getElementById('fixedBottomAd').style.display = 'block';
+  }, 3000);
+  
+  // 30 分钟内不再显示（如果用户关闭了广告）
+  document.querySelector('.close-btn').addEventListener('click', function() {
+    localStorage.setItem('adClosedTime', Date.now());
+  });
+  
+  // 检查是否应该显示广告
+  window.addEventListener('load', function() {
+    var lastClosedTime = localStorage.getItem('adClosedTime');
+    if (lastClosedTime && Date.now() - lastClosedTime < 30 * 60 * 1000) {
+      document.getElementById('fixedBottomAd').style.display = 'none';
+    }
+  });
+</script> 
 </body>
 </html>

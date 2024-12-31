@@ -73,17 +73,6 @@
 
 
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-<!-- blog_article_banner -->
-<ins class="adsbygoogle"
-      style="display:inline-block;width:728px;height:90px"
-     data-ad-client="ca-pub-1217509255829092"
-     data-ad-slot="9558262455"
-     data-ad-format="auto"
-     data-full-width-responsive="true"></ins>
-<script>
-     (adsbygoogle = window.adsbygoogle || []).push({});
-</script>
-
 <script>
 (function(){
     var bp = document.createElement('script');
@@ -324,10 +313,16 @@
         <i class="far fa-calendar"></i>
       </span>
       <span class="post-meta-item-text">发表于</span>
-      
 
-      <time title="创建时间：2021-03-15 20:34:25 / 修改时间：21:42:13" itemprop="dateCreated datePublished" datetime="2021-03-15T20:34:25+08:00">2021-03-15</time>
+      <time title="创建时间：2021-03-15 20:34:25" itemprop="dateCreated datePublished" datetime="2021-03-15T20:34:25+08:00">2021-03-15</time>
     </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新于</span>
+        <time title="修改时间：2025-01-01 01:54:51" itemprop="dateModified" datetime="2025-01-01T01:54:51+08:00">2025-01-01</time>
+      </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
         <i class="far fa-folder"></i>
@@ -378,245 +373,14 @@
 </ul>
 </li>
 </ul>
-<h5 id="Value-Object（值对象）"><a href="#Value-Object（值对象）" class="headerlink" title="Value Object（值对象）"></a>Value Object（值对象）</h5><ul>
-<li>当我们只关心一个模型元素的属性时，应把它归类为值对象。</li>
-<li>它度量或者描述了领域中的一件东西。</li>
-<li>它将不同的相关属性组合成了一个概念整体。</li>
-<li>它可以和其他值对象进行相等性比较。</li>
-<li>值对象应该是不可变的，不要为它分配任何标识，不要将它设计得跟实体一样复杂。</li>
-<li>值对象应该具有无副作用性</li>
-</ul>
-<h5 id="Aggregate（聚合）-amp-Root-Entity（根对象）"><a href="#Aggregate（聚合）-amp-Root-Entity（根对象）" class="headerlink" title="Aggregate（聚合）&amp; Root Entity（根对象）"></a>Aggregate（聚合）&amp; Root Entity（根对象）</h5><ul>
-<li>描述<ul>
-<li>每个聚合都有一个根和一个边界，边界内定义了聚合的内部有什么。”根” 是聚合所包含的一个特定的实体。</li>
-<li>外部对象可以引用根，但不能引用聚合内部的其他对象，聚合内的对象之间可以相互引用，除了根实体外，其他实体拥有本地标识。</li>
-</ul>
-</li>
-<li>定义<ul>
-<li>我们应该将实体和值对象分门别类的聚集到聚合当中，并定义聚合的边界。并通过根来控制边界内其他对象的所有访问。只允许外部对象保持对根的引用。对内部成员的临时引用可以被传递出去，但仅在一次操作中有效。</li>
-</ul>
-</li>
-<li>不变性和一致性边界即是聚合的设计依据和精髓。<ul>
-<li>这里的不变性指的是业务规则，该规则应该始终保持一致</li>
-<li>一致性边界的意思是单个事务的修改范围。 原则上我们应该在一个事务里只修改一个聚合。</li>
-</ul>
-</li>
-<li>聚合的作用<ul>
-<li>为了维护对象生命周期内的完整性</li>
-<li>通过定义清晰的所属关系和边界，在这个边界中的模型元素在生命周期内必须维护一致性，通俗的讲就是业务规则。</li>
-</ul>
-</li>
-<li>聚合特征<ul>
-<li>根实体具有全局的标识，它最终负责检查固定规则。</li>
-<li>边界内的实体具有本地标识，这些标识只在聚合内部才是唯一的。</li>
-<li>聚合外部的对象不能引用根实体之外的聚合内部对象。根实体可以将内部实体的引用传递给它们，但只能临时使用。或者传递一个值对象的副本出去，而不用关心它发生了什么变化。</li>
-<li>只有根实体才能直接通过数据库直接查询，其他对象必须通过遍历关联来发现。</li>
-<li>根实体可以保持其他根实体的引用。</li>
-<li>当对聚合边界内的任何对象做了修改时，整个聚合的所有固定规则都必须被满足。</li>
-</ul>
-</li>
-<li>原则<ul>
-<li>通过唯一标识去引用其他聚合<ul>
-<li>引用聚合和被引用的聚合不可以在同一个事务中进行修改</li>
-<li>如果你在试图在单个事务中修改多个聚合，这往往意味着此时的一致性边界是错误的，发生这样的情况通常是我们遗留了某些建模点，或者尚未发现通用语言中的某个概念。</li>
-<li>当试图修改多个聚合的话，我们也应该采用最终一致性而非原子一致性。</li>
-</ul>
-</li>
-<li>利用应用层来处理聚合内的依赖关系，避免在聚合中使用资源库或者领域服务。</li>
-<li>边界之外使用最终一致性</li>
-</ul>
-</li>
-</ul>
-<h5 id="Service（领域服务）"><a href="#Service（领域服务）" class="headerlink" title="Service（领域服务）"></a>Service（领域服务）</h5><ul>
-<li>三个特征<ul>
-<li>它是与领域相关的操作如执行一个显著的业务操作过程，但它又并不适合放入实体与值对象中。</li>
-<li>操作是无状态的。</li>
-<li>对领域对象进行转换，或以多个领域对象作为输入进行计算，结果产生一个值对象。</li>
-</ul>
-</li>
-<li>区分不同的服务<ul>
-<li>应用服务：获取输入，发送消息给领域层，监听确认消息，决定使用基础服务来发送邮件。</li>
-<li>领域服务：协调账户模型和总账模型进行交互，执行相应的领域行为。</li>
-<li>基础服务：按照应用服务的指示发送邮件。</li>
-</ul>
-</li>
-<li>粒度<ul>
-<li>我们应该尽量避免领域知识泄露到应用层当中去。那此时领域服务就不失为一种良好的处理方式，通过将细粒度的领域对象封装到领域服务当中去，将领域知识限制在领域服务当中，形成粗粒度的领域对象。</li>
-</ul>
-</li>
-<li><h2 id="转换过程"><a href="#转换过程" class="headerlink" title="转换过程"></a>转换过程</h2></li>
-</ul>
-<h5 id="Domain-Event（领域事件）"><a href="#Domain-Event（领域事件）" class="headerlink" title="Domain Event（领域事件）"></a>Domain Event（领域事件）</h5><ul>
-<li><p>领域专家所关心的发生在领域中的一些事件。将领域中所发生的活动建模成一系列的离散事件。每个事件都用领域对象来表示…领域事件是领域模型的组成部分，表示领域中所发生的事情。</p>
-</li>
-<li><p>一个领域事件必须对业务有价值，有助于形成完整的业务闭环，也即一个领域事件将导致进一步的业务操作。</p>
-</li>
-<li><p>事件风暴</p>
-<ul>
-<li><p>事件风暴是一项团队活动，旨在通过领域事件识别出聚合根，进而划分微服务的限界上下文。</p>
-<blockquote>
-<p>在活动中，团队先通过头脑风暴的形式罗列出领域中所有的领域事件，整合之后形成最终的领域事件集合，然后对于每一个事件，标注出导致该事件的命令（Command），再然后为每个事件标注出命令发起方的角色，命令可以是用户发起，也可以是第三方系统调用或者是定时器触发等。最后对事件进行分类整理出聚合根以及限界上下文。</p>
-</blockquote>
-</li>
-</ul>
-</li>
-</ul>
-<h5 id="Factory"><a href="#Factory" class="headerlink" title="Factory"></a>Factory</h5><ul>
-<li>why<ul>
-<li>隐藏创建的细节</li>
-<li>对内，复杂对象除了本身生命周期的维护外，如果再承担自身的创建，会导致负载过重</li>
-<li>对外，不需要客户理解对象创建过程</li>
-</ul>
-</li>
-<li>定义<ul>
-<li>复杂对象的创建是领域层的职责，但这项任务并不一定属于那些用于表示模型的对象，他们没有对应模型中的事物，但又确实承担了领域层的职责。</li>
-<li>应该将创建复杂对象和聚合的职责转移给单独的对象，这个对象本身可能没有承担领域模型中的职责，但它仍然领域设计的一部分。</li>
-<li>在创建聚合时要把它作为一个整体，并确保它满足固定规则。</li>
-</ul>
-</li>
-<li>设计要点<ul>
-<li>每个创建方法都应该是原子的，并保证生成的对象处于一致的状态。</li>
-<li>可以使用独立的工厂或者在聚合根上使用工厂方法。</li>
-<li>工厂方法的参数应该是较低层的对象。</li>
-<li>非必要场景，直接构造函数即可<ul>
-<li>类仅仅是一种类型，没有其他子类，没有实现多态性。</li>
-<li>客户关心的是实现类。</li>
-<li>客户可以访问对象的所有属性，因此向客户公开的构造函数中没有嵌套的对象创建。</li>
-<li>构造过程很简单。</li>
-<li>公共构造函数必须遵守与工厂相同的规则，必须是原子操作且满足所有固定规则。</li>
-<li>不要在构造函数中调用其他构造函数，应保持构造函数的简单。</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<h5 id="Repository"><a href="#Repository" class="headerlink" title="Repository"></a>Repository</h5><ul>
-<li>实现<ul>
-<li>对类型抽象</li>
-<li>充分利用与客户进行解藕</li>
-<li>事务的控制权交给客户</li>
-</ul>
-</li>
-<li>优点<ul>
-<li>为客户提供了一个简单的模型，可用来获取持久化对象并管理他们的生命周期</li>
-<li>他们将应用程序和领域设计与持久化技术进行解耦</li>
-<li>它们体现了有关对象访问的设计决策</li>
-<li>很容易测试，将利用集合直接替换资源库进行测试</li>
-</ul>
-</li>
-</ul>
-<h5 id="Bounded-Context-限定上下文"><a href="#Bounded-Context-限定上下文" class="headerlink" title="Bounded Context (限定上下文)"></a>Bounded Context (限定上下文)</h5><ul>
-<li>领域、子域、限界上下文<ul>
-<li>领域即是一个组织所做的事情以及其中所包含的一切</li>
-<li>模型只在限界上下文中变动，不影响其他限界上下文，将变动的影响范围控制在单个限界上下文中</li>
-<li>一般来说，一个子域对应一个限界上下文，但是子域并不一定与限界上下文一一对应</li>
-<li>领域种类划分<ul>
-<li>核心域：公司主要的业务领域，比如生鲜的商品子域以及订单子域（核心域并不绝对）</li>
-<li>支撑子域：公司的库存帮助公司完成销售。他们就属于支撑子域。</li>
-<li>通用子域：会员子域，在许多的网上购物平台上都会使用到的会员体系。它属于通用子域。</li>
-</ul>
-</li>
-</ul>
-</li>
-<li>限界上下文是一个显式的边界，领域存在于这个边界之内。</li>
-</ul>
-<h5 id="Context-Map（上下文映射）"><a href="#Context-Map（上下文映射）" class="headerlink" title="Context Map（上下文映射）"></a>Context Map（上下文映射）</h5><img src="/images/DDD-领域建模/image-20210311142539037.png" alt="image-20210311142539037" style="zoom:30%;" />
-
-<ul>
-<li>继承方式<ul>
-<li>RPC</li>
-<li>Restful等api</li>
-<li>消息队列</li>
-</ul>
-</li>
-<li>种类<ul>
-<li>共享内核-Shared Kernel</li>
-<li>客户/供应商-Customer/Supplier</li>
-<li>追随者-Conformist</li>
-<li>防腐层-Anticorruption Layer</li>
-<li>公开主机服务-Open Host Service</li>
-<li>各行其道  - Separate Way</li>
-<li>合作关系 - Partnership</li>
-</ul>
-</li>
-</ul>
-<h4 id="设计方法"><a href="#设计方法" class="headerlink" title="设计方法"></a>设计方法</h4><h5 id="分层架构"><a href="#分层架构" class="headerlink" title="分层架构"></a>分层架构</h5><img src="/images/DDD-领域建模/image-20210311111555717.png" alt="image-20210311111555717" style="zoom:35%;" />
-
-<ul>
-<li>基本原则：每层只能和位于下方的层产生耦合<ul>
-<li>严格分层架构：每层只能与直接位于下方的层发生耦合</li>
-<li>松散分层架构：任意上层和任意下层发生耦合</li>
-<li>可以通过观察者等模式，让下层和上层发生耦合</li>
-</ul>
-</li>
-</ul>
-<h5 id="六边形架构"><a href="#六边形架构" class="headerlink" title="六边形架构"></a>六边形架构</h5><img src="/images/DDD-领域建模/image-20210311111942873.png" alt="image-20210311111942873" style="zoom:35%;" />
-
-<ul>
-<li>六边形架构 其实是分层架构的一种扩展，是原来分层架构的另外一种解读，是一种端口+适配器风格的架构</li>
-<li>通过端口+适配器将领域包裹起来， 形成清晰的应用程序边界</li>
-</ul>
-<h5 id="SOA"><a href="#SOA" class="headerlink" title="SOA"></a>SOA</h5><ul>
-<li>SOA原则<ul>
-<li>服务契约</li>
-<li>松耦合</li>
-<li>服务抽象</li>
-<li>服务重用性</li>
-<li>服务自治性</li>
-<li>服务无状态性</li>
-<li>服务可发现性</li>
-<li>服务组合性</li>
-</ul>
-</li>
-<li>SOA 精神所在<ul>
-<li>业务价值高于技术策略</li>
-<li>战略目标高于项目利益</li>
-</ul>
-</li>
-</ul>
-<h5 id="RESTful"><a href="#RESTful" class="headerlink" title="RESTful"></a>RESTful</h5><ul>
-<li>将RESTful和DDD结合的2种方式<ul>
-<li>为系统接口层单独创建一个限界上下文</li>
-<li>使用标准媒体类型的时候，如果某种媒体类型不用于支持单个系统接口，我们可以可以创建一个领域模型来处理。</li>
-</ul>
-</li>
-</ul>
-<h5 id="CQRS"><a href="#CQRS" class="headerlink" title="CQRS"></a>CQRS</h5><h5 id="事件驱动"><a href="#事件驱动" class="headerlink" title="事件驱动"></a>事件驱动</h5><h4 id="ContextMapper"><a href="#ContextMapper" class="headerlink" title="ContextMapper"></a>ContextMapper</h4><img src="/images/DDD-领域建模/image-20210315200928557.png" alt="image-20210315200928557" style="zoom:50%;" />
-
-<h5 id="ContextMap"><a href="#ContextMap" class="headerlink" title="ContextMap"></a>ContextMap</h5><ul>
-<li>contextMap 只有2种type<ul>
-<li>SYSTEM_LANDSCAPE 这个是从系统层面描述 ContextMap</li>
-<li>ORGANIZATIONAL 这个是从组织团队层面描述 ContextMap</li>
-</ul>
-</li>
-</ul>
-<h5 id="BoundedContext"><a href="#BoundedContext" class="headerlink" title="BoundedContext"></a>BoundedContext</h5><ul>
-<li>一个BoundedContext 可以实现多个domain</li>
-<li>一个BoundedContext 可以 refines 另外一个</li>
-<li>BoundedContext  类型有4种<ul>
-<li>FEATURE</li>
-<li>APPLICATION</li>
-<li>SYSTEM</li>
-<li>TEAM</li>
-</ul>
-</li>
-<li>Knowage level 有2个<ul>
-<li>CONCRETE</li>
-<li>META</li>
-</ul>
-</li>
-</ul>
-<h5 id="Domain-and-Subdomain"><a href="#Domain-and-Subdomain" class="headerlink" title="Domain and Subdomain"></a>Domain and Subdomain</h5><img src="/images/DDD-领域建模/image-20210315201429551.png" alt="image-20210315201429551" style="zoom:33%;" />
-
-<ul>
-<li>Subdomain 类型<ul>
-<li>CORE_DOMAIN</li>
-<li>SUPPORTING_DOMAIN</li>
-<li>GENERIC_SUBDOMAIN</li>
-</ul>
-</li>
-</ul>
-
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2021/03/15/DDD-%E9%A2%86%E5%9F%9F%E5%BB%BA%E6%A8%A1/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
@@ -673,7 +437,7 @@
           <i class="far fa-calendar-check"></i>
         </span>
         <span class="post-meta-item-text">更新于</span>
-        <time title="修改时间：2021-03-15 21:43:07" itemprop="dateModified" datetime="2021-03-15T21:43:07+08:00">2021-03-15</time>
+        <time title="修改时间：2025-01-01 01:54:51" itemprop="dateModified" datetime="2025-01-01T01:54:51+08:00">2025-01-01</time>
       </span>
 
   
@@ -718,212 +482,14 @@
 </ul>
 </li>
 </ul>
-<p>整个ha3作为一个完善的搜索引擎，方方面面都很涉及，本文主要围绕索引和检索两个过程进行讨论，其他的包括插件、检索语法、配置、运维等方面，不在本文叙述。</p>
-<h2 id="索引"><a href="#索引" class="headerlink" title="索引"></a>索引</h2><p>索引的作用是为了增加检索速度，ha3索引主要是基于indexlib库构建的。indexlib的索引类型支持 index索引/kv索引/kkv索引/时序索引等。</p>
-<p>在我们搜索场景中，主要使用index索引，index索引主要用于基于关键词进行文档检索召回的场景，并对召回的文档基于文档属性进行进一步的过滤、统计、排序等操作。 </p>
-<p>index索引是基于文档进行的，每个文档都会有一个docid(docid类型为int32_t，所以最多支持20亿文档)。 而每个文档都是由多个field组成，每个field会对应为：主键索引(primary key index)、倒排索引(index)、正排索引(attribute)、摘要(summary)</p>
-<p>本章主要针对index索引，介绍其索引的结构和构建的过程，以便我们更好的理解索引的作用，以及后面的检索过程。</p>
-<h3 id="索引格式"><a href="#索引格式" class="headerlink" title="索引格式"></a>索引格式</h3><p><img src="/images/Ha3-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/image-20210228195329797.png" alt="image-20210228195329797"></p>
-<p>上图是整个索引文件列表，针对目录的说明如下：</p>
-<table>
-<thead>
-<tr>
-<th>结构名称</th>
-<th>说明</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>generation</td>
-<td>generation_x是引擎区分不同版本全量索引的标识。</td>
-</tr>
-<tr>
-<td>partition</td>
-<td>partition是searcher加载索引的基本单位。如果一个partition中数据过多，会导致searcher性能降低。线上数据一般通过划分多个partition的方式来保证每个searcher的检索效率。</td>
-</tr>
-<tr>
-<td>segment</td>
-<td>segment是索引组成的基本单位。segment中包含了文档的倒排和正排结构。index builder每次dump都会生成一个segment。多个segment可以通过merge策略进行合并。一个partition中可用的segment在version文件中指明。</td>
-</tr>
-<tr>
-<td>index</td>
-<td>倒排索引的基本单位。</td>
-</tr>
-<tr>
-<td>attribute</td>
-<td>正排索引的基本单位。</td>
-</tr>
-<tr>
-<td>deletionmap</td>
-<td>删除的doc记录。</td>
-</tr>
-<tr>
-<td>truncate_meta</td>
-<td>截断索引meta数据文件（Index表倒排截断场景 ）。</td>
-</tr>
-<tr>
-<td>adaptive_bitmap_meta</td>
-<td>自适应bitmap高频词表文件（Index表倒排应用adaptive_bitmap场景）。</td>
-</tr>
-</tbody></table>
-<p>涉及到的文件如下：</p>
-<table>
-<thead>
-<tr>
-<th>文件名称</th>
-<th>存储内容</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>index_format_version</td>
-<td>索引的版本信息。用于检查索引文件是否符合binary要求。</td>
-</tr>
-<tr>
-<td>index_partition_meta</td>
-<td>存储了全局排序的信息。包括排序字段和升降序。</td>
-</tr>
-<tr>
-<td>schema.json</td>
-<td>索引配置文件。主要记录fields，index, attribute 和summary等信息。引擎通过该文件来加载索引。</td>
-</tr>
-<tr>
-<td>version.0</td>
-<td>version文件。主要记录当前partition中引擎需要加载的segment和最新doc的时间戳。在实时build中，引擎会根据增量version的时间戳过滤旧的原始文档。</td>
-</tr>
-<tr>
-<td>segment_info</td>
-<td>segment信息摘要。记录了当前segment中文档数目，当前segment是否merge过，locator信息和最新doc时间戳信息。</td>
-</tr>
-</tbody></table>
-<h4 id="倒排索引"><a href="#倒排索引" class="headerlink" title="倒排索引"></a>倒排索引</h4><p><img src="/images/Ha3-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/image-20210228205126548.png" alt="image-20210228205126548"></p>
-<p>倒排索引核心解决的问题是建立关键词到doc_id的映射, 通过倒排索引，我们可以快速获取相关的文档列表，以及倒排词在文档中的位置词频等信息。 整个检索流程可以参考上图，先通过词典文件查询索引词在索引文件中的位置，在对应位置获取关联的文档列表信息，以及关键词和关键词在文档中的信息。</p>
-<p>除了上图存在的内容外，还存在一个截断索引的概念，这是一种辅助索引，对于原始索引中高频词的倒排链，按照某些feature，截取权重较高的文档形成截断索引，提高检索速度。实际应用中，可以更具多个截断方式，生成多条截断链。</p>
-<p>此外，在ha3中，倒排索引记录的主要信息如下, 对于不同的索引(NUMBER/TEXT/PACK/EXPACK/PRIMARYKEY64/RANGE/SPATIAL)，支持也不一样，具体参看文档：</p>
-<table>
-<thead>
-<tr>
-<th>信息名称</th>
-<th>描述</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>ttf</td>
-<td>全称：total term frequency, 表示检索词在所有文档中出现的总次数</td>
-</tr>
-<tr>
-<td>df</td>
-<td>全称：document frequency, 表示包含检索词的文档总数</td>
-</tr>
-<tr>
-<td>tf</td>
-<td>全称：term frequency, 表示检索词在文档中出现的次数</td>
-</tr>
-<tr>
-<td>docid</td>
-<td>全称：document id, 是文档在引擎中的唯一标识，可以通过docid获取到原文档的其他信息</td>
-</tr>
-<tr>
-<td>fieldmap</td>
-<td>全称：field map, 用于记录包含检索词的field信息</td>
-</tr>
-<tr>
-<td>section 信息</td>
-<td>用户可以为某些文档分段，然后为每一段添加附属信息。该信息可以在检索时取出，供后续处理使用</td>
-</tr>
-<tr>
-<td>position</td>
-<td>用于记录检索词在文档中的位置信息</td>
-</tr>
-<tr>
-<td>positionpayload</td>
-<td>全称：position payload, 用户可以为文档不同位置设置payload信息，并可以在检索时取出，供后续处理用</td>
-</tr>
-<tr>
-<td>docpayload</td>
-<td>全称：document payload, 用户可以为某些文档添加附属信息，并可以在检索时取出，供后续处理使用</td>
-</tr>
-<tr>
-<td>termpayload</td>
-<td>全称：term payload, 用户可以为某些词添加附属信息，并可以在检索时取出，供后续处理使用</td>
-</tr>
-</tbody></table>
-<h4 id="正排索引"><a href="#正排索引" class="headerlink" title="正排索引"></a>正排索引</h4><p>正排索引主要是简历 doc_id -&gt;field 的映射，主要用于检索到 doc_id 后，可以根据 doc_id 快速获取关键字段的值用来统计、排序、过滤。 正派索引支持的字段类型主要包括单值类型和多值类型：</p>
-<ul>
-<li>单值类型<ul>
-<li>只有一个data文件, 其为每一个doc分配固定大小的空间，用来存储对应正排字段的取值，可以通过docID直接定位到data文件中该doc对应信息的存储位置，完成获取信息的操作</li>
-</ul>
-</li>
-<li>多值类型<ul>
-<li>有两个文件——data文件和offset文件，其中data文件存储着对应正排字段的字段值信息，offset文件记录了doc对应在data中的偏移量，它为每个doc按照doc顺序分配固定大小的空间，来存储其在data文件中的偏移量，从而获取到对应的正排字段信息</li>
-</ul>
-</li>
-</ul>
-<h4 id="摘要索引"><a href="#摘要索引" class="headerlink" title="摘要索引"></a>摘要索引</h4><p>摘要索引将一片文档对应的信息存储在一起，通过docID可以定位该文档信息的存储位置，从而为用户提供摘要信息的存储获取服务。</p>
-<p>摘要索引只有两个文件——data文件和offset文件。 通过offset可以直接定位到data中doc的信息。</p>
-<h3 id="索引构建"><a href="#索引构建" class="headerlink" title="索引构建"></a>索引构建</h3><p>从构建的角度来说，索引分为全量索引/增量索引/实时索引。ha3 通过 buildservice 来构建索引，基本的流程如下：</p>
-<p><img src="/images/Ha3-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/image-20210228214152893.png" alt="image-20210228214152893"></p>
-<p>全量和增量索引属于离线索引，离线索引依赖于三类BS内部的worker：</p>
-<ul>
-<li>Processor 从数据源获取原始文档，经过文档处理插件后，转换为Processed文档写入SWIFT中转topic</li>
-<li>Builder 负责从SWIFT中读取Processed文档，根据此文档构建索引写入到文件系统。</li>
-<li>Merger 对Builder产出全量索引或增量索引文件，按照合并策略进行索引合并，并将产出后的索引写到文件系统中。</li>
-</ul>
-<p>实时索引属于在线索引，构建在在线服务内部，通过RealtimeBuilder模块，直接从中转swift topic(s) 中读取数据（对应图中的实时数据流）、构建索引。可以达到秒级延迟。</p>
-<h3 id="索引加载"><a href="#索引加载" class="headerlink" title="索引加载"></a>索引加载</h3><p>索引的加载方式目前只支持mmap加载和blockcache加载 2 种方式：</p>
-<ul>
-<li><p>mmap 加载</p>
-<p>通过系统调用mmap将索引文件映射到进程内存地址空间中。加载过程支持mmap lock到内存来保证全内存场景下数据读取完全不读取磁盘数据；也支持mmap非lock场景加载，由操作系统进行内存页缓存管理（采用系统cache方式）。</p>
-</li>
-<li><p>blockcache 加载</p>
-<p>通过blockcache加载模式，可以将索引文件读取的热数据缓存到blockcache中，减少磁盘读取操作。同时数据淘汰策略采用了lru策略，加载和淘汰更加可控（对比mmap非lock的系统cache）。</p>
-</li>
-</ul>
-<h2 id="检索"><a href="#检索" class="headerlink" title="检索"></a>检索</h2><p><img src="/images/Ha3-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/image-20210228221141255.png" alt="image-20210228221141255"></p>
-<p>检索流程更多是在线过程，整体流程参看照爷整理的流程图，如上图。检索过程主要分为2个阶段，一阶段负责文档的召回和排序，二阶段则是summary的信息不全。</p>
-<p>对于多集群召回的结果，默认支持去重机制。 整体查询支持一些高级查询：</p>
-<ul>
-<li>一阶段/二阶段的独立查询</li>
-<li>索引分层，第一层数量不够后重查后面几层</li>
-<li>结果数不同重查机制：<ul>
-<li>返回的结果数小于research_threshold，同时过程中触发了有可能影响结果数优化的逻辑，才会触发重查</li>
-<li>重查时，会关掉所有对结果数有影响的优化逻辑</li>
-</ul>
-</li>
-<li>分层查询</li>
-<li>截断链查询</li>
-</ul>
-<p>此外因为属于在线服务，在每个阶段都会有相应的指标监控，具体如下：</p>
-<ul>
-<li><p>qrsSessionLatencyIndependentPhase1 : qrs 创建session -&gt; end session</p>
-</li>
-<li><p>qrsProcessLatencyIndependentPhase1 : qrs begin session -&gt; end session</p>
-</li>
-<li><p>searcherProcessLatencyPhase1 : searcher begin search -&gt; end serach</p>
-</li>
-<li><p>sessionLatencyPhase1 : searcher 创建 session -&gt; end search</p>
-</li>
-<li><p>afterRunGraphLatency ：search图执行完 -&gt; end serach</p>
-</li>
-<li><p>afterSearchLatency : searcher final sort完 -&gt; end serach</p>
-</li>
-<li><p>beforeRunGraphLatency : searcher begin search -&gt; 图中第一个节点IsPhaseOneOp开始</p>
-</li>
-<li><p>beforeSearchLatency : searcher begin search -&gt; 图中seek op开始 multi layer search</p>
-</li>
-<li><p>extraRankLatency : Ha3SorterOp(final sort)耗时</p>
-</li>
-<li><p>mergeLatencyPhase1 : qrs result merge， run qrs graph耗时</p>
-</li>
-<li><p>rankLatency : multi layer search</p>
-</li>
-<li><p>rerankLatency ：rerank 耗时， rankLatency和rerankLatency加起来是seek op 耗时</p>
-</li>
-<li><p>runGraphLatency ：search 图执行耗时</p>
-</li>
-</ul>
-<h2 id="附录"><a href="#附录" class="headerlink" title="附录"></a>附录</h2><ul>
-<li><a target="_blank" rel="noopener" href="https://www.infoq.cn/article/uyfnarvkz0zxg7ir6beq">https://www.infoq.cn/article/uyfnarvkz0zxg7ir6beq</a></li>
-</ul>
-
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2021/02/28/Ha3-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
@@ -975,6 +541,13 @@
 
       <time title="创建时间：2021-02-28 16:37:08" itemprop="dateCreated datePublished" datetime="2021-02-28T16:37:08+08:00">2021-02-28</time>
     </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新于</span>
+        <time title="修改时间：2025-01-01 01:54:51" itemprop="dateModified" datetime="2025-01-01T01:54:51+08:00">2025-01-01</time>
+      </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
         <i class="far fa-folder"></i>
@@ -1004,141 +577,14 @@
     <div class="post-body" itemprop="articleBody">
           <h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><p>Blink 其实是阿里内部基于 flink 改造的系统，学习 Blink 首先要学习 flink 相关的知识，先了解一下 flink 产生的背景和要解决的问题。</p>
 <p>在大数据开始爆发的时代，mapreduce 作为初代的计算引擎，提供了分布式计算的核心思想，map&amp;reduce的分阶段处理。但是 map reduce 本质上还是批处理计算框架，随着业务发展，流式数据计算处理的需求越来越旺盛，storm 等应运而生，但是作为第一代流式计算框架，存在一些设计上的缺陷，包括 exactly once等语义的支持。而且批处理和流处理作为处理同一个业务逻辑的两套系统，需要维护两套代码，并不是很友好。而这个时候 spark也发展起来了，集批处理，流处理，SQL 功能，图计算，机器学习于一身，并且支持 SparkR 和 PySpark 来做科学计算。而同时支持流处理和批处理的计算引擎，只有2个选择，除了spark 便是 flink。</p>
-<p>spark 批流统一处理的核心思想其实是用批来模拟流的能力，而flink则完全相反，使用流计算来模拟批计算。flink在捐赠给apache后定位的主流方向便是 Streaming， 区别于Storm,Spark Streaming以及其他流式计算引擎的是：它不仅是一个高吞吐、低延迟的计算引擎，同时还提供很多高级的功能。比如它提供了有状态的计算，支持状态管理，支持强一致性的数据语义以及支持 Event Time,WaterMark 对消息乱序的处理。</p>
-<p>最后，回归到官网对它的定义：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Apache Flink 是一个框架和分布式处理引擎，用于在无边界和有边界数据流上进行有状态的计算。Flink 能在所有常见集群环境中运行，并能以内存速度和任意规模进行计算。</span><br></pre></td></tr></table></figure>
-
-<p>关于应用场景， 官方主要给了3类应用和相应的事例可以参看：</p>
-<ul>
-<li><a target="_blank" rel="noopener" href="https://flink.apache.org/zh/usecases.html#eventDrivenApps">事件驱动型应用</a></li>
-<li><a target="_blank" rel="noopener" href="https://flink.apache.org/zh/usecases.html#analytics">数据分析应用</a></li>
-<li><a target="_blank" rel="noopener" href="https://flink.apache.org/zh/usecases.html#pipelines">数据管道应用</a></li>
-</ul>
-<h2 id="设计架构"><a href="#设计架构" class="headerlink" title="设计架构"></a>设计架构</h2><p><img src="/images/Blink%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/image-20210218205017997.png" alt="image-20210218205017997"></p>
-<p>Client 构建dataflow graph 已经数据流下放到 jobmanager 去调度 taskmanager 执行。Flink 运行时由2种进程组成，JobManager 和 TaskManager。</p>
-<h4 id="JobManager"><a href="#JobManager" class="headerlink" title="JobManager"></a>JobManager</h4><p>JobManager  负责task的调度、失败处理、协调处理checkpoint等，主要由3个组件构成：</p>
-<ul>
-<li>ResourceManager：负责资源的申请、分配、回收(适配 YARN、Mesos、Kubernetes等)。管理TaskManager的Task Slots</li>
-<li>Dispacher：提供REST接口，用于提交Flink应用程序执行，并且为每一个Task启动一个新的JobMaster，同时提供一个WebUI反应作业执行情况。</li>
-<li>JobMaster: 负责管理单个<a target="_blank" rel="noopener" href="https://ci.apache.org/projects/flink/flink-docs-release-1.12/zh/concepts/glossary.html#logical-graph">JobGraph</a>的执行。Flink 集群中可以同时运行多个作业，每个作业都有自己的 JobMaster。JobMaster可以有多个，其中一个事leader 其他的为Standby。JobMaster的HA有2种实现方式：Zookeeper 和 Kubernetes。</li>
-</ul>
-<h4 id="TaskManager"><a href="#TaskManager" class="headerlink" title="TaskManager"></a>TaskManager</h4><p>TaskManager 执行作业流的task，并且缓存和交换数据流。 本质上是一个 JVM 进程，可以在单独的线程中执行一个或多个 subtask，为了控制TaskManager接受多个task，也就是所谓的task slots。</p>
-<p>Task、Subtask、Slot 是 3 个不同层面的概念</p>
-<p>slot是独立资源，如果一个taskmanager有3个slot，那么每个slot独立分配1/3内存。同时同一个taskmanager下的slot共享同一个JVM。同一个JVM的多个task共享TCP链接和心跳信息。</p>
-<p>默认允许 SubTask 共享 slot， 即便是不同的task的subtask，只要是一个作业就可以。也就是说，一个slot可以持有整个作业的通道。</p>
-<h3 id="执行过程"><a href="#执行过程" class="headerlink" title="执行过程"></a>执行过程</h3><p>Flink的执行会被提交到3种类型的集群执行，其主要的差异在于执行的生命周期和资源的隔离保证：</p>
-<ul>
-<li>Flink Session 集群<ul>
-<li>生命周期：集群是长期运行的，可接受多个作业提交</li>
-<li>资源隔离：多个作业共享集群资源，如果 TaskManager 或者 JobManager 出问题，会影响所有集群运行</li>
-</ul>
-</li>
-<li>Flink Job 集群<ul>
-<li>生命周期：Yarn或者k8s 为每个作业启动一个集群，作业结束，则集群结束</li>
-<li>资源隔离：作业独占资源</li>
-</ul>
-</li>
-<li>Flink Application 集群<ul>
-<li>生命周期：专用的flink集群，运行不是通过作业提交的方式运行，而是以application的方式运行。</li>
-<li>资源隔离： ResourceManager 和 Dispatcher 作用于单个的 Flink 应用程序，相比于 Flink Session 集群，它提供了更好的隔离。</li>
-</ul>
-</li>
-</ul>
-<h2 id="核心概念"><a href="#核心概念" class="headerlink" title="核心概念"></a>核心概念</h2><p>Flink的四大基石：</p>
-<ul>
-<li>Checkpoint: 快照；高容错</li>
-<li>State: 状态</li>
-<li>Time: 通过WaterMark支持基于Event Time的时间窗口</li>
-<li>Window: 窗口机制</li>
-</ul>
-<h4 id="Checkpoint"><a href="#Checkpoint" class="headerlink" title="Checkpoint"></a>Checkpoint</h4><p><img src="/images/Blink%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/image-20210228143710944.png" alt="image-20210228143710944"></p>
-<p>checkpoint是一种通过快找容错恢复的机制，这种机制保证实时程序运行的时候，即便出现异常，也可以自我恢复。 checkpoint 是flink系统自身的系统行为，用户无感知，只需要配置就可以了。</p>
-<ul>
-<li>checkpoint 的实现参考了 <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Chandy-Lamport_algorithm">Chandy-Lamport algorithm</a> 算法， 自己实现了一套异步barrier快照的算法，在数据流中设置屏障，记录屏障点的信息(比如kafka偏移量)以及每个算子的 state 的状态。 拥有2个输入流的Operators 会执行 Barrier 对齐，保证当前快照消费了输入流barrier之前的所有events。                                        </li>
-<li>checkpoint的状态备份存储主要分为2类<ul>
-<li>基于RocksDB内嵌k/v存储，将工作状态保存到磁盘上</li>
-<li>基于堆的 state backend.<ul>
-<li>FsStateBackend，将状态快照持久化到分布式文件系统中</li>
-<li>MemoryStateBackend, 使用JobManager的堆保存状态</li>
-</ul>
-</li>
-</ul>
-</li>
-<li>在流处理过程中，对结果的保障分为3种<ul>
-<li>at most once (结果不会从快照中恢复)</li>
-<li>at least once（没有任何丢失，但是会有冗余结果）<ul>
-<li>souce 必须可以重放</li>
-</ul>
-</li>
-<li>Exactly once （没有丢失，没有冗余）<ul>
-<li>souce 必须可以重放</li>
-<li>sinks 必须是事务性的</li>
-</ul>
-</li>
-</ul>
-</li>
-<li>checkpoint 状态保留策略<ul>
-<li>当程序取消时，删除checkpoint存储文件</li>
-<li>当程序取消时，保存之前的checkpoint文件</li>
-</ul>
-</li>
-<li>chekpoint 配置<ul>
-<li><em>Exactly-once/at-least-once 模式配置</em></li>
-<li><em>checkpoint 超时</em>： 如果执行时间超过配置，checkpoint操作会被丢弃</li>
-<li><em>并发checkpoint的数目</em>： 默认为1</li>
-<li><em>checkpoints之间的最小时间</em></li>
-<li><em>externalized checkpoints</em>: 周期存储 checkpoint 到外部系统中</li>
-<li><em>在 checkpoint 出错时使 task 失败或者继续进行 task</em></li>
-<li><em>优先从 checkpoint 恢复</em>: 在有savepoint的情况下的选择 (checkpoint 恢复的更快)</li>
-</ul>
-</li>
-</ul>
-<h4 id="State"><a href="#State" class="headerlink" title="State"></a>State</h4><p><img src="/images/Blink%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/image-20210228151711717.png" alt="image-20210228151711717"></p>
-<p>有状态的计算是流处理框架要实现的重要功能，因为稍复杂的流处理场景都需要记录状态，主要用来作为中间状态来进行去重/对比/聚合/更新等操作。 而在flink中，一个算子会有多个子任务，状态是和子任务绑定的，有子任务创建和管理。对于状态的管理，flink作为计算框架，封装了一些实现，也包括状态的高效存储/checkpoint/savepoint持久化/计算资源扩缩容等等。</p>
-<ul>
-<li>针对不同的场景，会有状态的类型的划分<ul>
-<li>托管状态(Managed State)，由flink帮忙存储、恢复和优化，支持一些常见数据结构，比如ValueState/ListState/MapState<ul>
-<li>Keyed State<ul>
-<li>Keyed State是<code>KeyedStream</code>上的状态。假如输入流按照id为Key进行了<code>keyBy</code>分组，形成一个<code>KeyedStream</code>，数据流中所有id为1的数据共享一个状态，可以访问和更新这个状态，以此类推，每个Key对应一个自己的状态。</li>
-<li>Flink提供了几种现成的数据结构供我们使用，包括<code>ValueState</code>、<code>ListState</code>等</li>
-</ul>
-</li>
-<li>Operator State<ul>
-<li>Operator State可以用在所有算子上，每个算子子任务或者说每个算子实例共享一个状态，流入这个算子子任务的数据可以访问和更新这个状态。</li>
-</ul>
-</li>
-</ul>
-</li>
-<li>原生状态(Raw State)，需要开发者自己管理, 只支持字节，需要自己序列化</li>
-</ul>
-</li>
-<li>横向扩展问题</li>
-</ul>
-<h4 id="Time"><a href="#Time" class="headerlink" title="Time"></a>Time</h4><p>Flink 在流程序中支持不同的Time概念；</p>
-<ul>
-<li>Time 类型<ul>
-<li>Processing Time, 事件被处理时机器的系统时间</li>
-<li>Event Time, 事件发生的时间</li>
-<li>Ingestion Time, 事件进入 Flink 的时间</li>
-</ul>
-</li>
-<li>Watermark 机制<ul>
-<li>处理数据乱序的问题。在 Flink 的窗口处理过程中，如果确定<strong>全部数据到达</strong>，就可以对 Window 的所有数据做窗口计算操作（如汇总、分组等），如果数据没有全部到达，则继续等待该窗口中的数据全部到达才开始处理</li>
-<li><code>Watermark = 进入 Flink 的最大的事件时间（mxtEventTime）— 指定的延迟时间（t）</code></li>
-</ul>
-</li>
-</ul>
-<h4 id="Window"><a href="#Window" class="headerlink" title="Window"></a>Window</h4><p><img src="/images/Blink%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/image-20210228161951552.png" alt="image-20210228161951552"></p>
-<p>前文提过，flink中其实是通过流来模拟批处理的，而window就是实现的机制。window可以是时间驱动的，也可以是数据驱动的 ，几种不同的窗口还行，可以参看上图。</p>
-<h2 id="参考文档"><a href="#参考文档" class="headerlink" title="参考文档"></a>参考文档</h2><ul>
-<li><a target="_blank" rel="noopener" href="https://flink.apache.org/">https://flink.apache.org/</a></li>
-<li><a target="_blank" rel="noopener" href="https://ci.apache.org/projects/flink/flink-docs-release-1.12/zh/learn-flink/fault_tolerance.html">https://ci.apache.org/projects/flink/flink-docs-release-1.12/zh/learn-flink/fault_tolerance.html</a></li>
-<li><a target="_blank" rel="noopener" href="https://cloud.tencent.com/developer/article/1478656">https://cloud.tencent.com/developer/article/1478656</a></li>
-<li><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/AoSDPDKbTbjH9rviioK-5Q">https://mp.weixin.qq.com/s/AoSDPDKbTbjH9rviioK-5Q</a></li>
-<li><a target="_blank" rel="noopener" href="https://arxiv.org/abs/1506.08603">https://arxiv.org/abs/1506.08603</a></li>
-<li></li>
-</ul>
-
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2021/02/28/Blink%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
@@ -1190,6 +636,13 @@
 
       <time title="创建时间：2021-02-12 22:47:08" itemprop="dateCreated datePublished" datetime="2021-02-12T22:47:08+08:00">2021-02-12</time>
     </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新于</span>
+        <time title="修改时间：2025-01-01 01:54:10" itemprop="dateModified" datetime="2025-01-01T01:54:10+08:00">2025-01-01</time>
+      </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
         <i class="far fa-folder"></i>
@@ -1226,10 +679,6 @@
 <li>通过在根目录创建.nojekyll 空文件, 关闭jeklly引擎</li>
 </ul>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">-- .nojekyll</span><br><span class="line">-- _next</span><br><span class="line">   -- chunks</span><br><span class="line">      -- *.js</span><br><span class="line">   -- css</span><br><span class="line">      -- *.css</span><br></pre></td></tr></table></figure>
-
-
-
-
       
     </div>
 
@@ -1281,6 +730,13 @@
 
       <time title="创建时间：2021-02-12 22:31:43" itemprop="dateCreated datePublished" datetime="2021-02-12T22:31:43+08:00">2021-02-12</time>
     </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新于</span>
+        <time title="修改时间：2025-01-01 01:54:51" itemprop="dateModified" datetime="2025-01-01T01:54:51+08:00">2025-01-01</time>
+      </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
         <i class="far fa-folder"></i>
@@ -1325,21 +781,16 @@
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yarn add <span class="variable language_">global</span>-agent</span><br></pre></td></tr></table></figure></li>
 <li><p>添加引用</p>
 <p>在需要的页面里面添加引用，我是在 _app.tsx 文件添加的</p>
-<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> <span class="string">&#x27;global-agent/bootstrap&#x27;</span>;</span><br><span class="line"><span class="comment">// or:</span></span><br><span class="line"><span class="comment">// import &#123;bootstrap&#125; from &#x27;global-agent&#x27;;</span></span><br></pre></td></tr></table></figure></li>
-<li><p>设置环境变量</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">export GLOBAL_AGENT_HTTP_PROXY=http://127.0.0.1:8080</span><br></pre></td></tr></table></figure>
-
-<p>如果指定部分域名不走代理的话，通过另外一个环境变量设置（因为我本地开了另外一个服务作为api接口, 所以这个接口不走代理）：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">export GLOBAL_AGENT_NO_PROXY=&#x27;*.test.com,test2.com,localhost:8888&#x27;</span><br></pre></td></tr></table></figure></li>
-<li><p>启动</p>
-<p>需要找到next实际的启动地址，来启动</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">node -r global-agent/bootstrap /Users/xxx/xtestw/yyy/fe-yyy/node_modules/next/dist/bin/next</span><br></pre></td></tr></table></figure></li>
+</li>
 </ol>
-<h2 id="附录"><a href="#附录" class="headerlink" title="附录"></a>附录</h2><ul>
-<li>其实通过改写 node 底层的 request 理论上也是可以的，不过对代码侵入太大了</li>
-<li>参考：<a target="_blank" rel="noopener" href="https://www.ctolib.com/gajus-global-agent.html">https://www.ctolib.com/gajus-global-agent.html</a></li>
-</ul>
-
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2021/02/12/%E5%9B%BD%E5%86%85NextJs%E4%BB%A3%E7%90%86%E6%94%AF%E6%8C%81amp/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
@@ -1388,10 +839,16 @@
         <i class="far fa-calendar"></i>
       </span>
       <span class="post-meta-item-text">发表于</span>
-      
 
-      <time title="创建时间：2021-01-17 15:33:20 / 修改时间：22:07:05" itemprop="dateCreated datePublished" datetime="2021-01-17T15:33:20+08:00">2021-01-17</time>
+      <time title="创建时间：2021-01-17 15:33:20" itemprop="dateCreated datePublished" datetime="2021-01-17T15:33:20+08:00">2021-01-17</time>
     </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新于</span>
+        <time title="修改时间：2025-01-01 01:54:51" itemprop="dateModified" datetime="2025-01-01T01:54:51+08:00">2025-01-01</time>
+      </span>
 
   
     <span id="/2021/01/17/UndeclaredThrowableException%E5%8E%9F%E5%9B%A0/" class="post-meta-item leancloud_visitors" data-flag-title="UndeclaredThrowableException原因" title="阅读次数">
@@ -1415,29 +872,16 @@
 <li>为啥抛出的是<em><strong>UndeclaredThrowableException</strong></em>，而不是 <em><strong>TimeOut</strong></em> 的 Exception</li>
 <li>如何抛出 <em><strong>TimeOut</strong></em> 异常</li>
 </ul>
-<h2 id="为啥抛出的是UndeclaredThrowableException"><a href="#为啥抛出的是UndeclaredThrowableException" class="headerlink" title="为啥抛出的是UndeclaredThrowableException"></a>为啥抛出的是<em>UndeclaredThrowableException</em></h2><p> 先说结论，之所以抛出这个异常，是因为在RPC调用的实现中，使用了 <em>JDK</em> 动态代理的原因。在 <em>JDK Proxy</em> 的调用中，如果实际运行时(<em>InvocationHandler#invoke</em>) 抛出了某个**受检异常(checked exception)**，但该受检异常并未在被代理对象接口定义中进行声明，那么这个异常就会被 <strong>JVM</strong>包装成 <em><strong>UndeclaredThrowableException</strong></em> 进行抛出。</p>
+<h2 id="为啥抛出的是UndeclaredThrowableException"><a href="#为啥抛出的是UndeclaredThrowableException" class="headerlink" title="为啥抛出的是UndeclaredThrowableException"></a>为啥抛出的是<em>UndeclaredThrowableException</em></h2><p>先说结论，之所以抛出这个异常，是因为在RPC调用的实现中，使用了 <em>JDK</em> 动态代理的原因。在 <em>JDK Proxy</em> 的调用中，如果实际运行时(<em>InvocationHandler#invoke</em>) 抛出了某个**受检异常(checked exception)**，但该受检异常并未在被代理对象接口定义中进行声明，那么这个异常就会被 <strong>JVM</strong>包装成 <em><strong>UndeclaredThrowableException</strong></em> 进行抛出。</p>
 <p>这里面有个受检异常的概念，简单解释一下，<em><strong>Java</strong></em> 中所有异常，都继承自 <em>java.lang.Throwable</em> 类。</p>
-<p><em><strong>Throwable</strong></em>有两个直接子类，<em><strong>Error</strong></em> 类和 <em><strong>Exception</strong></em> 类。</p>
-<p><em><strong>Error</strong></em> 类型用于指示合理的应用程序不应该试图捕获的严重问题, 是一种 <em><strong>UncheckedExcepiton</strong></em></p>
-<p><em><strong>Exception</strong></em> 可分为 <em><strong>RuntimeException</strong></em> 和 <em><strong>Checked Exception</strong></em> 两种， 而 <em><strong>RuntimeException</strong></em>是 <em><strong>JVM</strong></em> 正常运行期间抛出的异常的超类时抛出，也是<em><strong>UncheckedExcepiton</strong></em>。</p>
-<ul>
-<li><p>受检异常</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">java.lang.ClassNotFoundException</span><br><span class="line">java.lang.CloneNotSupportedException</span><br><span class="line">java.lang.IllegalAccessException</span><br><span class="line">java.lang.InterruptedException</span><br><span class="line">java.lang.NoSuchFieldException</span><br><span class="line">java.lang.NoSuchMetodException</span><br><span class="line">java.io.IOException</span><br><span class="line">...</span><br></pre></td></tr></table></figure></li>
-<li><p>非受检异常</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">java.lang.ArithmeticException</span><br><span class="line">java.lang.ArrayStoreExcetpion</span><br><span class="line">java.lang.ClassCastException</span><br><span class="line">java.lang.EnumConstantNotPresentException</span><br><span class="line">java.lang.IllegalArgumentException</span><br><span class="line">java.lang.IllegalThreadStateException</span><br><span class="line">java.lang.NumberFormatException</span><br><span class="line">java.lang.IllegalMonitorStateException</span><br><span class="line">java.lang.IllegalStateException</span><br><span class="line">java.lang.IndexOutOfBoundsException</span><br><span class="line">java.lang.ArrayIndexOutOfBoundsException</span><br><span class="line">java.lang.StringIndexOutOfBoundsException</span><br><span class="line">java.lang.NegativeArraySizeException’</span><br><span class="line">java.lang.NullPointerException</span><br><span class="line">java.lang.SecurityException</span><br><span class="line">java.lang.TypeNotPresentException</span><br><span class="line">java.lang.UnsupprotedOperationException</span><br><span class="line">...</span><br></pre></td></tr></table></figure></li>
-</ul>
-<h2 id="如何抛出-TimeOut-异常"><a href="#如何抛出-TimeOut-异常" class="headerlink" title="如何抛出 TimeOut 异常"></a>如何抛出 <em>TimeOut</em> 异常</h2><ul>
-<li><p>可以通过<em><strong>UndeclaredThrowableException#getUndeclaredThrowable</strong></em>拿到被包装的受检异常；JDK1.4以后，通过*<strong>Throwable#getCause</strong>也可以拿到被包装的受检异常，而且这是被建议的方式，因为前者已经过时了</p>
-</li>
-<li><p>实际上，method.invoke的方法申明如下：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> Object <span class="title function_">invoke</span><span class="params">(Object obj, Object... args)</span> <span class="keyword">throws</span> IllegalAccessException, IllegalArgumentException, InvocationTargetException</span><br></pre></td></tr></table></figure>
-
-<p><em>Method.invoke</em> 的方法本身只申明了3种异常，正常调用部分的异常会被 <em>InvocationTargetException</em> 包裹，实际上是 2 层包裹。 另外值得注意的是 <em><strong>InvocationTargetException</strong></em> 本身是受检异常， 既可以包裹受检异常，也可以包裹非受检异常。而 <em><strong>UndeclaredThrowableException</strong></em> 本身是非受检异常， 只可以包裹受检异常</p>
-</li>
-<li><p>参看 <em><strong>Spring</strong></em>处理方法</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// org.springframework.aop.support.AopUtils</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> Object <span class="title function_">invokeJoinpointUsingReflection</span><span class="params">(Object target, Method method, Object[] args)</span> <span class="keyword">throws</span> Throwable &#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Use reflection to invoke the method.</span></span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">        ReflectionUtils.makeAccessible(method);</span><br><span class="line">        <span class="keyword">return</span> method.invoke(target, args);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">catch</span> (InvocationTargetException ex) &#123;</span><br><span class="line">        <span class="comment">// Invoked method threw a checked exception.</span></span><br><span class="line">        <span class="comment">// We must rethrow it. The client won&#x27;t see the interceptor.</span></span><br><span class="line">        <span class="comment">// 重点在此处：抛出被包装的原始异常</span></span><br><span class="line">        <span class="keyword">throw</span> ex.getTargetException();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">catch</span> (IllegalArgumentException ex) &#123;</span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">AopInvocationException</span>(<span class="string">&quot;AOP configuration seems to be invalid: tried calling method [&quot;</span> +</span><br><span class="line">                method + <span class="string">&quot;] on target [&quot;</span> + target + <span class="string">&quot;]&quot;</span>, ex);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">catch</span> (IllegalAccessException ex) &#123;</span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">AopInvocationException</span>(<span class="string">&quot;Could not access method [&quot;</span> + method + <span class="string">&quot;]&quot;</span>, ex);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
-</ul>
-
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2021/01/17/UndeclaredThrowableException%E5%8E%9F%E5%9B%A0/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
@@ -1494,7 +938,7 @@
           <i class="far fa-calendar-check"></i>
         </span>
         <span class="post-meta-item-text">更新于</span>
-        <time title="修改时间：2021-01-17 07:10:47" itemprop="dateModified" datetime="2021-01-17T07:10:47+08:00">2021-01-17</time>
+        <time title="修改时间：2025-01-01 01:54:51" itemprop="dateModified" datetime="2025-01-01T01:54:51+08:00">2025-01-01</time>
       </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -1537,110 +981,14 @@
 </blockquote>
 <h3 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h3><p>参看:  <a target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=Ah6GSCK5Rfs">https://www.youtube.com/watch?v=Ah6GSCK5Rfs</a></p>
 <p>graphql 和 rest api 是同一层的东西，都是一种基于 http 之上的数据接口协议，两者设计理念完全不同。目前来说 graphql 在很多大小厂也都开始使用，确实会方便很多。 但是 rest api 还是最广泛应用的协议，比如 AMP (T T)。 事实上任何东西都有2面性，对于graphql 来说，优缺点都有</p>
-<h3 id="与-REST-API-相比的好处"><a href="#与-REST-API-相比的好处" class="headerlink" title="与 REST API 相比的好处"></a>与 REST API 相比的好处</h3><ul>
-<li>优点<ul>
-<li>一次提供，多次使用<ul>
-<li>作为后端，我们只需要关心数据字段的提供，不需要关心前端是怎么用这些字段，页面结构是怎样的</li>
-<li>真的不需要频繁的对接口了</li>
-</ul>
-</li>
-<li>动态可扩展，无冗余查询，所见即所得<ul>
-<li>因为前端只会请求需要的字段，增加新的字段后，不用担心老的业务请求这些冗余数据，很好的支撑了可扩展性</li>
-<li>所见即所得，能够帮助客户端代码不易出错</li>
-</ul>
-</li>
-<li>多个字段，一次请求<ul>
-<li>对于前端来说，面向schema编程，无需知道后端是多少个服务在支撑需要的这些字段，也无需频繁的更改接口去从新服务获取想要的字段，只需要在请求的时候增加一个 field 就好了</li>
-</ul>
-</li>
-<li>代码即文档<ul>
-<li>直接通过graphqli 等工具查看schema协议，不需要文档，写注释就好了</li>
-</ul>
-</li>
-<li>类型校验<ul>
-<li>在定义好schema的同时，就约束了接口类型，graphql支持强类型校验</li>
-</ul>
-</li>
-<li>…</li>
-</ul>
-</li>
-<li>缺点<ul>
-<li>基于post 请求<ul>
-<li>传统方式无法监控(nginx)</li>
-<li>不能利用 http 自身的缓存机制</li>
-</ul>
-</li>
-<li>没有充分利用http<ul>
-<li>只使用了 post 请求，没有其他http的方法：方法的幂等性</li>
-<li>缺失了http状态码</li>
-</ul>
-</li>
-<li>配套还不完善<ul>
-<li>微服务</li>
-<li>监控</li>
-<li>分流</li>
-</ul>
-</li>
-<li>…</li>
-</ul>
-</li>
-</ul>
-<h2 id="怎么用"><a href="#怎么用" class="headerlink" title="怎么用"></a>怎么用</h2><h3 id="几个基本概念"><a href="#几个基本概念" class="headerlink" title="几个基本概念"></a>几个基本概念</h3><p>最好参看官方文档：<a target="_blank" rel="noopener" href="https://graphql.github.io/graphql-spec/June2018/">https://graphql.github.io/graphql-spec/June2018/</a></p>
-<p>中文版的可以查看：<a target="_blank" rel="noopener" href="https://spec.graphql.cn/#sec-Overview-">https://spec.graphql.cn/#sec-Overview-</a></p>
-<p>概念很多，摘了几个出来，在实际业务场景中使用的话，还是有很多需要探的地方，这里只是大概的一个介绍</p>
-<ul>
-<li>schema<ul>
-<li>相当于协议文件，定义了所有对象的类型和查询接口</li>
-<li>一般定义的操作是2个： query/ mutation , 一个用于读，一个用于写，也存在subscription的操作</li>
-</ul>
-</li>
-<li>type<ul>
-<li>graphql 有自己的一套类型系统，有8种类型<ul>
-<li>scalars/标量</li>
-<li>objects/对象</li>
-<li>interfaces/接口</li>
-<li>unions/联合</li>
-<li>Enums/枚举</li>
-<li>Input objects/输入类型</li>
-<li>lists/列表</li>
-<li>Non-null/非空型</li>
-</ul>
-</li>
-<li>graphql 有自己的基本类型，也可以自定义一些类型，但是需要相应的解释器</li>
-</ul>
-</li>
-<li>内省 -&gt; 验证 -&gt; 执行 -&gt; 响应</li>
-<li>datafetcher<ul>
-<li>实现过程中，定义了字段的获取方法</li>
-</ul>
-</li>
-</ul>
-<h3 id="实操"><a href="#实操" class="headerlink" title="实操"></a>实操</h3><p>具体的代码可以参看： <a target="_blank" rel="noopener" href="https://github.com/xtestw/graphql-demo">https://github.com/xtestw/graphql-demo</a></p>
-<ul>
-<li><p>引入 graphql 的依赖包</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;dependency&gt;</span><br><span class="line">	&lt;groupId&gt;com.graphql-java&lt;/groupId&gt;</span><br><span class="line">    &lt;artifactId&gt;graphql-java&lt;/artifactId&gt;</span><br><span class="line">    &lt;version&gt;13.0&lt;/version&gt;</span><br><span class="line">&lt;/dependency&gt;</span><br></pre></td></tr></table></figure></li>
-<li><p>定义 schema 文件</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line">schema &#123;</span><br><span class="line">  query: Query</span><br><span class="line">  mutation: Mutation</span><br><span class="line">&#125;</span><br><span class="line">scalar Date</span><br><span class="line"></span><br><span class="line">type Query &#123;</span><br><span class="line">  student(id:Int!):Student</span><br><span class="line">  students(pagination:Pagination):[Student]</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">type Mutation &#123;</span><br><span class="line">  add(newStudent:NewStudent):Student</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">input Pagination&#123;</span><br><span class="line">  index: Int!</span><br><span class="line">  size: Int!</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">input NewStudent&#123;</span><br><span class="line">  name:String!</span><br><span class="line">  sex:Sex</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">type Student &#123;</span><br><span class="line">  id: Int</span><br><span class="line">  name: String</span><br><span class="line">  sex: Sex</span><br><span class="line">  creation: Date</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">enum Sex&#123;</span><br><span class="line">  MALE,FEMALE</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
-<li><p>实现 schema 文件</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.xtestw.graphql.demo.schema.wiring;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> com.fasterxml.jackson.databind.ObjectMapper;</span><br><span class="line"><span class="keyword">import</span> com.google.common.collect.ImmutableMap;</span><br><span class="line"><span class="keyword">import</span> com.xtestw.graphql.demo.schema.model.NewStudent;</span><br><span class="line"><span class="keyword">import</span> com.xtestw.graphql.demo.schema.model.Pagination;</span><br><span class="line"><span class="keyword">import</span> com.xtestw.graphql.demo.storage.Student;</span><br><span class="line"><span class="keyword">import</span> com.xtestw.graphql.demo.storage.Student.Sex;</span><br><span class="line"><span class="keyword">import</span> com.xtestw.graphql.demo.storage.repository.StudentRepository;</span><br><span class="line"><span class="keyword">import</span> graphql.schema.DataFetchingEnvironment;</span><br><span class="line"><span class="keyword">import</span> graphql.schema.idl.MapEnumValuesProvider;</span><br><span class="line"><span class="keyword">import</span> graphql.schema.idl.TypeRuntimeWiring;</span><br><span class="line"><span class="keyword">import</span> graphql.schema.idl.TypeRuntimeWiring.Builder;</span><br><span class="line"><span class="keyword">import</span> java.util.Collections;</span><br><span class="line"><span class="keyword">import</span> java.util.List;</span><br><span class="line"><span class="keyword">import</span> org.springframework.beans.factory.annotation.Autowired;</span><br><span class="line"><span class="keyword">import</span> org.springframework.stereotype.Component;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Create by xuwei on 2019/8/4</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@Component</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">StudentWiring</span> <span class="keyword">implements</span> <span class="title class_">Wiring</span> &#123;</span><br><span class="line"></span><br><span class="line">  <span class="meta">@Autowired</span></span><br><span class="line">  StudentRepository studentRepository;</span><br><span class="line">  <span class="type">ObjectMapper</span> <span class="variable">mapper</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">ObjectMapper</span>();</span><br><span class="line"></span><br><span class="line">  <span class="meta">@Override</span></span><br><span class="line">  <span class="keyword">public</span> List&lt;TypeRuntimeWiring&gt; <span class="title function_">wireTypes</span><span class="params">()</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> Collections.singletonList(</span><br><span class="line">        TypeRuntimeWiring.newTypeWiring(<span class="string">&quot;Sex&quot;</span>)</span><br><span class="line">            .enumValues(<span class="keyword">new</span> <span class="title class_">MapEnumValuesProvider</span>(</span><br><span class="line">                ImmutableMap.of(</span><br><span class="line">                    <span class="string">&quot;MALE&quot;</span>, Sex.MALE,</span><br><span class="line">                    <span class="string">&quot;FEMALE&quot;</span>, Sex.FEMALE</span><br><span class="line">                )))</span><br><span class="line">            .build());</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="meta">@Override</span></span><br><span class="line">  <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">wireQueries</span><span class="params">(Builder queryBuilder)</span> &#123;</span><br><span class="line">    queryBuilder.dataFetcher(<span class="string">&quot;student&quot;</span>, <span class="built_in">this</span>::fetchStudentById)</span><br><span class="line">        .dataFetcher(<span class="string">&quot;students&quot;</span>, <span class="built_in">this</span>::fetchStudents);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">private</span> List&lt;Student&gt; <span class="title function_">fetchStudents</span><span class="params">(DataFetchingEnvironment dataFetchingEnvironment)</span> &#123;</span><br><span class="line">    <span class="type">Pagination</span> <span class="variable">pagination</span> <span class="operator">=</span> mapper</span><br><span class="line">        .convertValue(dataFetchingEnvironment.getArgument(<span class="string">&quot;pagination&quot;</span>), Pagination.class);</span><br><span class="line">    <span class="keyword">if</span> (pagination == <span class="literal">null</span>) &#123;</span><br><span class="line">      pagination = Pagination.create(<span class="number">0</span>, <span class="number">20</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> studentRepository.findAll(pagination.toPageable()).getContent();</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">private</span> Student <span class="title function_">fetchStudentById</span><span class="params">(DataFetchingEnvironment dataFetchingEnvironment)</span> &#123;</span><br><span class="line">    <span class="type">Integer</span> <span class="variable">id</span> <span class="operator">=</span> dataFetchingEnvironment.getArgument(<span class="string">&quot;id&quot;</span>);</span><br><span class="line">    <span class="keyword">return</span> studentRepository.findById(id).orElse(<span class="literal">null</span>);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="meta">@Override</span></span><br><span class="line">  <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">wireMutations</span><span class="params">(Builder mutationBuilder)</span> &#123;</span><br><span class="line">    mutationBuilder.dataFetcher(<span class="string">&quot;add&quot;</span>, <span class="built_in">this</span>::addNewStudent);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">private</span> Student <span class="title function_">addNewStudent</span><span class="params">(DataFetchingEnvironment dataFetchingEnvironment)</span> &#123;</span><br><span class="line">    <span class="type">NewStudent</span> <span class="variable">newStudent</span> <span class="operator">=</span> mapper</span><br><span class="line">        .convertValue(dataFetchingEnvironment.getArgument(<span class="string">&quot;newStudent&quot;</span>), NewStudent.class);</span><br><span class="line">    <span class="keyword">return</span> studentRepository.save(newStudent.toStudent());</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure></li>
-<li><p>构建 GraphqQL 对象实例</p>
-</li>
-</ul>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.xtestw.graphql.demo.config;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> com.xtestw.graphql.demo.schema.ExtendedScalars;</span><br><span class="line"><span class="keyword">import</span> com.xtestw.graphql.demo.schema.wiring.Wiring;</span><br><span class="line"><span class="keyword">import</span> graphql.GraphQL;</span><br><span class="line"><span class="keyword">import</span> graphql.GraphQLException;</span><br><span class="line"><span class="keyword">import</span> graphql.schema.GraphQLScalarType;</span><br><span class="line"><span class="keyword">import</span> graphql.schema.GraphQLSchema;</span><br><span class="line"><span class="keyword">import</span> graphql.schema.idl.RuntimeWiring;</span><br><span class="line"><span class="keyword">import</span> graphql.schema.idl.SchemaGenerator;</span><br><span class="line"><span class="keyword">import</span> graphql.schema.idl.SchemaParser;</span><br><span class="line"><span class="keyword">import</span> graphql.schema.idl.TypeDefinitionRegistry;</span><br><span class="line"><span class="keyword">import</span> graphql.schema.idl.TypeRuntimeWiring;</span><br><span class="line"><span class="keyword">import</span> graphql.schema.idl.errors.SchemaProblem;</span><br><span class="line"><span class="keyword">import</span> java.io.IOException;</span><br><span class="line"><span class="keyword">import</span> java.io.InputStreamReader;</span><br><span class="line"><span class="keyword">import</span> java.util.ArrayList;</span><br><span class="line"><span class="keyword">import</span> java.util.Arrays;</span><br><span class="line"><span class="keyword">import</span> java.util.Collections;</span><br><span class="line"><span class="keyword">import</span> java.util.List;</span><br><span class="line"><span class="keyword">import</span> java.util.Objects;</span><br><span class="line"><span class="keyword">import</span> java.util.stream.Collectors;</span><br><span class="line"><span class="keyword">import</span> lombok.extern.slf4j.Slf4j;</span><br><span class="line"><span class="keyword">import</span> org.springframework.beans.factory.annotation.Autowired;</span><br><span class="line"><span class="keyword">import</span> org.springframework.beans.factory.annotation.Value;</span><br><span class="line"><span class="keyword">import</span> org.springframework.context.annotation.Bean;</span><br><span class="line"><span class="keyword">import</span> org.springframework.context.annotation.Configuration;</span><br><span class="line"><span class="keyword">import</span> org.springframework.core.io.Resource;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Create by xuwei on 2019/8/3</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="meta">@Slf4j</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">GraphQLConfig</span> &#123;</span><br><span class="line"></span><br><span class="line">  <span class="meta">@Value(&quot;classpath*:schemas/*.graphqls&quot;)</span></span><br><span class="line">  <span class="keyword">private</span> Resource[] files;</span><br><span class="line"></span><br><span class="line">  <span class="meta">@Bean</span></span><br><span class="line">  GraphQL <span class="title function_">graphQL</span><span class="params">(<span class="meta">@Autowired</span> GraphQLSchema graphQLSchema)</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> GraphQL.newGraphQL(graphQLSchema)</span><br><span class="line">        .build();</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">  <span class="meta">@Bean</span></span><br><span class="line">  GraphQLSchema <span class="title function_">graphQLSchema</span><span class="params">(<span class="meta">@Autowired</span> RuntimeWiring wiring)</span> &#123;</span><br><span class="line">    <span class="type">SchemaParser</span> <span class="variable">parser</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">SchemaParser</span>();</span><br><span class="line">    <span class="type">TypeDefinitionRegistry</span> <span class="variable">typeDefinitionRegistry</span> <span class="operator">=</span> Arrays.stream(files).map(file -&gt; &#123;</span><br><span class="line">      <span class="keyword">try</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> file.getInputStream();</span><br><span class="line">      &#125; <span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">        log.error(<span class="string">&quot;Load graphql file error: &#123;&#125; - &#123;&#125;&quot;</span>, file, e);</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="keyword">return</span> <span class="literal">null</span>;</span><br><span class="line">    &#125;).filter(Objects::nonNull)</span><br><span class="line">        .map(inputStream -&gt; &#123;</span><br><span class="line">          <span class="keyword">try</span> &#123;</span><br><span class="line">            <span class="keyword">return</span> parser.parse(<span class="keyword">new</span> <span class="title class_">InputStreamReader</span>(inputStream));</span><br><span class="line">          &#125; <span class="keyword">catch</span> (SchemaProblem e) &#123;</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">GraphQLException</span>(</span><br><span class="line">                String.format(<span class="string">&quot;Compile schema &#x27;%s&#x27; failed: %s&quot;</span>, inputStream,</span><br><span class="line">                    e.getErrors().stream().map(Object::toString).collect(Collectors.toList())), e);</span><br><span class="line">          &#125;</span><br><span class="line">        &#125;).reduce(<span class="keyword">new</span> <span class="title class_">TypeDefinitionRegistry</span>(), (all, cur) -&gt; &#123;</span><br><span class="line">          all.merge(cur);</span><br><span class="line">          <span class="keyword">return</span> all;</span><br><span class="line">        &#125;);</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">SchemaGenerator</span>().makeExecutableSchema(typeDefinitionRegistry, wiring);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="meta">@Bean</span></span><br><span class="line">  RuntimeWiring <span class="title function_">wiring</span><span class="params">(<span class="meta">@Autowired</span> List&lt;GraphQLScalarType&gt; scalarTypes,</span></span><br><span class="line"><span class="params">      <span class="meta">@Autowired</span> List&lt;TypeRuntimeWiring&gt; types)</span> &#123;</span><br><span class="line">    RuntimeWiring.<span class="type">Builder</span> <span class="variable">builder</span> <span class="operator">=</span> RuntimeWiring.newRuntimeWiring();</span><br><span class="line">    <span class="keyword">if</span> (scalarTypes != <span class="literal">null</span>) &#123;</span><br><span class="line">      scalarTypes.forEach(builder::scalar);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (types != <span class="literal">null</span>) &#123;</span><br><span class="line">      types.forEach(builder::type);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> builder.build();</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="meta">@Bean</span></span><br><span class="line">  List&lt;GraphQLScalarType&gt; <span class="title function_">scalarTypes</span><span class="params">()</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> Collections.singletonList(ExtendedScalars.GraphQLDate);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="meta">@Bean</span></span><br><span class="line">  List&lt;TypeRuntimeWiring&gt; <span class="title function_">types</span><span class="params">(<span class="meta">@Autowired</span> List&lt;Wiring&gt; wirings)</span> &#123;</span><br><span class="line"></span><br><span class="line">    TypeRuntimeWiring.<span class="type">Builder</span> <span class="variable">queryBuilder</span> <span class="operator">=</span> TypeRuntimeWiring.newTypeWiring(<span class="string">&quot;Query&quot;</span>);</span><br><span class="line">    TypeRuntimeWiring.<span class="type">Builder</span> <span class="variable">mutationBuilder</span> <span class="operator">=</span> TypeRuntimeWiring.newTypeWiring(<span class="string">&quot;Mutation&quot;</span>);</span><br><span class="line">    <span class="keyword">return</span> wirings.stream().map(wiring -&gt; &#123;</span><br><span class="line">      wiring.wireQueries(queryBuilder);</span><br><span class="line">      wiring.wireMutations(mutationBuilder);</span><br><span class="line">      <span class="keyword">return</span> wiring.wireTypes();</span><br><span class="line">    &#125;)</span><br><span class="line">        .reduce(<span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;&gt;(Arrays.asList(queryBuilder.build(), mutationBuilder.build())),</span><br><span class="line">            (all, cur) -&gt; &#123;</span><br><span class="line">              all.addAll(cur);</span><br><span class="line">              <span class="keyword">return</span> all;</span><br><span class="line">            &#125;);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-
-
-<ul>
-<li><p>定义接口</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.xtestw.graphql.demo.controller;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> com.fasterxml.jackson.databind.JsonNode;</span><br><span class="line"><span class="keyword">import</span> com.fasterxml.jackson.databind.ObjectMapper;</span><br><span class="line"><span class="keyword">import</span> com.fasterxml.jackson.databind.type.MapType;</span><br><span class="line"><span class="keyword">import</span> com.xtestw.graphql.demo.schema.model.Query;</span><br><span class="line"><span class="keyword">import</span> graphql.GraphQL;</span><br><span class="line"><span class="keyword">import</span> java.io.IOException;</span><br><span class="line"><span class="keyword">import</span> java.util.Collections;</span><br><span class="line"><span class="keyword">import</span> java.util.HashMap;</span><br><span class="line"><span class="keyword">import</span> java.util.Map;</span><br><span class="line"><span class="keyword">import</span> javax.annotation.Resource;</span><br><span class="line"><span class="keyword">import</span> lombok.extern.slf4j.Slf4j;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.bind.annotation.CrossOrigin;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.bind.annotation.PostMapping;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.bind.annotation.RequestBody;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.bind.annotation.RequestMapping;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.bind.annotation.RestController;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Create by xuwei on 2019/8/3</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@RestController</span></span><br><span class="line"><span class="meta">@Slf4j</span></span><br><span class="line"><span class="meta">@RequestMapping(&quot;/graphql&quot;)</span></span><br><span class="line"><span class="meta">@CrossOrigin</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">GraphQLController</span> &#123;</span><br><span class="line"></span><br><span class="line">  <span class="meta">@Resource</span></span><br><span class="line">  GraphQL graphQL;</span><br><span class="line"></span><br><span class="line">  <span class="meta">@PostMapping(path = &#123;&quot;&quot;&#125;)</span></span><br><span class="line">  <span class="keyword">private</span> Object <span class="title function_">query</span><span class="params">(<span class="meta">@RequestBody</span> String queryStr)</span> <span class="keyword">throws</span> IOException &#123;</span><br><span class="line">    <span class="type">Query</span> <span class="variable">query</span> <span class="operator">=</span> getQuery(queryStr);</span><br><span class="line">    <span class="keyword">return</span> graphQL.execute(query.toExecutionInput());</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">private</span> <span class="keyword">static</span> <span class="type">ObjectMapper</span> <span class="variable">mapper</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">ObjectMapper</span>();</span><br><span class="line">  <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="type">MapType</span> <span class="variable">VARIABLES_TYPE</span> <span class="operator">=</span> mapper.getTypeFactory()</span><br><span class="line">      .constructMapType(HashMap.class,</span><br><span class="line">          String.class, Object.class);</span><br><span class="line"></span><br><span class="line">  <span class="keyword">private</span> Query <span class="title function_">getQuery</span><span class="params">(String queryText)</span> <span class="keyword">throws</span> IOException &#123;</span><br><span class="line">    <span class="type">String</span> <span class="variable">operationName</span> <span class="operator">=</span> <span class="literal">null</span>;</span><br><span class="line">    <span class="type">String</span> <span class="variable">fullQueryText</span> <span class="operator">=</span> queryText;</span><br><span class="line">    Map&lt;String, Object&gt; variables = <span class="literal">null</span>;</span><br><span class="line">    <span class="type">JsonNode</span> <span class="variable">jsonBody</span> <span class="operator">=</span> mapper.readTree(queryText);</span><br><span class="line">    <span class="keyword">if</span> (jsonBody != <span class="literal">null</span>) &#123;</span><br><span class="line">      <span class="type">JsonNode</span> <span class="variable">queryNode</span> <span class="operator">=</span> jsonBody.get(<span class="string">&quot;query&quot;</span>);</span><br><span class="line">      <span class="keyword">if</span> (queryNode != <span class="literal">null</span> &amp;&amp; queryNode.isTextual()) &#123;</span><br><span class="line">        queryText = queryNode.asText();</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="type">JsonNode</span> <span class="variable">operationNameNode</span> <span class="operator">=</span> jsonBody.get(<span class="string">&quot;operationName&quot;</span>);</span><br><span class="line">      <span class="keyword">if</span> (operationNameNode != <span class="literal">null</span> &amp;&amp; operationNameNode.isTextual()) &#123;</span><br><span class="line">        operationName = operationNameNode.asText();</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="type">JsonNode</span> <span class="variable">variablesNode</span> <span class="operator">=</span> jsonBody.get(<span class="string">&quot;variables&quot;</span>);</span><br><span class="line">      <span class="keyword">if</span> (variablesNode != <span class="literal">null</span>) &#123;</span><br><span class="line">        <span class="keyword">if</span> (variablesNode.isTextual()) &#123;</span><br><span class="line">          <span class="type">String</span> <span class="variable">variablesJson</span> <span class="operator">=</span> variablesNode.asText();</span><br><span class="line">          variables = mapper.convertValue(mapper.readTree(variablesJson), VARIABLES_TYPE);</span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (variablesNode.isObject()) &#123;</span><br><span class="line">          variables = mapper.convertValue(variablesNode, VARIABLES_TYPE);</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (variables == <span class="literal">null</span>) &#123;</span><br><span class="line">      variables = Collections.emptyMap();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">Query</span>(fullQueryText, queryText, operationName, variables);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure></li>
-<li><p>测试</p>
-</li>
-</ul>
-<p><img src="/var/folders/84/6jh1114j4rx6m0b5h4w5_45h0000gn/T/abnerworks.Typora/image-20190804164253298.png" alt="image-20190804164253298"></p>
-<p><img src="/var/folders/84/6jh1114j4rx6m0b5h4w5_45h0000gn/T/abnerworks.Typora/image-20190804164354974.png" alt="image-20190804164354974"></p>
-<p><img src="/var/folders/84/6jh1114j4rx6m0b5h4w5_45h0000gn/T/abnerworks.Typora/image-20190804164517506.png" alt="image-20190804164517506"></p>
-<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>graphql 相比较 restapi 来说，各有优缺点。个人感觉 graphql的前景还是很大的，目前最大的问题其实还是相关的生态和基础设施还不够完善，也存在很大的迁移成本和学习成本。不过单纯从数据获取的角度来说，非常有优势！此处我们只做了一个非常浅的探索。</p>
-
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2019/08/03/GraphQl-%E4%BD%BF%E7%94%A8-java/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
@@ -1697,7 +1045,7 @@
           <i class="far fa-calendar-check"></i>
         </span>
         <span class="post-meta-item-text">更新于</span>
-        <time title="修改时间：2021-01-17 06:05:22" itemprop="dateModified" datetime="2021-01-17T06:05:22+08:00">2021-01-17</time>
+        <time title="修改时间：2025-01-01 01:52:20" itemprop="dateModified" datetime="2025-01-01T01:52:20+08:00">2025-01-01</time>
       </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -1729,13 +1077,14 @@
           <p>工程中的网络请求，有时会需要使用http代理，比较简单的方法是使用apache的httpclient 直接设置代理，但有的时候使用java自带的HttpURLConnection的时候，就需要注意多线程的问题了。 使用HttpURLConnection 实现代理的方法也很简单，在建立连接之前先设置代理：</p>
 <p>Authenticator.setDefault(authenticator);</p>
 <p>需要注意的是，设置代理的方法并不是使用HttpURLConnection的一个方法，而在建立请求的时候，也没有任何调用和使用 Authenticator的地方，可以猜测这里设置了代理是使用了全局量，跟进Authenticator中去，会发现： <img src="http://xtestw.site/wp-content/uploads/2017/08/1.png" alt="1"> <img src="http://xtestw.site/wp-content/uploads/2017/08/2.png" alt="2"> 其实setDefault 方法就是设置了一个静态变量，而这个变量被使用的地方在： <img src="http://xtestw.site/wp-content/uploads/2017/08/3.png" alt="3"> （三个同名函数，相同的处理）这个静态变量被全局的网络请求所使用，而不是当前连接独占的配置，一般来说，当前网络使用一个http代理的时候没有问题（比如我们就是通过elb代理多个IP出口），但是当我们有多个代理的时候，在多线程环境下就会出现问题，如果代理服务器的账号密码不同，请求的服务球对cookie和ip进行校验的时候，就会比较麻烦，所以需要想办法来让每一个HttpURLConnection独占这个代理配置，直接的方法似乎没有，但是可以折中，同步网络请求过程中，HttpURLConnection是和唯一线程绑定的，我们可以用ThreadLocal,让每个线程独占一个代理配置，从而间接的保证每个HttpURLConnection始终使用一个代理配置。 可以定一个类：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">ThreadLocalAuthenticator</span> <span class="keyword">extends</span> <span class="title class_">Authenticator</span> &#123;</span><br><span class="line"></span><br><span class="line">  ThreadLocal&lt;PasswordAuthentication&gt; auth = <span class="keyword">new</span> <span class="title class_">ThreadLocal</span>&lt;&gt;();</span><br><span class="line"></span><br><span class="line">  <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">setPasswordAuthentication</span><span class="params">(PasswordAuthentication passwordAuthentication)</span> &#123;</span><br><span class="line">    auth.set(passwordAuthentication);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">clearPasswordAuthentication</span><span class="params">()</span> &#123;</span><br><span class="line">    auth.remove();</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="meta">@Override</span></span><br><span class="line">  <span class="keyword">protected</span> PasswordAuthentication <span class="title function_">getPasswordAuthentication</span><span class="params">()</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> auth.get();</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>然后在http网络请求的工具类中定义一个全局的静态ThreadLocalAuthenticator的实例：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="type">ThreadLocalAuthenticator</span> <span class="variable">authenticator</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">ThreadLocalAuthenticator</span>();</span><br></pre></td></tr></table></figure>
-
-<p>然后在需要的时候使用它就OK了。</p>
-
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2017/08/13/HttpURLConnection%E4%BD%BF%E7%94%A8http%E4%BB%A3%E7%90%86/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
@@ -1792,7 +1141,7 @@
           <i class="far fa-calendar-check"></i>
         </span>
         <span class="post-meta-item-text">更新于</span>
-        <time title="修改时间：2019-08-11 05:16:47" itemprop="dateModified" datetime="2019-08-11T05:16:47+08:00">2019-08-11</time>
+        <time title="修改时间：2025-01-01 01:54:10" itemprop="dateModified" datetime="2025-01-01T01:54:10+08:00">2025-01-01</time>
       </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -1821,7 +1170,7 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <p>前段时间，因为一年前篡改了一个sdk的包，导致了一系列不可预知的损失，这也充分说明了技术的正确性，需要决策的正确性来支撑的。作为技术人员，不仅仅要考虑技术的可行性，也要考虑实施后的风险和结果的预期假设。 从工程角度，简单记录一下篡改sdk包的技术。 </p>
+          <p>前段时间，因为一年前篡改了一个sdk的包，导致了一系列不可预知的损失，这也充分说明了技术的正确性，需要决策的正确性来支撑的。作为技术人员，不仅仅要考虑技术的可行性，也要考虑实施后的风险和结果的预期假设。 从工程角度，简单记录一下篡改sdk包的技术。</p>
 <ol>
 <li>解压jar或者apk的包 </li>
 <li>JD-GUI 反编译查看class的相关代码，找到修改点</li>
@@ -1830,8 +1179,6 @@
 </ol>
 <p> <code>javassist</code> 使用方法参考： <a target="_blank" rel="noopener" href="https://jboss-javassist.github.io/javassist/tutorial/tutorial.html">https://jboss-javassist.github.io/javassist/tutorial/tutorial.html</a> 附上测试代码，修改一个方法</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">      javassist.tools.reflect.<span class="type">Loader</span> <span class="variable">cl</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">javassist</span>.tools.reflect.Loader();</span><br><span class="line">      <span class="type">ClassPool</span> <span class="variable">pool</span> <span class="operator">=</span> ClassPool.getDefault();</span><br><span class="line">      pool.insertClassPath(<span class="string">&quot;/tmp/aa/&quot;</span>);</span><br><span class="line">      <span class="type">CtClass</span> <span class="variable">cc</span> <span class="operator">=</span> pool.get(<span class="string">&quot;com.facebook.ads.internal.d.g&quot;</span>);</span><br><span class="line">      <span class="type">CtMethod</span> <span class="variable">ctmethod</span> <span class="operator">=</span> cc.getDeclaredMethod(<span class="string">&quot;c&quot;</span>);</span><br><span class="line">      cc.getDeclaredField(<span class="string">&quot;c&quot;</span>);</span><br><span class="line">      <span class="comment">// getCode()即为需要替换的的代码</span></span><br><span class="line">      ctmethod.setBody(getCode());</span><br><span class="line">      cc.writeFile(<span class="string">&quot;/tmp/aa/&quot;</span>);</span><br><span class="line">    &#125; <span class="keyword">catch</span> (CannotCompileException e) &#123;</span><br><span class="line">      e.printStackTrace();</span><br><span class="line">    &#125; <span class="keyword">catch</span> (NotFoundException e) &#123;</span><br><span class="line">      e.printStackTrace();</span><br><span class="line">    &#125; <span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">      e.printStackTrace();</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-
       
     </div>
 
@@ -1888,7 +1235,7 @@
           <i class="far fa-calendar-check"></i>
         </span>
         <span class="post-meta-item-text">更新于</span>
-        <time title="修改时间：2019-07-29 23:22:50" itemprop="dateModified" datetime="2019-07-29T23:22:50+08:00">2019-07-29</time>
+        <time title="修改时间：2025-01-01 01:54:51" itemprop="dateModified" datetime="2025-01-01T01:54:51+08:00">2025-01-01</time>
       </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -1939,85 +1286,14 @@
 <li>  随机搜索法随机产生一个奇数 \(p_1\) 进行素数测试,若是素数,则结束;否则,重新随机产生一个奇数 \(p_2\) 进行素性测试,直至找到一个素数 \(p_t\)。</li>
 <li>  随机递增搜索法随机产生一个奇数,对以该数为起点的奇数依次进行测试,直至找到一个素数。这种方法相对于随机搜索法，在速度上有一定的提高，但是并没有本质上的区别</li>
 </ul>
-<p>设:</p>
-<p>\(p=61,q=53\)</p>
-<h2 id="计算n-p-q"><a href="#计算n-p-q" class="headerlink" title="计算n = p * q"></a>计算n = p * q</h2><p>\(n\)是公钥对，密钥对都需要的一个值，为提高保密强度，RSA密钥至少为500位长，一般推荐使用1024位，也有2048位的。</p>
-<p>\( n = p*q=61*53 = 3233 \)</p>
-<p>这个部分是可以直接求解的。</p>
-<h2 id="计算欧拉函数-ϕ-n"><a href="#计算欧拉函数-ϕ-n" class="headerlink" title="计算欧拉函数 ϕ(n)"></a>计算欧拉函数 ϕ(n)</h2><p>\( \phi(n) = (p-1)(q-1) = 60*52 = 3120 \)</p>
-<h2 id="选择加密密钥-e"><a href="#选择加密密钥-e" class="headerlink" title="选择加密密钥 e"></a>选择加密密钥 e</h2><p>加密密钥 \(e\) 需要满足以下条件：</p>
-<p>\(1 &lt; e &lt; \phi(n), gcd(e, \phi(n)) = 1\)</p>
-<p>这个条件是为了确保\(e\)在模\(\phi(n)\)的情况下有逆元。出于安全性考虑 \(e=2\) 永远不该被使用 一般生成这种\(e\)的方法有2种：</p>
-<ul>
-<li>  随机生成法</li>
-<li>  穷举法</li>
-</ul>
-<p>我们令</p>
-<p>\(e = 17 \)</p>
-<p>即我们得到公钥对：</p>
-<p>\(PU\ = \ \{\ e,n\ \} = \{\ 17,3233\ \} \)</p>
-<h2 id="计算解密密钥-d"><a href="#计算解密密钥-d" class="headerlink" title="计算解密密钥 d"></a>计算解密密钥 d</h2><p>解密密钥 \(d\) 需要满足：</p>
-<p>\(d \equiv\) \(e\)-1 \( \ \ (\ mod\ \phi(n) \ )\)</p>
-<p>其实求的就是\(e\)的逆元，求逆元的方法有3种：</p>
-<ul>
-<li>  循环求解法枚举所有的数，来求解\(e\)的逆元</li>
-<li>扩展欧几里<blockquote>
-<p>扩展欧几里得算法可以在求得a、b的最大公约数的同时，能找到整数\(x、y\)（其中一个很可能是负数），使它们满足贝祖等式\(ax + by = gcd(a, b)\)。</p>
-</blockquote>
-</li>
-</ul>
-<p>当\(gcd(a, b)=1\),那么\((ax + by = 1)\),此时可以看出\(m\)是\(a\)模\(b\)的乘法逆元，\(n\)是\(b\)模\(a\)的乘法逆元。</p>
-<blockquote>
-<p>扩展欧几里德计算过程：</p>
-<p>\(a = q_1b + r_1 \ \ \ r_1 = ax_1+by_1\)</p>
-<p> </p>
-<p>\(b = q_2r_1 + r_2 \ \ \ r_2 = ax_2+by_2\)</p>
-<p> </p>
-<p>\(r_1 = q_3b + r_3 \ \ \ r_3 = ax_3+by_3\)</p>
-<p> </p>
-<p>…</p>
-<p> </p>
-<p>\(r_{n-2}= q_nr_{n-1} + r_n \ \ \ r_n = ax_n+by_n\)</p>
-<p> </p>
-<p>\(r_{n-1}= q_{n+1}r_{n} + 0 \)</p>
-<p>通过移项，得到：</p>
-<p>\(r_i = r_{i-2}-r_{i-1}q_i\)</p>
-<p>同样，从i-1和i-2行，也可以得到:</p>
-<p>\(r_{i-2} = ax_{i-2}+by_{i-2}\ \ \ \ \ r_{i-1}=ax_{i-1}+by_{i-1}\)</p>
-<p>代入：</p>
-<p>\(r_i =a(x_{i-2} - q_ix_{i-1})+b(y_{i-2}-q_iy_{i-1})\)</p>
-<p>因为我们已经假设\(r_i=ax_i+by_i\),因此</p>
-<p>\(x_i =x_{i-2} - q_ix_{i-1}\ \ \ \ \ y_i=y_{i-2} - q_iy_{i-1}\)</p>
-<p>#include <iostream><br>#include <cstdio><br>#define LL __int64<br>using namespace std;<br>LL extend_gcd(LL a, LL b, LL &amp;x, LL &amp;y)//ax+by=1返回a,b的gcd<br>{<br>    LL ans, t;<br>    if(b == 0)<br>    {<br>        x = 1;<br>        y = 0;<br>        return a;<br>    }<br>    ans = extend_gcd(b, a%b, x, y);<br>    t = x;<br>    x = y;<br>    y = t - ( a / b ) * y;<br>    return ans;<br>}<br>int main()<br>{<br>    LL a, b, c, x, y;<br>    while(~scanf(“%I64d%I64d%I64d”, &amp;a, &amp;b, &amp;c))//ax+by = c<br>    {<br>        LL gcd = extend_gcd(a,b,x,y);<br>        while(x &lt; 0)//x 为正<br>            x += b,y -= a;<br>        printf(“ax+by = 1的最小正整数解:%I64d %I64d\n”, x, y);//ax+by = 1<br>        //x即为a%b的逆元，y为b%a的逆元<br>        printf(“a mod b的逆元:%I64d\n”, x);<br>        if(c % gcd)<br>        {<br>            printf(“无解！\n”);<br>            continue;<br>        }//ax+by = c<br>        printf(“x=%I64d,y=%I64d\n”, x*c/gcd, y*c/gcd);<br>    }<br>    return 0;<br>}</p>
-</blockquote>
-<ul>
-<li>费马小定理成立的前提是\(\phi(n)\)为质数，否则无法使用。 假如\(a\)是整数，\(p\)是质数，且\(a,p\)互质(即两者只有一个公约数1)，那么\(a\)的\((p-1)\)次方除以\(p\)的余数恒等于1。那么逆元为  \(a\)\(m-2\)\(\ mod\ m \)</li>
-</ul>
-<p>利用扩展欧几里得算法可以求得：</p>
-<p>\(d=2753\)</p>
-<p>即我们得到密钥对：</p>
-<p>\(PR\ =\ \{\ d,n\ \} = \{\ 2753,3233\ \}\)</p>
-<h2 id="加密解密"><a href="#加密解密" class="headerlink" title="加密解密"></a>加密解密</h2><ul>
-<li>加密  \(C = M^e\ (\ mod\ n\ )\)</li>
-</ul>
-<p>假设对65加密,即\(M=65\)则：</p>
-<p>\(C=65\)17 \(mod \ 3233 = 2790\)</p>
-<ul>
-<li>解密  \(M = C^d\ (\ mod\ n\ )\)</li>
-</ul>
-<p>针对密文\(C=2790\)的情况，我们进行解密：</p>
-<p>\(M = 2790\)2753 \(\ mod\ 3233 = 65.\)</p>
-<blockquote>
-<p>求高次幂的快速幂算法: 比如求解：</p>
-<p>\(a^b\ mod\ n\)</p>
-<p>把b转换成二进制数,该二进制数第\(i\)位的权为 2\(i\)-1 例如, \(b=11\)的二进制是1011</p>
-<p>11 = 23 ×1 + 22 ×0 + 21 ×1 + 20 ×1</p>
-<p>因此，我们将\(a\)11 转化为算</p>
-<p>\( a\)11 =\(a\)20 *\(a\)21 * \(a\)23</p>
-<p>int modexp(int a,int b,int n)<br>{<br>    int ret=1;<br>    while(b)<br>    {<br>       if(b&amp;1) ret=ret<em>a%n;<br>       a=a</em>a%n;<br>       b&gt;&gt;=1;<br>    }<br>    return ret;<br>}</p>
-</blockquote>
-<p>// &lt;![CDATA[ if (typeof MathJaxListener !== ‘undefined’) { MathJax.Hub.Register.StartupHook(‘End’, function () { MathJaxListener.invokeCallbackForKey_(‘End’); }); } // ]]&gt;</p>
-
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2016/05/24/rsa-e6-95-b4-e7-90-86/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
@@ -2103,5 +1379,34 @@
 <script class="next-config" data-name="gitalk" type="application/json">{"enable":true,"github_id":"xtestw","repo":"xtestw.github.io","client_id":"76ac809eebae5aded61d","client_secret":"a9c003726fcdec4f8a58716dd939d7b257c6b72c","admin_user":"xtestw","distraction_free_mode":true,"proxy":"https://cors-anywhere.azm.workers.dev/https://github.com/login/oauth/access_token","language":null,"js":{"url":"https://cdn.jsdelivr.net/npm/gitalk@1.7.2/dist/gitalk.min.js","integrity":"sha256-Pmj85ojLaPOWwRtlMJwmezB/Qg8BzvJp5eTzvXaYAfA="},"path_md5":"d1546d731a9f30cc80127d57142a482b"}</script>
 <script src="/js/third-party/comments/gitalk.js"></script>
 
+<div class="fixed-bottom-adsense" id="fixedBottomAd" style="display:none;">
+  <div class="close-btn" onclick="document.getElementById('fixedBottomAd').style.display='none'">×</div>
+  <ins class="adsbygoogle"
+       style="display:inline-block;width:728px;height:90px"
+       data-ad-client="ca-pub-1217509255829092"
+       data-ad-slot="9558262455"></ins>
+  <script>
+       (adsbygoogle = window.adsbygoogle || []).push({});
+  </script>
+</div>
+<script>
+  // 延迟 3 秒显示广告
+  setTimeout(function() {
+    document.getElementById('fixedBottomAd').style.display = 'block';
+  }, 3000);
+  
+  // 30 分钟内不再显示（如果用户关闭了广告）
+  document.querySelector('.close-btn').addEventListener('click', function() {
+    localStorage.setItem('adClosedTime', Date.now());
+  });
+  
+  // 检查是否应该显示广告
+  window.addEventListener('load', function() {
+    var lastClosedTime = localStorage.getItem('adClosedTime');
+    if (lastClosedTime && Date.now() - lastClosedTime < 30 * 60 * 1000) {
+      document.getElementById('fixedBottomAd').style.display = 'none';
+    }
+  });
+</script> 
 </body>
 </html>

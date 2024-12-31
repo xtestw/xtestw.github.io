@@ -29,7 +29,7 @@
 <meta property="og:description" content="1.适配器模式 适配器模式是针对接口不一时处理的情况，比如我的类的参数是IInterface1，但是我现在想要调用IInterface2接口的函数，怎么办呢？就是用适配器来解决这个问题： 123456789101112131415public interface IInterface1()&#123;    public void method1();&#125;public interface">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2014-09-03T21:46:00.000Z">
-<meta property="article:modified_time" content="2021-01-16T22:22:37.636Z">
+<meta property="article:modified_time" content="2024-12-31T17:54:51.763Z">
 <meta property="article:author" content="xtestw">
 <meta property="article:tag" content="设计模式">
 <meta name="twitter:card" content="summary">
@@ -77,17 +77,6 @@
 
 
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-<!-- blog_article_banner -->
-<ins class="adsbygoogle"
-      style="display:inline-block;width:728px;height:90px"
-     data-ad-client="ca-pub-1217509255829092"
-     data-ad-slot="9558262455"
-     data-ad-format="auto"
-     data-full-width-responsive="true"></ins>
-<script>
-     (adsbygoogle = window.adsbygoogle || []).push({});
-</script>
-
 <script>
 (function(){
     var bp = document.createElement('script');
@@ -337,7 +326,7 @@
           <i class="far fa-calendar-check"></i>
         </span>
         <span class="post-meta-item-text">更新于</span>
-        <time title="修改时间：2021-01-17 06:22:37" itemprop="dateModified" datetime="2021-01-17T06:22:37+08:00">2021-01-17</time>
+        <time title="修改时间：2025-01-01 01:54:51" itemprop="dateModified" datetime="2025-01-01T01:54:51+08:00">2025-01-01</time>
       </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -371,9 +360,11 @@
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">public interface IInterface1()&#123;</span><br><span class="line">    public void method1();</span><br><span class="line">&#125;</span><br><span class="line">public interface IInterface2()&#123;</span><br><span class="line">    public void method2();</span><br><span class="line">&#125;</span><br><span class="line">public class adapter implements IInterface1&#123;</span><br><span class="line">    IInterface2 v;</span><br><span class="line">    public adapter(IInterface2 t)&#123;</span><br><span class="line">        this.v=t;</span><br><span class="line">    &#125;</span><br><span class="line">    public void method1()&#123;</span><br><span class="line">        v.method2();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>现在我们调用IIterface2的method1的方法的时候，就是可以直接构造一个适配器来完成</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">public class A&#123;</span><br><span class="line">    </span><br><span class="line">    public void method3(IInterface1 t)</span><br><span class="line">    &#123;</span><br><span class="line">        t.method1();</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    public static void main(String[] arg)</span><br><span class="line">    &#123;</span><br><span class="line">        (new A()).method3(new adapter(claimplementInterfce2));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">public class A&#123;</span><br><span class="line"></span><br><span class="line">    public void method3(IInterface1 t)</span><br><span class="line">    &#123;</span><br><span class="line">        t.method1();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public static void main(String[] arg)</span><br><span class="line">    &#123;</span><br><span class="line">        (new A()).method3(new adapter(claimplementInterfce2));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>其中claimplementInterface2是实现Interface2的一个类的实例。这种适配器的方法被称作为对象适配器，还有一种适配器，叫做类适配器，是基于类的多继承的，其中适配器继承自要适配的两个类，用其中一个类的方法调用另一个类，思想是一致的，不过java不支持多继承，所以也就是只能用对象适配器。</p>
+<span id="more"></span>
+
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">适配器模式：将一个类的接口，转换成客户期望的另一个接口，适配器让原本接口不兼容的类可以合作无间</span><br></pre></td></tr></table></figure>
 
 <p>2.外观模式</p>
@@ -389,8 +380,6 @@
 
 <p>需要做到这个原则，建议只调用一下的范围的方法：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">对象本身</span><br><span class="line">被当作方法的参数而传递进来的对象</span><br><span class="line">此方法所创建或实例化的任何对象</span><br><span class="line">对象的任何组组件</span><br></pre></td></tr></table></figure>
-
-
 <div class="post-adsense">
   <ins class="adsbygoogle"
        style="display:block; text-align:center;"
@@ -543,5 +532,34 @@
 <script class="next-config" data-name="gitalk" type="application/json">{"enable":true,"github_id":"xtestw","repo":"xtestw.github.io","client_id":"76ac809eebae5aded61d","client_secret":"a9c003726fcdec4f8a58716dd939d7b257c6b72c","admin_user":"xtestw","distraction_free_mode":true,"proxy":"https://cors-anywhere.azm.workers.dev/https://github.com/login/oauth/access_token","language":null,"js":{"url":"https://cdn.jsdelivr.net/npm/gitalk@1.7.2/dist/gitalk.min.js","integrity":"sha256-Pmj85ojLaPOWwRtlMJwmezB/Qg8BzvJp5eTzvXaYAfA="},"path_md5":"8afe9ab3f4abe8816a85e05ef5df3cdb"}</script>
 <script src="/js/third-party/comments/gitalk.js"></script>
 
+<div class="fixed-bottom-adsense" id="fixedBottomAd" style="display:none;">
+  <div class="close-btn" onclick="document.getElementById('fixedBottomAd').style.display='none'">×</div>
+  <ins class="adsbygoogle"
+       style="display:inline-block;width:728px;height:90px"
+       data-ad-client="ca-pub-1217509255829092"
+       data-ad-slot="9558262455"></ins>
+  <script>
+       (adsbygoogle = window.adsbygoogle || []).push({});
+  </script>
+</div>
+<script>
+  // 延迟 3 秒显示广告
+  setTimeout(function() {
+    document.getElementById('fixedBottomAd').style.display = 'block';
+  }, 3000);
+  
+  // 30 分钟内不再显示（如果用户关闭了广告）
+  document.querySelector('.close-btn').addEventListener('click', function() {
+    localStorage.setItem('adClosedTime', Date.now());
+  });
+  
+  // 检查是否应该显示广告
+  window.addEventListener('load', function() {
+    var lastClosedTime = localStorage.getItem('adClosedTime');
+    if (lastClosedTime && Date.now() - lastClosedTime < 30 * 60 * 1000) {
+      document.getElementById('fixedBottomAd').style.display = 'none';
+    }
+  });
+</script> 
 </body>
 </html>

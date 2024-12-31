@@ -29,7 +29,7 @@
 <meta property="og:description" content="前面学习过了策略模式，策略模式是对一类的算法进行封装，利用组合，算法之间可以互相替换，但是这个是针对算法过程不是一样的算法。但是如果一系列的算法的步骤都是一样的，且算法的很多过程都是一样的处理，那么，用策略模式的话，会导致算法的重用不高，我们采用模板方法来实现： 1模板方法模式：在一个方法中定义一个算法的骨架，而将一些步骤延迟到子类中。模板方法使得子类可以在不改变算法结构的情况下，重新定义算法中的">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2014-09-04T19:36:00.000Z">
-<meta property="article:modified_time" content="2021-01-16T22:23:17.072Z">
+<meta property="article:modified_time" content="2024-12-31T17:54:10.535Z">
 <meta property="article:author" content="xtestw">
 <meta property="article:tag" content="设计模式">
 <meta name="twitter:card" content="summary">
@@ -77,17 +77,6 @@
 
 
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-<!-- blog_article_banner -->
-<ins class="adsbygoogle"
-      style="display:inline-block;width:728px;height:90px"
-     data-ad-client="ca-pub-1217509255829092"
-     data-ad-slot="9558262455"
-     data-ad-format="auto"
-     data-full-width-responsive="true"></ins>
-<script>
-     (adsbygoogle = window.adsbygoogle || []).push({});
-</script>
-
 <script>
 (function(){
     var bp = document.createElement('script');
@@ -337,7 +326,7 @@
           <i class="far fa-calendar-check"></i>
         </span>
         <span class="post-meta-item-text">更新于</span>
-        <time title="修改时间：2021-01-17 06:23:17" itemprop="dateModified" datetime="2021-01-17T06:23:17+08:00">2021-01-17</time>
+        <time title="修改时间：2025-01-01 01:54:10" itemprop="dateModified" datetime="2025-01-01T01:54:10+08:00">2025-01-01</time>
       </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -372,6 +361,8 @@
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">public abstract class CAL&#123;</span><br><span class="line">    public final void algorithm()</span><br><span class="line">    &#123;</span><br><span class="line">        A1();</span><br><span class="line">        A2();</span><br><span class="line">        if (Judge())</span><br><span class="line">            A3();</span><br><span class="line">        A4();</span><br><span class="line">    &#125;</span><br><span class="line">    public void A1()&#123;</span><br><span class="line">        //实现</span><br><span class="line">        .....</span><br><span class="line">    &#125;</span><br><span class="line">    public  void A2()&#123;</span><br><span class="line">        //实现</span><br><span class="line">        .....</span><br><span class="line">    &#125;</span><br><span class="line">    public abstract void A3()&#123;&#125;</span><br><span class="line">    public abstract void A4()&#123;&#125;</span><br><span class="line">    public boolean Judge()&#123;</span><br><span class="line">        return true;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>其中模板类是一个抽象类，其中算法是确定了的，A1，A2是公共的方法，所有的子类都是一样的，A3，A4是子类自己实现的不一样的函数，定义为抽象方法，子类实现，而Judge方法被成为钩子，默认返回true，而子类可以重写这个方法，这样就能让子类拥有自己的方法。但是这个也反应了模板方法的一个缺点，就是与策略模式相比，弹性不足。</p>
+<span id="more"></span>
+
 <p>设计模式-好莱坞模式</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">好莱坞模式：别调用我们，我们会调用你。</span><br></pre></td></tr></table></figure>
 
@@ -529,5 +520,34 @@
 <script class="next-config" data-name="gitalk" type="application/json">{"enable":true,"github_id":"xtestw","repo":"xtestw.github.io","client_id":"76ac809eebae5aded61d","client_secret":"a9c003726fcdec4f8a58716dd939d7b257c6b72c","admin_user":"xtestw","distraction_free_mode":true,"proxy":"https://cors-anywhere.azm.workers.dev/https://github.com/login/oauth/access_token","language":null,"js":{"url":"https://cdn.jsdelivr.net/npm/gitalk@1.7.2/dist/gitalk.min.js","integrity":"sha256-Pmj85ojLaPOWwRtlMJwmezB/Qg8BzvJp5eTzvXaYAfA="},"path_md5":"17b2c298770cb7c5a0e7f9861fcced4d"}</script>
 <script src="/js/third-party/comments/gitalk.js"></script>
 
+<div class="fixed-bottom-adsense" id="fixedBottomAd" style="display:none;">
+  <div class="close-btn" onclick="document.getElementById('fixedBottomAd').style.display='none'">×</div>
+  <ins class="adsbygoogle"
+       style="display:inline-block;width:728px;height:90px"
+       data-ad-client="ca-pub-1217509255829092"
+       data-ad-slot="9558262455"></ins>
+  <script>
+       (adsbygoogle = window.adsbygoogle || []).push({});
+  </script>
+</div>
+<script>
+  // 延迟 3 秒显示广告
+  setTimeout(function() {
+    document.getElementById('fixedBottomAd').style.display = 'block';
+  }, 3000);
+  
+  // 30 分钟内不再显示（如果用户关闭了广告）
+  document.querySelector('.close-btn').addEventListener('click', function() {
+    localStorage.setItem('adClosedTime', Date.now());
+  });
+  
+  // 检查是否应该显示广告
+  window.addEventListener('load', function() {
+    var lastClosedTime = localStorage.getItem('adClosedTime');
+    if (lastClosedTime && Date.now() - lastClosedTime < 30 * 60 * 1000) {
+      document.getElementById('fixedBottomAd').style.display = 'none';
+    }
+  });
+</script> 
 </body>
 </html>

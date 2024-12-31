@@ -31,7 +31,7 @@
 <meta property="og:image" content="http://imgdata.hoop8.com/1605/3863736210165.png">
 <meta property="og:image" content="http://imgdata.hoop8.com/1605/1503736210165.png">
 <meta property="article:published_time" content="2016-05-24T15:17:24.000Z">
-<meta property="article:modified_time" content="2019-07-29T15:22:50.131Z">
+<meta property="article:modified_time" content="2024-12-31T17:54:51.734Z">
 <meta property="article:author" content="xtestw">
 <meta property="article:tag" content="RSA">
 <meta name="twitter:card" content="summary">
@@ -80,17 +80,6 @@
 
 
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-<!-- blog_article_banner -->
-<ins class="adsbygoogle"
-      style="display:inline-block;width:728px;height:90px"
-     data-ad-client="ca-pub-1217509255829092"
-     data-ad-slot="9558262455"
-     data-ad-format="auto"
-     data-full-width-responsive="true"></ins>
-<script>
-     (adsbygoogle = window.adsbygoogle || []).push({});
-</script>
-
 <script>
 (function(){
     var bp = document.createElement('script');
@@ -341,7 +330,7 @@
           <i class="far fa-calendar-check"></i>
         </span>
         <span class="post-meta-item-text">更新于</span>
-        <time title="修改时间：2019-07-29 23:22:50" itemprop="dateModified" datetime="2019-07-29T23:22:50+08:00">2019-07-29</time>
+        <time title="修改时间：2025-01-01 01:54:51" itemprop="dateModified" datetime="2025-01-01T01:54:51+08:00">2025-01-01</time>
       </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -392,6 +381,8 @@
 <li>  随机搜索法随机产生一个奇数 \(p_1\) 进行素数测试,若是素数,则结束;否则,重新随机产生一个奇数 \(p_2\) 进行素性测试,直至找到一个素数 \(p_t\)。</li>
 <li>  随机递增搜索法随机产生一个奇数,对以该数为起点的奇数依次进行测试,直至找到一个素数。这种方法相对于随机搜索法，在速度上有一定的提高，但是并没有本质上的区别</li>
 </ul>
+<span id="more"></span>
+
 <p>设:</p>
 <p>\(p=61,q=53\)</p>
 <h2 id="计算n-p-q"><a href="#计算n-p-q" class="headerlink" title="计算n = p * q"></a>计算n = p * q</h2><p>\(n\)是公钥对，密钥对都需要的一个值，为提高保密强度，RSA密钥至少为500位长，一般推荐使用1024位，也有2048位的。</p>
@@ -413,8 +404,10 @@
 <p>\(d \equiv\) \(e\)-1 \( \ \ (\ mod\ \phi(n) \ )\)</p>
 <p>其实求的就是\(e\)的逆元，求逆元的方法有3种：</p>
 <ul>
-<li>  循环求解法枚举所有的数，来求解\(e\)的逆元</li>
-<li>扩展欧几里<blockquote>
+<li><p>  循环求解法枚举所有的数，来求解\(e\)的逆元</p>
+</li>
+<li><p>扩展欧几里</p>
+<blockquote>
 <p>扩展欧几里得算法可以在求得a、b的最大公约数的同时，能找到整数\(x、y\)（其中一个很可能是负数），使它们满足贝祖等式\(ax + by = gcd(a, b)\)。</p>
 </blockquote>
 </li>
@@ -444,19 +437,25 @@
 <p>#include <iostream><br>#include <cstdio><br>#define LL __int64<br>using namespace std;<br>LL extend_gcd(LL a, LL b, LL &amp;x, LL &amp;y)//ax+by=1返回a,b的gcd<br>{<br>    LL ans, t;<br>    if(b == 0)<br>    {<br>        x = 1;<br>        y = 0;<br>        return a;<br>    }<br>    ans = extend_gcd(b, a%b, x, y);<br>    t = x;<br>    x = y;<br>    y = t - ( a / b ) * y;<br>    return ans;<br>}<br>int main()<br>{<br>    LL a, b, c, x, y;<br>    while(~scanf(“%I64d%I64d%I64d”, &amp;a, &amp;b, &amp;c))//ax+by = c<br>    {<br>        LL gcd = extend_gcd(a,b,x,y);<br>        while(x &lt; 0)//x 为正<br>            x += b,y -= a;<br>        printf(“ax+by = 1的最小正整数解:%I64d %I64d\n”, x, y);//ax+by = 1<br>        //x即为a%b的逆元，y为b%a的逆元<br>        printf(“a mod b的逆元:%I64d\n”, x);<br>        if(c % gcd)<br>        {<br>            printf(“无解！\n”);<br>            continue;<br>        }//ax+by = c<br>        printf(“x=%I64d,y=%I64d\n”, x*c/gcd, y*c/gcd);<br>    }<br>    return 0;<br>}</p>
 </blockquote>
 <ul>
-<li>费马小定理成立的前提是\(\phi(n)\)为质数，否则无法使用。 假如\(a\)是整数，\(p\)是质数，且\(a,p\)互质(即两者只有一个公约数1)，那么\(a\)的\((p-1)\)次方除以\(p\)的余数恒等于1。那么逆元为  \(a\)\(m-2\)\(\ mod\ m \)</li>
+<li><p>费马小定理成立的前提是\(\phi(n)\)为质数，否则无法使用。 假如\(a\)是整数，\(p\)是质数，且\(a,p\)互质(即两者只有一个公约数1)，那么\(a\)的\((p-1)\)次方除以\(p\)的余数恒等于1。那么逆元为</p>
+<p>  \(a\)\(m-2\)\(\ mod\ m \)</p>
+</li>
 </ul>
 <p>利用扩展欧几里得算法可以求得：</p>
 <p>\(d=2753\)</p>
 <p>即我们得到密钥对：</p>
 <p>\(PR\ =\ \{\ d,n\ \} = \{\ 2753,3233\ \}\)</p>
 <h2 id="加密解密"><a href="#加密解密" class="headerlink" title="加密解密"></a>加密解密</h2><ul>
-<li>加密  \(C = M^e\ (\ mod\ n\ )\)</li>
+<li><p>加密</p>
+<p>  \(C = M^e\ (\ mod\ n\ )\)</p>
+</li>
 </ul>
 <p>假设对65加密,即\(M=65\)则：</p>
 <p>\(C=65\)17 \(mod \ 3233 = 2790\)</p>
 <ul>
-<li>解密  \(M = C^d\ (\ mod\ n\ )\)</li>
+<li><p>解密</p>
+<p>  \(M = C^d\ (\ mod\ n\ )\)</p>
+</li>
 </ul>
 <p>针对密文\(C=2790\)的情况，我们进行解密：</p>
 <p>\(M = 2790\)2753 \(\ mod\ 3233 = 65.\)</p>
@@ -623,5 +622,34 @@
 <script class="next-config" data-name="gitalk" type="application/json">{"enable":true,"github_id":"xtestw","repo":"xtestw.github.io","client_id":"76ac809eebae5aded61d","client_secret":"a9c003726fcdec4f8a58716dd939d7b257c6b72c","admin_user":"xtestw","distraction_free_mode":true,"proxy":"https://cors-anywhere.azm.workers.dev/https://github.com/login/oauth/access_token","language":null,"js":{"url":"https://cdn.jsdelivr.net/npm/gitalk@1.7.2/dist/gitalk.min.js","integrity":"sha256-Pmj85ojLaPOWwRtlMJwmezB/Qg8BzvJp5eTzvXaYAfA="},"path_md5":"ae5c0cdf137151a3dd6de4f4bc893b7e"}</script>
 <script src="/js/third-party/comments/gitalk.js"></script>
 
+<div class="fixed-bottom-adsense" id="fixedBottomAd" style="display:none;">
+  <div class="close-btn" onclick="document.getElementById('fixedBottomAd').style.display='none'">×</div>
+  <ins class="adsbygoogle"
+       style="display:inline-block;width:728px;height:90px"
+       data-ad-client="ca-pub-1217509255829092"
+       data-ad-slot="9558262455"></ins>
+  <script>
+       (adsbygoogle = window.adsbygoogle || []).push({});
+  </script>
+</div>
+<script>
+  // 延迟 3 秒显示广告
+  setTimeout(function() {
+    document.getElementById('fixedBottomAd').style.display = 'block';
+  }, 3000);
+  
+  // 30 分钟内不再显示（如果用户关闭了广告）
+  document.querySelector('.close-btn').addEventListener('click', function() {
+    localStorage.setItem('adClosedTime', Date.now());
+  });
+  
+  // 检查是否应该显示广告
+  window.addEventListener('load', function() {
+    var lastClosedTime = localStorage.getItem('adClosedTime');
+    if (lastClosedTime && Date.now() - lastClosedTime < 30 * 60 * 1000) {
+      document.getElementById('fixedBottomAd').style.display = 'none';
+    }
+  });
+</script> 
 </body>
 </html>

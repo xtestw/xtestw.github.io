@@ -29,7 +29,7 @@
 <meta property="og:description" content="1.下载安装GridCtrl&#x3D;&#x3D;&#x3D;&gt;http:&#x2F;&#x2F;www.codeproject.com&#x2F;Articles&#x2F;8&#x2F;MFC-Grid-control ​        在对应项目里面添加GridCtrl的所有.h和cpp的文件(GridCtrl_src和NewCellTypes两个文件夹下的文件) ​        在vs2010中可能会出现CMemDC重定义的错误，只要将CMemDC这个重命名">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2014-08-27T06:26:00.000Z">
-<meta property="article:modified_time" content="2021-01-16T22:04:55.513Z">
+<meta property="article:modified_time" content="2024-12-31T17:54:51.694Z">
 <meta property="article:author" content="xtestw">
 <meta property="article:tag" content="windows">
 <meta name="twitter:card" content="summary">
@@ -77,17 +77,6 @@
 
 
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-<!-- blog_article_banner -->
-<ins class="adsbygoogle"
-      style="display:inline-block;width:728px;height:90px"
-     data-ad-client="ca-pub-1217509255829092"
-     data-ad-slot="9558262455"
-     data-ad-format="auto"
-     data-full-width-responsive="true"></ins>
-<script>
-     (adsbygoogle = window.adsbygoogle || []).push({});
-</script>
-
 <script>
 (function(){
     var bp = document.createElement('script');
@@ -337,7 +326,7 @@
           <i class="far fa-calendar-check"></i>
         </span>
         <span class="post-meta-item-text">更新于</span>
-        <time title="修改时间：2021-01-17 06:04:55" itemprop="dateModified" datetime="2021-01-17T06:04:55+08:00">2021-01-17</time>
+        <time title="修改时间：2025-01-01 01:54:51" itemprop="dateModified" datetime="2025-01-01T01:54:51+08:00">2025-01-01</time>
       </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -385,6 +374,8 @@
 <p>其中Create的第一个参数是这个控件在对话框中的位置（我这里是在对话框底部高为100的区域），第二个参数是父窗口句柄，第三个是你分配给他的ID。</p>
 <p>这个创建过程，可以根据需求在不同的函数中实现。</p>
 <p>这一过程结束之后我们就有了一个空白的GridCtrl控件显示在对话框中了。</p>
+<span id="more"></span>
+
 <p>4.构建简单的表格</p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">m_pGrid-&gt;<span class="built_in">SetEditable</span>(<span class="literal">true</span>);<span class="comment">//默认就是可以编辑的</span></span><br><span class="line"><span class="comment">// m_pGrid-&gt;SetTextBkColor(RGB(0xFF, 0xFF, 0xE0));//设置表格内容是黄色背景</span></span><br><span class="line">m_pGrid-&gt;<span class="built_in">SetRowCount</span>(<span class="number">8</span>); <span class="comment">//初始为8行，包含表头</span></span><br><span class="line">m_pGrid-&gt;<span class="built_in">SetColumnCount</span>(<span class="number">8</span>); <span class="comment">//初始化为8列</span></span><br><span class="line">m_pGrid-&gt;<span class="built_in">SetFixedRowCount</span>(<span class="number">1</span>); <span class="comment">//表头为一行</span></span><br><span class="line">m_pGrid-&gt;<span class="built_in">SetFixedColumnCount</span>(<span class="number">1</span>); <span class="comment">//表头为一列</span></span><br></pre></td></tr></table></figure>
 
@@ -566,5 +557,34 @@
 <script class="next-config" data-name="gitalk" type="application/json">{"enable":true,"github_id":"xtestw","repo":"xtestw.github.io","client_id":"76ac809eebae5aded61d","client_secret":"a9c003726fcdec4f8a58716dd939d7b257c6b72c","admin_user":"xtestw","distraction_free_mode":true,"proxy":"https://cors-anywhere.azm.workers.dev/https://github.com/login/oauth/access_token","language":null,"js":{"url":"https://cdn.jsdelivr.net/npm/gitalk@1.7.2/dist/gitalk.min.js","integrity":"sha256-Pmj85ojLaPOWwRtlMJwmezB/Qg8BzvJp5eTzvXaYAfA="},"path_md5":"0918078124e9ea16e17757a95093194b"}</script>
 <script src="/js/third-party/comments/gitalk.js"></script>
 
+<div class="fixed-bottom-adsense" id="fixedBottomAd" style="display:none;">
+  <div class="close-btn" onclick="document.getElementById('fixedBottomAd').style.display='none'">×</div>
+  <ins class="adsbygoogle"
+       style="display:inline-block;width:728px;height:90px"
+       data-ad-client="ca-pub-1217509255829092"
+       data-ad-slot="9558262455"></ins>
+  <script>
+       (adsbygoogle = window.adsbygoogle || []).push({});
+  </script>
+</div>
+<script>
+  // 延迟 3 秒显示广告
+  setTimeout(function() {
+    document.getElementById('fixedBottomAd').style.display = 'block';
+  }, 3000);
+  
+  // 30 分钟内不再显示（如果用户关闭了广告）
+  document.querySelector('.close-btn').addEventListener('click', function() {
+    localStorage.setItem('adClosedTime', Date.now());
+  });
+  
+  // 检查是否应该显示广告
+  window.addEventListener('load', function() {
+    var lastClosedTime = localStorage.getItem('adClosedTime');
+    if (lastClosedTime && Date.now() - lastClosedTime < 30 * 60 * 1000) {
+      document.getElementById('fixedBottomAd').style.display = 'none';
+    }
+  });
+</script> 
 </body>
 </html>
