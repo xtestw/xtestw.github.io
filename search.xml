@@ -1011,21 +1011,6 @@
       </tags>
   </entry>
   <entry>
-    <title>c++ 默认构造函数</title>
-    <url>/2015/04/03/c++%20%E9%BB%98%E8%AE%A4%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0/</url>
-    <content><![CDATA[<p><strong>关于c++构造函数两个误解</strong></p>
-<ol>
-<li><p>任何class只要没有定义构造函数，就会被编译器自动合成一个。 有些构造函数在实际中有和没有是没有任何用处的，所以无用的构造函数是不会被构建出来</p>
-</li>
-<li><p>编译器合成的构造函数，会为每个成员变量设定初始值 在我看来，编译器合成的构造函数，是为了调用成员类或者父类的构造函数，而这个成员类的构造函数的调用顺序则是按照申明的顺序来调用。</p>
-</li>
-</ol>
-]]></content>
-      <categories>
-        <category>C++</category>
-      </categories>
-  </entry>
-  <entry>
     <title>UndeclaredThrowableException原因</title>
     <url>/2021/01/17/UndeclaredThrowableException%E5%8E%9F%E5%9B%A0/</url>
     <content><![CDATA[<h1 id="UndeclaredThrowableException-原因"><a href="#UndeclaredThrowableException-原因" class="headerlink" title="UndeclaredThrowableException 原因"></a><em>UndeclaredThrowableException</em> 原因</h1><p>RPC 请求的时候抛出该异常，异常点是 RPC 调用的地方抛出的该异常，除此之外没有其他的异常信息。仔细排查，实际的异常应该是网络IO的TIMEOUT导致的。 那么，就有2个问题需要探讨：</p>
@@ -1061,6 +1046,21 @@
       <tags>
         <tag>Java</tag>
       </tags>
+  </entry>
+  <entry>
+    <title>c++ 默认构造函数</title>
+    <url>/2015/04/03/c++%20%E9%BB%98%E8%AE%A4%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0/</url>
+    <content><![CDATA[<p><strong>关于c++构造函数两个误解</strong></p>
+<ol>
+<li><p>任何class只要没有定义构造函数，就会被编译器自动合成一个。 有些构造函数在实际中有和没有是没有任何用处的，所以无用的构造函数是不会被构建出来</p>
+</li>
+<li><p>编译器合成的构造函数，会为每个成员变量设定初始值 在我看来，编译器合成的构造函数，是为了调用成员类或者父类的构造函数，而这个成员类的构造函数的调用顺序则是按照申明的顺序来调用。</p>
+</li>
+</ol>
+]]></content>
+      <categories>
+        <category>C++</category>
+      </categories>
   </entry>
   <entry>
     <title>c++ 子类要正确的调用父类构造函数</title>
@@ -1536,18 +1536,23 @@ init─┬─Xvnc
       </tags>
   </entry>
   <entry>
-    <title>POJ 1061</title>
-    <url>/2013/04/28/poj1061/</url>
-    <content><![CDATA[<p>题意就不赘诉了，青蛙约会。是一个关于欧几里得扩展的定理的题目</p>
-<p>int gcd(int a,int b)//欧几里得求最大公约数<br>{<br>    if (b==0) return a;<br>    return gcd(b,a%b);<br>}</p>
-<p>int exgcd(int a,int b,int &amp;x,int &amp;y)//欧几里得扩展求ax+by=gcd(a,b)的一组解<br>{<br>   if (b==0) {x=1;y=0;return a;}<br>   int r=exgcd(b,a%b,x,y);<br>   int t=x;<br>   x=y;<br>   y=t-a/b*y;<br>   return r;<br>}</p>
-<p>针对本题，需要注意的是，    1.数据比较大，需要用long long 2.因为是时间，所以x不能是负数，如果出现负数怎么办呢？ a*x1+b*y1=d(d=gcd(a,b)),那个转换成 a*(x1+b*n）+b*（y1-a*n)=d 最终x=(x1%b+b)%b;或者(x1+(abs([x1/b])+1)*b)%b; AC代码：</p>
-<p>#include #include #include #include #include using namespace std;</p>
-<p>int gcd(int a,int b)<br>{<br>    if (b==0) return a;<br>    return gcd(b,a%b);<br>}<br>long long exgcd(long long a,long long b,long long &amp;x,long long &amp;y)<br>{<br>    if (b==0){ x=1;y=0;return a;}<br>    long long r=exgcd(b,a%b,x,y);<br>    long long t=x;<br>    x=y;<br>    y=t-(a/b)*y;<br>    return r;<br>}<br>int main()<br>{<br>    long long x,y,m,n,L;<br>    cin&gt;&gt;x&gt;&gt;y&gt;&gt;m&gt;&gt;n&gt;&gt;L;<br>    long long s=gcd(n-m,L);<br>    if ((x-y)%s!=0){<br>    cout&lt;&lt;”Impossible”&lt;</p>
-]]></content>
+    <title>nextjs静态页面github pages资源文件404</title>
+    <url>/2021/02/12/nextjs%E9%9D%99%E6%80%81%E9%A1%B5%E9%9D%A2github-pages%E8%B5%84%E6%BA%90%E6%96%87%E4%BB%B6404/</url>
+    <content><![CDATA[<h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><p>通过把nextjs的静态文件放到github pages上，省一波流量钱，但是发现资源文件总是会404，本来以为是github pages构建完成更新cdn需要缓存，但是过了很久都没有成功，以下是静态文件目录</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">-- _next</span><br><span class="line">   -- chunks</span><br><span class="line">      -- *.js</span><br><span class="line">   -- css</span><br><span class="line">      -- *.css</span><br></pre></td></tr></table></figure>
+
+<p>后来做了猜想是目录深度原因，但是测试下来还是没有用。 后面经过验证是 下划线开头的文件或者文件夹的原因， 折腾了好半天。 实际的原因只是因为 github pages使用jeklly引擎的默认规则。</p>
+<h2 id="解法"><a href="#解法" class="headerlink" title="解法"></a>解法</h2><ul>
+<li>避免使用下划线开头的文件(需要重新)</li>
+<li>通过在根目录创建.nojekyll 空文件, 关闭jeklly引擎</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">-- .nojekyll</span><br><span class="line">-- _next</span><br><span class="line">   -- chunks</span><br><span class="line">      -- *.js</span><br><span class="line">   -- css</span><br><span class="line">      -- *.css</span><br></pre></td></tr></table></figure>]]></content>
       <categories>
-        <category>ACMICPC</category>
+        <category>FE</category>
       </categories>
+      <tags>
+        <tag>FE</tag>
+      </tags>
   </entry>
   <entry>
     <title>POJ 1015</title>
@@ -1562,10 +1567,66 @@ init─┬─Xvnc
       </categories>
   </entry>
   <entry>
+    <title>POJ 1061</title>
+    <url>/2013/04/28/poj1061/</url>
+    <content><![CDATA[<p>题意就不赘诉了，青蛙约会。是一个关于欧几里得扩展的定理的题目</p>
+<p>int gcd(int a,int b)//欧几里得求最大公约数<br>{<br>    if (b==0) return a;<br>    return gcd(b,a%b);<br>}</p>
+<p>int exgcd(int a,int b,int &amp;x,int &amp;y)//欧几里得扩展求ax+by=gcd(a,b)的一组解<br>{<br>   if (b==0) {x=1;y=0;return a;}<br>   int r=exgcd(b,a%b,x,y);<br>   int t=x;<br>   x=y;<br>   y=t-a/b*y;<br>   return r;<br>}</p>
+<p>针对本题，需要注意的是，    1.数据比较大，需要用long long 2.因为是时间，所以x不能是负数，如果出现负数怎么办呢？ a*x1+b*y1=d(d=gcd(a,b)),那个转换成 a*(x1+b*n）+b*（y1-a*n)=d 最终x=(x1%b+b)%b;或者(x1+(abs([x1/b])+1)*b)%b; AC代码：</p>
+<p>#include #include #include #include #include using namespace std;</p>
+<p>int gcd(int a,int b)<br>{<br>    if (b==0) return a;<br>    return gcd(b,a%b);<br>}<br>long long exgcd(long long a,long long b,long long &amp;x,long long &amp;y)<br>{<br>    if (b==0){ x=1;y=0;return a;}<br>    long long r=exgcd(b,a%b,x,y);<br>    long long t=x;<br>    x=y;<br>    y=t-(a/b)*y;<br>    return r;<br>}<br>int main()<br>{<br>    long long x,y,m,n,L;<br>    cin&gt;&gt;x&gt;&gt;y&gt;&gt;m&gt;&gt;n&gt;&gt;L;<br>    long long s=gcd(n-m,L);<br>    if ((x-y)%s!=0){<br>    cout&lt;&lt;”Impossible”&lt;</p>
+]]></content>
+      <categories>
+        <category>ACMICPC</category>
+      </categories>
+  </entry>
+  <entry>
     <title>POJ 1422</title>
     <url>/2013/04/28/poj1422/</url>
     <content><![CDATA[<p>题意不追溯，关于匈牙利算法看：<a href="http://my.oschina.net/xuwei8091/blog/126320">http://my.oschina.net/xuwei8091/blog/126320</a>。 最小路径覆盖等于N-最大匹配</p>
 <p>#include #include #include using namespace std;<br>int T;<br>int n,m;<br>int map[200][200];<br>int vis[200];<br>int result[200];<br>bool find(int s)<br>{<br>        for (int i=1;i&lt;=n;i++)<br>        {<br>            if (map[s][i] &amp;&amp; !vis[i])<br>            {<br>                vis[i]=1;<br>                if (result[i]==0 || find(result[i]))<br>                {<br>                    result[i]=s;<br>                    return true;<br>                }<br>            }<br>        }<br>        return false;<br>}<br>int main()<br>{<br>    scanf(“%d”,&amp;T);<br>    while (T–){<br>        memset(map,0,sizeof(map));<br>        memset(result,0,sizeof(result));<br>        scanf(“%d%d”,&amp;n,&amp;m);<br>        for (int i=0;i</p>
+]]></content>
+      <categories>
+        <category>ACMICPC</category>
+      </categories>
+  </entry>
+  <entry>
+    <title>x&amp;(-x)取x的最后一个1的证明</title>
+    <url>/2015/04/22/proof/</url>
+    <content><![CDATA[<p><a href="http://xtestw.site/?p=29">http://xtestw.site/?p=29</a></p>
+<p>##x&amp;(-x)取x的最后一个1的证明##<br>明天要给新队员讲树状数组，避不开的一个证明，之前教主讲过，当时没听明白给忘了- -，只有自己想了一种证明方法。</p>
+<p>#####证明#####<br>大家都知道，计算机是用补码来存储一个数的，在这种编码情况下，整数是自然状态编码，假设我们是一个5位的机器（只是假设），那么1，编码就为00001, 而-1的编码则是11111(并不是10001)，在这种情况下，我们会有下面的结论：</p>
+<pre><code>             -x=11111 – x +1 (x 假设为正数二进制)  -----------------结论一
+              x=00000 + x (x 假设为正数二进制) ----------------------结论二
+</code></pre>
+<p>我们还会有以下2个结论：</p>
+<pre><code>结论三：11111 - x 不会出现借位的情况(二进制下 ，对应位只会是两种情况 1-0 和 1-1)
+结论四：00000 + x 不会出现进位的情况（二进制下，对应位只会是 0+1,0+0）
+</code></pre>
+<p>假设 x的二进制编码为 x1 x2 x3 x4 x5</p>
+<p>那么我们就会发现 对于任何一位(以x1为例) 0+x1 和 1-x1 两个 必然是一个为1 一个为0，因为：</p>
+<table>
+<tr><td>X1的值</td>    <td>0+x1</td>    <td>1-x1</td></tr>
+<tr><td>0</td>    <td>0</td>    <td>1</td></tr>
+<tr><td>1</td>    <td>1</td>    <td>0</td></tr>
+</table>
+
+<span id="more"></span>
+
+<p>有了上面的结论，<strong>我们把焦点放到x的最后几位</strong>，我们要分离的是最后一个1，那么假设是第i位xi是最后一个1，那么i位以后的每一位都是0，在这个基础上，根据上面这个表格，我们会发现，11111-x 这个值在第i位以后全部都是1，而第i位为0，整理一下，每一位如下：</p>
+<ol>
+<li>X的每一位为  x1 ,x2,…… xi-1, 1 ,0,0,0…. 后面每一位都是0<ol start="2">
+<li>11111-x 结果的每一位为 1-X1,1-X2,….1-Xi-1 ,0,1,1,1….. 后面每一位都是1</li>
+</ol>
+</li>
+</ol>
+<p>下面这一点是关键 ，就是 –x = 11111-x +1, 也就是说-x的每一位是这样的：</p>
+<pre><code>                    1-X1,1-X2,….1-Xi-1 ,1,0,0,0…..
+</code></pre>
+<p>也就是说，最后一位+1 ，然后会变成0 一直往前进位到第i位，将第i位变成1后停止进位， 我们现在比较一下 x 和 –x的每一位的值， 会发现 ，<strong>除了第i位为一样的1，其余每一位都是不一样的</strong>即，都是一组0,1. 那么 </p>
+<pre><code>                    X&amp;(-X)= 0,0,0….1, 0,0,0,….
+</code></pre>
+<p><strong>除了第i位是1，其他每一位的值都是0</strong>， 而根据我们最开始所说的，<strong>X的第i位的1就是X当前二进制编码的最后一个1</strong>，所以通过 x &amp;(-x) 我们能够得到x的最后一个</p>
 ]]></content>
       <categories>
         <category>ACMICPC</category>
@@ -1693,25 +1754,6 @@ init─┬─Xvnc
       </tags>
   </entry>
   <entry>
-    <title>nextjs静态页面github pages资源文件404</title>
-    <url>/2021/02/12/nextjs%E9%9D%99%E6%80%81%E9%A1%B5%E9%9D%A2github-pages%E8%B5%84%E6%BA%90%E6%96%87%E4%BB%B6404/</url>
-    <content><![CDATA[<h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><p>通过把nextjs的静态文件放到github pages上，省一波流量钱，但是发现资源文件总是会404，本来以为是github pages构建完成更新cdn需要缓存，但是过了很久都没有成功，以下是静态文件目录</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">-- _next</span><br><span class="line">   -- chunks</span><br><span class="line">      -- *.js</span><br><span class="line">   -- css</span><br><span class="line">      -- *.css</span><br></pre></td></tr></table></figure>
-
-<p>后来做了猜想是目录深度原因，但是测试下来还是没有用。 后面经过验证是 下划线开头的文件或者文件夹的原因， 折腾了好半天。 实际的原因只是因为 github pages使用jeklly引擎的默认规则。</p>
-<h2 id="解法"><a href="#解法" class="headerlink" title="解法"></a>解法</h2><ul>
-<li>避免使用下划线开头的文件(需要重新)</li>
-<li>通过在根目录创建.nojekyll 空文件, 关闭jeklly引擎</li>
-</ul>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">-- .nojekyll</span><br><span class="line">-- _next</span><br><span class="line">   -- chunks</span><br><span class="line">      -- *.js</span><br><span class="line">   -- css</span><br><span class="line">      -- *.css</span><br></pre></td></tr></table></figure>]]></content>
-      <categories>
-        <category>FE</category>
-      </categories>
-      <tags>
-        <tag>FE</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>sdk篡改</title>
     <url>/2017/07/23/sdk-e7-af-a1-e6-94-b9/</url>
     <content><![CDATA[<p>前段时间，因为一年前篡改了一个sdk的包，导致了一系列不可预知的损失，这也充分说明了技术的正确性，需要决策的正确性来支撑的。作为技术人员，不仅仅要考虑技术的可行性，也要考虑实施后的风险和结果的预期假设。 从工程角度，简单记录一下篡改sdk包的技术。</p>
@@ -1728,43 +1770,15 @@ init─┬─Xvnc
       </categories>
   </entry>
   <entry>
-    <title>x&amp;(-x)取x的最后一个1的证明</title>
-    <url>/2015/04/22/proof/</url>
-    <content><![CDATA[<p><a href="http://xtestw.site/?p=29">http://xtestw.site/?p=29</a></p>
-<p>##x&amp;(-x)取x的最后一个1的证明##<br>明天要给新队员讲树状数组，避不开的一个证明，之前教主讲过，当时没听明白给忘了- -，只有自己想了一种证明方法。</p>
-<p>#####证明#####<br>大家都知道，计算机是用补码来存储一个数的，在这种编码情况下，整数是自然状态编码，假设我们是一个5位的机器（只是假设），那么1，编码就为00001, 而-1的编码则是11111(并不是10001)，在这种情况下，我们会有下面的结论：</p>
-<pre><code>             -x=11111 – x +1 (x 假设为正数二进制)  -----------------结论一
-              x=00000 + x (x 假设为正数二进制) ----------------------结论二
-</code></pre>
-<p>我们还会有以下2个结论：</p>
-<pre><code>结论三：11111 - x 不会出现借位的情况(二进制下 ，对应位只会是两种情况 1-0 和 1-1)
-结论四：00000 + x 不会出现进位的情况（二进制下，对应位只会是 0+1,0+0）
-</code></pre>
-<p>假设 x的二进制编码为 x1 x2 x3 x4 x5</p>
-<p>那么我们就会发现 对于任何一位(以x1为例) 0+x1 和 1-x1 两个 必然是一个为1 一个为0，因为：</p>
-<table>
-<tr><td>X1的值</td>    <td>0+x1</td>    <td>1-x1</td></tr>
-<tr><td>0</td>    <td>0</td>    <td>1</td></tr>
-<tr><td>1</td>    <td>1</td>    <td>0</td></tr>
-</table>
-
-<span id="more"></span>
-
-<p>有了上面的结论，<strong>我们把焦点放到x的最后几位</strong>，我们要分离的是最后一个1，那么假设是第i位xi是最后一个1，那么i位以后的每一位都是0，在这个基础上，根据上面这个表格，我们会发现，11111-x 这个值在第i位以后全部都是1，而第i位为0，整理一下，每一位如下：</p>
+    <title>并查集</title>
+    <url>/2013/04/27/set/</url>
+    <content><![CDATA[<p>好吧，前两天做了一场CF，遇到一道并查集的题目，感觉并查集还需学习啊，记录一下 具体的算法如下</p>
 <ol>
-<li>X的每一位为  x1 ,x2,…… xi-1, 1 ,0,0,0…. 后面每一位都是0<ol start="2">
-<li>11111-x 结果的每一位为 1-X1,1-X2,….1-Xi-1 ,0,1,1,1….. 后面每一位都是1</li>
+<li>有father数组，全部初始化为本身 </li>
+<li>添加一个关系进来的时候，s–t，找到s的祖先a,t的祖先b，将a的father设为b </li>
+<li>通过查找祖先，来确定是否在一个集合内</li>
 </ol>
-</li>
-</ol>
-<p>下面这一点是关键 ，就是 –x = 11111-x +1, 也就是说-x的每一位是这样的：</p>
-<pre><code>                    1-X1,1-X2,….1-Xi-1 ,1,0,0,0…..
-</code></pre>
-<p>也就是说，最后一位+1 ，然后会变成0 一直往前进位到第i位，将第i位变成1后停止进位， 我们现在比较一下 x 和 –x的每一位的值， 会发现 ，<strong>除了第i位为一样的1，其余每一位都是不一样的</strong>即，都是一组0,1. 那么 </p>
-<pre><code>                    X&amp;(-X)= 0,0,0….1, 0,0,0,….
-</code></pre>
-<p><strong>除了第i位是1，其他每一位的值都是0</strong>， 而根据我们最开始所说的，<strong>X的第i位的1就是X当前二进制编码的最后一个1</strong>，所以通过 x &amp;(-x) 我们能够得到x的最后一个</p>
-]]></content>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">init</span><span class="params">(<span class="type">int</span> n)</span></span>&#123;<span class="comment">//初始化，节点编号1-n</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i=<span class="number">1</span>;i&lt;=n;i++) father[i]=i;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">find</span><span class="params">(<span class="type">int</span> x)</span><span class="comment">//查找祖先节点</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">while</span> (father[x]!=x) x=father[x];</span><br><span class="line">	<span class="keyword">return</span> x;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">add</span><span class="params">(<span class="type">int</span> s,<span class="type">int</span> t)</span><span class="comment">//增加一个关系，改变集合</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  <span class="type">int</span> a=<span class="built_in">find</span>(s);</span><br><span class="line">  <span class="type">int</span> b=<span class="built_in">find</span>(t);</span><br><span class="line">  father[a]=b;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">bool</span> <span class="title">judge</span><span class="params">(<span class="type">int</span> s,<span class="type">int</span> t)</span><span class="comment">//判断是不是一个集合</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">find</span>(s)==<span class="built_in">find</span>(t);</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>]]></content>
       <categories>
         <category>ACMICPC</category>
       </categories>
@@ -1798,6 +1812,34 @@ init─┬─Xvnc
       </tags>
   </entry>
   <entry>
+    <title>几种简单的传统加密算法概述</title>
+    <url>/2013/11/10/%E5%87%A0%E7%A7%8D%E7%AE%80%E5%8D%95%E7%9A%84%E4%BC%A0%E7%BB%9F%E5%8A%A0%E5%AF%86%E7%AE%97%E6%B3%95%E6%A6%82%E8%BF%B0/</url>
+    <content><![CDATA[<p>本文只是概述几种简单的传统加密算法，没有DES,没有RSA，没有想象中的高端大气上档次的东东。。。但是都是很传统很经典的一些算法 首先，提到加密，比如加密一段文字，让其不可读，一般人首先会想到的是将其中的各个字符用其他一些特定的字符代替，比如，讲所有的A用C来表示，所有的C用E表示等等…其中早的代替算法就是由Julius Caesar发明的Caesar，它是用字母表中每个字母的之后的第三个字母来代替其本身的（C=E(3，p)=（p+3) mod 26)，但是，这种加密方式，很容易可以用穷举算法来破解，毕竟只有25种可能的情况.. 为了改进上诉算法，增加其破解的难度，我们不用简单的有序的替代方式，我们让替代无序化，用其中字母表的一个置换（置换：有限元素的集合S的置换就是S的所有元素的有序排列，且每个元素就出现一次，如S={a,b}其置换就只有两种:ab,ba），这样的话，就有26！种方式，大大的增加了破解的难度，但是这个世界聪明人太多，虽然26！很多，但是语言本身有一定的特性，每个字母在语言中出现的相对频率可以统计出来的，这样子，只要密文有了一定数量，就可以从统计学的角度，得到准确的字母匹配了。 上面的算法我们称之为单表代替，其实单表代替密码之所以较容易被攻破，因为它带有原始字母使用频率的一些统计学特征。有两种主要的方法可以减少代替密码里明文结构在密文中的残留度，一种是对明文中的多个字母一起加密，另一种是采用多表代替密码。 先说多字母代替吧，最著名的就是playfair密码，它把明文中的双字母音节作为一个单元并将其转换成密文的双字母音节，它是一个基于由密钥词构成的5<em>5的字母矩阵中的，一个例子，如密钥为monarchy，将其从左往右从上往下填入后，将剩余的字母依次填入剩下的空格，其中I/J填入同一个空格: <a href="http://static.oschina.net/uploads/img/201311/10123647_Q0Ls.png"><img src="http://static.oschina.net/uploads/img/201311/10123647_Q0Ls.png"></a> 对明文加密规则如下： 1 若p1 p2在同一行，对应密文c1 c2分别是紧靠p1 p2 右端的字母。其中第一列被看做是最后一列的右方。 2 若p1 p2在同一列，对应密文c1 c2分别是紧靠p1 p2 下方的字母。其中第一行被看做是最后一行的下方。 3 若p1 p2不在同一行，不在同一列，则c1 c2是由p1 p2确定的矩形的其他两角的字母，并且c1和p1， c2和p2同行。 4 若p1 p2相同，则插入一个事先约定的字母，比如Q 。 5 若明文字母数为奇数时，则在明文的末端添加某个事先约定的字母作为填充。 虽然相对简单加密，安全性有所提高，但是还是保留了明文语言的大部分结构特征，依旧可以破解出来，另一个有意思的多表代替密码是Hill密码，由数学家Lester Hill提出来的，其实就是利用了线性代数中的可逆矩阵，一个矩阵乘以它的逆矩阵得到单位矩阵，那么假设我们对密文每m个字母进行加密，那么将这m个字母在字母表中的序号写成矩阵形式设为P（如abc，[1,2,3])，密钥就是一个m阶的矩阵K，则C=P</em>K mod26，，解密的时候只要将密文乘上K的逆矩阵模26就可以了。该方法大大的增加了安全性。 上面的算法主要是多字母代替，现在再说说另一种多表代替的加密算法吧，其中最著名最简单的是vigenere密码，它的主要思想是对明文每m个字母进行加密，将每个字母加密，和Caesar算法一样，每个字母用后面的第k个字母来代替，只不过是m个字母中，每一个字母的k值不同，简单的说就是C=C0C1C2C3…=E(K,P)=(p0+k0）mod26,(p1+k1)mod26,(p2+k2)mod26…..但是这样的算法也是比较容易破解的，可以对相同字母的组合（如都是KATB）间隔数（存在偶然性，可以进行取舍），取公约数，那么m就是这个约数的某个因子，之后通过观察，如果长度为m，其实就是m个单表，进行分离就是m个单表分离，然后就很容易的破解了。。 另外一种加密手段，是选择一个与明文无关的，且与他长度一致的密钥，进行异或，解密的时候再一次异或就OK了，这也是基于两次异或同一个值，值不变的结论，大家可以尝试一下的~ 上面主要说的是替换技术，其实传统加密算法除了替换的技术，还有一种就是置换的技术了，简单的说就是将明文的序列打乱，比如栅栏技术，就是按照对角线的顺序写出明文，而按行的顺序读出作为密文。当然这种技术太简单了，更复杂一点的就是将消息一行行的写成矩阵块，然后按列读出，但是把列的次序打乱的，为了增加安全性，还可以多次置换来着。 传统加密高端一点的就是转轮机和隐写术了，转轮机是一种多重加密的技术，其主要的意义就是为DES加密提供了方向…隐写术是个神奇的东西，比如我们经常在电视剧中看到的隐形药水啥的…这些东西，就问度娘吧…..</p>
+]]></content>
+      <categories>
+        <category>Theory</category>
+      </categories>
+      <tags>
+        <tag>proof</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>匈牙利二分匹配</title>
+    <url>/2013/04/28/%E5%8C%88%E7%89%99%E5%88%A9%E4%BA%8C%E5%88%86%E5%8C%B9%E9%85%8D/</url>
+    <content><![CDATA[<p>关于算法的说明，可以参看这个大牛的讲解，很详细： <a href="http://imlazy.ycool.com/post.1603708.html">http://imlazy.ycool.com/post.1603708.html</a> 直接上代码</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="type">bool</span> <span class="title">find</span><span class="params">(<span class="type">int</span> s)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i=<span class="number">1</span>;i&lt;=n;i++)<span class="comment">//从1到n编号</span></span><br><span class="line">    &#123;</span><br><span class="line">         <span class="keyword">if</span> (map[s][i] &amp;&amp; !visit[i])</span><br><span class="line">        &#123;</span><br><span class="line">            visit[i]=<span class="number">1</span>;</span><br><span class="line">            <span class="keyword">if</span> (pre[i]==<span class="number">0</span> || <span class="built_in">find</span>(pre[i]))</span><br><span class="line">             &#123;</span><br><span class="line">                 pre[i]=s;</span><br><span class="line">                 <span class="keyword">return</span> <span class="literal">true</span>;      </span><br><span class="line">             &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">hungary</span><span class="params">()</span><span class="comment">//返回最大匹配数</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">     <span class="type">int</span> ans=<span class="number">0</span>;</span><br><span class="line">     <span class="keyword">for</span> (<span class="type">int</span> i=<span class="number">1</span>;i&lt;=n;i++)</span><br><span class="line">     &#123;</span><br><span class="line">        <span class="built_in">memset</span>(visit,<span class="number">0</span>,<span class="built_in">sizeof</span>(visit));</span><br><span class="line">        <span class="keyword">if</span> (<span class="built_in">find</span>(i)) ans++;</span><br><span class="line">     &#125;</span><br><span class="line">     <span class="keyword">return</span> ans;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<p>  好吧，具体的代码就应该是这样了，但是二分图是无向图吧。。。有向图，怎么破…</p>
+]]></content>
+      <categories>
+        <category>ACMICPC</category>
+      </categories>
+  </entry>
+  <entry>
     <title>匈牙利算法</title>
     <url>/2014/07/07/%E5%8C%88%E7%89%99%E5%88%A9%E7%AE%97%E6%B3%95/</url>
     <content><![CDATA[<p>参见博客：<a href="http://blog.csdn.net/dark_scope/article/details/8880547%EF%BC%8C%E9%9D%9E%E5%B8%B8%E7%BB%99%E5%8A%9B%E7%9A%84%E8%AF%B4%E6%B3%95">http://blog.csdn.net/dark_scope/article/details/8880547，非常给力的说法</a> 关于二分图匹配，常用的结论如下：</p>
@@ -1812,22 +1854,6 @@ init─┬─Xvnc
 </ol>
 <p>匈牙利算法模板:</p>
 <figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment"> * Author:  xtestw</span></span><br><span class="line"><span class="comment"> * Created Time:  2014/7/6 21:55:04</span></span><br><span class="line"><span class="comment"> * File Name: hungry.cpp</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;cstdlib&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;cstring&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;cmath&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;algorithm&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;string&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;vector&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stack&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;queue&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;set&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;time.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="type">const</span> <span class="type">int</span> maxint = <span class="number">-1u</span>&gt;&gt;<span class="number">1</span>;</span><br><span class="line"><span class="type">int</span> g[<span class="number">1000</span>][<span class="number">1001</span>];</span><br><span class="line"><span class="type">int</span> vis[<span class="number">1010</span>];</span><br><span class="line"><span class="type">int</span> pre[<span class="number">1010</span>];</span><br><span class="line"><span class="type">int</span> m,n1,n2;</span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">init</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="built_in">memset</span>(g,<span class="number">0</span>,<span class="built_in">sizeof</span>(g));</span><br><span class="line">    <span class="built_in">memset</span>(vis,<span class="number">0</span>,<span class="built_in">sizeof</span>(vis));</span><br><span class="line">    <span class="built_in">memset</span>(pre,<span class="number">-1</span>,<span class="built_in">sizeof</span>(pre));</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">&quot;%d&quot;</span>,&amp;m);</span><br><span class="line">    <span class="keyword">if</span> (m==<span class="number">0</span>) <span class="keyword">return</span>;</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">&quot;%d%d&quot;</span>,&amp;n1,&amp;n2);</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i = <span class="number">0</span>; i &lt; m ; i++)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="type">int</span> a,b;</span><br><span class="line">        <span class="built_in">scanf</span>(<span class="string">&quot;%d%d&quot;</span>,&amp;a,&amp;b);</span><br><span class="line">        g[a][b]=<span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">find</span><span class="params">(<span class="type">int</span> x)</span></span>&#123;</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>;i&lt;=n2;i++)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span> (g[x][i] &amp;&amp; !vis[i])&#123;</span><br><span class="line">            vis[i]=<span class="number">1</span>;</span><br><span class="line">            <span class="keyword">if</span> (pre[i]&lt;<span class="number">0</span> || <span class="built_in">find</span>(pre[i]))</span><br><span class="line">            &#123;</span><br><span class="line">                pre[i]=x;</span><br><span class="line">                <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">hungry</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="type">int</span> ret=<span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>;i&lt;=n1;i++)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">memset</span>(vis,<span class="number">0</span>,<span class="built_in">sizeof</span>(vis));</span><br><span class="line">        <span class="keyword">if</span> (<span class="built_in">find</span>(i))&#123;</span><br><span class="line">            ret++;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> ret;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line"><span class="meta">#<span class="keyword">ifndef</span> ONLINE_JUDGE</span></span><br><span class="line">  <span class="comment">// freopen(&quot;f:/in.txt&quot;,&quot;r&quot;,stdin);</span></span><br><span class="line"><span class="meta">#<span class="keyword">endif</span></span></span><br><span class="line">    <span class="keyword">while</span> (<span class="literal">true</span>)&#123;</span><br><span class="line">         <span class="built_in">init</span>();</span><br><span class="line">         <span class="keyword">if</span> (m==<span class="number">0</span>) <span class="keyword">break</span>;</span><br><span class="line">        cout&lt;&lt;<span class="built_in">hungry</span>()&lt;&lt;endl;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
-      <categories>
-        <category>ACMICPC</category>
-      </categories>
-  </entry>
-  <entry>
-    <title>匈牙利二分匹配</title>
-    <url>/2013/04/28/%E5%8C%88%E7%89%99%E5%88%A9%E4%BA%8C%E5%88%86%E5%8C%B9%E9%85%8D/</url>
-    <content><![CDATA[<p>关于算法的说明，可以参看这个大牛的讲解，很详细： <a href="http://imlazy.ycool.com/post.1603708.html">http://imlazy.ycool.com/post.1603708.html</a> 直接上代码</p>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="type">bool</span> <span class="title">find</span><span class="params">(<span class="type">int</span> s)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i=<span class="number">1</span>;i&lt;=n;i++)<span class="comment">//从1到n编号</span></span><br><span class="line">    &#123;</span><br><span class="line">         <span class="keyword">if</span> (map[s][i] &amp;&amp; !visit[i])</span><br><span class="line">        &#123;</span><br><span class="line">            visit[i]=<span class="number">1</span>;</span><br><span class="line">            <span class="keyword">if</span> (pre[i]==<span class="number">0</span> || <span class="built_in">find</span>(pre[i]))</span><br><span class="line">             &#123;</span><br><span class="line">                 pre[i]=s;</span><br><span class="line">                 <span class="keyword">return</span> <span class="literal">true</span>;      </span><br><span class="line">             &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">hungary</span><span class="params">()</span><span class="comment">//返回最大匹配数</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">     <span class="type">int</span> ans=<span class="number">0</span>;</span><br><span class="line">     <span class="keyword">for</span> (<span class="type">int</span> i=<span class="number">1</span>;i&lt;=n;i++)</span><br><span class="line">     &#123;</span><br><span class="line">        <span class="built_in">memset</span>(visit,<span class="number">0</span>,<span class="built_in">sizeof</span>(visit));</span><br><span class="line">        <span class="keyword">if</span> (<span class="built_in">find</span>(i)) ans++;</span><br><span class="line">     &#125;</span><br><span class="line">     <span class="keyword">return</span> ans;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-
-
-
-
-<p>  好吧，具体的代码就应该是这样了，但是二分图是无向图吧。。。有向图，怎么破…</p>
-]]></content>
       <categories>
         <category>ACMICPC</category>
       </categories>
@@ -1881,6 +1907,27 @@ init─┬─Xvnc
       </tags>
   </entry>
   <entry>
+    <title>图论入门算法理解</title>
+    <url>/2014/06/09/%E5%9B%BE%E8%AE%BA%E5%85%A5%E9%97%A8%E7%AE%97%E6%B3%95%E7%90%86%E8%A7%A3/</url>
+    <content><![CDATA[<p>1.Dijsktra 算法</p>
+<p>​        Dijsktra算法是基于贪心的，从源点开始扩展，将当前已经是最短路的点加入集合中。dist[i]表示源点s到i的距离，那么初始的时候，找距离源点最近的一个点t0,那么dist[t0]必定是s到t0最短的距离，因为不可能通过其他的点转到t0再让t0最短了（这也是为什么Dijsktra不能处理负权边的原因），同理，扩展第二点的时候也是一样，因为 在扩展第二个点的时候，已经用 第一个点 优化了所有其他的点，那么最近的那个点，一定无法 通过剩余的其他的那个点来 优化自己的距离了，也就是说这个点dist[t1]必定是s到t1的最短路径。</p>
+<p>2.floyd：</p>
+<p>　　每个点而言，剩余的点的两两最短路，要么经过这个点，要么不经过这个点 ，只要看经过它是否能更短。从另一个角度来理解的话,c[i][j][k]表示i,j经过的中间节点最大的点的标号不超过k的最短路，那么dp的 转移方程就是c[i][j][k]=min(c[i][k][k-1]+c[k][j][k-1],c[i][j][k]).</p>
+<span id="more"></span>
+
+<p>3.Bellman-ford </p>
+<p>​     进行n次按边松弛的操作，之所以是n次，因为每次松弛过程中，都能保证至少一个点获得了最短路，且每个点最多被经过1次，从DP角度来理解的话，d[k][v]=min(d[k-1][v]+e[u][v],d[k-1][v]),其中e[u][v]代表的是边，d[k][v]表示的是k次以内到达v的最短距离。</p>
+<p>4.SPFA</p>
+<p>　　最差的情况是n*(n-1)*e,每个点被松弛n-1次,dp[i]=min(dp[v]+mp[v][i],dp[i])</p>
+]]></content>
+      <categories>
+        <category>ACMICPC</category>
+      </categories>
+      <tags>
+        <tag>理论</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>母函数</title>
     <url>/2014/07/08/%E6%AF%8D%E5%87%BD%E6%95%B0/</url>
     <content><![CDATA[<p>母函数的具体介绍见博客：<a href="http://www.wutianqi.com/?p=596">http://www.wutianqi.com/?p=596</a></p>
@@ -1918,27 +1965,6 @@ init─┬─Xvnc
       </tags>
   </entry>
   <entry>
-    <title>图论入门算法理解</title>
-    <url>/2014/06/09/%E5%9B%BE%E8%AE%BA%E5%85%A5%E9%97%A8%E7%AE%97%E6%B3%95%E7%90%86%E8%A7%A3/</url>
-    <content><![CDATA[<p>1.Dijsktra 算法</p>
-<p>​        Dijsktra算法是基于贪心的，从源点开始扩展，将当前已经是最短路的点加入集合中。dist[i]表示源点s到i的距离，那么初始的时候，找距离源点最近的一个点t0,那么dist[t0]必定是s到t0最短的距离，因为不可能通过其他的点转到t0再让t0最短了（这也是为什么Dijsktra不能处理负权边的原因），同理，扩展第二点的时候也是一样，因为 在扩展第二个点的时候，已经用 第一个点 优化了所有其他的点，那么最近的那个点，一定无法 通过剩余的其他的那个点来 优化自己的距离了，也就是说这个点dist[t1]必定是s到t1的最短路径。</p>
-<p>2.floyd：</p>
-<p>　　每个点而言，剩余的点的两两最短路，要么经过这个点，要么不经过这个点 ，只要看经过它是否能更短。从另一个角度来理解的话,c[i][j][k]表示i,j经过的中间节点最大的点的标号不超过k的最短路，那么dp的 转移方程就是c[i][j][k]=min(c[i][k][k-1]+c[k][j][k-1],c[i][j][k]).</p>
-<span id="more"></span>
-
-<p>3.Bellman-ford </p>
-<p>​     进行n次按边松弛的操作，之所以是n次，因为每次松弛过程中，都能保证至少一个点获得了最短路，且每个点最多被经过1次，从DP角度来理解的话，d[k][v]=min(d[k-1][v]+e[u][v],d[k-1][v]),其中e[u][v]代表的是边，d[k][v]表示的是k次以内到达v的最短距离。</p>
-<p>4.SPFA</p>
-<p>　　最差的情况是n*(n-1)*e,每个点被松弛n-1次,dp[i]=min(dp[v]+mp[v][i],dp[i])</p>
-]]></content>
-      <categories>
-        <category>ACMICPC</category>
-      </categories>
-      <tags>
-        <tag>理论</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>设计模式-单件模式</title>
     <url>/2014/09/02/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E5%8D%95%E4%BB%B6%E6%A8%A1%E5%BC%8F/</url>
     <content><![CDATA[<p>工程中，某些对象我们只需要一个，比如线程池，缓存，对话框等的对象，我们通常的做法是可以定一个全局静态变量，然后通过程序初始化的时候就实例化他们，然后直接调用这个全局变量，但是这样有个问题，如果我的这个对象消耗的资源很多，而有的时候，我的程序在运行过程中又没用到这个对象，岂不是浪费了很多资源。通常的做法就是定义全局静态变量的时候，不初始化他，而是在调用过程中实例化，这样的话，对于全局变量的实例化，我们就要判断这个变量是否已经实例化了，如果实例化了的吧，我们就不对它进行实例化，所以代码如下：</p>
@@ -1956,43 +1982,6 @@ init─┬─Xvnc
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">public class A</span><br><span class="line">&#123;</span><br><span class="line">    private A()&#123;&#125;</span><br><span class="line">    public volatile static A cla;</span><br><span class="line">    public static A getInstance()</span><br><span class="line">    &#123;</span><br><span class="line">         if (cla == null)&#123;</span><br><span class="line">            synchronized(A.class)&#123;</span><br><span class="line">                if (cla==null)&#123;</span><br><span class="line">                    cla=new A();</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">          &#125;</span><br><span class="line">        return cla;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>其中volatile的关键字是确保多线程在cla变量初始化的时候，正确的处理cla变量。(volatile用在多线程，同步变量。 线程为了提高效率，将某成员变量(如A)拷贝了一份（如B），线程中对A的访问其实访问的是B。只在某些动作时才进行A和B的同步。因此存在A和B不一致的情况。volatile就是用来避免这种情况的。volatile告诉jvm， 它所修饰的变量不保留拷贝，直接访问主内存中的（也就是上面说的A))</p>
-]]></content>
-      <categories>
-        <category>Design Pattern</category>
-      </categories>
-      <tags>
-        <tag>设计模式</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>并查集</title>
-    <url>/2013/04/27/set/</url>
-    <content><![CDATA[<p>好吧，前两天做了一场CF，遇到一道并查集的题目，感觉并查集还需学习啊，记录一下 具体的算法如下</p>
-<ol>
-<li>有father数组，全部初始化为本身 </li>
-<li>添加一个关系进来的时候，s–t，找到s的祖先a,t的祖先b，将a的father设为b </li>
-<li>通过查找祖先，来确定是否在一个集合内</li>
-</ol>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">init</span><span class="params">(<span class="type">int</span> n)</span></span>&#123;<span class="comment">//初始化，节点编号1-n</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i=<span class="number">1</span>;i&lt;=n;i++) father[i]=i;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">find</span><span class="params">(<span class="type">int</span> x)</span><span class="comment">//查找祖先节点</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">while</span> (father[x]!=x) x=father[x];</span><br><span class="line">	<span class="keyword">return</span> x;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">add</span><span class="params">(<span class="type">int</span> s,<span class="type">int</span> t)</span><span class="comment">//增加一个关系，改变集合</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  <span class="type">int</span> a=<span class="built_in">find</span>(s);</span><br><span class="line">  <span class="type">int</span> b=<span class="built_in">find</span>(t);</span><br><span class="line">  father[a]=b;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">bool</span> <span class="title">judge</span><span class="params">(<span class="type">int</span> s,<span class="type">int</span> t)</span><span class="comment">//判断是不是一个集合</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">find</span>(s)==<span class="built_in">find</span>(t);</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>]]></content>
-      <categories>
-        <category>ACMICPC</category>
-      </categories>
-  </entry>
-  <entry>
-    <title>设计模式-模板方法</title>
-    <url>/2014/09/05/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E6%A8%A1%E6%9D%BF%E6%96%B9%E6%B3%95/</url>
-    <content><![CDATA[<p>前面学习过了策略模式，策略模式是对一类的算法进行封装，利用组合，算法之间可以互相替换，但是这个是针对算法过程不是一样的算法。但是如果一系列的算法的步骤都是一样的，且算法的很多过程都是一样的处理，那么，用策略模式的话，会导致算法的重用不高，我们采用模板方法来实现：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">模板方法模式：在一个方法中定义一个算法的骨架，而将一些步骤延迟到子类中。模板方法使得子类可以在不改变算法结构的情况下，重新定义算法中的某些步骤。</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">public abstract class CAL&#123;</span><br><span class="line">    public final void algorithm()</span><br><span class="line">    &#123;</span><br><span class="line">        A1();</span><br><span class="line">        A2();</span><br><span class="line">        if (Judge())</span><br><span class="line">            A3();</span><br><span class="line">        A4();</span><br><span class="line">    &#125;</span><br><span class="line">    public void A1()&#123;</span><br><span class="line">        //实现</span><br><span class="line">        .....</span><br><span class="line">    &#125;</span><br><span class="line">    public  void A2()&#123;</span><br><span class="line">        //实现</span><br><span class="line">        .....</span><br><span class="line">    &#125;</span><br><span class="line">    public abstract void A3()&#123;&#125;</span><br><span class="line">    public abstract void A4()&#123;&#125;</span><br><span class="line">    public boolean Judge()&#123;</span><br><span class="line">        return true;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>其中模板类是一个抽象类，其中算法是确定了的，A1，A2是公共的方法，所有的子类都是一样的，A3，A4是子类自己实现的不一样的函数，定义为抽象方法，子类实现，而Judge方法被成为钩子，默认返回true，而子类可以重写这个方法，这样就能让子类拥有自己的方法。但是这个也反应了模板方法的一个缺点，就是与策略模式相比，弹性不足。</p>
-<span id="more"></span>
-
-<p>设计模式-好莱坞模式</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">好莱坞模式：别调用我们，我们会调用你。</span><br></pre></td></tr></table></figure>
-
-<p>允许低层组件将自己挂钩到系统上，但是高层组件会决定什么时候和怎样使用这些低层组件。</p>
 ]]></content>
       <categories>
         <category>Design Pattern</category>
@@ -2021,6 +2010,29 @@ init─┬─Xvnc
 <p>工厂模式中用到了一个设计原则，依赖倒置原则：</p>
 <p>依赖倒置原则：依赖抽象，不要依赖具体类<br>其实我的感觉就是定义变量的时候定义父类，而不是具体子类，对象的构建就需要动态的生成，要完成依赖倒置，可以依据下面的方法：</p>
 <p>变量不可以持有具体类的引用<br>不要让类派生自具体类<br>不要覆盖基类中已实现的方法</p>
+]]></content>
+      <categories>
+        <category>Design Pattern</category>
+      </categories>
+      <tags>
+        <tag>设计模式</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>设计模式-模板方法</title>
+    <url>/2014/09/05/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E6%A8%A1%E6%9D%BF%E6%96%B9%E6%B3%95/</url>
+    <content><![CDATA[<p>前面学习过了策略模式，策略模式是对一类的算法进行封装，利用组合，算法之间可以互相替换，但是这个是针对算法过程不是一样的算法。但是如果一系列的算法的步骤都是一样的，且算法的很多过程都是一样的处理，那么，用策略模式的话，会导致算法的重用不高，我们采用模板方法来实现：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">模板方法模式：在一个方法中定义一个算法的骨架，而将一些步骤延迟到子类中。模板方法使得子类可以在不改变算法结构的情况下，重新定义算法中的某些步骤。</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">public abstract class CAL&#123;</span><br><span class="line">    public final void algorithm()</span><br><span class="line">    &#123;</span><br><span class="line">        A1();</span><br><span class="line">        A2();</span><br><span class="line">        if (Judge())</span><br><span class="line">            A3();</span><br><span class="line">        A4();</span><br><span class="line">    &#125;</span><br><span class="line">    public void A1()&#123;</span><br><span class="line">        //实现</span><br><span class="line">        .....</span><br><span class="line">    &#125;</span><br><span class="line">    public  void A2()&#123;</span><br><span class="line">        //实现</span><br><span class="line">        .....</span><br><span class="line">    &#125;</span><br><span class="line">    public abstract void A3()&#123;&#125;</span><br><span class="line">    public abstract void A4()&#123;&#125;</span><br><span class="line">    public boolean Judge()&#123;</span><br><span class="line">        return true;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>其中模板类是一个抽象类，其中算法是确定了的，A1，A2是公共的方法，所有的子类都是一样的，A3，A4是子类自己实现的不一样的函数，定义为抽象方法，子类实现，而Judge方法被成为钩子，默认返回true，而子类可以重写这个方法，这样就能让子类拥有自己的方法。但是这个也反应了模板方法的一个缺点，就是与策略模式相比，弹性不足。</p>
+<span id="more"></span>
+
+<p>设计模式-好莱坞模式</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">好莱坞模式：别调用我们，我们会调用你。</span><br></pre></td></tr></table></figure>
+
+<p>允许低层组件将自己挂钩到系统上，但是高层组件会决定什么时候和怎样使用这些低层组件。</p>
 ]]></content>
       <categories>
         <category>Design Pattern</category>
@@ -2110,50 +2122,33 @@ init─┬─Xvnc
       </tags>
   </entry>
   <entry>
-    <title>设计模式-适配器模式和外观模式</title>
-    <url>/2014/09/04/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E9%80%82%E9%85%8D%E5%99%A8%E6%A8%A1%E5%BC%8F%E5%92%8C%E5%A4%96%E8%A7%82%E6%A8%A1%E5%BC%8F/</url>
-    <content><![CDATA[<p>1.适配器模式</p>
-<p>适配器模式是针对接口不一时处理的情况，比如我的类的参数是IInterface1，但是我现在想要调用IInterface2接口的函数，怎么办呢？就是用适配器来解决这个问题：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">public interface IInterface1()&#123;</span><br><span class="line">    public void method1();</span><br><span class="line">&#125;</span><br><span class="line">public interface IInterface2()&#123;</span><br><span class="line">    public void method2();</span><br><span class="line">&#125;</span><br><span class="line">public class adapter implements IInterface1&#123;</span><br><span class="line">    IInterface2 v;</span><br><span class="line">    public adapter(IInterface2 t)&#123;</span><br><span class="line">        this.v=t;</span><br><span class="line">    &#125;</span><br><span class="line">    public void method1()&#123;</span><br><span class="line">        v.method2();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>现在我们调用IIterface2的method1的方法的时候，就是可以直接构造一个适配器来完成</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">public class A&#123;</span><br><span class="line"></span><br><span class="line">    public void method3(IInterface1 t)</span><br><span class="line">    &#123;</span><br><span class="line">        t.method1();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public static void main(String[] arg)</span><br><span class="line">    &#123;</span><br><span class="line">        (new A()).method3(new adapter(claimplementInterfce2));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>其中claimplementInterface2是实现Interface2的一个类的实例。这种适配器的方法被称作为对象适配器，还有一种适配器，叫做类适配器，是基于类的多继承的，其中适配器继承自要适配的两个类，用其中一个类的方法调用另一个类，思想是一致的，不过java不支持多继承，所以也就是只能用对象适配器。</p>
+    <title>设计模式-观察者模式</title>
+    <url>/2014/08/30/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E8%A7%82%E5%AF%9F%E8%80%85%E6%A8%A1%E5%BC%8F/</url>
+    <content><![CDATA[<p>在项目设计阶段，处理一对多的依赖关系类的时候，我们需要降低代码的耦合性从而增强可扩展性，比如一个班级，班主任老师和学生的关系，对于学校的通知，必定不会是学生没事的时候就问一下班主任”学校有通知没啊？”（铁定会把班主任搞毛的），明智的做法则是等着班主任在班级里面通知（对于学校的通知，班主任不会不通知学生的）,在这个关系里，班主任就是所谓的被观察者，而学生则是观察者，也就是所谓的观察者模式：</p>
+<blockquote>
+<p>观察者模式：定义了对象之间的一对多的依赖，这样一来，当一个对象改变状态的时候，他的所有依赖都会收到通知并自动更新</p>
+</blockquote>
 <span id="more"></span>
 
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">适配器模式：将一个类的接口，转换成客户期望的另一个接口，适配器让原本接口不兼容的类可以合作无间</span><br></pre></td></tr></table></figure>
+<p>对于观察者模式中所说的通知，就是在被观察者的状态改变的时候，能够让所有观察者根据这种变化作出反应,对于被观察者，他的手里应该有一张观察者的名单，只有这样，才能在状态改变的时候，给出观察者通知，就如上面的例子，班主任只有知道他们班有哪些学生，才能通知到位，当然有的时候，有的学生并不想知道学校的那些通知，那么他就要从老师那边把自己的名字从通知名单中删除掉，但是如果有一天他又想听了，那么对名单还有提供增加一个观察者的名单，之所以命名为观察者和被观察者，而不是通知者和被通知者，就是因为观察者有是否观察的主动权，按照前面一章所讲的，针对接口编程，我们就可以设计出一个被观察者的接口:</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> interface Observerable&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="type">void</span> <span class="title">addObserver</span><span class="params">(Observer o)</span></span>;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="type">void</span> <span class="title">deleteObserver</span><span class="params">(Observer o)</span></span>;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="type">void</span> <span class="title">notifyChanged</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<p>2.外观模式</p>
-<p>  外观模式，其实就是对一个子系统的方法进行整理，对外公开一些方法，方便外部的调用，但是并不是对这些类的一个封装，只是提供了一个简单的接口，用户如果觉得没什么用出，可以直接调用子系统的方法，而且，一个子系统可以有很多个外观。所以外观模式的定义如下</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">外观模式：提供一个统一的接口，用来访问子系统的一群接口。外观定义了一个高层接口，让子系统更容易使用。</span><br></pre></td></tr></table></figure>
+<p>对于观察者，他的职责就是等着被观察者的更新，然后更新自己的状态，我们也设计出他的接口</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> interface Observer&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="type">void</span> <span class="title">update</span><span class="params">(object[] data)</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<p>比如我们用电脑，怎么开机，怎么关机呢：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">public class UseComputer&#123;</span><br><span class="line">    ZHUJI zhuji;</span><br><span class="line">                XIANSHIQI xianshiqi;</span><br><span class="line">            ...</span><br><span class="line">    public UseComputer(ZHUJI zhuji,XIANSHIQI xianshiqi,....)</span><br><span class="line">    &#123;</span><br><span class="line">        this.zhuji=zhuji;</span><br><span class="line">        this.xianshiqi=xianshiqi;</span><br><span class="line">        .....</span><br><span class="line">    &#125;</span><br><span class="line">    public void guanji()</span><br><span class="line">    &#123;</span><br><span class="line">        zhuji.off();</span><br><span class="line">        xianshiqi.off();</span><br><span class="line">    &#125;</span><br><span class="line">    public void kaiji()</span><br><span class="line">    &#123;</span><br><span class="line">        xianshiqi.on();</span><br><span class="line">        zhuji.on();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>很明显的观察者在运行的时候，必须知道知道自己的观察对象是谁，所以在观察者类中应该有个变量记录被观察者：</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Observer1</span> implements Observer&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> Observerable subject;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Observer1</span><span class="params">(Observerable subject)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.subject=subject;</span><br><span class="line">        subject.<span class="built_in">addObserver</span>(<span class="keyword">this</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="type">void</span> <span class="title">update</span><span class="params">(object\[\] data)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        ........</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<p>这样就直接提供给用户开机和关机的操作了，而不用用户自己去调用开机关机的一系列的方法了。</p>
-<p>3.设计原则</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">最少知识原则：只和你的密友谈话</span><br></pre></td></tr></table></figure>
-
-<p>需要做到这个原则，建议只调用一下的范围的方法：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">对象本身</span><br><span class="line">被当作方法的参数而传递进来的对象</span><br><span class="line">此方法所创建或实例化的任何对象</span><br><span class="line">对象的任何组组件</span><br></pre></td></tr></table></figure>]]></content>
+<p>在java的java.until包中 也提供了这两个接口，但是与我们不同的是，他的被观察者ObserverAble不是一个接口而是一个类，其中提供了setChanged()的这个函数，这个函数的作用就是设定changed的值从而决定是否通知所有的观察者是否更新，因为有些变化并不一定是要通知观察者，比如学校专门给老师发的工资调整的通知，这个真的有必要告诉学生么？(另外需要注意的是，java这个ObserverAble类，提供的setChanged方法是protected的，所以你要是用它，就必须继承这个类，如果你要同时继承另外一个类的话，….) 另一个问题，学生向学校提交了一份申请，但是，老师那边久久没有回应，怎么办，学生一直等下去么？肯定不行的，必定是要主动向老师询问结果的，这也就意味着，我们的观察者可以主动的从被观察者那边获取数据，那么观察者就必须提供对应数据的get方法。 另外这一章中也提到了一个新的设计原则：</p>
+<blockquote>
+<p>为交互对象间的松耦合设计而努力</p>
+</blockquote>
+]]></content>
       <categories>
         <category>Design Pattern</category>
       </categories>
       <tags>
         <tag>设计模式</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>几种简单的传统加密算法概述</title>
-    <url>/2013/11/10/%E5%87%A0%E7%A7%8D%E7%AE%80%E5%8D%95%E7%9A%84%E4%BC%A0%E7%BB%9F%E5%8A%A0%E5%AF%86%E7%AE%97%E6%B3%95%E6%A6%82%E8%BF%B0/</url>
-    <content><![CDATA[<p>本文只是概述几种简单的传统加密算法，没有DES,没有RSA，没有想象中的高端大气上档次的东东。。。但是都是很传统很经典的一些算法 首先，提到加密，比如加密一段文字，让其不可读，一般人首先会想到的是将其中的各个字符用其他一些特定的字符代替，比如，讲所有的A用C来表示，所有的C用E表示等等…其中早的代替算法就是由Julius Caesar发明的Caesar，它是用字母表中每个字母的之后的第三个字母来代替其本身的（C=E(3，p)=（p+3) mod 26)，但是，这种加密方式，很容易可以用穷举算法来破解，毕竟只有25种可能的情况.. 为了改进上诉算法，增加其破解的难度，我们不用简单的有序的替代方式，我们让替代无序化，用其中字母表的一个置换（置换：有限元素的集合S的置换就是S的所有元素的有序排列，且每个元素就出现一次，如S={a,b}其置换就只有两种:ab,ba），这样的话，就有26！种方式，大大的增加了破解的难度，但是这个世界聪明人太多，虽然26！很多，但是语言本身有一定的特性，每个字母在语言中出现的相对频率可以统计出来的，这样子，只要密文有了一定数量，就可以从统计学的角度，得到准确的字母匹配了。 上面的算法我们称之为单表代替，其实单表代替密码之所以较容易被攻破，因为它带有原始字母使用频率的一些统计学特征。有两种主要的方法可以减少代替密码里明文结构在密文中的残留度，一种是对明文中的多个字母一起加密，另一种是采用多表代替密码。 先说多字母代替吧，最著名的就是playfair密码，它把明文中的双字母音节作为一个单元并将其转换成密文的双字母音节，它是一个基于由密钥词构成的5<em>5的字母矩阵中的，一个例子，如密钥为monarchy，将其从左往右从上往下填入后，将剩余的字母依次填入剩下的空格，其中I/J填入同一个空格: <a href="http://static.oschina.net/uploads/img/201311/10123647_Q0Ls.png"><img src="http://static.oschina.net/uploads/img/201311/10123647_Q0Ls.png"></a> 对明文加密规则如下： 1 若p1 p2在同一行，对应密文c1 c2分别是紧靠p1 p2 右端的字母。其中第一列被看做是最后一列的右方。 2 若p1 p2在同一列，对应密文c1 c2分别是紧靠p1 p2 下方的字母。其中第一行被看做是最后一行的下方。 3 若p1 p2不在同一行，不在同一列，则c1 c2是由p1 p2确定的矩形的其他两角的字母，并且c1和p1， c2和p2同行。 4 若p1 p2相同，则插入一个事先约定的字母，比如Q 。 5 若明文字母数为奇数时，则在明文的末端添加某个事先约定的字母作为填充。 虽然相对简单加密，安全性有所提高，但是还是保留了明文语言的大部分结构特征，依旧可以破解出来，另一个有意思的多表代替密码是Hill密码，由数学家Lester Hill提出来的，其实就是利用了线性代数中的可逆矩阵，一个矩阵乘以它的逆矩阵得到单位矩阵，那么假设我们对密文每m个字母进行加密，那么将这m个字母在字母表中的序号写成矩阵形式设为P（如abc，[1,2,3])，密钥就是一个m阶的矩阵K，则C=P</em>K mod26，，解密的时候只要将密文乘上K的逆矩阵模26就可以了。该方法大大的增加了安全性。 上面的算法主要是多字母代替，现在再说说另一种多表代替的加密算法吧，其中最著名最简单的是vigenere密码，它的主要思想是对明文每m个字母进行加密，将每个字母加密，和Caesar算法一样，每个字母用后面的第k个字母来代替，只不过是m个字母中，每一个字母的k值不同，简单的说就是C=C0C1C2C3…=E(K,P)=(p0+k0）mod26,(p1+k1)mod26,(p2+k2)mod26…..但是这样的算法也是比较容易破解的，可以对相同字母的组合（如都是KATB）间隔数（存在偶然性，可以进行取舍），取公约数，那么m就是这个约数的某个因子，之后通过观察，如果长度为m，其实就是m个单表，进行分离就是m个单表分离，然后就很容易的破解了。。 另外一种加密手段，是选择一个与明文无关的，且与他长度一致的密钥，进行异或，解密的时候再一次异或就OK了，这也是基于两次异或同一个值，值不变的结论，大家可以尝试一下的~ 上面主要说的是替换技术，其实传统加密算法除了替换的技术，还有一种就是置换的技术了，简单的说就是将明文的序列打乱，比如栅栏技术，就是按照对角线的顺序写出明文，而按行的顺序读出作为密文。当然这种技术太简单了，更复杂一点的就是将消息一行行的写成矩阵块，然后按列读出，但是把列的次序打乱的，为了增加安全性，还可以多次置换来着。 传统加密高端一点的就是转轮机和隐写术了，转轮机是一种多重加密的技术，其主要的意义就是为DES加密提供了方向…隐写术是个神奇的东西，比如我们经常在电视剧中看到的隐形药水啥的…这些东西，就问度娘吧…..</p>
-]]></content>
-      <categories>
-        <category>Theory</category>
-      </categories>
-      <tags>
-        <tag>proof</tag>
       </tags>
   </entry>
   <entry>
@@ -2188,28 +2183,33 @@ init─┬─Xvnc
       </tags>
   </entry>
   <entry>
-    <title>设计模式-观察者模式</title>
-    <url>/2014/08/30/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E8%A7%82%E5%AF%9F%E8%80%85%E6%A8%A1%E5%BC%8F/</url>
-    <content><![CDATA[<p>在项目设计阶段，处理一对多的依赖关系类的时候，我们需要降低代码的耦合性从而增强可扩展性，比如一个班级，班主任老师和学生的关系，对于学校的通知，必定不会是学生没事的时候就问一下班主任”学校有通知没啊？”（铁定会把班主任搞毛的），明智的做法则是等着班主任在班级里面通知（对于学校的通知，班主任不会不通知学生的）,在这个关系里，班主任就是所谓的被观察者，而学生则是观察者，也就是所谓的观察者模式：</p>
-<blockquote>
-<p>观察者模式：定义了对象之间的一对多的依赖，这样一来，当一个对象改变状态的时候，他的所有依赖都会收到通知并自动更新</p>
-</blockquote>
+    <title>设计模式-适配器模式和外观模式</title>
+    <url>/2014/09/04/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E9%80%82%E9%85%8D%E5%99%A8%E6%A8%A1%E5%BC%8F%E5%92%8C%E5%A4%96%E8%A7%82%E6%A8%A1%E5%BC%8F/</url>
+    <content><![CDATA[<p>1.适配器模式</p>
+<p>适配器模式是针对接口不一时处理的情况，比如我的类的参数是IInterface1，但是我现在想要调用IInterface2接口的函数，怎么办呢？就是用适配器来解决这个问题：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">public interface IInterface1()&#123;</span><br><span class="line">    public void method1();</span><br><span class="line">&#125;</span><br><span class="line">public interface IInterface2()&#123;</span><br><span class="line">    public void method2();</span><br><span class="line">&#125;</span><br><span class="line">public class adapter implements IInterface1&#123;</span><br><span class="line">    IInterface2 v;</span><br><span class="line">    public adapter(IInterface2 t)&#123;</span><br><span class="line">        this.v=t;</span><br><span class="line">    &#125;</span><br><span class="line">    public void method1()&#123;</span><br><span class="line">        v.method2();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>现在我们调用IIterface2的method1的方法的时候，就是可以直接构造一个适配器来完成</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">public class A&#123;</span><br><span class="line"></span><br><span class="line">    public void method3(IInterface1 t)</span><br><span class="line">    &#123;</span><br><span class="line">        t.method1();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public static void main(String[] arg)</span><br><span class="line">    &#123;</span><br><span class="line">        (new A()).method3(new adapter(claimplementInterfce2));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>其中claimplementInterface2是实现Interface2的一个类的实例。这种适配器的方法被称作为对象适配器，还有一种适配器，叫做类适配器，是基于类的多继承的，其中适配器继承自要适配的两个类，用其中一个类的方法调用另一个类，思想是一致的，不过java不支持多继承，所以也就是只能用对象适配器。</p>
 <span id="more"></span>
 
-<p>对于观察者模式中所说的通知，就是在被观察者的状态改变的时候，能够让所有观察者根据这种变化作出反应,对于被观察者，他的手里应该有一张观察者的名单，只有这样，才能在状态改变的时候，给出观察者通知，就如上面的例子，班主任只有知道他们班有哪些学生，才能通知到位，当然有的时候，有的学生并不想知道学校的那些通知，那么他就要从老师那边把自己的名字从通知名单中删除掉，但是如果有一天他又想听了，那么对名单还有提供增加一个观察者的名单，之所以命名为观察者和被观察者，而不是通知者和被通知者，就是因为观察者有是否观察的主动权，按照前面一章所讲的，针对接口编程，我们就可以设计出一个被观察者的接口:</p>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> interface Observerable&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="type">void</span> <span class="title">addObserver</span><span class="params">(Observer o)</span></span>;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="type">void</span> <span class="title">deleteObserver</span><span class="params">(Observer o)</span></span>;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="type">void</span> <span class="title">notifyChanged</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">适配器模式：将一个类的接口，转换成客户期望的另一个接口，适配器让原本接口不兼容的类可以合作无间</span><br></pre></td></tr></table></figure>
 
-<p>对于观察者，他的职责就是等着被观察者的更新，然后更新自己的状态，我们也设计出他的接口</p>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> interface Observer&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="type">void</span> <span class="title">update</span><span class="params">(object[] data)</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>2.外观模式</p>
+<p>  外观模式，其实就是对一个子系统的方法进行整理，对外公开一些方法，方便外部的调用，但是并不是对这些类的一个封装，只是提供了一个简单的接口，用户如果觉得没什么用出，可以直接调用子系统的方法，而且，一个子系统可以有很多个外观。所以外观模式的定义如下</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">外观模式：提供一个统一的接口，用来访问子系统的一群接口。外观定义了一个高层接口，让子系统更容易使用。</span><br></pre></td></tr></table></figure>
 
-<p>很明显的观察者在运行的时候，必须知道知道自己的观察对象是谁，所以在观察者类中应该有个变量记录被观察者：</p>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Observer1</span> implements Observer&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> Observerable subject;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Observer1</span><span class="params">(Observerable subject)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.subject=subject;</span><br><span class="line">        subject.<span class="built_in">addObserver</span>(<span class="keyword">this</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="type">void</span> <span class="title">update</span><span class="params">(object\[\] data)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        ........</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>比如我们用电脑，怎么开机，怎么关机呢：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">public class UseComputer&#123;</span><br><span class="line">    ZHUJI zhuji;</span><br><span class="line">                XIANSHIQI xianshiqi;</span><br><span class="line">            ...</span><br><span class="line">    public UseComputer(ZHUJI zhuji,XIANSHIQI xianshiqi,....)</span><br><span class="line">    &#123;</span><br><span class="line">        this.zhuji=zhuji;</span><br><span class="line">        this.xianshiqi=xianshiqi;</span><br><span class="line">        .....</span><br><span class="line">    &#125;</span><br><span class="line">    public void guanji()</span><br><span class="line">    &#123;</span><br><span class="line">        zhuji.off();</span><br><span class="line">        xianshiqi.off();</span><br><span class="line">    &#125;</span><br><span class="line">    public void kaiji()</span><br><span class="line">    &#123;</span><br><span class="line">        xianshiqi.on();</span><br><span class="line">        zhuji.on();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<p>在java的java.until包中 也提供了这两个接口，但是与我们不同的是，他的被观察者ObserverAble不是一个接口而是一个类，其中提供了setChanged()的这个函数，这个函数的作用就是设定changed的值从而决定是否通知所有的观察者是否更新，因为有些变化并不一定是要通知观察者，比如学校专门给老师发的工资调整的通知，这个真的有必要告诉学生么？(另外需要注意的是，java这个ObserverAble类，提供的setChanged方法是protected的，所以你要是用它，就必须继承这个类，如果你要同时继承另外一个类的话，….) 另一个问题，学生向学校提交了一份申请，但是，老师那边久久没有回应，怎么办，学生一直等下去么？肯定不行的，必定是要主动向老师询问结果的，这也就意味着，我们的观察者可以主动的从被观察者那边获取数据，那么观察者就必须提供对应数据的get方法。 另外这一章中也提到了一个新的设计原则：</p>
-<blockquote>
-<p>为交互对象间的松耦合设计而努力</p>
-</blockquote>
-]]></content>
+<p>这样就直接提供给用户开机和关机的操作了，而不用用户自己去调用开机关机的一系列的方法了。</p>
+<p>3.设计原则</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">最少知识原则：只和你的密友谈话</span><br></pre></td></tr></table></figure>
+
+<p>需要做到这个原则，建议只调用一下的范围的方法：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">对象本身</span><br><span class="line">被当作方法的参数而传递进来的对象</span><br><span class="line">此方法所创建或实例化的任何对象</span><br><span class="line">对象的任何组组件</span><br></pre></td></tr></table></figure>]]></content>
       <categories>
         <category>Design Pattern</category>
       </categories>
