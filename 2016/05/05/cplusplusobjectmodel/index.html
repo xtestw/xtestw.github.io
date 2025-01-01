@@ -563,10 +563,10 @@ f1
 <script class="next-config" data-name="gitalk" type="application/json">{"enable":true,"github_id":"xtestw","repo":"xtestw.github.io","client_id":"76ac809eebae5aded61d","client_secret":"a9c003726fcdec4f8a58716dd939d7b257c6b72c","admin_user":"xtestw","distraction_free_mode":true,"proxy":"https://cors-anywhere.azm.workers.dev/https://github.com/login/oauth/access_token","language":null,"js":{"url":"https://cdn.jsdelivr.net/npm/gitalk@1.7.2/dist/gitalk.min.js","integrity":"sha256-Pmj85ojLaPOWwRtlMJwmezB/Qg8BzvJp5eTzvXaYAfA="},"path_md5":"3e197f807f5472c045b2b5e7e8a82112"}</script>
 <script src="/js/third-party/comments/gitalk.js"></script>
 
-<div class="fixed-bottom-adsense" id="fixedBottomAd" style="display:none;">
+<div class="fixed-bottom-adsense" id="fixedBottomAd">
   <div class="close-btn" onclick="document.getElementById('fixedBottomAd').style.display='none'">×</div>
   <ins class="adsbygoogle"
-       style="display:block; width:100%; height:90px; min-width:300px;"
+       style="display:block; width:100%; height:90px;"
        data-ad-client="ca-pub-1217509255829092"
        data-ad-slot="9558262455"
        data-ad-format="horizontal"
@@ -575,31 +575,30 @@ f1
 <script>
   // 等待 DOM 和广告脚本加载完成
   window.addEventListener('load', function() {
-    // 确保广告容器有足够宽度
     var adContainer = document.getElementById('fixedBottomAd');
-    if (adContainer && window.innerWidth >= 300) {
+    
+    // 检查是否为PC端
+    if(window.innerWidth >= 992) {
       setTimeout(function() {
         try {
           (adsbygoogle = window.adsbygoogle || []).push({});
-          adContainer.style.display = 'block';
+          // 检查是否应该显示广告
+          var lastClosedTime = localStorage.getItem('adClosedTime');
+          if (!lastClosedTime || Date.now() - lastClosedTime > 30 * 60 * 1000) {
+            adContainer.style.display = 'block';
+          }
         } catch(e) {
           console.error('Ad load error:', e);
         }
-      }, 2000); // 延迟2秒加载
+      }, 2000);
     }
   });
   
-  // 30 分钟内不再显示（如果用户关闭了广告）
+  // 关闭按钮事件
   document.querySelector('.close-btn').addEventListener('click', function(e) {
     e.stopPropagation();
     localStorage.setItem('adClosedTime', Date.now());
   });
-  
-  // 检查是否应该显示广告
-  var lastClosedTime = localStorage.getItem('adClosedTime');
-  if (lastClosedTime && Date.now() - lastClosedTime < 30 * 60 * 1000) {
-    document.getElementById('fixedBottomAd').style.display = 'none';
-  }
 </script> 
 </body>
 </html>
