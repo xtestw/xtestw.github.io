@@ -1342,22 +1342,32 @@
        data-full-width-responsive="true"></ins>
 </div>
 <script>
-  // 等待 DOM 和广告脚本加载完成
-  window.addEventListener('load', function() {
+  // 等待 DOM 完全加载
+  window.addEventListener('DOMContentLoaded', function() {
     var adContainer = document.getElementById('fixedBottomAd');
     
     // 检查是否为PC端
     if(window.innerWidth >= 992) {
       setTimeout(function() {
         try {
-          (adsbygoogle = window.adsbygoogle || []).push({});
+          // 确保广告容器可见
+          adContainer.style.display = 'block';
+          
           // 检查是否应该显示广告
           var lastClosedTime = localStorage.getItem('adClosedTime');
           if (!lastClosedTime || Date.now() - lastClosedTime > 30 * 60 * 1000) {
-            adContainer.style.display = 'block';
+            (adsbygoogle = window.adsbygoogle || []).push({
+              onerror: function(err) {
+                console.error('Ad load error for slot 9558262455:', err);
+                adContainer.style.display = 'none';
+              }
+            });
+          } else {
+            adContainer.style.display = 'none';
           }
         } catch(e) {
-          console.error('Ad load error:', e);
+          console.error('Ad initialization error for slot 9558262455:', e);
+          adContainer.style.display = 'none';
         }
       }, 2000);
     }
