@@ -1,34 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>Xchart 源码分析（1）</title>
-    <url>/2014/12/22/%20Xchart%20%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90%EF%BC%881/</url>
-    <content><![CDATA[<p>学校课程需要找一份代码，来讲讲代码里面用了哪些设计模式- -！ 还是要java的。。。 于是上github上面翻代码，偶然翻到一个java的xchart图标库，感觉可能以后会用的到，而且代码不是很长，就直接拿过来用了。具体的链接地址如下：<a href="https://github.com/timmolter/XChart" title="https://github.com/timmolter/XChart">https://github.com/timmolter/XChart</a></p>
-<p>先看文件夹结构：<br> <a href="http://images.cnitblog.com/blog/372495/201412/212006353907368.png"><img src="http://images.cnitblog.com/blog/372495/201412/212021296717659.png" alt="image" title="image"></a>           </p>
-<p>一共有6个包，最后一个是用来测试的包，可以忽略不计，一共5个包，5个包的作用分别是</p>
-<ul>
-<li><p>com.xeiam.xchart:<br>主要是图表生成的代码以及一些图表的功能包括导出功能的代码，是给我们使用该jar包人调用的结构，表示的是一个图表整体的构造，包括Chart,ChartBuild,Series等类。<br><a href="http://images.cnitblog.com/blog/372495/201412/212021311244117.png"><img src="http://images.cnitblog.com/blog/372495/201412/212021319529230.png" alt="image" title="image"></a></p>
-</li>
-<li><p>com.xeiam.xchart.internal<br>这个package里面只有两个类，一个是package-info，我也不是很明白他的作用。。。就是写了一个license的地址。另一个类是Utils的类，提供了两个静态方法，一个求幂的，一个就是求差值的一半。</p>
-</li>
-</ul>
-<span id="more"></span>
-
-<ul>
-<li><p>com.xeiam.xchart.internal.chartpart<br>这个包里面的东西，都是一些绘图的基本元素，全部是从chartpart中继承过来的，利用组合模式来进行绘制和构造，主要包括Axis,chartTitle,legend,plot等基本图表的元素。<br><a href="http://images.cnitblog.com/blog/372495/201412/212021324522145.png"><img src="http://images.cnitblog.com/blog/372495/201412/212021336403214.png" alt="image" title="image"></a></p>
-</li>
-<li><p>com.xeiam.xchart.internal.markers<br>这个包里面，主要是针对刻度的一些绘图，包括圆形，矩形，上下三角形，菱形等。<br><a href="http://images.cnitblog.com/blog/372495/201412/212021341246600.png"><img src="http://images.cnitblog.com/blog/372495/201412/212021350622214.png" alt="image" title="image"></a>          </p>
-</li>
-<li><p>com.xeiam.xchart.internal.style<br>这个类主要是针对图表的一系列的外观进行定义的包，给出了几个主题，以及对于线的一些类型外观的设置。<br><a href="http://images.cnitblog.com/blog/372495/201412/212021356089113.png"><img src="http://images.cnitblog.com/blog/372495/201412/212021364994442.png" alt="image" title="image"></a>            </p>
-</li>
-</ul>
-<p>作为一个轻量级的图表库，xchart通过这几个包里面的类进行图像的构造，最终画出一个图形出来，不过目前只能支持有限的几种图表类型。</p>
-]]></content>
-      <categories>
-        <category>SourceReading</category>
-      </categories>
-  </entry>
-  <entry>
     <title>设计模式-命令模式</title>
     <url>/2014/09/03/%20%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E5%91%BD%E4%BB%A4%E6%A8%A1%E5%BC%8F/</url>
     <content><![CDATA[<p>命令模式这个设计模式更像是对接口编程的一种应用，比如给小朋友穿衣服，但是不一样的衣服有不一样的穿法，裤子，衬衫，鞋，T恤都是不一样的，但是小朋友不知道怎么穿，只知道想穿什么，那么怎么办呢，小朋友会让他的妈妈帮他穿，这里面的“让妈妈帮忙”，就是给妈妈一个命令（虽然不是很恰当- -！），对小朋友而言，怎么穿他并不关心，反正只要有只要让妈妈穿就行了，所以我们只要定义一个穿的接口就行</p>
@@ -62,6 +34,34 @@
       <tags>
         <tag>设计模式</tag>
       </tags>
+  </entry>
+  <entry>
+    <title>Xchart 源码分析（1）</title>
+    <url>/2014/12/22/%20Xchart%20%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90%EF%BC%881/</url>
+    <content><![CDATA[<p>学校课程需要找一份代码，来讲讲代码里面用了哪些设计模式- -！ 还是要java的。。。 于是上github上面翻代码，偶然翻到一个java的xchart图标库，感觉可能以后会用的到，而且代码不是很长，就直接拿过来用了。具体的链接地址如下：<a href="https://github.com/timmolter/XChart" title="https://github.com/timmolter/XChart">https://github.com/timmolter/XChart</a></p>
+<p>先看文件夹结构：<br> <a href="http://images.cnitblog.com/blog/372495/201412/212006353907368.png"><img src="http://images.cnitblog.com/blog/372495/201412/212021296717659.png" alt="image" title="image"></a>           </p>
+<p>一共有6个包，最后一个是用来测试的包，可以忽略不计，一共5个包，5个包的作用分别是</p>
+<ul>
+<li><p>com.xeiam.xchart:<br>主要是图表生成的代码以及一些图表的功能包括导出功能的代码，是给我们使用该jar包人调用的结构，表示的是一个图表整体的构造，包括Chart,ChartBuild,Series等类。<br><a href="http://images.cnitblog.com/blog/372495/201412/212021311244117.png"><img src="http://images.cnitblog.com/blog/372495/201412/212021319529230.png" alt="image" title="image"></a></p>
+</li>
+<li><p>com.xeiam.xchart.internal<br>这个package里面只有两个类，一个是package-info，我也不是很明白他的作用。。。就是写了一个license的地址。另一个类是Utils的类，提供了两个静态方法，一个求幂的，一个就是求差值的一半。</p>
+</li>
+</ul>
+<span id="more"></span>
+
+<ul>
+<li><p>com.xeiam.xchart.internal.chartpart<br>这个包里面的东西，都是一些绘图的基本元素，全部是从chartpart中继承过来的，利用组合模式来进行绘制和构造，主要包括Axis,chartTitle,legend,plot等基本图表的元素。<br><a href="http://images.cnitblog.com/blog/372495/201412/212021324522145.png"><img src="http://images.cnitblog.com/blog/372495/201412/212021336403214.png" alt="image" title="image"></a></p>
+</li>
+<li><p>com.xeiam.xchart.internal.markers<br>这个包里面，主要是针对刻度的一些绘图，包括圆形，矩形，上下三角形，菱形等。<br><a href="http://images.cnitblog.com/blog/372495/201412/212021341246600.png"><img src="http://images.cnitblog.com/blog/372495/201412/212021350622214.png" alt="image" title="image"></a>          </p>
+</li>
+<li><p>com.xeiam.xchart.internal.style<br>这个类主要是针对图表的一系列的外观进行定义的包，给出了几个主题，以及对于线的一些类型外观的设置。<br><a href="http://images.cnitblog.com/blog/372495/201412/212021356089113.png"><img src="http://images.cnitblog.com/blog/372495/201412/212021364994442.png" alt="image" title="image"></a>            </p>
+</li>
+</ul>
+<p>作为一个轻量级的图表库，xchart通过这几个包里面的类进行图像的构造，最终画出一个图形出来，不过目前只能支持有限的几种图表类型。</p>
+]]></content>
+      <categories>
+        <category>SourceReading</category>
+      </categories>
   </entry>
   <entry>
     <title>AC 自动机</title>
@@ -631,25 +631,6 @@
       </tags>
   </entry>
   <entry>
-    <title>HttpURLConnection使用http代理</title>
-    <url>/2017/08/13/HttpURLConnection%E4%BD%BF%E7%94%A8http%E4%BB%A3%E7%90%86/</url>
-    <content><![CDATA[<p>工程中的网络请求，有时会需要使用http代理，比较简单的方法是使用apache的httpclient 直接设置代理，但有的时候使用java自带的HttpURLConnection的时候，就需要注意多线程的问题了。 使用HttpURLConnection 实现代理的方法也很简单，在建立连接之前先设置代理：</p>
-<p>Authenticator.setDefault(authenticator);</p>
-<p>需要注意的是，设置代理的方法并不是使用HttpURLConnection的一个方法，而在建立请求的时候，也没有任何调用和使用 Authenticator的地方，可以猜测这里设置了代理是使用了全局量，跟进Authenticator中去，会发现： <img src="http://xtestw.site/wp-content/uploads/2017/08/1.png" alt="1"> <img src="http://xtestw.site/wp-content/uploads/2017/08/2.png" alt="2"> 其实setDefault 方法就是设置了一个静态变量，而这个变量被使用的地方在： <img src="http://xtestw.site/wp-content/uploads/2017/08/3.png" alt="3"> （三个同名函数，相同的处理）这个静态变量被全局的网络请求所使用，而不是当前连接独占的配置，一般来说，当前网络使用一个http代理的时候没有问题（比如我们就是通过elb代理多个IP出口），但是当我们有多个代理的时候，在多线程环境下就会出现问题，如果代理服务器的账号密码不同，请求的服务球对cookie和ip进行校验的时候，就会比较麻烦，所以需要想办法来让每一个HttpURLConnection独占这个代理配置，直接的方法似乎没有，但是可以折中，同步网络请求过程中，HttpURLConnection是和唯一线程绑定的，我们可以用ThreadLocal,让每个线程独占一个代理配置，从而间接的保证每个HttpURLConnection始终使用一个代理配置。 可以定一个类：</p>
-<span id="more"></span>
-
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">ThreadLocalAuthenticator</span> <span class="keyword">extends</span> <span class="title class_">Authenticator</span> &#123;</span><br><span class="line"></span><br><span class="line">  ThreadLocal&lt;PasswordAuthentication&gt; auth = <span class="keyword">new</span> <span class="title class_">ThreadLocal</span>&lt;&gt;();</span><br><span class="line"></span><br><span class="line">  <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">setPasswordAuthentication</span><span class="params">(PasswordAuthentication passwordAuthentication)</span> &#123;</span><br><span class="line">    auth.set(passwordAuthentication);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">clearPasswordAuthentication</span><span class="params">()</span> &#123;</span><br><span class="line">    auth.remove();</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="meta">@Override</span></span><br><span class="line">  <span class="keyword">protected</span> PasswordAuthentication <span class="title function_">getPasswordAuthentication</span><span class="params">()</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> auth.get();</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>然后在http网络请求的工具类中定义一个全局的静态ThreadLocalAuthenticator的实例：</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="type">ThreadLocalAuthenticator</span> <span class="variable">authenticator</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">ThreadLocalAuthenticator</span>();</span><br></pre></td></tr></table></figure>
-
-<p>然后在需要的时候使用它就OK了。</p>
-]]></content>
-      <categories>
-        <category>JAVA</category>
-      </categories>
-  </entry>
-  <entry>
     <title>Ha3 学习笔记</title>
     <url>/2021/02/28/Ha3-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</url>
     <content><![CDATA[<h2 id="整体架构"><a href="#整体架构" class="headerlink" title="整体架构"></a>整体架构</h2><p><img src="/images/Ha3-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/image-20210228184558960.png" alt="image-20210228184558960"></p>
@@ -888,6 +869,25 @@
       <tags>
         <tag>搜索引擎</tag>
       </tags>
+  </entry>
+  <entry>
+    <title>HttpURLConnection使用http代理</title>
+    <url>/2017/08/13/HttpURLConnection%E4%BD%BF%E7%94%A8http%E4%BB%A3%E7%90%86/</url>
+    <content><![CDATA[<p>工程中的网络请求，有时会需要使用http代理，比较简单的方法是使用apache的httpclient 直接设置代理，但有的时候使用java自带的HttpURLConnection的时候，就需要注意多线程的问题了。 使用HttpURLConnection 实现代理的方法也很简单，在建立连接之前先设置代理：</p>
+<p>Authenticator.setDefault(authenticator);</p>
+<p>需要注意的是，设置代理的方法并不是使用HttpURLConnection的一个方法，而在建立请求的时候，也没有任何调用和使用 Authenticator的地方，可以猜测这里设置了代理是使用了全局量，跟进Authenticator中去，会发现： <img src="http://xtestw.site/wp-content/uploads/2017/08/1.png" alt="1"> <img src="http://xtestw.site/wp-content/uploads/2017/08/2.png" alt="2"> 其实setDefault 方法就是设置了一个静态变量，而这个变量被使用的地方在： <img src="http://xtestw.site/wp-content/uploads/2017/08/3.png" alt="3"> （三个同名函数，相同的处理）这个静态变量被全局的网络请求所使用，而不是当前连接独占的配置，一般来说，当前网络使用一个http代理的时候没有问题（比如我们就是通过elb代理多个IP出口），但是当我们有多个代理的时候，在多线程环境下就会出现问题，如果代理服务器的账号密码不同，请求的服务球对cookie和ip进行校验的时候，就会比较麻烦，所以需要想办法来让每一个HttpURLConnection独占这个代理配置，直接的方法似乎没有，但是可以折中，同步网络请求过程中，HttpURLConnection是和唯一线程绑定的，我们可以用ThreadLocal,让每个线程独占一个代理配置，从而间接的保证每个HttpURLConnection始终使用一个代理配置。 可以定一个类：</p>
+<span id="more"></span>
+
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">ThreadLocalAuthenticator</span> <span class="keyword">extends</span> <span class="title class_">Authenticator</span> &#123;</span><br><span class="line"></span><br><span class="line">  ThreadLocal&lt;PasswordAuthentication&gt; auth = <span class="keyword">new</span> <span class="title class_">ThreadLocal</span>&lt;&gt;();</span><br><span class="line"></span><br><span class="line">  <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">setPasswordAuthentication</span><span class="params">(PasswordAuthentication passwordAuthentication)</span> &#123;</span><br><span class="line">    auth.set(passwordAuthentication);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">clearPasswordAuthentication</span><span class="params">()</span> &#123;</span><br><span class="line">    auth.remove();</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="meta">@Override</span></span><br><span class="line">  <span class="keyword">protected</span> PasswordAuthentication <span class="title function_">getPasswordAuthentication</span><span class="params">()</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> auth.get();</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>然后在http网络请求的工具类中定义一个全局的静态ThreadLocalAuthenticator的实例：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="type">ThreadLocalAuthenticator</span> <span class="variable">authenticator</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">ThreadLocalAuthenticator</span>();</span><br></pre></td></tr></table></figure>
+
+<p>然后在需要的时候使用它就OK了。</p>
+]]></content>
+      <categories>
+        <category>JAVA</category>
+      </categories>
   </entry>
   <entry>
     <title>MFC Invalidate闪屏问题</title>
@@ -1345,6 +1345,19 @@ f1
       </categories>
   </entry>
   <entry>
+    <title>IOCP</title>
+    <url>/2015/01/29/iocp/</url>
+    <content><![CDATA[<p>IOCP是windows下的一种异步IO通信模式（linux下面对应epoll，二者有区别—&gt;<a href="http://www.cnblogs.com/uzhang/archive/2012/02/24/2365980.html%EF%BC%89">http://www.cnblogs.com/uzhang/archive/2012/02/24/2365980.html）</a></p>
+<p>一样的socket的绑定通信的过程，不同的是并不对每一个用户请求单独开设一个线程去处理用户请求，而是在后面一线程池的方式，开固定的线程，轮流处理用户请求，减少线程的上下文切换损耗，同时利用重叠IO，减低内存等资源的消耗。 关于具体的一些内容，见：<a href="http://blog.csdn.net/neicole/article/details/7549497">http://blog.csdn.net/neicole/article/details/7549497</a></p>
+]]></content>
+      <categories>
+        <category>Theory</category>
+      </categories>
+      <tags>
+        <tag>windows</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>kruskal 算法</title>
     <url>/2013/04/29/kruskal-e7-ae-97-e6-b3-95/</url>
     <content><![CDATA[<p>kruskal算法的主要思想就是从当前路径中选择一个不能构成环的最小边加入</p>
@@ -1523,19 +1536,6 @@ init─┬─Xvnc
       </tags>
   </entry>
   <entry>
-    <title>IOCP</title>
-    <url>/2015/01/29/iocp/</url>
-    <content><![CDATA[<p>IOCP是windows下的一种异步IO通信模式（linux下面对应epoll，二者有区别—&gt;<a href="http://www.cnblogs.com/uzhang/archive/2012/02/24/2365980.html%EF%BC%89">http://www.cnblogs.com/uzhang/archive/2012/02/24/2365980.html）</a></p>
-<p>一样的socket的绑定通信的过程，不同的是并不对每一个用户请求单独开设一个线程去处理用户请求，而是在后面一线程池的方式，开固定的线程，轮流处理用户请求，减少线程的上下文切换损耗，同时利用重叠IO，减低内存等资源的消耗。 关于具体的一些内容，见：<a href="http://blog.csdn.net/neicole/article/details/7549497">http://blog.csdn.net/neicole/article/details/7549497</a></p>
-]]></content>
-      <categories>
-        <category>Theory</category>
-      </categories>
-      <tags>
-        <tag>windows</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>nextjs静态页面github pages资源文件404</title>
     <url>/2021/02/12/nextjs%E9%9D%99%E6%80%81%E9%A1%B5%E9%9D%A2github-pages%E8%B5%84%E6%BA%90%E6%96%87%E4%BB%B6404/</url>
     <content><![CDATA[<h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><p>通过把nextjs的静态文件放到github pages上，省一波流量钱，但是发现资源文件总是会404，本来以为是github pages构建完成更新cdn需要缓存，但是过了很久都没有成功，以下是静态文件目录</p>
@@ -1588,22 +1588,6 @@ init─┬─Xvnc
 ]]></content>
       <categories>
         <category>ACMICPC</category>
-      </categories>
-  </entry>
-  <entry>
-    <title>sdk篡改</title>
-    <url>/2017/07/23/sdk-e7-af-a1-e6-94-b9/</url>
-    <content><![CDATA[<p>前段时间，因为一年前篡改了一个sdk的包，导致了一系列不可预知的损失，这也充分说明了技术的正确性，需要决策的正确性来支撑的。作为技术人员，不仅仅要考虑技术的可行性，也要考虑实施后的风险和结果的预期假设。 从工程角度，简单记录一下篡改sdk包的技术。</p>
-<ol>
-<li>解压jar或者apk的包 </li>
-<li>JD-GUI 反编译查看class的相关代码，找到修改点</li>
-<li>自己编写相应的方法或者类，使用 <code>javaassist</code> 注入到class文件 </li>
-<li>重新打包</li>
-</ol>
-<p> <code>javassist</code> 使用方法参考： <a href="https://jboss-javassist.github.io/javassist/tutorial/tutorial.html">https://jboss-javassist.github.io/javassist/tutorial/tutorial.html</a> 附上测试代码，修改一个方法</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">      javassist.tools.reflect.<span class="type">Loader</span> <span class="variable">cl</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">javassist</span>.tools.reflect.Loader();</span><br><span class="line">      <span class="type">ClassPool</span> <span class="variable">pool</span> <span class="operator">=</span> ClassPool.getDefault();</span><br><span class="line">      pool.insertClassPath(<span class="string">&quot;/tmp/aa/&quot;</span>);</span><br><span class="line">      <span class="type">CtClass</span> <span class="variable">cc</span> <span class="operator">=</span> pool.get(<span class="string">&quot;com.facebook.ads.internal.d.g&quot;</span>);</span><br><span class="line">      <span class="type">CtMethod</span> <span class="variable">ctmethod</span> <span class="operator">=</span> cc.getDeclaredMethod(<span class="string">&quot;c&quot;</span>);</span><br><span class="line">      cc.getDeclaredField(<span class="string">&quot;c&quot;</span>);</span><br><span class="line">      <span class="comment">// getCode()即为需要替换的的代码</span></span><br><span class="line">      ctmethod.setBody(getCode());</span><br><span class="line">      cc.writeFile(<span class="string">&quot;/tmp/aa/&quot;</span>);</span><br><span class="line">    &#125; <span class="keyword">catch</span> (CannotCompileException e) &#123;</span><br><span class="line">      e.printStackTrace();</span><br><span class="line">    &#125; <span class="keyword">catch</span> (NotFoundException e) &#123;</span><br><span class="line">      e.printStackTrace();</span><br><span class="line">    &#125; <span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">      e.printStackTrace();</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>]]></content>
-      <categories>
-        <category>JAVA</category>
       </categories>
   </entry>
   <entry>
@@ -1768,6 +1752,22 @@ init─┬─Xvnc
       <tags>
         <tag>RSA</tag>
       </tags>
+  </entry>
+  <entry>
+    <title>sdk篡改</title>
+    <url>/2017/07/23/sdk-e7-af-a1-e6-94-b9/</url>
+    <content><![CDATA[<p>前段时间，因为一年前篡改了一个sdk的包，导致了一系列不可预知的损失，这也充分说明了技术的正确性，需要决策的正确性来支撑的。作为技术人员，不仅仅要考虑技术的可行性，也要考虑实施后的风险和结果的预期假设。 从工程角度，简单记录一下篡改sdk包的技术。</p>
+<ol>
+<li>解压jar或者apk的包 </li>
+<li>JD-GUI 反编译查看class的相关代码，找到修改点</li>
+<li>自己编写相应的方法或者类，使用 <code>javaassist</code> 注入到class文件 </li>
+<li>重新打包</li>
+</ol>
+<p> <code>javassist</code> 使用方法参考： <a href="https://jboss-javassist.github.io/javassist/tutorial/tutorial.html">https://jboss-javassist.github.io/javassist/tutorial/tutorial.html</a> 附上测试代码，修改一个方法</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">      javassist.tools.reflect.<span class="type">Loader</span> <span class="variable">cl</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">javassist</span>.tools.reflect.Loader();</span><br><span class="line">      <span class="type">ClassPool</span> <span class="variable">pool</span> <span class="operator">=</span> ClassPool.getDefault();</span><br><span class="line">      pool.insertClassPath(<span class="string">&quot;/tmp/aa/&quot;</span>);</span><br><span class="line">      <span class="type">CtClass</span> <span class="variable">cc</span> <span class="operator">=</span> pool.get(<span class="string">&quot;com.facebook.ads.internal.d.g&quot;</span>);</span><br><span class="line">      <span class="type">CtMethod</span> <span class="variable">ctmethod</span> <span class="operator">=</span> cc.getDeclaredMethod(<span class="string">&quot;c&quot;</span>);</span><br><span class="line">      cc.getDeclaredField(<span class="string">&quot;c&quot;</span>);</span><br><span class="line">      <span class="comment">// getCode()即为需要替换的的代码</span></span><br><span class="line">      ctmethod.setBody(getCode());</span><br><span class="line">      cc.writeFile(<span class="string">&quot;/tmp/aa/&quot;</span>);</span><br><span class="line">    &#125; <span class="keyword">catch</span> (CannotCompileException e) &#123;</span><br><span class="line">      e.printStackTrace();</span><br><span class="line">    &#125; <span class="keyword">catch</span> (NotFoundException e) &#123;</span><br><span class="line">      e.printStackTrace();</span><br><span class="line">    &#125; <span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">      e.printStackTrace();</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>]]></content>
+      <categories>
+        <category>JAVA</category>
+      </categories>
   </entry>
   <entry>
     <title>并查集</title>
@@ -2019,6 +2019,51 @@ init─┬─Xvnc
       </tags>
   </entry>
   <entry>
+    <title>设计模式-状态模式</title>
+    <url>/2014/09/07/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E7%8A%B6%E6%80%81%E6%A8%A1%E5%BC%8F/</url>
+    <content><![CDATA[<p>状态模式是针对系统的状态转换的，其主要的定义如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">状态模式：允许对象在内部状态改变时改变他的行为，对象看起来好像修改了它的类。</span><br></pre></td></tr></table></figure>
+
+<p>为了方便状态转移 我们为状态定义一个通用的接口，然后每一种状态都实现这个接口，而在系统类中，通过构造函数，将系统本身传入状态类中，这样，每一种状态的改变，都可以在自己类的内部完成，同时提高了可扩展性：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">public interface State&#123;</span><br><span class="line">    public void des();</span><br><span class="line">    public void action();</span><br><span class="line">&#125;</span><br><span class="line">public class State1 implements State&#123;</span><br><span class="line">    Sys sys;</span><br><span class="line">    public Sate1(Sys s)</span><br><span class="line">    &#123;</span><br><span class="line">        this.sys=sys;</span><br><span class="line">    &#125;</span><br><span class="line">    public void des()&#123;</span><br><span class="line">        .../ implements</span><br><span class="line">    &#125;</span><br><span class="line">    public void action()&#123;</span><br><span class="line">        .../ change the state</span><br><span class="line">        sys.setState(s.getState2());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">public class State2 implements State&#123;</span><br><span class="line">    Sys sys;</span><br><span class="line">    public Sate2(Sys s)</span><br><span class="line">    &#123;</span><br><span class="line">        this.sys=sys;</span><br><span class="line">    &#125;</span><br><span class="line">    public void des()&#123;</span><br><span class="line">        .../ implements</span><br><span class="line">    &#125;</span><br><span class="line">    public void action()&#123;</span><br><span class="line">        .../ change the state</span><br><span class="line">        sys.setState(s.getState1());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">public class Sys &#123;</span><br><span class="line">    private State1 state1;</span><br><span class="line">    private State2 state2;</span><br><span class="line">    private State state;//record the system&#x27;s state</span><br><span class="line">    ....//state1 &amp; state2&#x27;s setter &amp; getter</span><br><span class="line">    public Sys(State state)</span><br><span class="line">    &#123;</span><br><span class="line">        this.state=state;</span><br><span class="line">    &#125;</span><br><span class="line">    public void setState(State state)</span><br><span class="line">    &#123;    </span><br><span class="line">        this.state=state;</span><br><span class="line">    &#125;    </span><br><span class="line">    public void aciton()</span><br><span class="line">    &#123;</span><br><span class="line">        state.action();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>虽然在实现上 状态模式和策略模式以及模板方法有些相似 但是几个设计模式完全不一样，策略模式是将可以互换的行为封装起来，然后使用委托的方法决定使用哪一个行为，模板方法则是由子类决定具体的如何实现算法中的某些步骤，而算法的流程是给定的，而状态模式则封装的是基于状态的行为，并将行为委托到当前状态，由当前状态来决定具体行为。</p>
+]]></content>
+      <categories>
+        <category>Design Pattern</category>
+      </categories>
+      <tags>
+        <tag>设计模式</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>设计模式-策略模式</title>
+    <url>/2014/08/29/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E7%AD%96%E7%95%A5%E6%A8%A1%E5%BC%8F/</url>
+    <content><![CDATA[<p>​ 在实际开发过程中，经常会发生这样的一件事，我们需要实现一系列的功能，这些功能在逻辑上是可以抽象成一样的方法，不同的实现，也就是多态，有一种解决方法是，设计一个基类，然后我们定义一些方法，然后继承这个类，设计不同的子类，不同的实现，这样子我们就可以定义基类来调用子类的方法，实现多态，这种方法一定程度上是实现了代码复用。</p>
+<p>​ 但是会有一个问题，假设，基类BaseClass具有一个方法，他们的子类都具有两个方法A和B，其中方法A的实现，所有的子类都一样，很明显A的实现方法是放在基类中实现的，如果B的方法每个子类的实现都不是一样的，那么毫无疑问的是我们会在每个子类中重写B的实现。这些都是显而易见的，但是某一天需求变了，BaseClass的子类childClass1，childClass2的B方法的实现是完全一样的，childClass3，childClass4的B方法的实现也是一样的，如果我们再在每个子类中实现这个方法，很明显，代码复用很不完美。也许我们会这样子解决这个问题:</p>
+<span id="more"></span>
+
+<p>​ 在现有的基类和子类中再添加一层，分别为childClass1，childClass2添加由BaseClass继承而来的一个父类，使得这两个子类从新增的这个类中继承，而他们的B方法的实现放在这个新增的类中，同样的操作对childClass3,childClass4进行。</p>
+<p>​ 这个方法一定程度上是解决了上面的问题，但是新的问题又出现了，如果再来一个方法C，childClass2和childClass3的方法C的实现又是一样的，那又该怎么办？显然我们的设计很有问题。此时我们就需要题目中所说的设计模式—-策略模式。</p>
+<pre><code>  策略模式的概念太过抽象，我们先看看如何解决上诉问题:
+</code></pre>
+<p>​ 我们通过接口来解决这些变化的方法，我们针对可能会变化的B,C两个方法分别定义一个接口interfaceB，interfaceC,针对childClass1,childClass2我们定义一个类classB1用他们的方法B来实现interfaceB，同理我们生成classB2,classC1,classC2,classC3分别对应不同的方法B和C的实现，这样子，我们只要在基类中定义一个B，C类型为interfaceB，interfaceC的方法引用变量和两个引用对应的setter方法，就可以在子类的构造函数中通过setter方法定制属于自已的方法B,C了，从而很好的实现了代码复用的同时，降低了耦合性，增强了可扩展性。</p>
+<pre><code> 我们将这种方法B和C称为策略，那么我们的策略模式，就是针对每一类方法我们定义一套策略，这一套策略是对一类方法的不同实现，他们之间可以互相替换，这种方法可以让算法的变化独立在了使用算法的客户。
+
+ 这一章里面，也抽象出了下面的3种设计原则：
+</code></pre>
+<p>1、封装变化<br>2、多用组合，少用继承<br>3、针对接口编程，不针对实现编程</p>
+]]></content>
+      <categories>
+        <category>Design Pattern</category>
+      </categories>
+      <tags>
+        <tag>设计模式</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>设计模式-模板方法</title>
     <url>/2014/09/05/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E6%A8%A1%E6%9D%BF%E6%96%B9%E6%B3%95/</url>
     <content><![CDATA[<p>前面学习过了策略模式，策略模式是对一类的算法进行封装，利用组合，算法之间可以互相替换，但是这个是针对算法过程不是一样的算法。但是如果一系列的算法的步骤都是一样的，且算法的很多过程都是一样的处理，那么，用策略模式的话，会导致算法的重用不高，我们采用模板方法来实现：</p>
@@ -2033,26 +2078,6 @@ init─┬─Xvnc
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">好莱坞模式：别调用我们，我们会调用你。</span><br></pre></td></tr></table></figure>
 
 <p>允许低层组件将自己挂钩到系统上，但是高层组件会决定什么时候和怎样使用这些低层组件。</p>
-]]></content>
-      <categories>
-        <category>Design Pattern</category>
-      </categories>
-      <tags>
-        <tag>设计模式</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>设计模式-状态模式</title>
-    <url>/2014/09/07/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E7%8A%B6%E6%80%81%E6%A8%A1%E5%BC%8F/</url>
-    <content><![CDATA[<p>状态模式是针对系统的状态转换的，其主要的定义如下：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">状态模式：允许对象在内部状态改变时改变他的行为，对象看起来好像修改了它的类。</span><br></pre></td></tr></table></figure>
-
-<p>为了方便状态转移 我们为状态定义一个通用的接口，然后每一种状态都实现这个接口，而在系统类中，通过构造函数，将系统本身传入状态类中，这样，每一种状态的改变，都可以在自己类的内部完成，同时提高了可扩展性：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">public interface State&#123;</span><br><span class="line">    public void des();</span><br><span class="line">    public void action();</span><br><span class="line">&#125;</span><br><span class="line">public class State1 implements State&#123;</span><br><span class="line">    Sys sys;</span><br><span class="line">    public Sate1(Sys s)</span><br><span class="line">    &#123;</span><br><span class="line">        this.sys=sys;</span><br><span class="line">    &#125;</span><br><span class="line">    public void des()&#123;</span><br><span class="line">        .../ implements</span><br><span class="line">    &#125;</span><br><span class="line">    public void action()&#123;</span><br><span class="line">        .../ change the state</span><br><span class="line">        sys.setState(s.getState2());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">public class State2 implements State&#123;</span><br><span class="line">    Sys sys;</span><br><span class="line">    public Sate2(Sys s)</span><br><span class="line">    &#123;</span><br><span class="line">        this.sys=sys;</span><br><span class="line">    &#125;</span><br><span class="line">    public void des()&#123;</span><br><span class="line">        .../ implements</span><br><span class="line">    &#125;</span><br><span class="line">    public void action()&#123;</span><br><span class="line">        .../ change the state</span><br><span class="line">        sys.setState(s.getState1());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">public class Sys &#123;</span><br><span class="line">    private State1 state1;</span><br><span class="line">    private State2 state2;</span><br><span class="line">    private State state;//record the system&#x27;s state</span><br><span class="line">    ....//state1 &amp; state2&#x27;s setter &amp; getter</span><br><span class="line">    public Sys(State state)</span><br><span class="line">    &#123;</span><br><span class="line">        this.state=state;</span><br><span class="line">    &#125;</span><br><span class="line">    public void setState(State state)</span><br><span class="line">    &#123;    </span><br><span class="line">        this.state=state;</span><br><span class="line">    &#125;    </span><br><span class="line">    public void aciton()</span><br><span class="line">    &#123;</span><br><span class="line">        state.action();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-
-<p>虽然在实现上 状态模式和策略模式以及模板方法有些相似 但是几个设计模式完全不一样，策略模式是将可以互换的行为封装起来，然后使用委托的方法决定使用哪一个行为，模板方法则是由子类决定具体的如何实现算法中的某些步骤，而算法的流程是给定的，而状态模式则封装的是基于状态的行为，并将行为委托到当前状态，由当前状态来决定具体行为。</p>
 ]]></content>
       <categories>
         <category>Design Pattern</category>
@@ -2097,23 +2122,33 @@ init─┬─Xvnc
       </tags>
   </entry>
   <entry>
-    <title>设计模式-策略模式</title>
-    <url>/2014/08/29/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E7%AD%96%E7%95%A5%E6%A8%A1%E5%BC%8F/</url>
-    <content><![CDATA[<p>​ 在实际开发过程中，经常会发生这样的一件事，我们需要实现一系列的功能，这些功能在逻辑上是可以抽象成一样的方法，不同的实现，也就是多态，有一种解决方法是，设计一个基类，然后我们定义一些方法，然后继承这个类，设计不同的子类，不同的实现，这样子我们就可以定义基类来调用子类的方法，实现多态，这种方法一定程度上是实现了代码复用。</p>
-<p>​ 但是会有一个问题，假设，基类BaseClass具有一个方法，他们的子类都具有两个方法A和B，其中方法A的实现，所有的子类都一样，很明显A的实现方法是放在基类中实现的，如果B的方法每个子类的实现都不是一样的，那么毫无疑问的是我们会在每个子类中重写B的实现。这些都是显而易见的，但是某一天需求变了，BaseClass的子类childClass1，childClass2的B方法的实现是完全一样的，childClass3，childClass4的B方法的实现也是一样的，如果我们再在每个子类中实现这个方法，很明显，代码复用很不完美。也许我们会这样子解决这个问题:</p>
+    <title>设计模式-适配器模式和外观模式</title>
+    <url>/2014/09/04/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E9%80%82%E9%85%8D%E5%99%A8%E6%A8%A1%E5%BC%8F%E5%92%8C%E5%A4%96%E8%A7%82%E6%A8%A1%E5%BC%8F/</url>
+    <content><![CDATA[<p>1.适配器模式</p>
+<p>适配器模式是针对接口不一时处理的情况，比如我的类的参数是IInterface1，但是我现在想要调用IInterface2接口的函数，怎么办呢？就是用适配器来解决这个问题：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">public interface IInterface1()&#123;</span><br><span class="line">    public void method1();</span><br><span class="line">&#125;</span><br><span class="line">public interface IInterface2()&#123;</span><br><span class="line">    public void method2();</span><br><span class="line">&#125;</span><br><span class="line">public class adapter implements IInterface1&#123;</span><br><span class="line">    IInterface2 v;</span><br><span class="line">    public adapter(IInterface2 t)&#123;</span><br><span class="line">        this.v=t;</span><br><span class="line">    &#125;</span><br><span class="line">    public void method1()&#123;</span><br><span class="line">        v.method2();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>现在我们调用IIterface2的method1的方法的时候，就是可以直接构造一个适配器来完成</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">public class A&#123;</span><br><span class="line"></span><br><span class="line">    public void method3(IInterface1 t)</span><br><span class="line">    &#123;</span><br><span class="line">        t.method1();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public static void main(String[] arg)</span><br><span class="line">    &#123;</span><br><span class="line">        (new A()).method3(new adapter(claimplementInterfce2));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>其中claimplementInterface2是实现Interface2的一个类的实例。这种适配器的方法被称作为对象适配器，还有一种适配器，叫做类适配器，是基于类的多继承的，其中适配器继承自要适配的两个类，用其中一个类的方法调用另一个类，思想是一致的，不过java不支持多继承，所以也就是只能用对象适配器。</p>
 <span id="more"></span>
 
-<p>​ 在现有的基类和子类中再添加一层，分别为childClass1，childClass2添加由BaseClass继承而来的一个父类，使得这两个子类从新增的这个类中继承，而他们的B方法的实现放在这个新增的类中，同样的操作对childClass3,childClass4进行。</p>
-<p>​ 这个方法一定程度上是解决了上面的问题，但是新的问题又出现了，如果再来一个方法C，childClass2和childClass3的方法C的实现又是一样的，那又该怎么办？显然我们的设计很有问题。此时我们就需要题目中所说的设计模式—-策略模式。</p>
-<pre><code>  策略模式的概念太过抽象，我们先看看如何解决上诉问题:
-</code></pre>
-<p>​ 我们通过接口来解决这些变化的方法，我们针对可能会变化的B,C两个方法分别定义一个接口interfaceB，interfaceC,针对childClass1,childClass2我们定义一个类classB1用他们的方法B来实现interfaceB，同理我们生成classB2,classC1,classC2,classC3分别对应不同的方法B和C的实现，这样子，我们只要在基类中定义一个B，C类型为interfaceB，interfaceC的方法引用变量和两个引用对应的setter方法，就可以在子类的构造函数中通过setter方法定制属于自已的方法B,C了，从而很好的实现了代码复用的同时，降低了耦合性，增强了可扩展性。</p>
-<pre><code> 我们将这种方法B和C称为策略，那么我们的策略模式，就是针对每一类方法我们定义一套策略，这一套策略是对一类方法的不同实现，他们之间可以互相替换，这种方法可以让算法的变化独立在了使用算法的客户。
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">适配器模式：将一个类的接口，转换成客户期望的另一个接口，适配器让原本接口不兼容的类可以合作无间</span><br></pre></td></tr></table></figure>
 
- 这一章里面，也抽象出了下面的3种设计原则：
-</code></pre>
-<p>1、封装变化<br>2、多用组合，少用继承<br>3、针对接口编程，不针对实现编程</p>
-]]></content>
+<p>2.外观模式</p>
+<p>  外观模式，其实就是对一个子系统的方法进行整理，对外公开一些方法，方便外部的调用，但是并不是对这些类的一个封装，只是提供了一个简单的接口，用户如果觉得没什么用出，可以直接调用子系统的方法，而且，一个子系统可以有很多个外观。所以外观模式的定义如下</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">外观模式：提供一个统一的接口，用来访问子系统的一群接口。外观定义了一个高层接口，让子系统更容易使用。</span><br></pre></td></tr></table></figure>
+
+<p>比如我们用电脑，怎么开机，怎么关机呢：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">public class UseComputer&#123;</span><br><span class="line">    ZHUJI zhuji;</span><br><span class="line">                XIANSHIQI xianshiqi;</span><br><span class="line">            ...</span><br><span class="line">    public UseComputer(ZHUJI zhuji,XIANSHIQI xianshiqi,....)</span><br><span class="line">    &#123;</span><br><span class="line">        this.zhuji=zhuji;</span><br><span class="line">        this.xianshiqi=xianshiqi;</span><br><span class="line">        .....</span><br><span class="line">    &#125;</span><br><span class="line">    public void guanji()</span><br><span class="line">    &#123;</span><br><span class="line">        zhuji.off();</span><br><span class="line">        xianshiqi.off();</span><br><span class="line">    &#125;</span><br><span class="line">    public void kaiji()</span><br><span class="line">    &#123;</span><br><span class="line">        xianshiqi.on();</span><br><span class="line">        zhuji.on();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这样就直接提供给用户开机和关机的操作了，而不用用户自己去调用开机关机的一系列的方法了。</p>
+<p>3.设计原则</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">最少知识原则：只和你的密友谈话</span><br></pre></td></tr></table></figure>
+
+<p>需要做到这个原则，建议只调用一下的范围的方法：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">对象本身</span><br><span class="line">被当作方法的参数而传递进来的对象</span><br><span class="line">此方法所创建或实例化的任何对象</span><br><span class="line">对象的任何组组件</span><br></pre></td></tr></table></figure>]]></content>
       <categories>
         <category>Design Pattern</category>
       </categories>
@@ -2175,41 +2210,6 @@ init─┬─Xvnc
 <p>现在定义的这种方式，是通过迭代器用栈模拟递归的一种方式。</p>
 <p>3。设计模式-职责单一</p>
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">单一责任： 一个类应该只有一个引起变化的原因。</span><br></pre></td></tr></table></figure>]]></content>
-      <categories>
-        <category>Design Pattern</category>
-      </categories>
-      <tags>
-        <tag>设计模式</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>设计模式-适配器模式和外观模式</title>
-    <url>/2014/09/04/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E9%80%82%E9%85%8D%E5%99%A8%E6%A8%A1%E5%BC%8F%E5%92%8C%E5%A4%96%E8%A7%82%E6%A8%A1%E5%BC%8F/</url>
-    <content><![CDATA[<p>1.适配器模式</p>
-<p>适配器模式是针对接口不一时处理的情况，比如我的类的参数是IInterface1，但是我现在想要调用IInterface2接口的函数，怎么办呢？就是用适配器来解决这个问题：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">public interface IInterface1()&#123;</span><br><span class="line">    public void method1();</span><br><span class="line">&#125;</span><br><span class="line">public interface IInterface2()&#123;</span><br><span class="line">    public void method2();</span><br><span class="line">&#125;</span><br><span class="line">public class adapter implements IInterface1&#123;</span><br><span class="line">    IInterface2 v;</span><br><span class="line">    public adapter(IInterface2 t)&#123;</span><br><span class="line">        this.v=t;</span><br><span class="line">    &#125;</span><br><span class="line">    public void method1()&#123;</span><br><span class="line">        v.method2();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>现在我们调用IIterface2的method1的方法的时候，就是可以直接构造一个适配器来完成</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">public class A&#123;</span><br><span class="line"></span><br><span class="line">    public void method3(IInterface1 t)</span><br><span class="line">    &#123;</span><br><span class="line">        t.method1();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public static void main(String[] arg)</span><br><span class="line">    &#123;</span><br><span class="line">        (new A()).method3(new adapter(claimplementInterfce2));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>其中claimplementInterface2是实现Interface2的一个类的实例。这种适配器的方法被称作为对象适配器，还有一种适配器，叫做类适配器，是基于类的多继承的，其中适配器继承自要适配的两个类，用其中一个类的方法调用另一个类，思想是一致的，不过java不支持多继承，所以也就是只能用对象适配器。</p>
-<span id="more"></span>
-
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">适配器模式：将一个类的接口，转换成客户期望的另一个接口，适配器让原本接口不兼容的类可以合作无间</span><br></pre></td></tr></table></figure>
-
-<p>2.外观模式</p>
-<p>  外观模式，其实就是对一个子系统的方法进行整理，对外公开一些方法，方便外部的调用，但是并不是对这些类的一个封装，只是提供了一个简单的接口，用户如果觉得没什么用出，可以直接调用子系统的方法，而且，一个子系统可以有很多个外观。所以外观模式的定义如下</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">外观模式：提供一个统一的接口，用来访问子系统的一群接口。外观定义了一个高层接口，让子系统更容易使用。</span><br></pre></td></tr></table></figure>
-
-<p>比如我们用电脑，怎么开机，怎么关机呢：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">public class UseComputer&#123;</span><br><span class="line">    ZHUJI zhuji;</span><br><span class="line">                XIANSHIQI xianshiqi;</span><br><span class="line">            ...</span><br><span class="line">    public UseComputer(ZHUJI zhuji,XIANSHIQI xianshiqi,....)</span><br><span class="line">    &#123;</span><br><span class="line">        this.zhuji=zhuji;</span><br><span class="line">        this.xianshiqi=xianshiqi;</span><br><span class="line">        .....</span><br><span class="line">    &#125;</span><br><span class="line">    public void guanji()</span><br><span class="line">    &#123;</span><br><span class="line">        zhuji.off();</span><br><span class="line">        xianshiqi.off();</span><br><span class="line">    &#125;</span><br><span class="line">    public void kaiji()</span><br><span class="line">    &#123;</span><br><span class="line">        xianshiqi.on();</span><br><span class="line">        zhuji.on();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>这样就直接提供给用户开机和关机的操作了，而不用用户自己去调用开机关机的一系列的方法了。</p>
-<p>3.设计原则</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">最少知识原则：只和你的密友谈话</span><br></pre></td></tr></table></figure>
-
-<p>需要做到这个原则，建议只调用一下的范围的方法：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">对象本身</span><br><span class="line">被当作方法的参数而传递进来的对象</span><br><span class="line">此方法所创建或实例化的任何对象</span><br><span class="line">对象的任何组组件</span><br></pre></td></tr></table></figure>]]></content>
       <categories>
         <category>Design Pattern</category>
       </categories>
