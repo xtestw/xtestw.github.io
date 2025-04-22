@@ -6,7 +6,7 @@
   <link href="http://xtestw.com/atom.xml" rel="self"/>
   
   <link href="http://xtestw.com/"/>
-  <updated>2025-04-22T08:16:38.420Z</updated>
+  <updated>2025-04-22T08:20:28.981Z</updated>
   <id>http://xtestw.com/</id>
   
   <author>
@@ -21,14 +21,16 @@
     <link href="http://xtestw.com/2025/04/22/%E9%A2%86%E5%9F%9F%E5%88%92%E5%88%86%E7%9A%84%E4%B8%80%E4%BA%9B%E6%80%9D%E8%80%83/"/>
     <id>http://xtestw.com/2025/04/22/%E9%A2%86%E5%9F%9F%E5%88%92%E5%88%86%E7%9A%84%E4%B8%80%E4%BA%9B%E6%80%9D%E8%80%83/</id>
     <published>2025-04-22T08:16:38.000Z</published>
-    <updated>2025-04-22T08:16:38.420Z</updated>
+    <updated>2025-04-22T08:20:28.981Z</updated>
     
     
-      
-      
-    <summary type="html">&lt;p&gt;&lt;strong&gt;领域划分的一些思考&lt;/strong&gt;&lt;/p&gt;
-&lt;h3 id=&quot;为什么要划分&quot;&gt;&lt;a href=&quot;#为什么要划分&quot; class=&quot;headerlink&quot; title=&quot;为什么要划分&quot;&gt;&lt;/a&gt;&lt;strong&gt;为什么要划分&lt;/strong&gt;&lt;/h3&gt;&lt;p&gt;对于一</summary>
-      
+    <summary type="html">&lt;h3 id=&quot;为什么要划分&quot;&gt;&lt;a href=&quot;#为什么要划分&quot; class=&quot;headerlink&quot; title=&quot;为什么要划分&quot;&gt;&lt;/a&gt;&lt;strong&gt;为什么要划分&lt;/strong&gt;&lt;/h3&gt;&lt;p&gt;对于一个业务系统，以业务为核心，随着业务发展，在业务和工程侧必然导致以下2种情况的发生&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;../images/%E6%88%91%E7%9A%84%E9%A2%86%E5%9F%9F%E8%A7%82-%E5%85%B3%E4%BA%8E%E9%A2%86%E5%9F%9F%E5%88%92%E5%88%86/out.png&quot; alt=&quot;img&quot;&gt;&lt;/p&gt;
+&lt;p&gt;最终导致一个问题：业务支持效率降低&lt;/p&gt;
+&lt;p&gt;解决的方法： &lt;strong&gt;拆&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;原则：组织/系统围绕业务的发展进行迭代升级&lt;/p&gt;
+&lt;p&gt;目标：既需要解决当下业务支持效率降低的问题，又能够很好的支撑业务长期稳定发展。 &lt;/p&gt;
+&lt;p&gt;对于业务初期，通常会采用大的单体工程方式支持早期的快速发展，但是明显的业务膨胀带来代码量的急剧攀升，团队规模的扩大带来协作风险的增加，很难继续支持业务高速发展，故需要进行相应的领域拆分，以保持对业务的迭代的高效支撑，而 DDD 提供了一种从业务出发的建模方法，能很好满足我们的目标要求，故通过领域化，分而治之，进行我们的系统建设。&lt;/p&gt;</summary>
     
     
     
