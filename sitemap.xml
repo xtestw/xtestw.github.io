@@ -382,6 +382,20 @@
   </url>
   
   <url>
+    <loc>http://xtestw.com/tags/%E6%90%9C%E7%B4%A2%E5%BC%95%E6%93%8E/</loc>
+    <lastmod>2025-04-22</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://xtestw.com/tags/windows/</loc>
+    <lastmod>2025-04-22</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>http://xtestw.com/tags/graphql/</loc>
     <lastmod>2025-04-22</lastmod>
     <changefreq>daily</changefreq>
@@ -403,14 +417,7 @@
   </url>
   
   <url>
-    <loc>http://xtestw.com/tags/%E6%90%9C%E7%B4%A2%E5%BC%95%E6%93%8E/</loc>
-    <lastmod>2025-04-22</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>http://xtestw.com/tags/windows/</loc>
+    <loc>http://xtestw.com/tags/Java/</loc>
     <lastmod>2025-04-22</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
@@ -418,13 +425,6 @@
   
   <url>
     <loc>http://xtestw.com/tags/prof/</loc>
-    <lastmod>2025-04-22</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>http://xtestw.com/tags/Java/</loc>
     <lastmod>2025-04-22</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
@@ -459,14 +459,14 @@
   </url>
   
   <url>
-    <loc>http://xtestw.com/tags/proof-acm/</loc>
+    <loc>http://xtestw.com/tags/proof/</loc>
     <lastmod>2025-04-22</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
-    <loc>http://xtestw.com/tags/proof/</loc>
+    <loc>http://xtestw.com/tags/proof-acm/</loc>
     <lastmod>2025-04-22</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
@@ -510,13 +510,6 @@
 
   
   <url>
-    <loc>http://xtestw.com/categories/SourceReading/</loc>
-    <lastmod>2025-04-22</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
     <loc>http://xtestw.com/categories/Design-Pattern/</loc>
     <lastmod>2025-04-22</lastmod>
     <changefreq>daily</changefreq>
@@ -545,7 +538,7 @@
   </url>
   
   <url>
-    <loc>http://xtestw.com/categories/Java/</loc>
+    <loc>http://xtestw.com/categories/SourceReading/</loc>
     <lastmod>2025-04-22</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
@@ -566,7 +559,7 @@
   </url>
   
   <url>
-    <loc>http://xtestw.com/categories/Java/New-Skill/</loc>
+    <loc>http://xtestw.com/categories/Java/</loc>
     <lastmod>2025-04-22</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
@@ -574,6 +567,13 @@
   
   <url>
     <loc>http://xtestw.com/categories/Theory/</loc>
+    <lastmod>2025-04-22</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://xtestw.com/categories/Java/New-Skill/</loc>
     <lastmod>2025-04-22</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>

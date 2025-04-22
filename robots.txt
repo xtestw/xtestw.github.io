@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+
+# 指向网站地图
+Sitemap: https://xtestw.com/sitemap.xml 
