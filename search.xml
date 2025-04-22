@@ -1,34 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>Xchart 源码分析（1）</title>
-    <url>/2014/12/22/%20Xchart%20%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90%EF%BC%881/</url>
-    <content><![CDATA[<p>学校课程需要找一份代码，来讲讲代码里面用了哪些设计模式- -！ 还是要java的。。。 于是上github上面翻代码，偶然翻到一个java的xchart图标库，感觉可能以后会用的到，而且代码不是很长，就直接拿过来用了。具体的链接地址如下：<a href="https://github.com/timmolter/XChart" title="https://github.com/timmolter/XChart">https://github.com/timmolter/XChart</a></p>
-<p>先看文件夹结构：<br> <a href="http://images.cnitblog.com/blog/372495/201412/212006353907368.png"><img src="http://images.cnitblog.com/blog/372495/201412/212021296717659.png" alt="image" title="image"></a>           </p>
-<p>一共有6个包，最后一个是用来测试的包，可以忽略不计，一共5个包，5个包的作用分别是</p>
-<ul>
-<li><p>com.xeiam.xchart:<br>主要是图表生成的代码以及一些图表的功能包括导出功能的代码，是给我们使用该jar包人调用的结构，表示的是一个图表整体的构造，包括Chart,ChartBuild,Series等类。<br><a href="http://images.cnitblog.com/blog/372495/201412/212021311244117.png"><img src="http://images.cnitblog.com/blog/372495/201412/212021319529230.png" alt="image" title="image"></a></p>
-</li>
-<li><p>com.xeiam.xchart.internal<br>这个package里面只有两个类，一个是package-info，我也不是很明白他的作用。。。就是写了一个license的地址。另一个类是Utils的类，提供了两个静态方法，一个求幂的，一个就是求差值的一半。</p>
-</li>
-</ul>
-<span id="more"></span>
-
-<ul>
-<li><p>com.xeiam.xchart.internal.chartpart<br>这个包里面的东西，都是一些绘图的基本元素，全部是从chartpart中继承过来的，利用组合模式来进行绘制和构造，主要包括Axis,chartTitle,legend,plot等基本图表的元素。<br><a href="http://images.cnitblog.com/blog/372495/201412/212021324522145.png"><img src="http://images.cnitblog.com/blog/372495/201412/212021336403214.png" alt="image" title="image"></a></p>
-</li>
-<li><p>com.xeiam.xchart.internal.markers<br>这个包里面，主要是针对刻度的一些绘图，包括圆形，矩形，上下三角形，菱形等。<br><a href="http://images.cnitblog.com/blog/372495/201412/212021341246600.png"><img src="http://images.cnitblog.com/blog/372495/201412/212021350622214.png" alt="image" title="image"></a>          </p>
-</li>
-<li><p>com.xeiam.xchart.internal.style<br>这个类主要是针对图表的一系列的外观进行定义的包，给出了几个主题，以及对于线的一些类型外观的设置。<br><a href="http://images.cnitblog.com/blog/372495/201412/212021356089113.png"><img src="http://images.cnitblog.com/blog/372495/201412/212021364994442.png" alt="image" title="image"></a>            </p>
-</li>
-</ul>
-<p>作为一个轻量级的图表库，xchart通过这几个包里面的类进行图像的构造，最终画出一个图形出来，不过目前只能支持有限的几种图表类型。</p>
-]]></content>
-      <categories>
-        <category>SourceReading</category>
-      </categories>
-  </entry>
-  <entry>
     <title>设计模式-命令模式</title>
     <url>/2014/09/03/%20%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E5%91%BD%E4%BB%A4%E6%A8%A1%E5%BC%8F/</url>
     <content><![CDATA[<p>命令模式这个设计模式更像是对接口编程的一种应用，比如给小朋友穿衣服，但是不一样的衣服有不一样的穿法，裤子，衬衫，鞋，T恤都是不一样的，但是小朋友不知道怎么穿，只知道想穿什么，那么怎么办呢，小朋友会让他的妈妈帮他穿，这里面的“让妈妈帮忙”，就是给妈妈一个命令（虽然不是很恰当- -！），对小朋友而言，怎么穿他并不关心，反正只要有只要让妈妈穿就行了，所以我们只要定义一个穿的接口就行</p>
@@ -82,6 +54,183 @@
       <categories>
         <category>ACMICPC</category>
       </categories>
+  </entry>
+  <entry>
+    <title>Xchart 源码分析（1）</title>
+    <url>/2014/12/22/%20Xchart%20%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90%EF%BC%881/</url>
+    <content><![CDATA[<p>学校课程需要找一份代码，来讲讲代码里面用了哪些设计模式- -！ 还是要java的。。。 于是上github上面翻代码，偶然翻到一个java的xchart图标库，感觉可能以后会用的到，而且代码不是很长，就直接拿过来用了。具体的链接地址如下：<a href="https://github.com/timmolter/XChart" title="https://github.com/timmolter/XChart">https://github.com/timmolter/XChart</a></p>
+<p>先看文件夹结构：<br> <a href="http://images.cnitblog.com/blog/372495/201412/212006353907368.png"><img src="http://images.cnitblog.com/blog/372495/201412/212021296717659.png" alt="image" title="image"></a>           </p>
+<p>一共有6个包，最后一个是用来测试的包，可以忽略不计，一共5个包，5个包的作用分别是</p>
+<ul>
+<li><p>com.xeiam.xchart:<br>主要是图表生成的代码以及一些图表的功能包括导出功能的代码，是给我们使用该jar包人调用的结构，表示的是一个图表整体的构造，包括Chart,ChartBuild,Series等类。<br><a href="http://images.cnitblog.com/blog/372495/201412/212021311244117.png"><img src="http://images.cnitblog.com/blog/372495/201412/212021319529230.png" alt="image" title="image"></a></p>
+</li>
+<li><p>com.xeiam.xchart.internal<br>这个package里面只有两个类，一个是package-info，我也不是很明白他的作用。。。就是写了一个license的地址。另一个类是Utils的类，提供了两个静态方法，一个求幂的，一个就是求差值的一半。</p>
+</li>
+</ul>
+<span id="more"></span>
+
+<ul>
+<li><p>com.xeiam.xchart.internal.chartpart<br>这个包里面的东西，都是一些绘图的基本元素，全部是从chartpart中继承过来的，利用组合模式来进行绘制和构造，主要包括Axis,chartTitle,legend,plot等基本图表的元素。<br><a href="http://images.cnitblog.com/blog/372495/201412/212021324522145.png"><img src="http://images.cnitblog.com/blog/372495/201412/212021336403214.png" alt="image" title="image"></a></p>
+</li>
+<li><p>com.xeiam.xchart.internal.markers<br>这个包里面，主要是针对刻度的一些绘图，包括圆形，矩形，上下三角形，菱形等。<br><a href="http://images.cnitblog.com/blog/372495/201412/212021341246600.png"><img src="http://images.cnitblog.com/blog/372495/201412/212021350622214.png" alt="image" title="image"></a>          </p>
+</li>
+<li><p>com.xeiam.xchart.internal.style<br>这个类主要是针对图表的一系列的外观进行定义的包，给出了几个主题，以及对于线的一些类型外观的设置。<br><a href="http://images.cnitblog.com/blog/372495/201412/212021356089113.png"><img src="http://images.cnitblog.com/blog/372495/201412/212021364994442.png" alt="image" title="image"></a>            </p>
+</li>
+</ul>
+<p>作为一个轻量级的图表库，xchart通过这几个包里面的类进行图像的构造，最终画出一个图形出来，不过目前只能支持有限的几种图表类型。</p>
+]]></content>
+      <categories>
+        <category>SourceReading</category>
+      </categories>
+  </entry>
+  <entry>
+    <title>Blink学习笔记</title>
+    <url>/2021/02/28/Blink%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</url>
+    <content><![CDATA[<h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><p>Blink 其实是阿里内部基于 flink 改造的系统，学习 Blink 首先要学习 flink 相关的知识，先了解一下 flink 产生的背景和要解决的问题。</p>
+<p>在大数据开始爆发的时代，mapreduce 作为初代的计算引擎，提供了分布式计算的核心思想，map&amp;reduce的分阶段处理。但是 map reduce 本质上还是批处理计算框架，随着业务发展，流式数据计算处理的需求越来越旺盛，storm 等应运而生，但是作为第一代流式计算框架，存在一些设计上的缺陷，包括 exactly once等语义的支持。而且批处理和流处理作为处理同一个业务逻辑的两套系统，需要维护两套代码，并不是很友好。而这个时候 spark也发展起来了，集批处理，流处理，SQL 功能，图计算，机器学习于一身，并且支持 SparkR 和 PySpark 来做科学计算。而同时支持流处理和批处理的计算引擎，只有2个选择，除了spark 便是 flink。</p>
+<span id="more"></span>
+
+<p>spark 批流统一处理的核心思想其实是用批来模拟流的能力，而flink则完全相反，使用流计算来模拟批计算。flink在捐赠给apache后定位的主流方向便是 Streaming， 区别于Storm,Spark Streaming以及其他流式计算引擎的是：它不仅是一个高吞吐、低延迟的计算引擎，同时还提供很多高级的功能。比如它提供了有状态的计算，支持状态管理，支持强一致性的数据语义以及支持 Event Time,WaterMark 对消息乱序的处理。</p>
+<p>最后，回归到官网对它的定义：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">Apache Flink 是一个框架和分布式处理引擎，用于在无边界和有边界数据流上进行有状态的计算。Flink 能在所有常见集群环境中运行，并能以内存速度和任意规模进行计算。</span><br></pre></td></tr></table></figure>
+
+<p>关于应用场景， 官方主要给了3类应用和相应的事例可以参看：</p>
+<ul>
+<li><a href="https://flink.apache.org/zh/usecases.html#eventDrivenApps">事件驱动型应用</a></li>
+<li><a href="https://flink.apache.org/zh/usecases.html#analytics">数据分析应用</a></li>
+<li><a href="https://flink.apache.org/zh/usecases.html#pipelines">数据管道应用</a></li>
+</ul>
+<h2 id="设计架构"><a href="#设计架构" class="headerlink" title="设计架构"></a>设计架构</h2><p><img src="/images/Blink%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/image-20210218205017997.png" alt="image-20210218205017997"></p>
+<p>Client 构建dataflow graph 已经数据流下放到 jobmanager 去调度 taskmanager 执行。Flink 运行时由2种进程组成，JobManager 和 TaskManager。</p>
+<h4 id="JobManager"><a href="#JobManager" class="headerlink" title="JobManager"></a>JobManager</h4><p>JobManager  负责task的调度、失败处理、协调处理checkpoint等，主要由3个组件构成：</p>
+<ul>
+<li>ResourceManager：负责资源的申请、分配、回收(适配 YARN、Mesos、Kubernetes等)。管理TaskManager的Task Slots</li>
+<li>Dispacher：提供REST接口，用于提交Flink应用程序执行，并且为每一个Task启动一个新的JobMaster，同时提供一个WebUI反应作业执行情况。</li>
+<li>JobMaster: 负责管理单个<a href="https://ci.apache.org/projects/flink/flink-docs-release-1.12/zh/concepts/glossary.html#logical-graph">JobGraph</a>的执行。Flink 集群中可以同时运行多个作业，每个作业都有自己的 JobMaster。JobMaster可以有多个，其中一个事leader 其他的为Standby。JobMaster的HA有2种实现方式：Zookeeper 和 Kubernetes。</li>
+</ul>
+<h4 id="TaskManager"><a href="#TaskManager" class="headerlink" title="TaskManager"></a>TaskManager</h4><p>TaskManager 执行作业流的task，并且缓存和交换数据流。 本质上是一个 JVM 进程，可以在单独的线程中执行一个或多个 subtask，为了控制TaskManager接受多个task，也就是所谓的task slots。</p>
+<p>Task、Subtask、Slot 是 3 个不同层面的概念</p>
+<p>slot是独立资源，如果一个taskmanager有3个slot，那么每个slot独立分配1/3内存。同时同一个taskmanager下的slot共享同一个JVM。同一个JVM的多个task共享TCP链接和心跳信息。</p>
+<p>默认允许 SubTask 共享 slot， 即便是不同的task的subtask，只要是一个作业就可以。也就是说，一个slot可以持有整个作业的通道。</p>
+<h3 id="执行过程"><a href="#执行过程" class="headerlink" title="执行过程"></a>执行过程</h3><p>Flink的执行会被提交到3种类型的集群执行，其主要的差异在于执行的生命周期和资源的隔离保证：</p>
+<ul>
+<li>Flink Session 集群<ul>
+<li>生命周期：集群是长期运行的，可接受多个作业提交</li>
+<li>资源隔离：多个作业共享集群资源，如果 TaskManager 或者 JobManager 出问题，会影响所有集群运行</li>
+</ul>
+</li>
+<li>Flink Job 集群<ul>
+<li>生命周期：Yarn或者k8s 为每个作业启动一个集群，作业结束，则集群结束</li>
+<li>资源隔离：作业独占资源</li>
+</ul>
+</li>
+<li>Flink Application 集群<ul>
+<li>生命周期：专用的flink集群，运行不是通过作业提交的方式运行，而是以application的方式运行。</li>
+<li>资源隔离： ResourceManager 和 Dispatcher 作用于单个的 Flink 应用程序，相比于 Flink Session 集群，它提供了更好的隔离。</li>
+</ul>
+</li>
+</ul>
+<h2 id="核心概念"><a href="#核心概念" class="headerlink" title="核心概念"></a>核心概念</h2><p>Flink的四大基石：</p>
+<ul>
+<li>Checkpoint: 快照；高容错</li>
+<li>State: 状态</li>
+<li>Time: 通过WaterMark支持基于Event Time的时间窗口</li>
+<li>Window: 窗口机制</li>
+</ul>
+<h4 id="Checkpoint"><a href="#Checkpoint" class="headerlink" title="Checkpoint"></a>Checkpoint</h4><p><img src="/images/Blink%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/image-20210228143710944.png" alt="image-20210228143710944"></p>
+<p>checkpoint是一种通过快找容错恢复的机制，这种机制保证实时程序运行的时候，即便出现异常，也可以自我恢复。 checkpoint 是flink系统自身的系统行为，用户无感知，只需要配置就可以了。</p>
+<ul>
+<li>checkpoint 的实现参考了 <a href="https://en.wikipedia.org/wiki/Chandy-Lamport_algorithm">Chandy-Lamport algorithm</a> 算法， 自己实现了一套异步barrier快照的算法，在数据流中设置屏障，记录屏障点的信息(比如kafka偏移量)以及每个算子的 state 的状态。 拥有2个输入流的Operators 会执行 Barrier 对齐，保证当前快照消费了输入流barrier之前的所有events。                                        </li>
+<li>checkpoint的状态备份存储主要分为2类<ul>
+<li>基于RocksDB内嵌k/v存储，将工作状态保存到磁盘上</li>
+<li>基于堆的 state backend.<ul>
+<li>FsStateBackend，将状态快照持久化到分布式文件系统中</li>
+<li>MemoryStateBackend, 使用JobManager的堆保存状态</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>在流处理过程中，对结果的保障分为3种<ul>
+<li>at most once (结果不会从快照中恢复)</li>
+<li>at least once（没有任何丢失，但是会有冗余结果）<ul>
+<li>souce 必须可以重放</li>
+</ul>
+</li>
+<li>Exactly once （没有丢失，没有冗余）<ul>
+<li>souce 必须可以重放</li>
+<li>sinks 必须是事务性的</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>checkpoint 状态保留策略<ul>
+<li>当程序取消时，删除checkpoint存储文件</li>
+<li>当程序取消时，保存之前的checkpoint文件</li>
+</ul>
+</li>
+<li>chekpoint 配置<ul>
+<li><em>Exactly-once/at-least-once 模式配置</em></li>
+<li><em>checkpoint 超时</em>： 如果执行时间超过配置，checkpoint操作会被丢弃</li>
+<li><em>并发checkpoint的数目</em>： 默认为1</li>
+<li><em>checkpoints之间的最小时间</em></li>
+<li><em>externalized checkpoints</em>: 周期存储 checkpoint 到外部系统中</li>
+<li><em>在 checkpoint 出错时使 task 失败或者继续进行 task</em></li>
+<li><em>优先从 checkpoint 恢复</em>: 在有savepoint的情况下的选择 (checkpoint 恢复的更快)</li>
+</ul>
+</li>
+</ul>
+<h4 id="State"><a href="#State" class="headerlink" title="State"></a>State</h4><p><img src="/images/Blink%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/image-20210228151711717.png" alt="image-20210228151711717"></p>
+<p>有状态的计算是流处理框架要实现的重要功能，因为稍复杂的流处理场景都需要记录状态，主要用来作为中间状态来进行去重/对比/聚合/更新等操作。 而在flink中，一个算子会有多个子任务，状态是和子任务绑定的，有子任务创建和管理。对于状态的管理，flink作为计算框架，封装了一些实现，也包括状态的高效存储/checkpoint/savepoint持久化/计算资源扩缩容等等。</p>
+<ul>
+<li>针对不同的场景，会有状态的类型的划分<ul>
+<li>托管状态(Managed State)，由flink帮忙存储、恢复和优化，支持一些常见数据结构，比如ValueState/ListState/MapState<ul>
+<li>Keyed State<ul>
+<li>Keyed State是<code>KeyedStream</code>上的状态。假如输入流按照id为Key进行了<code>keyBy</code>分组，形成一个<code>KeyedStream</code>，数据流中所有id为1的数据共享一个状态，可以访问和更新这个状态，以此类推，每个Key对应一个自己的状态。</li>
+<li>Flink提供了几种现成的数据结构供我们使用，包括<code>ValueState</code>、<code>ListState</code>等</li>
+</ul>
+</li>
+<li>Operator State<ul>
+<li>Operator State可以用在所有算子上，每个算子子任务或者说每个算子实例共享一个状态，流入这个算子子任务的数据可以访问和更新这个状态。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>原生状态(Raw State)，需要开发者自己管理, 只支持字节，需要自己序列化</li>
+</ul>
+</li>
+<li>横向扩展问题</li>
+</ul>
+<h4 id="Time"><a href="#Time" class="headerlink" title="Time"></a>Time</h4><p>Flink 在流程序中支持不同的Time概念；</p>
+<ul>
+<li>Time 类型<ul>
+<li>Processing Time, 事件被处理时机器的系统时间</li>
+<li>Event Time, 事件发生的时间</li>
+<li>Ingestion Time, 事件进入 Flink 的时间</li>
+</ul>
+</li>
+<li>Watermark 机制<ul>
+<li>处理数据乱序的问题。在 Flink 的窗口处理过程中，如果确定<strong>全部数据到达</strong>，就可以对 Window 的所有数据做窗口计算操作（如汇总、分组等），如果数据没有全部到达，则继续等待该窗口中的数据全部到达才开始处理</li>
+<li><code>Watermark = 进入 Flink 的最大的事件时间（mxtEventTime）— 指定的延迟时间（t）</code></li>
+</ul>
+</li>
+</ul>
+<h4 id="Window"><a href="#Window" class="headerlink" title="Window"></a>Window</h4><p><img src="/images/Blink%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/image-20210228161951552.png" alt="image-20210228161951552"></p>
+<p>前文提过，flink中其实是通过流来模拟批处理的，而window就是实现的机制。window可以是时间驱动的，也可以是数据驱动的 ，几种不同的窗口还行，可以参看上图。</p>
+<h2 id="参考文档"><a href="#参考文档" class="headerlink" title="参考文档"></a>参考文档</h2><ul>
+<li><a href="https://flink.apache.org/">https://flink.apache.org/</a></li>
+<li><a href="https://ci.apache.org/projects/flink/flink-docs-release-1.12/zh/learn-flink/fault_tolerance.html">https://ci.apache.org/projects/flink/flink-docs-release-1.12/zh/learn-flink/fault_tolerance.html</a></li>
+<li><a href="https://cloud.tencent.com/developer/article/1478656">https://cloud.tencent.com/developer/article/1478656</a></li>
+<li><a href="https://mp.weixin.qq.com/s/AoSDPDKbTbjH9rviioK-5Q">https://mp.weixin.qq.com/s/AoSDPDKbTbjH9rviioK-5Q</a></li>
+<li><a href="https://arxiv.org/abs/1506.08603">https://arxiv.org/abs/1506.08603</a></li>
+<li></li>
+</ul>
+]]></content>
+      <categories>
+        <category>大数据</category>
+      </categories>
+      <tags>
+        <tag>大数据</tag>
+      </tags>
   </entry>
   <entry>
     <title>DDD 领域建模笔记</title>
@@ -358,155 +507,6 @@
       </tags>
   </entry>
   <entry>
-    <title>Blink学习笔记</title>
-    <url>/2021/02/28/Blink%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</url>
-    <content><![CDATA[<h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><p>Blink 其实是阿里内部基于 flink 改造的系统，学习 Blink 首先要学习 flink 相关的知识，先了解一下 flink 产生的背景和要解决的问题。</p>
-<p>在大数据开始爆发的时代，mapreduce 作为初代的计算引擎，提供了分布式计算的核心思想，map&amp;reduce的分阶段处理。但是 map reduce 本质上还是批处理计算框架，随着业务发展，流式数据计算处理的需求越来越旺盛，storm 等应运而生，但是作为第一代流式计算框架，存在一些设计上的缺陷，包括 exactly once等语义的支持。而且批处理和流处理作为处理同一个业务逻辑的两套系统，需要维护两套代码，并不是很友好。而这个时候 spark也发展起来了，集批处理，流处理，SQL 功能，图计算，机器学习于一身，并且支持 SparkR 和 PySpark 来做科学计算。而同时支持流处理和批处理的计算引擎，只有2个选择，除了spark 便是 flink。</p>
-<span id="more"></span>
-
-<p>spark 批流统一处理的核心思想其实是用批来模拟流的能力，而flink则完全相反，使用流计算来模拟批计算。flink在捐赠给apache后定位的主流方向便是 Streaming， 区别于Storm,Spark Streaming以及其他流式计算引擎的是：它不仅是一个高吞吐、低延迟的计算引擎，同时还提供很多高级的功能。比如它提供了有状态的计算，支持状态管理，支持强一致性的数据语义以及支持 Event Time,WaterMark 对消息乱序的处理。</p>
-<p>最后，回归到官网对它的定义：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">Apache Flink 是一个框架和分布式处理引擎，用于在无边界和有边界数据流上进行有状态的计算。Flink 能在所有常见集群环境中运行，并能以内存速度和任意规模进行计算。</span><br></pre></td></tr></table></figure>
-
-<p>关于应用场景， 官方主要给了3类应用和相应的事例可以参看：</p>
-<ul>
-<li><a href="https://flink.apache.org/zh/usecases.html#eventDrivenApps">事件驱动型应用</a></li>
-<li><a href="https://flink.apache.org/zh/usecases.html#analytics">数据分析应用</a></li>
-<li><a href="https://flink.apache.org/zh/usecases.html#pipelines">数据管道应用</a></li>
-</ul>
-<h2 id="设计架构"><a href="#设计架构" class="headerlink" title="设计架构"></a>设计架构</h2><p><img src="/images/Blink%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/image-20210218205017997.png" alt="image-20210218205017997"></p>
-<p>Client 构建dataflow graph 已经数据流下放到 jobmanager 去调度 taskmanager 执行。Flink 运行时由2种进程组成，JobManager 和 TaskManager。</p>
-<h4 id="JobManager"><a href="#JobManager" class="headerlink" title="JobManager"></a>JobManager</h4><p>JobManager  负责task的调度、失败处理、协调处理checkpoint等，主要由3个组件构成：</p>
-<ul>
-<li>ResourceManager：负责资源的申请、分配、回收(适配 YARN、Mesos、Kubernetes等)。管理TaskManager的Task Slots</li>
-<li>Dispacher：提供REST接口，用于提交Flink应用程序执行，并且为每一个Task启动一个新的JobMaster，同时提供一个WebUI反应作业执行情况。</li>
-<li>JobMaster: 负责管理单个<a href="https://ci.apache.org/projects/flink/flink-docs-release-1.12/zh/concepts/glossary.html#logical-graph">JobGraph</a>的执行。Flink 集群中可以同时运行多个作业，每个作业都有自己的 JobMaster。JobMaster可以有多个，其中一个事leader 其他的为Standby。JobMaster的HA有2种实现方式：Zookeeper 和 Kubernetes。</li>
-</ul>
-<h4 id="TaskManager"><a href="#TaskManager" class="headerlink" title="TaskManager"></a>TaskManager</h4><p>TaskManager 执行作业流的task，并且缓存和交换数据流。 本质上是一个 JVM 进程，可以在单独的线程中执行一个或多个 subtask，为了控制TaskManager接受多个task，也就是所谓的task slots。</p>
-<p>Task、Subtask、Slot 是 3 个不同层面的概念</p>
-<p>slot是独立资源，如果一个taskmanager有3个slot，那么每个slot独立分配1/3内存。同时同一个taskmanager下的slot共享同一个JVM。同一个JVM的多个task共享TCP链接和心跳信息。</p>
-<p>默认允许 SubTask 共享 slot， 即便是不同的task的subtask，只要是一个作业就可以。也就是说，一个slot可以持有整个作业的通道。</p>
-<h3 id="执行过程"><a href="#执行过程" class="headerlink" title="执行过程"></a>执行过程</h3><p>Flink的执行会被提交到3种类型的集群执行，其主要的差异在于执行的生命周期和资源的隔离保证：</p>
-<ul>
-<li>Flink Session 集群<ul>
-<li>生命周期：集群是长期运行的，可接受多个作业提交</li>
-<li>资源隔离：多个作业共享集群资源，如果 TaskManager 或者 JobManager 出问题，会影响所有集群运行</li>
-</ul>
-</li>
-<li>Flink Job 集群<ul>
-<li>生命周期：Yarn或者k8s 为每个作业启动一个集群，作业结束，则集群结束</li>
-<li>资源隔离：作业独占资源</li>
-</ul>
-</li>
-<li>Flink Application 集群<ul>
-<li>生命周期：专用的flink集群，运行不是通过作业提交的方式运行，而是以application的方式运行。</li>
-<li>资源隔离： ResourceManager 和 Dispatcher 作用于单个的 Flink 应用程序，相比于 Flink Session 集群，它提供了更好的隔离。</li>
-</ul>
-</li>
-</ul>
-<h2 id="核心概念"><a href="#核心概念" class="headerlink" title="核心概念"></a>核心概念</h2><p>Flink的四大基石：</p>
-<ul>
-<li>Checkpoint: 快照；高容错</li>
-<li>State: 状态</li>
-<li>Time: 通过WaterMark支持基于Event Time的时间窗口</li>
-<li>Window: 窗口机制</li>
-</ul>
-<h4 id="Checkpoint"><a href="#Checkpoint" class="headerlink" title="Checkpoint"></a>Checkpoint</h4><p><img src="/images/Blink%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/image-20210228143710944.png" alt="image-20210228143710944"></p>
-<p>checkpoint是一种通过快找容错恢复的机制，这种机制保证实时程序运行的时候，即便出现异常，也可以自我恢复。 checkpoint 是flink系统自身的系统行为，用户无感知，只需要配置就可以了。</p>
-<ul>
-<li>checkpoint 的实现参考了 <a href="https://en.wikipedia.org/wiki/Chandy-Lamport_algorithm">Chandy-Lamport algorithm</a> 算法， 自己实现了一套异步barrier快照的算法，在数据流中设置屏障，记录屏障点的信息(比如kafka偏移量)以及每个算子的 state 的状态。 拥有2个输入流的Operators 会执行 Barrier 对齐，保证当前快照消费了输入流barrier之前的所有events。                                        </li>
-<li>checkpoint的状态备份存储主要分为2类<ul>
-<li>基于RocksDB内嵌k/v存储，将工作状态保存到磁盘上</li>
-<li>基于堆的 state backend.<ul>
-<li>FsStateBackend，将状态快照持久化到分布式文件系统中</li>
-<li>MemoryStateBackend, 使用JobManager的堆保存状态</li>
-</ul>
-</li>
-</ul>
-</li>
-<li>在流处理过程中，对结果的保障分为3种<ul>
-<li>at most once (结果不会从快照中恢复)</li>
-<li>at least once（没有任何丢失，但是会有冗余结果）<ul>
-<li>souce 必须可以重放</li>
-</ul>
-</li>
-<li>Exactly once （没有丢失，没有冗余）<ul>
-<li>souce 必须可以重放</li>
-<li>sinks 必须是事务性的</li>
-</ul>
-</li>
-</ul>
-</li>
-<li>checkpoint 状态保留策略<ul>
-<li>当程序取消时，删除checkpoint存储文件</li>
-<li>当程序取消时，保存之前的checkpoint文件</li>
-</ul>
-</li>
-<li>chekpoint 配置<ul>
-<li><em>Exactly-once/at-least-once 模式配置</em></li>
-<li><em>checkpoint 超时</em>： 如果执行时间超过配置，checkpoint操作会被丢弃</li>
-<li><em>并发checkpoint的数目</em>： 默认为1</li>
-<li><em>checkpoints之间的最小时间</em></li>
-<li><em>externalized checkpoints</em>: 周期存储 checkpoint 到外部系统中</li>
-<li><em>在 checkpoint 出错时使 task 失败或者继续进行 task</em></li>
-<li><em>优先从 checkpoint 恢复</em>: 在有savepoint的情况下的选择 (checkpoint 恢复的更快)</li>
-</ul>
-</li>
-</ul>
-<h4 id="State"><a href="#State" class="headerlink" title="State"></a>State</h4><p><img src="/images/Blink%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/image-20210228151711717.png" alt="image-20210228151711717"></p>
-<p>有状态的计算是流处理框架要实现的重要功能，因为稍复杂的流处理场景都需要记录状态，主要用来作为中间状态来进行去重/对比/聚合/更新等操作。 而在flink中，一个算子会有多个子任务，状态是和子任务绑定的，有子任务创建和管理。对于状态的管理，flink作为计算框架，封装了一些实现，也包括状态的高效存储/checkpoint/savepoint持久化/计算资源扩缩容等等。</p>
-<ul>
-<li>针对不同的场景，会有状态的类型的划分<ul>
-<li>托管状态(Managed State)，由flink帮忙存储、恢复和优化，支持一些常见数据结构，比如ValueState/ListState/MapState<ul>
-<li>Keyed State<ul>
-<li>Keyed State是<code>KeyedStream</code>上的状态。假如输入流按照id为Key进行了<code>keyBy</code>分组，形成一个<code>KeyedStream</code>，数据流中所有id为1的数据共享一个状态，可以访问和更新这个状态，以此类推，每个Key对应一个自己的状态。</li>
-<li>Flink提供了几种现成的数据结构供我们使用，包括<code>ValueState</code>、<code>ListState</code>等</li>
-</ul>
-</li>
-<li>Operator State<ul>
-<li>Operator State可以用在所有算子上，每个算子子任务或者说每个算子实例共享一个状态，流入这个算子子任务的数据可以访问和更新这个状态。</li>
-</ul>
-</li>
-</ul>
-</li>
-<li>原生状态(Raw State)，需要开发者自己管理, 只支持字节，需要自己序列化</li>
-</ul>
-</li>
-<li>横向扩展问题</li>
-</ul>
-<h4 id="Time"><a href="#Time" class="headerlink" title="Time"></a>Time</h4><p>Flink 在流程序中支持不同的Time概念；</p>
-<ul>
-<li>Time 类型<ul>
-<li>Processing Time, 事件被处理时机器的系统时间</li>
-<li>Event Time, 事件发生的时间</li>
-<li>Ingestion Time, 事件进入 Flink 的时间</li>
-</ul>
-</li>
-<li>Watermark 机制<ul>
-<li>处理数据乱序的问题。在 Flink 的窗口处理过程中，如果确定<strong>全部数据到达</strong>，就可以对 Window 的所有数据做窗口计算操作（如汇总、分组等），如果数据没有全部到达，则继续等待该窗口中的数据全部到达才开始处理</li>
-<li><code>Watermark = 进入 Flink 的最大的事件时间（mxtEventTime）— 指定的延迟时间（t）</code></li>
-</ul>
-</li>
-</ul>
-<h4 id="Window"><a href="#Window" class="headerlink" title="Window"></a>Window</h4><p><img src="/images/Blink%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/image-20210228161951552.png" alt="image-20210228161951552"></p>
-<p>前文提过，flink中其实是通过流来模拟批处理的，而window就是实现的机制。window可以是时间驱动的，也可以是数据驱动的 ，几种不同的窗口还行，可以参看上图。</p>
-<h2 id="参考文档"><a href="#参考文档" class="headerlink" title="参考文档"></a>参考文档</h2><ul>
-<li><a href="https://flink.apache.org/">https://flink.apache.org/</a></li>
-<li><a href="https://ci.apache.org/projects/flink/flink-docs-release-1.12/zh/learn-flink/fault_tolerance.html">https://ci.apache.org/projects/flink/flink-docs-release-1.12/zh/learn-flink/fault_tolerance.html</a></li>
-<li><a href="https://cloud.tencent.com/developer/article/1478656">https://cloud.tencent.com/developer/article/1478656</a></li>
-<li><a href="https://mp.weixin.qq.com/s/AoSDPDKbTbjH9rviioK-5Q">https://mp.weixin.qq.com/s/AoSDPDKbTbjH9rviioK-5Q</a></li>
-<li><a href="https://arxiv.org/abs/1506.08603">https://arxiv.org/abs/1506.08603</a></li>
-<li></li>
-</ul>
-]]></content>
-      <categories>
-        <category>大数据</category>
-      </categories>
-      <tags>
-        <tag>大数据</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>GraphQl 使用 - java</title>
     <url>/2019/08/03/GraphQl-%E4%BD%BF%E7%94%A8-java/</url>
     <content><![CDATA[<p>去年在做内容库的时候，涉及到了多系统多数据源互相查询的情景，当时就想要将内容库的所有数据，增加统一的数据接入层，通过graphql的方式提供给上层业务使用，后面受限于人力没有实施。目前从头开始做站群相关的业务，顺带着浅尝了一下graphql，感觉还不错。</p>
@@ -631,30 +631,23 @@
       </tags>
   </entry>
   <entry>
-    <title>MFC Invalidate闪屏问题</title>
-    <url>/2014/06/22/MFC%20Invalidate%E9%97%AA%E5%B1%8F%E9%97%AE%E9%A2%98/</url>
-    <content><![CDATA[<p>使用Invalidate（true），即使在OnDraw中使用了双缓冲，也会出现闪屏问题，下面的解决方案转载自：<a href="http://blog.sina.com.cn/s/blog_60fa20600100igh6.html">http://blog.sina.com.cn/s/blog_60fa20600100igh6.html</a></p>
-<p>在使用**Invalidate(TRUE)**进行窗口重绘时，总是会遇到闪屏的问题。</p>
-<p>​    一开始以为是绘图速度过慢照成的，但在对绘图时间做了一个测试之后发现，<strong>即使整个绘图过程只持续了几个毫秒，还是会看见很明显的闪烁****，所以时间并不是造成闪烁的决定性因素</strong>。</p>
-<p>​    那到底是什么原因呢？现在来看看Invalidate(TRUE)都干了些什么。其实，它只是间接向消息队列添加了<strong>WM_ERASEBKGND</strong>和WM_PAINT两个消息。但是，如果使用Invalidate(FALSE)的话，则只有WM_PAINT消息产生，这时是不会有任何闪烁的。</p>
-<p>​    现在看来，闪烁似乎是由WM_ERASEBKGND消息产生的，事实上，的确与它有关。那WM_ERASEBKGND有干了什么呢？WM_ERASEBKGND消息由OnEraseBkgnd()消息处理函数响应，它的作用就是<strong>重绘客户区背景</strong>。我们可以通过向工程里添加WM_ERASEBKGND这个消息，然后在重写的消息处理函数中将返回语句修改为<strong>return TRUE</strong>来屏蔽这一功能，这样做的好处是这时不会重绘背景了，坏处是这时背景也不会被擦出来。</p>
+    <title>HttpURLConnection使用http代理</title>
+    <url>/2017/08/13/HttpURLConnection%E4%BD%BF%E7%94%A8http%E4%BB%A3%E7%90%86/</url>
+    <content><![CDATA[<p>工程中的网络请求，有时会需要使用http代理，比较简单的方法是使用apache的httpclient 直接设置代理，但有的时候使用java自带的HttpURLConnection的时候，就需要注意多线程的问题了。 使用HttpURLConnection 实现代理的方法也很简单，在建立连接之前先设置代理：</p>
+<p>Authenticator.setDefault(authenticator);</p>
+<p>需要注意的是，设置代理的方法并不是使用HttpURLConnection的一个方法，而在建立请求的时候，也没有任何调用和使用 Authenticator的地方，可以猜测这里设置了代理是使用了全局量，跟进Authenticator中去，会发现： <img src="http://xtestw.site/wp-content/uploads/2017/08/1.png" alt="1"> <img src="http://xtestw.site/wp-content/uploads/2017/08/2.png" alt="2"> 其实setDefault 方法就是设置了一个静态变量，而这个变量被使用的地方在： <img src="http://xtestw.site/wp-content/uploads/2017/08/3.png" alt="3"> （三个同名函数，相同的处理）这个静态变量被全局的网络请求所使用，而不是当前连接独占的配置，一般来说，当前网络使用一个http代理的时候没有问题（比如我们就是通过elb代理多个IP出口），但是当我们有多个代理的时候，在多线程环境下就会出现问题，如果代理服务器的账号密码不同，请求的服务球对cookie和ip进行校验的时候，就会比较麻烦，所以需要想办法来让每一个HttpURLConnection独占这个代理配置，直接的方法似乎没有，但是可以折中，同步网络请求过程中，HttpURLConnection是和唯一线程绑定的，我们可以用ThreadLocal,让每个线程独占一个代理配置，从而间接的保证每个HttpURLConnection始终使用一个代理配置。 可以定一个类：</p>
 <span id="more"></span>
 
-<p>​    好像还没有说到真实原因，其实真正的原因就隐含在其中。现在来做一个实验，分别尝试一下快速的眨眼和慢速的眨眼，你会发现快速眨眼时我们会感觉眼前的黑色一闪而过，而慢速眨眼时，则会觉得整个过程是连续的，没有什么异样。其实闪烁也就是这么回事，即<strong>多张不连续图像的快速切换</strong>。这里有三个条件，<strong>多张和快速和不连续</strong>，而且需要<strong>同时具备</strong>才会发生闪烁。如果只是两张，只会感觉到突变，还谈不上闪烁；如果频率慢的话，也相当于两张图像的情况了；最后如果是连续图像的话，那就像是看电影，平稳的过渡也不会让人觉得不适。</p>
-<p>​    知道了这些，接下来就可以做决策了。</p>
-<p>​    <strong>解决方案</strong>：</p>
-<p>​    使用Invalidate(FALSE),添加WM_ERASEBKGND消息处理函数或者局部刷新三者选其一，都是可以解决问题的。它们的都是通过除去图像不连续这一因素来达到目的的。</p>
-<p>​    另外，要说的是GDI的BitBlt()函数是及其高效的，一次操作所需要的时间只有几到十几个微秒，所以我们可以放心的使用它，而不用担心任何效率问题。不过相对于BitBlt()来说StretchBlt()就要慢的多，大概是几十倍的差别。</p>
-<p>​    还有就是一般的绘图工作都是先绘制在一个缓冲区上，然后再一次拷贝到屏幕上。</p>
-<p>​    有时，当我们需要利用闪烁的效果的话，也是可以通过多张图像的快速切换来做到，在这里我们也将两张图像的重复切换理解为多张图像。</p>
-<p>我自己则是通过下面代码进行解决的：</p>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="function">BOOL <span class="title">CDQView::OnEraseBkgnd</span><span class="params">(CDC* pDC)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="comment">// <span class="doctag">TODO:</span> 在此添加消息处理程序代码和/或调用默认值</span></span><br><span class="line">    <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    <span class="comment">//return CView::OnEraseBkgnd(pDC);</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">ThreadLocalAuthenticator</span> <span class="keyword">extends</span> <span class="title class_">Authenticator</span> &#123;</span><br><span class="line"></span><br><span class="line">  ThreadLocal&lt;PasswordAuthentication&gt; auth = <span class="keyword">new</span> <span class="title class_">ThreadLocal</span>&lt;&gt;();</span><br><span class="line"></span><br><span class="line">  <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">setPasswordAuthentication</span><span class="params">(PasswordAuthentication passwordAuthentication)</span> &#123;</span><br><span class="line">    auth.set(passwordAuthentication);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">clearPasswordAuthentication</span><span class="params">()</span> &#123;</span><br><span class="line">    auth.remove();</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="meta">@Override</span></span><br><span class="line">  <span class="keyword">protected</span> PasswordAuthentication <span class="title function_">getPasswordAuthentication</span><span class="params">()</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> auth.get();</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>然后在http网络请求的工具类中定义一个全局的静态ThreadLocalAuthenticator的实例：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="type">ThreadLocalAuthenticator</span> <span class="variable">authenticator</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">ThreadLocalAuthenticator</span>();</span><br></pre></td></tr></table></figure>
+
+<p>然后在需要的时候使用它就OK了。</p>
+]]></content>
       <categories>
-        <category>C++</category>
+        <category>JAVA</category>
       </categories>
-      <tags>
-        <tag>windows</tag>
-      </tags>
   </entry>
   <entry>
     <title>Ha3 学习笔记</title>
@@ -897,77 +890,24 @@
       </tags>
   </entry>
   <entry>
-    <title>HttpURLConnection使用http代理</title>
-    <url>/2017/08/13/HttpURLConnection%E4%BD%BF%E7%94%A8http%E4%BB%A3%E7%90%86/</url>
-    <content><![CDATA[<p>工程中的网络请求，有时会需要使用http代理，比较简单的方法是使用apache的httpclient 直接设置代理，但有的时候使用java自带的HttpURLConnection的时候，就需要注意多线程的问题了。 使用HttpURLConnection 实现代理的方法也很简单，在建立连接之前先设置代理：</p>
-<p>Authenticator.setDefault(authenticator);</p>
-<p>需要注意的是，设置代理的方法并不是使用HttpURLConnection的一个方法，而在建立请求的时候，也没有任何调用和使用 Authenticator的地方，可以猜测这里设置了代理是使用了全局量，跟进Authenticator中去，会发现： <img src="http://xtestw.site/wp-content/uploads/2017/08/1.png" alt="1"> <img src="http://xtestw.site/wp-content/uploads/2017/08/2.png" alt="2"> 其实setDefault 方法就是设置了一个静态变量，而这个变量被使用的地方在： <img src="http://xtestw.site/wp-content/uploads/2017/08/3.png" alt="3"> （三个同名函数，相同的处理）这个静态变量被全局的网络请求所使用，而不是当前连接独占的配置，一般来说，当前网络使用一个http代理的时候没有问题（比如我们就是通过elb代理多个IP出口），但是当我们有多个代理的时候，在多线程环境下就会出现问题，如果代理服务器的账号密码不同，请求的服务球对cookie和ip进行校验的时候，就会比较麻烦，所以需要想办法来让每一个HttpURLConnection独占这个代理配置，直接的方法似乎没有，但是可以折中，同步网络请求过程中，HttpURLConnection是和唯一线程绑定的，我们可以用ThreadLocal,让每个线程独占一个代理配置，从而间接的保证每个HttpURLConnection始终使用一个代理配置。 可以定一个类：</p>
+    <title>MFC Invalidate闪屏问题</title>
+    <url>/2014/06/22/MFC%20Invalidate%E9%97%AA%E5%B1%8F%E9%97%AE%E9%A2%98/</url>
+    <content><![CDATA[<p>使用Invalidate（true），即使在OnDraw中使用了双缓冲，也会出现闪屏问题，下面的解决方案转载自：<a href="http://blog.sina.com.cn/s/blog_60fa20600100igh6.html">http://blog.sina.com.cn/s/blog_60fa20600100igh6.html</a></p>
+<p>在使用**Invalidate(TRUE)**进行窗口重绘时，总是会遇到闪屏的问题。</p>
+<p>​    一开始以为是绘图速度过慢照成的，但在对绘图时间做了一个测试之后发现，<strong>即使整个绘图过程只持续了几个毫秒，还是会看见很明显的闪烁****，所以时间并不是造成闪烁的决定性因素</strong>。</p>
+<p>​    那到底是什么原因呢？现在来看看Invalidate(TRUE)都干了些什么。其实，它只是间接向消息队列添加了<strong>WM_ERASEBKGND</strong>和WM_PAINT两个消息。但是，如果使用Invalidate(FALSE)的话，则只有WM_PAINT消息产生，这时是不会有任何闪烁的。</p>
+<p>​    现在看来，闪烁似乎是由WM_ERASEBKGND消息产生的，事实上，的确与它有关。那WM_ERASEBKGND有干了什么呢？WM_ERASEBKGND消息由OnEraseBkgnd()消息处理函数响应，它的作用就是<strong>重绘客户区背景</strong>。我们可以通过向工程里添加WM_ERASEBKGND这个消息，然后在重写的消息处理函数中将返回语句修改为<strong>return TRUE</strong>来屏蔽这一功能，这样做的好处是这时不会重绘背景了，坏处是这时背景也不会被擦出来。</p>
 <span id="more"></span>
 
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">ThreadLocalAuthenticator</span> <span class="keyword">extends</span> <span class="title class_">Authenticator</span> &#123;</span><br><span class="line"></span><br><span class="line">  ThreadLocal&lt;PasswordAuthentication&gt; auth = <span class="keyword">new</span> <span class="title class_">ThreadLocal</span>&lt;&gt;();</span><br><span class="line"></span><br><span class="line">  <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">setPasswordAuthentication</span><span class="params">(PasswordAuthentication passwordAuthentication)</span> &#123;</span><br><span class="line">    auth.set(passwordAuthentication);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">clearPasswordAuthentication</span><span class="params">()</span> &#123;</span><br><span class="line">    auth.remove();</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="meta">@Override</span></span><br><span class="line">  <span class="keyword">protected</span> PasswordAuthentication <span class="title function_">getPasswordAuthentication</span><span class="params">()</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> auth.get();</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>然后在http网络请求的工具类中定义一个全局的静态ThreadLocalAuthenticator的实例：</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="type">ThreadLocalAuthenticator</span> <span class="variable">authenticator</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">ThreadLocalAuthenticator</span>();</span><br></pre></td></tr></table></figure>
-
-<p>然后在需要的时候使用它就OK了。</p>
-]]></content>
-      <categories>
-        <category>JAVA</category>
-      </categories>
-  </entry>
-  <entry>
-    <title>MFC 对话框动态创建简单的GridCtrl控件</title>
-    <url>/2014/08/27/MFC%20%E5%AF%B9%E8%AF%9D%E6%A1%86%E5%8A%A8%E6%80%81%E5%88%9B%E5%BB%BA%E7%AE%80%E5%8D%95%E7%9A%84GridCtrl%E6%8E%A7%E4%BB%B6/</url>
-    <content><![CDATA[<p>1.下载安装GridCtrl===&gt;<a href="http://www.codeproject.com/Articles/8/MFC-Grid-control">http://www.codeproject.com/Articles/8/MFC-Grid-control</a></p>
-<p>​        在对应项目里面添加GridCtrl的所有.h和cpp的文件(GridCtrl_src和NewCellTypes两个文件夹下的文件)</p>
-<p>​        在vs2010中可能会出现CMemDC重定义的错误，只要将CMemDC这个重命名为CGridMemDC（或者其他你想要的名字，同时将这个库中的其他引用CMemDC这个类的地方的名称一起改过来）</p>
-<p>2.在对话框中添加GridCtrl的成员变量</p>
-<p>​    定义:</p>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line">CGridCtrl* m_pGrid;</span><br></pre></td></tr></table></figure>
-
-<p>​    构造函数中初始化:</p>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line">m_pGrid=<span class="literal">NULL</span>;</span><br></pre></td></tr></table></figure>
-
-<p>​    析构函数中销毁</p>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">if</span> (m_pGrid)</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">delete</span> m_pGrid;</span><br><span class="line">    m_pGrid=<span class="literal">NULL</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>3.在对话框中画出m_pGrid控件</p>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line">CRect rect;</span><br><span class="line"><span class="keyword">this</span>-&gt;<span class="built_in">GetWindowRect</span>(rect);</span><br><span class="line"><span class="built_in">GetClientRect</span>(rect);</span><br><span class="line">m_pGrid=<span class="keyword">new</span> <span class="built_in">CGridCtrl</span>();</span><br><span class="line">m_pGrid-&gt;<span class="built_in">Create</span>(<span class="built_in">CRect</span>(rect.<span class="built_in">TopLeft</span>().x,rect.<span class="built_in">BottomRight</span>().y<span class="number">-100</span>,rect.<span class="built_in">Width</span>(),rect.<span class="built_in">BottomRight</span>().y),<span class="keyword">this</span>,<span class="number">1000</span>);</span><br></pre></td></tr></table></figure>
-
-<p>其中Create的第一个参数是这个控件在对话框中的位置（我这里是在对话框底部高为100的区域），第二个参数是父窗口句柄，第三个是你分配给他的ID。</p>
-<p>这个创建过程，可以根据需求在不同的函数中实现。</p>
-<p>这一过程结束之后我们就有了一个空白的GridCtrl控件显示在对话框中了。</p>
-<span id="more"></span>
-
-<p>4.构建简单的表格</p>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line">m_pGrid-&gt;<span class="built_in">SetEditable</span>(<span class="literal">true</span>);<span class="comment">//默认就是可以编辑的</span></span><br><span class="line"><span class="comment">// m_pGrid-&gt;SetTextBkColor(RGB(0xFF, 0xFF, 0xE0));//设置表格内容是黄色背景</span></span><br><span class="line">m_pGrid-&gt;<span class="built_in">SetRowCount</span>(<span class="number">8</span>); <span class="comment">//初始为8行，包含表头</span></span><br><span class="line">m_pGrid-&gt;<span class="built_in">SetColumnCount</span>(<span class="number">8</span>); <span class="comment">//初始化为8列</span></span><br><span class="line">m_pGrid-&gt;<span class="built_in">SetFixedRowCount</span>(<span class="number">1</span>); <span class="comment">//表头为一行</span></span><br><span class="line">m_pGrid-&gt;<span class="built_in">SetFixedColumnCount</span>(<span class="number">1</span>); <span class="comment">//表头为一列</span></span><br></pre></td></tr></table></figure>
-
-<p>这一步结束之后就是一个8*8的表格，但是表格和表头都还没有内容是空白的</p>
-<p>5.操作单元格</p>
-<p>可以直接设置对应的单元格的内容</p>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line">m_pGrid-&gt;<span class="built_in">SetItemText</span>(row,col,content);</span><br></pre></td></tr></table></figure>
-
-<p>也可以通过下面方式来设置</p>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line">GV_ITEM Item;</span><br><span class="line">Item.mask = GVIF_TEXT;</span><br><span class="line">Item.row = row;</span><br><span class="line">Item.col = col;</span><br><span class="line">Item.strText = “content<span class="string">&quot;;</span></span><br><span class="line"><span class="string">m_Grid.SetItem(&amp;Item);</span></span><br></pre></td></tr></table></figure>
-
-<p>其中mask表明的是能够访问的单元格的内容，比如我这个地方设置成了GVIF_IMAGE，那么运行结果出来之后在对应的单元格中是看不到content的，而且程序中通过GetItemText()的方法也访问不了(其实就是这个单元格的类型，通过虽然赋值没有报错，但是即便重新设置了mask的值为GVIF_IMAGE,也获取不到之前的赋值)。</p>
-<p>mask的类型有下面几种：</p>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line">GVIF_TEXT      <span class="comment">// Cell text will be accessed</span></span><br><span class="line">GVIF_IMAGE     <span class="comment">// Cell image number will be accessed</span></span><br><span class="line">GVIF_PARAM     <span class="comment">// Cell user data (lParam) will be accessed</span></span><br><span class="line">GVIF_STATE     <span class="comment">// Cell state will be accessed</span></span><br><span class="line">GVIF_BKCLR     <span class="comment">// Cell background colour will be accessed</span></span><br><span class="line">GVIF_FGCLR     <span class="comment">// Cell foreground colour will be accessed</span></span><br><span class="line">GVIF_FORMAT    <span class="comment">// Cell format field will be accessed</span></span><br><span class="line">GVIF_FONT      <span class="comment">// Cell logical font will be accessed</span></span><br><span class="line">GVIF_MARGIN    <span class="comment">// Cell margin information will be accessed </span></span><br><span class="line">GVIF_ALL       <span class="comment">// All information will be accessed</span></span><br></pre></td></tr></table></figure>
-
-<p>到此一个简单的GridCtrl的创建就完成了。</p>
-<p>6.添加消息响应函数</p>
-<p>以添加完成编辑触发的事件处理函数为例，首先在.h文件中声明消息处理函数:</p>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="function">afx_msg <span class="type">void</span> <span class="title">OnGridEndEdit</span><span class="params">(NMHDR *pNotifyStruct, LRESULT* pResult)</span></span>;</span><br></pre></td></tr></table></figure>
-
-<p>然后到对应的cpp文件中BEGIN_MESSAGE_MAP和END_MESSAGE_MAP之间添加消息响应映射:</p>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="built_in">ON_NOTIFY</span>(GVN_ENDLABELEDIT, IDC_GRID, OnGridEndEdit)</span><br></pre></td></tr></table></figure>
-
-<p>其中第一个参数是消息，第二个是GRID创建时候的ID，第三个参数就是对应的消息处理函数</p>
-<p>最后在cpp中编写对应的响应函数:</p>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">C3TranformerAttr::OnGridEndEdit</span><span class="params">(NMHDR *pNotifyStruct, LRESULT* pResult)</span></span>&#123;</span><br><span class="line">     NM_GRIDVIEW* pItem = (NM_GRIDVIEW*) pNotifyStruct;</span><br><span class="line">     pItem-&gt;iColumn;</span><br><span class="line">     pItem-&gt;iRow;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>在这个函数中可以获得相应的行号和列号，从而进行各种操作。</p>
-]]></content>
+<p>​    好像还没有说到真实原因，其实真正的原因就隐含在其中。现在来做一个实验，分别尝试一下快速的眨眼和慢速的眨眼，你会发现快速眨眼时我们会感觉眼前的黑色一闪而过，而慢速眨眼时，则会觉得整个过程是连续的，没有什么异样。其实闪烁也就是这么回事，即<strong>多张不连续图像的快速切换</strong>。这里有三个条件，<strong>多张和快速和不连续</strong>，而且需要<strong>同时具备</strong>才会发生闪烁。如果只是两张，只会感觉到突变，还谈不上闪烁；如果频率慢的话，也相当于两张图像的情况了；最后如果是连续图像的话，那就像是看电影，平稳的过渡也不会让人觉得不适。</p>
+<p>​    知道了这些，接下来就可以做决策了。</p>
+<p>​    <strong>解决方案</strong>：</p>
+<p>​    使用Invalidate(FALSE),添加WM_ERASEBKGND消息处理函数或者局部刷新三者选其一，都是可以解决问题的。它们的都是通过除去图像不连续这一因素来达到目的的。</p>
+<p>​    另外，要说的是GDI的BitBlt()函数是及其高效的，一次操作所需要的时间只有几到十几个微秒，所以我们可以放心的使用它，而不用担心任何效率问题。不过相对于BitBlt()来说StretchBlt()就要慢的多，大概是几十倍的差别。</p>
+<p>​    还有就是一般的绘图工作都是先绘制在一个缓冲区上，然后再一次拷贝到屏幕上。</p>
+<p>​    有时，当我们需要利用闪烁的效果的话，也是可以通过多张图像的快速切换来做到，在这里我们也将两张图像的重复切换理解为多张图像。</p>
+<p>我自己则是通过下面代码进行解决的：</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="function">BOOL <span class="title">CDQView::OnEraseBkgnd</span><span class="params">(CDC* pDC)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="comment">// <span class="doctag">TODO:</span> 在此添加消息处理程序代码和/或调用默认值</span></span><br><span class="line">    <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    <span class="comment">//return CView::OnEraseBkgnd(pDC);</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
       <categories>
         <category>C++</category>
       </categories>
@@ -1135,6 +1075,79 @@ f1
       <categories>
         <category>C++</category>
       </categories>
+  </entry>
+  <entry>
+    <title>IOCP</title>
+    <url>/2015/01/29/iocp/</url>
+    <content><![CDATA[<p>IOCP是windows下的一种异步IO通信模式（linux下面对应epoll，二者有区别—&gt;<a href="http://www.cnblogs.com/uzhang/archive/2012/02/24/2365980.html%EF%BC%89">http://www.cnblogs.com/uzhang/archive/2012/02/24/2365980.html）</a></p>
+<p>一样的socket的绑定通信的过程，不同的是并不对每一个用户请求单独开设一个线程去处理用户请求，而是在后面一线程池的方式，开固定的线程，轮流处理用户请求，减少线程的上下文切换损耗，同时利用重叠IO，减低内存等资源的消耗。 关于具体的一些内容，见：<a href="http://blog.csdn.net/neicole/article/details/7549497">http://blog.csdn.net/neicole/article/details/7549497</a></p>
+]]></content>
+      <categories>
+        <category>Theory</category>
+      </categories>
+      <tags>
+        <tag>windows</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>MFC 对话框动态创建简单的GridCtrl控件</title>
+    <url>/2014/08/27/MFC%20%E5%AF%B9%E8%AF%9D%E6%A1%86%E5%8A%A8%E6%80%81%E5%88%9B%E5%BB%BA%E7%AE%80%E5%8D%95%E7%9A%84GridCtrl%E6%8E%A7%E4%BB%B6/</url>
+    <content><![CDATA[<p>1.下载安装GridCtrl===&gt;<a href="http://www.codeproject.com/Articles/8/MFC-Grid-control">http://www.codeproject.com/Articles/8/MFC-Grid-control</a></p>
+<p>​        在对应项目里面添加GridCtrl的所有.h和cpp的文件(GridCtrl_src和NewCellTypes两个文件夹下的文件)</p>
+<p>​        在vs2010中可能会出现CMemDC重定义的错误，只要将CMemDC这个重命名为CGridMemDC（或者其他你想要的名字，同时将这个库中的其他引用CMemDC这个类的地方的名称一起改过来）</p>
+<p>2.在对话框中添加GridCtrl的成员变量</p>
+<p>​    定义:</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line">CGridCtrl* m_pGrid;</span><br></pre></td></tr></table></figure>
+
+<p>​    构造函数中初始化:</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line">m_pGrid=<span class="literal">NULL</span>;</span><br></pre></td></tr></table></figure>
+
+<p>​    析构函数中销毁</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">if</span> (m_pGrid)</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">delete</span> m_pGrid;</span><br><span class="line">    m_pGrid=<span class="literal">NULL</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>3.在对话框中画出m_pGrid控件</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line">CRect rect;</span><br><span class="line"><span class="keyword">this</span>-&gt;<span class="built_in">GetWindowRect</span>(rect);</span><br><span class="line"><span class="built_in">GetClientRect</span>(rect);</span><br><span class="line">m_pGrid=<span class="keyword">new</span> <span class="built_in">CGridCtrl</span>();</span><br><span class="line">m_pGrid-&gt;<span class="built_in">Create</span>(<span class="built_in">CRect</span>(rect.<span class="built_in">TopLeft</span>().x,rect.<span class="built_in">BottomRight</span>().y<span class="number">-100</span>,rect.<span class="built_in">Width</span>(),rect.<span class="built_in">BottomRight</span>().y),<span class="keyword">this</span>,<span class="number">1000</span>);</span><br></pre></td></tr></table></figure>
+
+<p>其中Create的第一个参数是这个控件在对话框中的位置（我这里是在对话框底部高为100的区域），第二个参数是父窗口句柄，第三个是你分配给他的ID。</p>
+<p>这个创建过程，可以根据需求在不同的函数中实现。</p>
+<p>这一过程结束之后我们就有了一个空白的GridCtrl控件显示在对话框中了。</p>
+<span id="more"></span>
+
+<p>4.构建简单的表格</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line">m_pGrid-&gt;<span class="built_in">SetEditable</span>(<span class="literal">true</span>);<span class="comment">//默认就是可以编辑的</span></span><br><span class="line"><span class="comment">// m_pGrid-&gt;SetTextBkColor(RGB(0xFF, 0xFF, 0xE0));//设置表格内容是黄色背景</span></span><br><span class="line">m_pGrid-&gt;<span class="built_in">SetRowCount</span>(<span class="number">8</span>); <span class="comment">//初始为8行，包含表头</span></span><br><span class="line">m_pGrid-&gt;<span class="built_in">SetColumnCount</span>(<span class="number">8</span>); <span class="comment">//初始化为8列</span></span><br><span class="line">m_pGrid-&gt;<span class="built_in">SetFixedRowCount</span>(<span class="number">1</span>); <span class="comment">//表头为一行</span></span><br><span class="line">m_pGrid-&gt;<span class="built_in">SetFixedColumnCount</span>(<span class="number">1</span>); <span class="comment">//表头为一列</span></span><br></pre></td></tr></table></figure>
+
+<p>这一步结束之后就是一个8*8的表格，但是表格和表头都还没有内容是空白的</p>
+<p>5.操作单元格</p>
+<p>可以直接设置对应的单元格的内容</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line">m_pGrid-&gt;<span class="built_in">SetItemText</span>(row,col,content);</span><br></pre></td></tr></table></figure>
+
+<p>也可以通过下面方式来设置</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line">GV_ITEM Item;</span><br><span class="line">Item.mask = GVIF_TEXT;</span><br><span class="line">Item.row = row;</span><br><span class="line">Item.col = col;</span><br><span class="line">Item.strText = “content<span class="string">&quot;;</span></span><br><span class="line"><span class="string">m_Grid.SetItem(&amp;Item);</span></span><br></pre></td></tr></table></figure>
+
+<p>其中mask表明的是能够访问的单元格的内容，比如我这个地方设置成了GVIF_IMAGE，那么运行结果出来之后在对应的单元格中是看不到content的，而且程序中通过GetItemText()的方法也访问不了(其实就是这个单元格的类型，通过虽然赋值没有报错，但是即便重新设置了mask的值为GVIF_IMAGE,也获取不到之前的赋值)。</p>
+<p>mask的类型有下面几种：</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line">GVIF_TEXT      <span class="comment">// Cell text will be accessed</span></span><br><span class="line">GVIF_IMAGE     <span class="comment">// Cell image number will be accessed</span></span><br><span class="line">GVIF_PARAM     <span class="comment">// Cell user data (lParam) will be accessed</span></span><br><span class="line">GVIF_STATE     <span class="comment">// Cell state will be accessed</span></span><br><span class="line">GVIF_BKCLR     <span class="comment">// Cell background colour will be accessed</span></span><br><span class="line">GVIF_FGCLR     <span class="comment">// Cell foreground colour will be accessed</span></span><br><span class="line">GVIF_FORMAT    <span class="comment">// Cell format field will be accessed</span></span><br><span class="line">GVIF_FONT      <span class="comment">// Cell logical font will be accessed</span></span><br><span class="line">GVIF_MARGIN    <span class="comment">// Cell margin information will be accessed </span></span><br><span class="line">GVIF_ALL       <span class="comment">// All information will be accessed</span></span><br></pre></td></tr></table></figure>
+
+<p>到此一个简单的GridCtrl的创建就完成了。</p>
+<p>6.添加消息响应函数</p>
+<p>以添加完成编辑触发的事件处理函数为例，首先在.h文件中声明消息处理函数:</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="function">afx_msg <span class="type">void</span> <span class="title">OnGridEndEdit</span><span class="params">(NMHDR *pNotifyStruct, LRESULT* pResult)</span></span>;</span><br></pre></td></tr></table></figure>
+
+<p>然后到对应的cpp文件中BEGIN_MESSAGE_MAP和END_MESSAGE_MAP之间添加消息响应映射:</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="built_in">ON_NOTIFY</span>(GVN_ENDLABELEDIT, IDC_GRID, OnGridEndEdit)</span><br></pre></td></tr></table></figure>
+
+<p>其中第一个参数是消息，第二个是GRID创建时候的ID，第三个参数就是对应的消息处理函数</p>
+<p>最后在cpp中编写对应的响应函数:</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">C3TranformerAttr::OnGridEndEdit</span><span class="params">(NMHDR *pNotifyStruct, LRESULT* pResult)</span></span>&#123;</span><br><span class="line">     NM_GRIDVIEW* pItem = (NM_GRIDVIEW*) pNotifyStruct;</span><br><span class="line">     pItem-&gt;iColumn;</span><br><span class="line">     pItem-&gt;iRow;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>在这个函数中可以获得相应的行号和列号，从而进行各种操作。</p>
+]]></content>
+      <categories>
+        <category>C++</category>
+      </categories>
+      <tags>
+        <tag>windows</tag>
+      </tags>
   </entry>
   <entry>
     <title>hibernate ID 生成方式</title>
@@ -1345,17 +1358,52 @@ f1
       </categories>
   </entry>
   <entry>
-    <title>IOCP</title>
-    <url>/2015/01/29/iocp/</url>
-    <content><![CDATA[<p>IOCP是windows下的一种异步IO通信模式（linux下面对应epoll，二者有区别—&gt;<a href="http://www.cnblogs.com/uzhang/archive/2012/02/24/2365980.html%EF%BC%89">http://www.cnblogs.com/uzhang/archive/2012/02/24/2365980.html）</a></p>
-<p>一样的socket的绑定通信的过程，不同的是并不对每一个用户请求单独开设一个线程去处理用户请求，而是在后面一线程池的方式，开固定的线程，轮流处理用户请求，减少线程的上下文切换损耗，同时利用重叠IO，减低内存等资源的消耗。 关于具体的一些内容，见：<a href="http://blog.csdn.net/neicole/article/details/7549497">http://blog.csdn.net/neicole/article/details/7549497</a></p>
+    <title>kruskal 算法</title>
+    <url>/2013/04/29/kruskal-e7-ae-97-e6-b3-95/</url>
+    <content><![CDATA[<p>kruskal算法的主要思想就是从当前路径中选择一个不能构成环的最小边加入</p>
+<p>for (int i=1;i&lt;n;i++)<br>    {<br>        int mi=1000000,k;<br>        for (int j=0;j&lt;m;j++)<br>        {<br>            if ((v[e[j].x] + v[e[j].y]==1 || i==1 ) &amp;&amp; e[j].d&lt;mi){ mi=e[j].d; k=j; } } result.push_back(k); v[e[k].x]=1; v[e[k].y]=1; if (mi&gt;ma) ma=mi;<br>    }</p>
+<p>因为此算法本质上是一个贪心策略，可以通过并查集进行优化，现将其从小到大排序</p>
+<p>int kruskal()//返回最小生成树的和<br>{<br>    int ans=0;<br>    qsort(e,e+n,cmp);//cmp是将其按d值从小到大排序<br>    for (int i=0;i&lt;m;i++)//m is the number of edges<br>    {<br>        if (find(e[i].x)!=find(e[i].y)) {//判断边的两个端点是否在一个集合<br>             result.push_back(i);<br>             ans+=e[i].d;<br>        }<br>    }<br>    return ans;<br>}</p>
+<p>poj 1861</p>
+<p>#include<br>#include<br>#include<br>#include<br>using namespace std;<br>struct P{<br>    int x,y,d;<br>};<br>P e[15100];<br>vector result;<br>int ma=-1;<br>int v[1002]={0};<br>int main()<br>{<br>    int n,m;<br>    scanf(“%d%d”,&amp;n,&amp;m);<br>    for (int i=0;i&lt;m;i++)<br>        scanf(“%d%d%d”,&amp;e[i].x,&amp;e[i].y,&amp;e[i].d);<br>    for (int i=1;i&lt;n;i++)<br>    {<br>        int mi=1000000,k;<br>        for (int j=0;j&lt;m;j++)<br>        {<br>            if ((v[e[j].x] + v[e[j].y]==1 || i==1 ) &amp;&amp; e[j].d&lt;mi){                 mi=e[j].d;                 k=j;             }         }         result.push_back(k);         v[e[k].x]=1;         v[e[k].y]=1;         if (mi&gt;ma) ma=mi;<br>    }<br>    cout&lt;&lt;ma&lt;&lt;endl;<br>    cout&lt;&lt;result.size()&lt;&lt;endl;<br>    for (int i=0;i&lt;result.size();i++)<br>    {<br>        cout&lt;&lt;e[result[i]].x&lt;&lt; “ “&lt;&lt;e[result[i]].y&lt;&lt;endl;<br>    }<br>    return 0;<br>}</p>
 ]]></content>
       <categories>
-        <category>Theory</category>
+        <category>ACMICPC</category>
       </categories>
       <tags>
-        <tag>windows</tag>
+        <tag>prof,acm</tag>
       </tags>
+  </entry>
+  <entry>
+    <title>nextjs静态页面github pages资源文件404</title>
+    <url>/2021/02/12/nextjs%E9%9D%99%E6%80%81%E9%A1%B5%E9%9D%A2github-pages%E8%B5%84%E6%BA%90%E6%96%87%E4%BB%B6404/</url>
+    <content><![CDATA[<h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><p>通过把nextjs的静态文件放到github pages上，省一波流量钱，但是发现资源文件总是会404，本来以为是github pages构建完成更新cdn需要缓存，但是过了很久都没有成功，以下是静态文件目录</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">-- _next</span><br><span class="line">   -- chunks</span><br><span class="line">      -- *.js</span><br><span class="line">   -- css</span><br><span class="line">      -- *.css</span><br></pre></td></tr></table></figure>
+
+<p>后来做了猜想是目录深度原因，但是测试下来还是没有用。 后面经过验证是 下划线开头的文件或者文件夹的原因， 折腾了好半天。 实际的原因只是因为 github pages使用jeklly引擎的默认规则。</p>
+<h2 id="解法"><a href="#解法" class="headerlink" title="解法"></a>解法</h2><ul>
+<li>避免使用下划线开头的文件(需要重新)</li>
+<li>通过在根目录创建.nojekyll 空文件, 关闭jeklly引擎</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">-- .nojekyll</span><br><span class="line">-- _next</span><br><span class="line">   -- chunks</span><br><span class="line">      -- *.js</span><br><span class="line">   -- css</span><br><span class="line">      -- *.css</span><br></pre></td></tr></table></figure>]]></content>
+      <categories>
+        <category>FE</category>
+      </categories>
+      <tags>
+        <tag>FE</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>POJ 1015</title>
+    <url>/2013/04/25/poj1015/</url>
+    <content><![CDATA[<p>原题的题意是给n个人，每个人对于控辩两方都有一个值，现在选择m个人，使得控辩两方的值的差的和最小，如果有相同的最小值，那么就选择最大的一个。 本题的关键是模型的构建，对于每个人都有两种选择，一个是选择，一个是不选择，对于相同的差值，维护一个最大的和值，换言之，就是假设差值一定，从n个人选择m个人使得和最大.可以转换为背包问题。状态转移的方程为f[i][j][k+p[i]]=max{f[i-1][j][k+p[i]],f[i-1][j-1][k]+v[i]},表示前i个人中选择j个人差的和为k的最大的和的和（p[i]是第i个人的控辩双方的值差，v[i]是第i个人的控辩双方的值和）.本题的另外一个难点在于路径的记录，我们知道，动态规划的一个本质就是状态转移，也就是在当前状态记录是由哪个值推倒过来的，就可以逆序退出上个状态的值。同时通过对路径的遍历，从而可以判断当前的第i个人是否被选择过，从而达到了降维的作用。</p>
+<span id="more"></span>
+
+<p>#include #include #include #include #include using namespace std;<br>int a[201],b[201];<br>int f[30][801],path[30][801];<br>int p[205],v[205];<br>bool select(int i,int j,int k)<br>{<br>    while (true)<br>    {<br>        if (path[i][k]&lt;0 || i&lt;0) break;<br>         if (j==path[i][k]) return true;<br>        k=k-p[path[i][k]];<br>        i–;<br>    }<br>    return false;<br>}<br>int main()<br>{<br>    int n,m;<br>    int No=0;<br>    while (scanf(“%d%d”,&amp;n,&amp;m)!=EOF &amp;&amp; n+m!=0){<br>        cout&lt;&lt;”Jury #”&lt;&lt;++No&lt;=0){<br>                for (int j=0;j=0 &amp;&amp; f[m][m*20+i]&gt;=f[m][m*20-i])<br>                {<br>                    k=m<em>20+i;<br>                    break;<br>                }<br>                if (f[m][m</em>20-i]&gt;=0){<br>                    k=m<em>20-i;<br>                    break;<br>                }<br>            }<br>        int suma=0,sumb=0;<br>        int id[300];<br>        int sum=0;<br>        while (true)<br>        {<br>            int i=path[m–][k];<br>            if (i==-1 || m&lt;0) break;<br>            id[sum++]=i;<br>            suma+=a[i];<br>            sumb+=b[i];<br>            k=k-p[i];<br>        }<br>        cout&lt;&lt;”Best jury has value “&lt; #include #include #include #include using namespace std;<br>int a[201],b[201];<br>int f[30][801],path[30][801];<br>int p[205],v[205];<br>bool select(int i,int j,int k)<br>{<br>    while (true)<br>    {<br>        if (path[i][k]&lt;0 || i&lt;0) break;<br>         if (j==path[i][k]) return true;<br>        k=k-p[path[i][k]];<br>        i–;<br>    }<br>    return false;<br>}<br>int main()<br>{<br>    int n,m;<br>    int No=0;<br>    while (scanf(“%d%d”,&amp;n,&amp;m)!=EOF &amp;&amp; n+m!=0){<br>        cout&lt;&lt;”Jury #”&lt;&lt;++No&lt;=0){<br>                for (int j=0;j=0 &amp;&amp; f[m][m*20+i]&gt;=f[m][m*20-i])<br>                {<br>                    k=m</em>20+i;<br>                    break;<br>                }<br>                if (f[m][m<em>20-i]&gt;=0){<br>                    k=m</em>20-i;<br>                    break;<br>                }<br>            }<br>        int suma=0,sumb=0;<br>        int id[300];<br>        int sum=0;<br>        while (true)<br>        {<br>            int i=path[m–][k];<br>            if (i==-1 || m&lt;0) break;<br>            id[sum++]=i;<br>            suma+=a[i];<br>            sumb+=b[i];<br>            k=k-p[i];<br>        }<br>        cout&lt;&lt;”Best jury has value “&lt;</p>
+]]></content>
+      <categories>
+        <category>ACMICPC</category>
+      </categories>
   </entry>
   <entry>
     <title>Linux 技巧：让进程在后台可靠运行的几种方法</title>
@@ -1519,48 +1567,10 @@ init─┬─Xvnc
       </tags>
   </entry>
   <entry>
-    <title>kruskal 算法</title>
-    <url>/2013/04/29/kruskal-e7-ae-97-e6-b3-95/</url>
-    <content><![CDATA[<p>kruskal算法的主要思想就是从当前路径中选择一个不能构成环的最小边加入</p>
-<p>for (int i=1;i&lt;n;i++)<br>    {<br>        int mi=1000000,k;<br>        for (int j=0;j&lt;m;j++)<br>        {<br>            if ((v[e[j].x] + v[e[j].y]==1 || i==1 ) &amp;&amp; e[j].d&lt;mi){ mi=e[j].d; k=j; } } result.push_back(k); v[e[k].x]=1; v[e[k].y]=1; if (mi&gt;ma) ma=mi;<br>    }</p>
-<p>因为此算法本质上是一个贪心策略，可以通过并查集进行优化，现将其从小到大排序</p>
-<p>int kruskal()//返回最小生成树的和<br>{<br>    int ans=0;<br>    qsort(e,e+n,cmp);//cmp是将其按d值从小到大排序<br>    for (int i=0;i&lt;m;i++)//m is the number of edges<br>    {<br>        if (find(e[i].x)!=find(e[i].y)) {//判断边的两个端点是否在一个集合<br>             result.push_back(i);<br>             ans+=e[i].d;<br>        }<br>    }<br>    return ans;<br>}</p>
-<p>poj 1861</p>
-<p>#include<br>#include<br>#include<br>#include<br>using namespace std;<br>struct P{<br>    int x,y,d;<br>};<br>P e[15100];<br>vector result;<br>int ma=-1;<br>int v[1002]={0};<br>int main()<br>{<br>    int n,m;<br>    scanf(“%d%d”,&amp;n,&amp;m);<br>    for (int i=0;i&lt;m;i++)<br>        scanf(“%d%d%d”,&amp;e[i].x,&amp;e[i].y,&amp;e[i].d);<br>    for (int i=1;i&lt;n;i++)<br>    {<br>        int mi=1000000,k;<br>        for (int j=0;j&lt;m;j++)<br>        {<br>            if ((v[e[j].x] + v[e[j].y]==1 || i==1 ) &amp;&amp; e[j].d&lt;mi){                 mi=e[j].d;                 k=j;             }         }         result.push_back(k);         v[e[k].x]=1;         v[e[k].y]=1;         if (mi&gt;ma) ma=mi;<br>    }<br>    cout&lt;&lt;ma&lt;&lt;endl;<br>    cout&lt;&lt;result.size()&lt;&lt;endl;<br>    for (int i=0;i&lt;result.size();i++)<br>    {<br>        cout&lt;&lt;e[result[i]].x&lt;&lt; “ “&lt;&lt;e[result[i]].y&lt;&lt;endl;<br>    }<br>    return 0;<br>}</p>
-]]></content>
-      <categories>
-        <category>ACMICPC</category>
-      </categories>
-      <tags>
-        <tag>prof,acm</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>nextjs静态页面github pages资源文件404</title>
-    <url>/2021/02/12/nextjs%E9%9D%99%E6%80%81%E9%A1%B5%E9%9D%A2github-pages%E8%B5%84%E6%BA%90%E6%96%87%E4%BB%B6404/</url>
-    <content><![CDATA[<h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><p>通过把nextjs的静态文件放到github pages上，省一波流量钱，但是发现资源文件总是会404，本来以为是github pages构建完成更新cdn需要缓存，但是过了很久都没有成功，以下是静态文件目录</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">-- _next</span><br><span class="line">   -- chunks</span><br><span class="line">      -- *.js</span><br><span class="line">   -- css</span><br><span class="line">      -- *.css</span><br></pre></td></tr></table></figure>
-
-<p>后来做了猜想是目录深度原因，但是测试下来还是没有用。 后面经过验证是 下划线开头的文件或者文件夹的原因， 折腾了好半天。 实际的原因只是因为 github pages使用jeklly引擎的默认规则。</p>
-<h2 id="解法"><a href="#解法" class="headerlink" title="解法"></a>解法</h2><ul>
-<li>避免使用下划线开头的文件(需要重新)</li>
-<li>通过在根目录创建.nojekyll 空文件, 关闭jeklly引擎</li>
-</ul>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">-- .nojekyll</span><br><span class="line">-- _next</span><br><span class="line">   -- chunks</span><br><span class="line">      -- *.js</span><br><span class="line">   -- css</span><br><span class="line">      -- *.css</span><br></pre></td></tr></table></figure>]]></content>
-      <categories>
-        <category>FE</category>
-      </categories>
-      <tags>
-        <tag>FE</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>POJ 1015</title>
-    <url>/2013/04/25/poj1015/</url>
-    <content><![CDATA[<p>原题的题意是给n个人，每个人对于控辩两方都有一个值，现在选择m个人，使得控辩两方的值的差的和最小，如果有相同的最小值，那么就选择最大的一个。 本题的关键是模型的构建，对于每个人都有两种选择，一个是选择，一个是不选择，对于相同的差值，维护一个最大的和值，换言之，就是假设差值一定，从n个人选择m个人使得和最大.可以转换为背包问题。状态转移的方程为f[i][j][k+p[i]]=max{f[i-1][j][k+p[i]],f[i-1][j-1][k]+v[i]},表示前i个人中选择j个人差的和为k的最大的和的和（p[i]是第i个人的控辩双方的值差，v[i]是第i个人的控辩双方的值和）.本题的另外一个难点在于路径的记录，我们知道，动态规划的一个本质就是状态转移，也就是在当前状态记录是由哪个值推倒过来的，就可以逆序退出上个状态的值。同时通过对路径的遍历，从而可以判断当前的第i个人是否被选择过，从而达到了降维的作用。</p>
-<span id="more"></span>
-
-<p>#include #include #include #include #include using namespace std;<br>int a[201],b[201];<br>int f[30][801],path[30][801];<br>int p[205],v[205];<br>bool select(int i,int j,int k)<br>{<br>    while (true)<br>    {<br>        if (path[i][k]&lt;0 || i&lt;0) break;<br>         if (j==path[i][k]) return true;<br>        k=k-p[path[i][k]];<br>        i–;<br>    }<br>    return false;<br>}<br>int main()<br>{<br>    int n,m;<br>    int No=0;<br>    while (scanf(“%d%d”,&amp;n,&amp;m)!=EOF &amp;&amp; n+m!=0){<br>        cout&lt;&lt;”Jury #”&lt;&lt;++No&lt;=0){<br>                for (int j=0;j=0 &amp;&amp; f[m][m*20+i]&gt;=f[m][m*20-i])<br>                {<br>                    k=m<em>20+i;<br>                    break;<br>                }<br>                if (f[m][m</em>20-i]&gt;=0){<br>                    k=m<em>20-i;<br>                    break;<br>                }<br>            }<br>        int suma=0,sumb=0;<br>        int id[300];<br>        int sum=0;<br>        while (true)<br>        {<br>            int i=path[m–][k];<br>            if (i==-1 || m&lt;0) break;<br>            id[sum++]=i;<br>            suma+=a[i];<br>            sumb+=b[i];<br>            k=k-p[i];<br>        }<br>        cout&lt;&lt;”Best jury has value “&lt; #include #include #include #include using namespace std;<br>int a[201],b[201];<br>int f[30][801],path[30][801];<br>int p[205],v[205];<br>bool select(int i,int j,int k)<br>{<br>    while (true)<br>    {<br>        if (path[i][k]&lt;0 || i&lt;0) break;<br>         if (j==path[i][k]) return true;<br>        k=k-p[path[i][k]];<br>        i–;<br>    }<br>    return false;<br>}<br>int main()<br>{<br>    int n,m;<br>    int No=0;<br>    while (scanf(“%d%d”,&amp;n,&amp;m)!=EOF &amp;&amp; n+m!=0){<br>        cout&lt;&lt;”Jury #”&lt;&lt;++No&lt;=0){<br>                for (int j=0;j=0 &amp;&amp; f[m][m*20+i]&gt;=f[m][m*20-i])<br>                {<br>                    k=m</em>20+i;<br>                    break;<br>                }<br>                if (f[m][m<em>20-i]&gt;=0){<br>                    k=m</em>20-i;<br>                    break;<br>                }<br>            }<br>        int suma=0,sumb=0;<br>        int id[300];<br>        int sum=0;<br>        while (true)<br>        {<br>            int i=path[m–][k];<br>            if (i==-1 || m&lt;0) break;<br>            id[sum++]=i;<br>            suma+=a[i];<br>            sumb+=b[i];<br>            k=k-p[i];<br>        }<br>        cout&lt;&lt;”Best jury has value “&lt;</p>
+    <title>POJ 1422</title>
+    <url>/2013/04/28/poj1422/</url>
+    <content><![CDATA[<p>题意不追溯，关于匈牙利算法看：<a href="http://my.oschina.net/xuwei8091/blog/126320">http://my.oschina.net/xuwei8091/blog/126320</a>。 最小路径覆盖等于N-最大匹配</p>
+<p>#include #include #include using namespace std;<br>int T;<br>int n,m;<br>int map[200][200];<br>int vis[200];<br>int result[200];<br>bool find(int s)<br>{<br>        for (int i=1;i&lt;=n;i++)<br>        {<br>            if (map[s][i] &amp;&amp; !vis[i])<br>            {<br>                vis[i]=1;<br>                if (result[i]==0 || find(result[i]))<br>                {<br>                    result[i]=s;<br>                    return true;<br>                }<br>            }<br>        }<br>        return false;<br>}<br>int main()<br>{<br>    scanf(“%d”,&amp;T);<br>    while (T–){<br>        memset(map,0,sizeof(map));<br>        memset(result,0,sizeof(result));<br>        scanf(“%d%d”,&amp;n,&amp;m);<br>        for (int i=0;i</p>
 ]]></content>
       <categories>
         <category>ACMICPC</category>
@@ -1581,11 +1591,15 @@ init─┬─Xvnc
       </categories>
   </entry>
   <entry>
-    <title>POJ 1422</title>
-    <url>/2013/04/28/poj1422/</url>
-    <content><![CDATA[<p>题意不追溯，关于匈牙利算法看：<a href="http://my.oschina.net/xuwei8091/blog/126320">http://my.oschina.net/xuwei8091/blog/126320</a>。 最小路径覆盖等于N-最大匹配</p>
-<p>#include #include #include using namespace std;<br>int T;<br>int n,m;<br>int map[200][200];<br>int vis[200];<br>int result[200];<br>bool find(int s)<br>{<br>        for (int i=1;i&lt;=n;i++)<br>        {<br>            if (map[s][i] &amp;&amp; !vis[i])<br>            {<br>                vis[i]=1;<br>                if (result[i]==0 || find(result[i]))<br>                {<br>                    result[i]=s;<br>                    return true;<br>                }<br>            }<br>        }<br>        return false;<br>}<br>int main()<br>{<br>    scanf(“%d”,&amp;T);<br>    while (T–){<br>        memset(map,0,sizeof(map));<br>        memset(result,0,sizeof(result));<br>        scanf(“%d%d”,&amp;n,&amp;m);<br>        for (int i=0;i</p>
-]]></content>
+    <title>并查集</title>
+    <url>/2013/04/27/set/</url>
+    <content><![CDATA[<p>好吧，前两天做了一场CF，遇到一道并查集的题目，感觉并查集还需学习啊，记录一下 具体的算法如下</p>
+<ol>
+<li>有father数组，全部初始化为本身 </li>
+<li>添加一个关系进来的时候，s–t，找到s的祖先a,t的祖先b，将a的father设为b </li>
+<li>通过查找祖先，来确定是否在一个集合内</li>
+</ol>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">init</span><span class="params">(<span class="type">int</span> n)</span></span>&#123;<span class="comment">//初始化，节点编号1-n</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i=<span class="number">1</span>;i&lt;=n;i++) father[i]=i;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">find</span><span class="params">(<span class="type">int</span> x)</span><span class="comment">//查找祖先节点</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">while</span> (father[x]!=x) x=father[x];</span><br><span class="line">	<span class="keyword">return</span> x;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">add</span><span class="params">(<span class="type">int</span> s,<span class="type">int</span> t)</span><span class="comment">//增加一个关系，改变集合</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  <span class="type">int</span> a=<span class="built_in">find</span>(s);</span><br><span class="line">  <span class="type">int</span> b=<span class="built_in">find</span>(t);</span><br><span class="line">  father[a]=b;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">bool</span> <span class="title">judge</span><span class="params">(<span class="type">int</span> s,<span class="type">int</span> t)</span><span class="comment">//判断是不是一个集合</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">find</span>(s)==<span class="built_in">find</span>(t);</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>]]></content>
       <categories>
         <category>ACMICPC</category>
       </categories>
@@ -1631,6 +1645,35 @@ init─┬─Xvnc
       <categories>
         <category>ACMICPC</category>
       </categories>
+  </entry>
+  <entry>
+    <title>sdk篡改</title>
+    <url>/2017/07/23/sdk-e7-af-a1-e6-94-b9/</url>
+    <content><![CDATA[<p>前段时间，因为一年前篡改了一个sdk的包，导致了一系列不可预知的损失，这也充分说明了技术的正确性，需要决策的正确性来支撑的。作为技术人员，不仅仅要考虑技术的可行性，也要考虑实施后的风险和结果的预期假设。 从工程角度，简单记录一下篡改sdk包的技术。</p>
+<ol>
+<li>解压jar或者apk的包 </li>
+<li>JD-GUI 反编译查看class的相关代码，找到修改点</li>
+<li>自己编写相应的方法或者类，使用 <code>javaassist</code> 注入到class文件 </li>
+<li>重新打包</li>
+</ol>
+<p> <code>javassist</code> 使用方法参考： <a href="https://jboss-javassist.github.io/javassist/tutorial/tutorial.html">https://jboss-javassist.github.io/javassist/tutorial/tutorial.html</a> 附上测试代码，修改一个方法</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">      javassist.tools.reflect.<span class="type">Loader</span> <span class="variable">cl</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">javassist</span>.tools.reflect.Loader();</span><br><span class="line">      <span class="type">ClassPool</span> <span class="variable">pool</span> <span class="operator">=</span> ClassPool.getDefault();</span><br><span class="line">      pool.insertClassPath(<span class="string">&quot;/tmp/aa/&quot;</span>);</span><br><span class="line">      <span class="type">CtClass</span> <span class="variable">cc</span> <span class="operator">=</span> pool.get(<span class="string">&quot;com.facebook.ads.internal.d.g&quot;</span>);</span><br><span class="line">      <span class="type">CtMethod</span> <span class="variable">ctmethod</span> <span class="operator">=</span> cc.getDeclaredMethod(<span class="string">&quot;c&quot;</span>);</span><br><span class="line">      cc.getDeclaredField(<span class="string">&quot;c&quot;</span>);</span><br><span class="line">      <span class="comment">// getCode()即为需要替换的的代码</span></span><br><span class="line">      ctmethod.setBody(getCode());</span><br><span class="line">      cc.writeFile(<span class="string">&quot;/tmp/aa/&quot;</span>);</span><br><span class="line">    &#125; <span class="keyword">catch</span> (CannotCompileException e) &#123;</span><br><span class="line">      e.printStackTrace();</span><br><span class="line">    &#125; <span class="keyword">catch</span> (NotFoundException e) &#123;</span><br><span class="line">      e.printStackTrace();</span><br><span class="line">    &#125; <span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">      e.printStackTrace();</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>]]></content>
+      <categories>
+        <category>JAVA</category>
+      </categories>
+  </entry>
+  <entry>
+    <title>windows核心编程-错误处理</title>
+    <url>/2015/01/29/windows-e6-a0-b8-e5-bf-83-e7-bc-96-e7-a8-8b-e9-94-99-e8-af-af-e5-a4-84-e7-90-86/</url>
+    <content><![CDATA[<p>1.常见的错误返回类型</p>
+<p>VOID/BOOL/HANDLE/PVOID/LONG/DWORD VOID 不可能失败 BOOL 错误返回false 编码的时候最好测试是否不为FALSE HANDLE 错误 NULL/INVALID_HANDLE_VALUE PVOID  失败返回NULL,成功返回一个数据块的地址 LONG/DWORD 0或-1，不绝对 2.GetLastError函数   DWORD GetLastError(); 3.WinError.h 头文件定义了若干的Mircosoft定义的代码列表 4.</p>
+]]></content>
+      <categories>
+        <category>ACMICPC</category>
+      </categories>
+      <tags>
+        <tag>windows</tag>
+      </tags>
   </entry>
   <entry>
     <title>RSA整理</title>
@@ -1754,92 +1797,6 @@ init─┬─Xvnc
       </tags>
   </entry>
   <entry>
-    <title>sdk篡改</title>
-    <url>/2017/07/23/sdk-e7-af-a1-e6-94-b9/</url>
-    <content><![CDATA[<p>前段时间，因为一年前篡改了一个sdk的包，导致了一系列不可预知的损失，这也充分说明了技术的正确性，需要决策的正确性来支撑的。作为技术人员，不仅仅要考虑技术的可行性，也要考虑实施后的风险和结果的预期假设。 从工程角度，简单记录一下篡改sdk包的技术。</p>
-<ol>
-<li>解压jar或者apk的包 </li>
-<li>JD-GUI 反编译查看class的相关代码，找到修改点</li>
-<li>自己编写相应的方法或者类，使用 <code>javaassist</code> 注入到class文件 </li>
-<li>重新打包</li>
-</ol>
-<p> <code>javassist</code> 使用方法参考： <a href="https://jboss-javassist.github.io/javassist/tutorial/tutorial.html">https://jboss-javassist.github.io/javassist/tutorial/tutorial.html</a> 附上测试代码，修改一个方法</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">      javassist.tools.reflect.<span class="type">Loader</span> <span class="variable">cl</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">javassist</span>.tools.reflect.Loader();</span><br><span class="line">      <span class="type">ClassPool</span> <span class="variable">pool</span> <span class="operator">=</span> ClassPool.getDefault();</span><br><span class="line">      pool.insertClassPath(<span class="string">&quot;/tmp/aa/&quot;</span>);</span><br><span class="line">      <span class="type">CtClass</span> <span class="variable">cc</span> <span class="operator">=</span> pool.get(<span class="string">&quot;com.facebook.ads.internal.d.g&quot;</span>);</span><br><span class="line">      <span class="type">CtMethod</span> <span class="variable">ctmethod</span> <span class="operator">=</span> cc.getDeclaredMethod(<span class="string">&quot;c&quot;</span>);</span><br><span class="line">      cc.getDeclaredField(<span class="string">&quot;c&quot;</span>);</span><br><span class="line">      <span class="comment">// getCode()即为需要替换的的代码</span></span><br><span class="line">      ctmethod.setBody(getCode());</span><br><span class="line">      cc.writeFile(<span class="string">&quot;/tmp/aa/&quot;</span>);</span><br><span class="line">    &#125; <span class="keyword">catch</span> (CannotCompileException e) &#123;</span><br><span class="line">      e.printStackTrace();</span><br><span class="line">    &#125; <span class="keyword">catch</span> (NotFoundException e) &#123;</span><br><span class="line">      e.printStackTrace();</span><br><span class="line">    &#125; <span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">      e.printStackTrace();</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>]]></content>
-      <categories>
-        <category>JAVA</category>
-      </categories>
-  </entry>
-  <entry>
-    <title>并查集</title>
-    <url>/2013/04/27/set/</url>
-    <content><![CDATA[<p>好吧，前两天做了一场CF，遇到一道并查集的题目，感觉并查集还需学习啊，记录一下 具体的算法如下</p>
-<ol>
-<li>有father数组，全部初始化为本身 </li>
-<li>添加一个关系进来的时候，s–t，找到s的祖先a,t的祖先b，将a的father设为b </li>
-<li>通过查找祖先，来确定是否在一个集合内</li>
-</ol>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">init</span><span class="params">(<span class="type">int</span> n)</span></span>&#123;<span class="comment">//初始化，节点编号1-n</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i=<span class="number">1</span>;i&lt;=n;i++) father[i]=i;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">find</span><span class="params">(<span class="type">int</span> x)</span><span class="comment">//查找祖先节点</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">while</span> (father[x]!=x) x=father[x];</span><br><span class="line">	<span class="keyword">return</span> x;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">add</span><span class="params">(<span class="type">int</span> s,<span class="type">int</span> t)</span><span class="comment">//增加一个关系，改变集合</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  <span class="type">int</span> a=<span class="built_in">find</span>(s);</span><br><span class="line">  <span class="type">int</span> b=<span class="built_in">find</span>(t);</span><br><span class="line">  father[a]=b;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">bool</span> <span class="title">judge</span><span class="params">(<span class="type">int</span> s,<span class="type">int</span> t)</span><span class="comment">//判断是不是一个集合</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">find</span>(s)==<span class="built_in">find</span>(t);</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>]]></content>
-      <categories>
-        <category>ACMICPC</category>
-      </categories>
-  </entry>
-  <entry>
-    <title>关于大数据的C(M,N)</title>
-    <url>/2013/05/01/%E5%85%B3%E4%BA%8E%E5%A4%A7%E6%95%B0%E6%8D%AE%E7%9A%84C(M,N)/</url>
-    <content><![CDATA[<p>cf181 div 2的C题<a href="http://codeforces.com/contest/300/problem/C">http://codeforces.com/contest/300/problem/C</a></p>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="type">long</span> <span class="type">long</span> <span class="title">cal</span><span class="params">(<span class="type">long</span> <span class="type">long</span> s)</span><span class="comment">//s^(MOD-2)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">     <span class="type">long</span> <span class="type">long</span> ans=<span class="number">1</span>;</span><br><span class="line">     <span class="type">long</span> <span class="type">long</span> n=MOD<span class="number">-2</span>;</span><br><span class="line">     <span class="keyword">while</span> (n!=<span class="number">0</span>)</span><br><span class="line">     &#123;</span><br><span class="line">         <span class="keyword">if</span> (n&amp;<span class="number">1</span>) ans=ans*s%MOD;</span><br><span class="line">         s=s*s;</span><br><span class="line">         n=n&gt;&gt;<span class="number">1</span>;</span><br><span class="line">     &#125;</span><br><span class="line">     <span class="keyword">return</span> ans;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">long</span> <span class="type">long</span> <span class="title">C</span><span class="params">(<span class="type">int</span> m,<span class="type">int</span> n)</span><span class="comment">//f[x]=x! 求的是C(m,n)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">     <span class="keyword">return</span> f[m]*<span class="built_in">cal</span>(f[n]*f[m-n]%MOD)%MOD;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>//CF181D2C </p>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;cstdlib&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> MOD 1000000007</span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="type">int</span> a,b,n;</span><br><span class="line"><span class="type">long</span> <span class="type">long</span> f[<span class="number">1000001</span>]=&#123;<span class="number">0</span>&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">long</span> <span class="type">long</span> <span class="title">power</span><span class="params">(<span class="type">long</span> <span class="type">long</span> s)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="type">long</span> <span class="type">long</span> n=MOD<span class="number">-2</span>;</span><br><span class="line">    <span class="type">long</span> <span class="type">long</span> ans=<span class="number">1</span>;</span><br><span class="line">    <span class="keyword">while</span> (n!=<span class="number">0</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span> (n&amp;<span class="number">1</span>) ans=(ans*s)%MOD;</span><br><span class="line">        s=(s*s)%MOD;</span><br><span class="line">        n=n&gt;&gt;<span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> ans%MOD;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">long</span> <span class="type">long</span> <span class="title">C</span><span class="params">(<span class="type">int</span> n,<span class="type">int</span> i)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> f[n]*<span class="built_in">power</span>(f[n-i]*f[i]%MOD);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">bool</span> <span class="title">check</span><span class="params">(<span class="type">int</span> s)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">while</span> (s!=<span class="number">0</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="type">int</span> t=s%<span class="number">10</span>;</span><br><span class="line">        <span class="keyword">if</span> (t!=a &amp;&amp; t!=b) <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">        s=s/<span class="number">10</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">&quot;%d%d%d&quot;</span>,&amp;a,&amp;b,&amp;n);</span><br><span class="line">    f[<span class="number">0</span>]=<span class="number">1</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i=<span class="number">1</span>;i&lt;n<span class="number">+1</span>;i++)&#123;</span><br><span class="line">      f[i]=(i*f[i<span class="number">-1</span>])%MOD;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="type">long</span> <span class="type">long</span> ans=<span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">long</span> <span class="type">long</span> i=<span class="number">0</span>;i&lt;=n;i++)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span> (<span class="built_in">check</span>(i*a+(n-i)*b))&#123;ans=(ans+<span class="built_in">C</span>(n,i))%MOD;&#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;%d&quot;</span>,ans);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
-      <categories>
-        <category>ACMICPC</category>
-      </categories>
-      <tags>
-        <tag>proof,acm</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>windows核心编程-错误处理</title>
-    <url>/2015/01/29/windows-e6-a0-b8-e5-bf-83-e7-bc-96-e7-a8-8b-e9-94-99-e8-af-af-e5-a4-84-e7-90-86/</url>
-    <content><![CDATA[<p>1.常见的错误返回类型</p>
-<p>VOID/BOOL/HANDLE/PVOID/LONG/DWORD VOID 不可能失败 BOOL 错误返回false 编码的时候最好测试是否不为FALSE HANDLE 错误 NULL/INVALID_HANDLE_VALUE PVOID  失败返回NULL,成功返回一个数据块的地址 LONG/DWORD 0或-1，不绝对 2.GetLastError函数   DWORD GetLastError(); 3.WinError.h 头文件定义了若干的Mircosoft定义的代码列表 4.</p>
-]]></content>
-      <categories>
-        <category>ACMICPC</category>
-      </categories>
-      <tags>
-        <tag>windows</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>几种简单的传统加密算法概述</title>
-    <url>/2013/11/10/%E5%87%A0%E7%A7%8D%E7%AE%80%E5%8D%95%E7%9A%84%E4%BC%A0%E7%BB%9F%E5%8A%A0%E5%AF%86%E7%AE%97%E6%B3%95%E6%A6%82%E8%BF%B0/</url>
-    <content><![CDATA[<p>本文只是概述几种简单的传统加密算法，没有DES,没有RSA，没有想象中的高端大气上档次的东东。。。但是都是很传统很经典的一些算法 首先，提到加密，比如加密一段文字，让其不可读，一般人首先会想到的是将其中的各个字符用其他一些特定的字符代替，比如，讲所有的A用C来表示，所有的C用E表示等等…其中早的代替算法就是由Julius Caesar发明的Caesar，它是用字母表中每个字母的之后的第三个字母来代替其本身的（C=E(3，p)=（p+3) mod 26)，但是，这种加密方式，很容易可以用穷举算法来破解，毕竟只有25种可能的情况.. 为了改进上诉算法，增加其破解的难度，我们不用简单的有序的替代方式，我们让替代无序化，用其中字母表的一个置换（置换：有限元素的集合S的置换就是S的所有元素的有序排列，且每个元素就出现一次，如S={a,b}其置换就只有两种:ab,ba），这样的话，就有26！种方式，大大的增加了破解的难度，但是这个世界聪明人太多，虽然26！很多，但是语言本身有一定的特性，每个字母在语言中出现的相对频率可以统计出来的，这样子，只要密文有了一定数量，就可以从统计学的角度，得到准确的字母匹配了。 上面的算法我们称之为单表代替，其实单表代替密码之所以较容易被攻破，因为它带有原始字母使用频率的一些统计学特征。有两种主要的方法可以减少代替密码里明文结构在密文中的残留度，一种是对明文中的多个字母一起加密，另一种是采用多表代替密码。 先说多字母代替吧，最著名的就是playfair密码，它把明文中的双字母音节作为一个单元并将其转换成密文的双字母音节，它是一个基于由密钥词构成的5<em>5的字母矩阵中的，一个例子，如密钥为monarchy，将其从左往右从上往下填入后，将剩余的字母依次填入剩下的空格，其中I/J填入同一个空格: <a href="http://static.oschina.net/uploads/img/201311/10123647_Q0Ls.png"><img src="http://static.oschina.net/uploads/img/201311/10123647_Q0Ls.png"></a> 对明文加密规则如下： 1 若p1 p2在同一行，对应密文c1 c2分别是紧靠p1 p2 右端的字母。其中第一列被看做是最后一列的右方。 2 若p1 p2在同一列，对应密文c1 c2分别是紧靠p1 p2 下方的字母。其中第一行被看做是最后一行的下方。 3 若p1 p2不在同一行，不在同一列，则c1 c2是由p1 p2确定的矩形的其他两角的字母，并且c1和p1， c2和p2同行。 4 若p1 p2相同，则插入一个事先约定的字母，比如Q 。 5 若明文字母数为奇数时，则在明文的末端添加某个事先约定的字母作为填充。 虽然相对简单加密，安全性有所提高，但是还是保留了明文语言的大部分结构特征，依旧可以破解出来，另一个有意思的多表代替密码是Hill密码，由数学家Lester Hill提出来的，其实就是利用了线性代数中的可逆矩阵，一个矩阵乘以它的逆矩阵得到单位矩阵，那么假设我们对密文每m个字母进行加密，那么将这m个字母在字母表中的序号写成矩阵形式设为P（如abc，[1,2,3])，密钥就是一个m阶的矩阵K，则C=P</em>K mod26，，解密的时候只要将密文乘上K的逆矩阵模26就可以了。该方法大大的增加了安全性。 上面的算法主要是多字母代替，现在再说说另一种多表代替的加密算法吧，其中最著名最简单的是vigenere密码，它的主要思想是对明文每m个字母进行加密，将每个字母加密，和Caesar算法一样，每个字母用后面的第k个字母来代替，只不过是m个字母中，每一个字母的k值不同，简单的说就是C=C0C1C2C3…=E(K,P)=(p0+k0）mod26,(p1+k1)mod26,(p2+k2)mod26…..但是这样的算法也是比较容易破解的，可以对相同字母的组合（如都是KATB）间隔数（存在偶然性，可以进行取舍），取公约数，那么m就是这个约数的某个因子，之后通过观察，如果长度为m，其实就是m个单表，进行分离就是m个单表分离，然后就很容易的破解了。。 另外一种加密手段，是选择一个与明文无关的，且与他长度一致的密钥，进行异或，解密的时候再一次异或就OK了，这也是基于两次异或同一个值，值不变的结论，大家可以尝试一下的~ 上面主要说的是替换技术，其实传统加密算法除了替换的技术，还有一种就是置换的技术了，简单的说就是将明文的序列打乱，比如栅栏技术，就是按照对角线的顺序写出明文，而按行的顺序读出作为密文。当然这种技术太简单了，更复杂一点的就是将消息一行行的写成矩阵块，然后按列读出，但是把列的次序打乱的，为了增加安全性，还可以多次置换来着。 传统加密高端一点的就是转轮机和隐写术了，转轮机是一种多重加密的技术，其主要的意义就是为DES加密提供了方向…隐写术是个神奇的东西，比如我们经常在电视剧中看到的隐形药水啥的…这些东西，就问度娘吧…..</p>
-]]></content>
-      <categories>
-        <category>Theory</category>
-      </categories>
-      <tags>
-        <tag>proof</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>匈牙利二分匹配</title>
-    <url>/2013/04/28/%E5%8C%88%E7%89%99%E5%88%A9%E4%BA%8C%E5%88%86%E5%8C%B9%E9%85%8D/</url>
-    <content><![CDATA[<p>关于算法的说明，可以参看这个大牛的讲解，很详细： <a href="http://imlazy.ycool.com/post.1603708.html">http://imlazy.ycool.com/post.1603708.html</a> 直接上代码</p>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="type">bool</span> <span class="title">find</span><span class="params">(<span class="type">int</span> s)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i=<span class="number">1</span>;i&lt;=n;i++)<span class="comment">//从1到n编号</span></span><br><span class="line">    &#123;</span><br><span class="line">         <span class="keyword">if</span> (map[s][i] &amp;&amp; !visit[i])</span><br><span class="line">        &#123;</span><br><span class="line">            visit[i]=<span class="number">1</span>;</span><br><span class="line">            <span class="keyword">if</span> (pre[i]==<span class="number">0</span> || <span class="built_in">find</span>(pre[i]))</span><br><span class="line">             &#123;</span><br><span class="line">                 pre[i]=s;</span><br><span class="line">                 <span class="keyword">return</span> <span class="literal">true</span>;      </span><br><span class="line">             &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">hungary</span><span class="params">()</span><span class="comment">//返回最大匹配数</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">     <span class="type">int</span> ans=<span class="number">0</span>;</span><br><span class="line">     <span class="keyword">for</span> (<span class="type">int</span> i=<span class="number">1</span>;i&lt;=n;i++)</span><br><span class="line">     &#123;</span><br><span class="line">        <span class="built_in">memset</span>(visit,<span class="number">0</span>,<span class="built_in">sizeof</span>(visit));</span><br><span class="line">        <span class="keyword">if</span> (<span class="built_in">find</span>(i)) ans++;</span><br><span class="line">     &#125;</span><br><span class="line">     <span class="keyword">return</span> ans;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-
-
-
-
-<p>  好吧，具体的代码就应该是这样了，但是二分图是无向图吧。。。有向图，怎么破…</p>
-]]></content>
-      <categories>
-        <category>ACMICPC</category>
-      </categories>
-  </entry>
-  <entry>
     <title>匈牙利算法</title>
     <url>/2014/07/07/%E5%8C%88%E7%89%99%E5%88%A9%E7%AE%97%E6%B3%95/</url>
     <content><![CDATA[<p>参见博客：<a href="http://blog.csdn.net/dark_scope/article/details/8880547%EF%BC%8C%E9%9D%9E%E5%B8%B8%E7%BB%99%E5%8A%9B%E7%9A%84%E8%AF%B4%E6%B3%95">http://blog.csdn.net/dark_scope/article/details/8880547，非常给力的说法</a> 关于二分图匹配，常用的结论如下：</p>
@@ -1854,6 +1811,22 @@ init─┬─Xvnc
 </ol>
 <p>匈牙利算法模板:</p>
 <figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment"> * Author:  xtestw</span></span><br><span class="line"><span class="comment"> * Created Time:  2014/7/6 21:55:04</span></span><br><span class="line"><span class="comment"> * File Name: hungry.cpp</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;cstdlib&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;cstring&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;cmath&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;algorithm&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;string&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;vector&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stack&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;queue&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;set&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;time.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="type">const</span> <span class="type">int</span> maxint = <span class="number">-1u</span>&gt;&gt;<span class="number">1</span>;</span><br><span class="line"><span class="type">int</span> g[<span class="number">1000</span>][<span class="number">1001</span>];</span><br><span class="line"><span class="type">int</span> vis[<span class="number">1010</span>];</span><br><span class="line"><span class="type">int</span> pre[<span class="number">1010</span>];</span><br><span class="line"><span class="type">int</span> m,n1,n2;</span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">init</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="built_in">memset</span>(g,<span class="number">0</span>,<span class="built_in">sizeof</span>(g));</span><br><span class="line">    <span class="built_in">memset</span>(vis,<span class="number">0</span>,<span class="built_in">sizeof</span>(vis));</span><br><span class="line">    <span class="built_in">memset</span>(pre,<span class="number">-1</span>,<span class="built_in">sizeof</span>(pre));</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">&quot;%d&quot;</span>,&amp;m);</span><br><span class="line">    <span class="keyword">if</span> (m==<span class="number">0</span>) <span class="keyword">return</span>;</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">&quot;%d%d&quot;</span>,&amp;n1,&amp;n2);</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i = <span class="number">0</span>; i &lt; m ; i++)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="type">int</span> a,b;</span><br><span class="line">        <span class="built_in">scanf</span>(<span class="string">&quot;%d%d&quot;</span>,&amp;a,&amp;b);</span><br><span class="line">        g[a][b]=<span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">find</span><span class="params">(<span class="type">int</span> x)</span></span>&#123;</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>;i&lt;=n2;i++)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span> (g[x][i] &amp;&amp; !vis[i])&#123;</span><br><span class="line">            vis[i]=<span class="number">1</span>;</span><br><span class="line">            <span class="keyword">if</span> (pre[i]&lt;<span class="number">0</span> || <span class="built_in">find</span>(pre[i]))</span><br><span class="line">            &#123;</span><br><span class="line">                pre[i]=x;</span><br><span class="line">                <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">hungry</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="type">int</span> ret=<span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>;i&lt;=n1;i++)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">memset</span>(vis,<span class="number">0</span>,<span class="built_in">sizeof</span>(vis));</span><br><span class="line">        <span class="keyword">if</span> (<span class="built_in">find</span>(i))&#123;</span><br><span class="line">            ret++;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> ret;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line"><span class="meta">#<span class="keyword">ifndef</span> ONLINE_JUDGE</span></span><br><span class="line">  <span class="comment">// freopen(&quot;f:/in.txt&quot;,&quot;r&quot;,stdin);</span></span><br><span class="line"><span class="meta">#<span class="keyword">endif</span></span></span><br><span class="line">    <span class="keyword">while</span> (<span class="literal">true</span>)&#123;</span><br><span class="line">         <span class="built_in">init</span>();</span><br><span class="line">         <span class="keyword">if</span> (m==<span class="number">0</span>) <span class="keyword">break</span>;</span><br><span class="line">        cout&lt;&lt;<span class="built_in">hungry</span>()&lt;&lt;endl;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
+      <categories>
+        <category>ACMICPC</category>
+      </categories>
+  </entry>
+  <entry>
+    <title>匈牙利二分匹配</title>
+    <url>/2013/04/28/%E5%8C%88%E7%89%99%E5%88%A9%E4%BA%8C%E5%88%86%E5%8C%B9%E9%85%8D/</url>
+    <content><![CDATA[<p>关于算法的说明，可以参看这个大牛的讲解，很详细： <a href="http://imlazy.ycool.com/post.1603708.html">http://imlazy.ycool.com/post.1603708.html</a> 直接上代码</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="type">bool</span> <span class="title">find</span><span class="params">(<span class="type">int</span> s)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i=<span class="number">1</span>;i&lt;=n;i++)<span class="comment">//从1到n编号</span></span><br><span class="line">    &#123;</span><br><span class="line">         <span class="keyword">if</span> (map[s][i] &amp;&amp; !visit[i])</span><br><span class="line">        &#123;</span><br><span class="line">            visit[i]=<span class="number">1</span>;</span><br><span class="line">            <span class="keyword">if</span> (pre[i]==<span class="number">0</span> || <span class="built_in">find</span>(pre[i]))</span><br><span class="line">             &#123;</span><br><span class="line">                 pre[i]=s;</span><br><span class="line">                 <span class="keyword">return</span> <span class="literal">true</span>;      </span><br><span class="line">             &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">hungary</span><span class="params">()</span><span class="comment">//返回最大匹配数</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">     <span class="type">int</span> ans=<span class="number">0</span>;</span><br><span class="line">     <span class="keyword">for</span> (<span class="type">int</span> i=<span class="number">1</span>;i&lt;=n;i++)</span><br><span class="line">     &#123;</span><br><span class="line">        <span class="built_in">memset</span>(visit,<span class="number">0</span>,<span class="built_in">sizeof</span>(visit));</span><br><span class="line">        <span class="keyword">if</span> (<span class="built_in">find</span>(i)) ans++;</span><br><span class="line">     &#125;</span><br><span class="line">     <span class="keyword">return</span> ans;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<p>  好吧，具体的代码就应该是这样了，但是二分图是无向图吧。。。有向图，怎么破…</p>
+]]></content>
       <categories>
         <category>ACMICPC</category>
       </categories>
@@ -1928,6 +1901,38 @@ init─┬─Xvnc
       </tags>
   </entry>
   <entry>
+    <title>设计模式-代理模式</title>
+    <url>/2014/09/08/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E4%BB%A3%E7%90%86%E6%A8%A1%E5%BC%8F/</url>
+    <content><![CDATA[<p>在实际开发的时候，我们同样的一个对象，对于不同的客户，可能能够调用的方法是不一样的，就是权限的控制，这个时候，对象的方法都应该是public，那么就要给对象加上一层，通过客户的类型，决定是否可以访问，也就是说，客户不直接访问对象，而是访问给对象加上的这一层，就是代理层。</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">public interface T1&#123;</span><br><span class="line">    public void method();</span><br><span class="line">&#125;;</span><br><span class="line">public class Item implements T1&#123;</span><br><span class="line">    public void method();</span><br><span class="line">&#125;</span><br><span class="line">public class ItemProxy implements T1&#123;</span><br><span class="line">    Item item;</span><br><span class="line">    Client client;</span><br><span class="line">    public ItemProxy(Client c)&#123;</span><br><span class="line">        this.Client=c;</span><br><span class="line">        this.item=new item();</span><br><span class="line">    &#125;</span><br><span class="line">    public void method()&#123;</span><br><span class="line">        if (client,allow())&#123;    </span><br><span class="line">            item.method1();</span><br><span class="line">        &#125;else&#123;</span><br><span class="line">            return;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">public class Client&#123;</span><br><span class="line">    T1 t;</span><br><span class="line">    public Client()    </span><br><span class="line">    &#123;</span><br><span class="line">        t=new ItemProxy(this);</span><br><span class="line">    &#125;</span><br><span class="line">    public void method1()</span><br><span class="line">    &#123;    </span><br><span class="line">        t.method();    </span><br><span class="line">    &#125;    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这样就可以在代理类中，控制对象的访问了，当然代理模式实现方式还有很多种，（远程代理管理客户和远程对象的交互，虚拟代理控制访问实例化开销大的对象，保护代理基于调用者控制对对象方法的访问），上面只是其中的一种方式，代理模式的定义如下：</p>
+<span id="more"></span>
+
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">代理模式：为另一个对象提供一个替身或占位符以访问这个对象。</span><br></pre></td></tr></table></figure>]]></content>
+      <categories>
+        <category>Design Pattern</category>
+      </categories>
+      <tags>
+        <tag>设计模式</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>关于大数据的C(M,N)</title>
+    <url>/2013/05/01/%E5%85%B3%E4%BA%8E%E5%A4%A7%E6%95%B0%E6%8D%AE%E7%9A%84C(M,N)/</url>
+    <content><![CDATA[<p>cf181 div 2的C题<a href="http://codeforces.com/contest/300/problem/C">http://codeforces.com/contest/300/problem/C</a></p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="type">long</span> <span class="type">long</span> <span class="title">cal</span><span class="params">(<span class="type">long</span> <span class="type">long</span> s)</span><span class="comment">//s^(MOD-2)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">     <span class="type">long</span> <span class="type">long</span> ans=<span class="number">1</span>;</span><br><span class="line">     <span class="type">long</span> <span class="type">long</span> n=MOD<span class="number">-2</span>;</span><br><span class="line">     <span class="keyword">while</span> (n!=<span class="number">0</span>)</span><br><span class="line">     &#123;</span><br><span class="line">         <span class="keyword">if</span> (n&amp;<span class="number">1</span>) ans=ans*s%MOD;</span><br><span class="line">         s=s*s;</span><br><span class="line">         n=n&gt;&gt;<span class="number">1</span>;</span><br><span class="line">     &#125;</span><br><span class="line">     <span class="keyword">return</span> ans;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">long</span> <span class="type">long</span> <span class="title">C</span><span class="params">(<span class="type">int</span> m,<span class="type">int</span> n)</span><span class="comment">//f[x]=x! 求的是C(m,n)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">     <span class="keyword">return</span> f[m]*<span class="built_in">cal</span>(f[n]*f[m-n]%MOD)%MOD;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>//CF181D2C </p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;cstdlib&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> MOD 1000000007</span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="type">int</span> a,b,n;</span><br><span class="line"><span class="type">long</span> <span class="type">long</span> f[<span class="number">1000001</span>]=&#123;<span class="number">0</span>&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">long</span> <span class="type">long</span> <span class="title">power</span><span class="params">(<span class="type">long</span> <span class="type">long</span> s)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="type">long</span> <span class="type">long</span> n=MOD<span class="number">-2</span>;</span><br><span class="line">    <span class="type">long</span> <span class="type">long</span> ans=<span class="number">1</span>;</span><br><span class="line">    <span class="keyword">while</span> (n!=<span class="number">0</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span> (n&amp;<span class="number">1</span>) ans=(ans*s)%MOD;</span><br><span class="line">        s=(s*s)%MOD;</span><br><span class="line">        n=n&gt;&gt;<span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> ans%MOD;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">long</span> <span class="type">long</span> <span class="title">C</span><span class="params">(<span class="type">int</span> n,<span class="type">int</span> i)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> f[n]*<span class="built_in">power</span>(f[n-i]*f[i]%MOD);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">bool</span> <span class="title">check</span><span class="params">(<span class="type">int</span> s)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">while</span> (s!=<span class="number">0</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="type">int</span> t=s%<span class="number">10</span>;</span><br><span class="line">        <span class="keyword">if</span> (t!=a &amp;&amp; t!=b) <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">        s=s/<span class="number">10</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">&quot;%d%d%d&quot;</span>,&amp;a,&amp;b,&amp;n);</span><br><span class="line">    f[<span class="number">0</span>]=<span class="number">1</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i=<span class="number">1</span>;i&lt;n<span class="number">+1</span>;i++)&#123;</span><br><span class="line">      f[i]=(i*f[i<span class="number">-1</span>])%MOD;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="type">long</span> <span class="type">long</span> ans=<span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">long</span> <span class="type">long</span> i=<span class="number">0</span>;i&lt;=n;i++)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span> (<span class="built_in">check</span>(i*a+(n-i)*b))&#123;ans=(ans+<span class="built_in">C</span>(n,i))%MOD;&#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;%d&quot;</span>,ans);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
+      <categories>
+        <category>ACMICPC</category>
+      </categories>
+      <tags>
+        <tag>proof,acm</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>母函数</title>
     <url>/2014/07/08/%E6%AF%8D%E5%87%BD%E6%95%B0/</url>
     <content><![CDATA[<p>母函数的具体介绍见博客：<a href="http://www.wutianqi.com/?p=596">http://www.wutianqi.com/?p=596</a></p>
@@ -1948,15 +1953,47 @@ init─┬─Xvnc
       </tags>
   </entry>
   <entry>
-    <title>设计模式-代理模式</title>
-    <url>/2014/09/08/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E4%BB%A3%E7%90%86%E6%A8%A1%E5%BC%8F/</url>
-    <content><![CDATA[<p>在实际开发的时候，我们同样的一个对象，对于不同的客户，可能能够调用的方法是不一样的，就是权限的控制，这个时候，对象的方法都应该是public，那么就要给对象加上一层，通过客户的类型，决定是否可以访问，也就是说，客户不直接访问对象，而是访问给对象加上的这一层，就是代理层。</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">public interface T1&#123;</span><br><span class="line">    public void method();</span><br><span class="line">&#125;;</span><br><span class="line">public class Item implements T1&#123;</span><br><span class="line">    public void method();</span><br><span class="line">&#125;</span><br><span class="line">public class ItemProxy implements T1&#123;</span><br><span class="line">    Item item;</span><br><span class="line">    Client client;</span><br><span class="line">    public ItemProxy(Client c)&#123;</span><br><span class="line">        this.Client=c;</span><br><span class="line">        this.item=new item();</span><br><span class="line">    &#125;</span><br><span class="line">    public void method()&#123;</span><br><span class="line">        if (client,allow())&#123;    </span><br><span class="line">            item.method1();</span><br><span class="line">        &#125;else&#123;</span><br><span class="line">            return;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">public class Client&#123;</span><br><span class="line">    T1 t;</span><br><span class="line">    public Client()    </span><br><span class="line">    &#123;</span><br><span class="line">        t=new ItemProxy(this);</span><br><span class="line">    &#125;</span><br><span class="line">    public void method1()</span><br><span class="line">    &#123;    </span><br><span class="line">        t.method();    </span><br><span class="line">    &#125;    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+    <title>设计模式-模板方法</title>
+    <url>/2014/09/05/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E6%A8%A1%E6%9D%BF%E6%96%B9%E6%B3%95/</url>
+    <content><![CDATA[<p>前面学习过了策略模式，策略模式是对一类的算法进行封装，利用组合，算法之间可以互相替换，但是这个是针对算法过程不是一样的算法。但是如果一系列的算法的步骤都是一样的，且算法的很多过程都是一样的处理，那么，用策略模式的话，会导致算法的重用不高，我们采用模板方法来实现：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">模板方法模式：在一个方法中定义一个算法的骨架，而将一些步骤延迟到子类中。模板方法使得子类可以在不改变算法结构的情况下，重新定义算法中的某些步骤。</span><br></pre></td></tr></table></figure>
 
-<p>这样就可以在代理类中，控制对象的访问了，当然代理模式实现方式还有很多种，（远程代理管理客户和远程对象的交互，虚拟代理控制访问实例化开销大的对象，保护代理基于调用者控制对对象方法的访问），上面只是其中的一种方式，代理模式的定义如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">public abstract class CAL&#123;</span><br><span class="line">    public final void algorithm()</span><br><span class="line">    &#123;</span><br><span class="line">        A1();</span><br><span class="line">        A2();</span><br><span class="line">        if (Judge())</span><br><span class="line">            A3();</span><br><span class="line">        A4();</span><br><span class="line">    &#125;</span><br><span class="line">    public void A1()&#123;</span><br><span class="line">        //实现</span><br><span class="line">        .....</span><br><span class="line">    &#125;</span><br><span class="line">    public  void A2()&#123;</span><br><span class="line">        //实现</span><br><span class="line">        .....</span><br><span class="line">    &#125;</span><br><span class="line">    public abstract void A3()&#123;&#125;</span><br><span class="line">    public abstract void A4()&#123;&#125;</span><br><span class="line">    public boolean Judge()&#123;</span><br><span class="line">        return true;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>其中模板类是一个抽象类，其中算法是确定了的，A1，A2是公共的方法，所有的子类都是一样的，A3，A4是子类自己实现的不一样的函数，定义为抽象方法，子类实现，而Judge方法被成为钩子，默认返回true，而子类可以重写这个方法，这样就能让子类拥有自己的方法。但是这个也反应了模板方法的一个缺点，就是与策略模式相比，弹性不足。</p>
 <span id="more"></span>
 
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">代理模式：为另一个对象提供一个替身或占位符以访问这个对象。</span><br></pre></td></tr></table></figure>]]></content>
+<p>设计模式-好莱坞模式</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">好莱坞模式：别调用我们，我们会调用你。</span><br></pre></td></tr></table></figure>
+
+<p>允许低层组件将自己挂钩到系统上，但是高层组件会决定什么时候和怎样使用这些低层组件。</p>
+]]></content>
+      <categories>
+        <category>Design Pattern</category>
+      </categories>
+      <tags>
+        <tag>设计模式</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>设计模式-单件模式</title>
+    <url>/2014/09/02/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E5%8D%95%E4%BB%B6%E6%A8%A1%E5%BC%8F/</url>
+    <content><![CDATA[<p>工程中，某些对象我们只需要一个，比如线程池，缓存，对话框等的对象，我们通常的做法是可以定一个全局静态变量，然后通过程序初始化的时候就实例化他们，然后直接调用这个全局变量，但是这样有个问题，如果我的这个对象消耗的资源很多，而有的时候，我的程序在运行过程中又没用到这个对象，岂不是浪费了很多资源。通常的做法就是定义全局静态变量的时候，不初始化他，而是在调用过程中实例化，这样的话，对于全局变量的实例化，我们就要判断这个变量是否已经实例化了，如果实例化了的吧，我们就不对它进行实例化，所以代码如下：</p>
+<span id="more"></span>
+
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">public class A</span><br><span class="line">&#123;</span><br><span class="line">    private A()&#123;&#125;</span><br><span class="line">    public static A cla;</span><br><span class="line">    public static A getInstance()</span><br><span class="line">    &#123;</span><br><span class="line">        if (cla == null)&#123;</span><br><span class="line">            cla=new A();</span><br><span class="line">        &#125;</span><br><span class="line">        return cla;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这里的A的构造器是私有的，这样子可以有效的保证A这个类不会再外部被实例化，从而保证他的唯一性，我们通过getInstance来获取A的全局唯一变量cla，这样就有效的解决了上面这个问题，但是问题又来了，多线程访问getInstance()的时候？cla完全可能出现实例化一次之后又被实例化，怎么办？</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">public class A</span><br><span class="line">&#123;</span><br><span class="line">    private A()&#123;&#125;</span><br><span class="line">    public static A cla;</span><br><span class="line">    public static synchronized A getInstance()</span><br><span class="line">    &#123;</span><br><span class="line">        if (cla == null)&#123;</span><br><span class="line">            cla=new A();</span><br><span class="line">        &#125;</span><br><span class="line">        return cla;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>我们就为A获取实力的方法getInstance增加一个同步锁来保证方法只能被唯一访问，可是，同步锁势必会降低运行效率，而且我们发现，事实上，也就是第一次实例化的时候会出现问题需要同步锁，以后再需要获取这个对象的时候完全不需要，如果我们频繁的获取对象的话，效率的影响就会相当大。回到最开始的做法?设置全局变量，程序运行的时候就实例化对象？</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">public class A</span><br><span class="line">&#123;</span><br><span class="line">    private A()&#123;&#125;</span><br><span class="line">    public static A cla = new A();</span><br><span class="line">    public static synchronized A getInstance()</span><br><span class="line">    &#123;</span><br><span class="line">        return cla;</span><br><span class="line">     &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这个确实是种方法，但始终不是最好的方法，我们想到，之前所说的，只有在实例化的时候才需要同步锁，那么我们就想到采用双重检查加锁的方法，只在实例化的时候加锁：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">public class A</span><br><span class="line">&#123;</span><br><span class="line">    private A()&#123;&#125;</span><br><span class="line">    public volatile static A cla;</span><br><span class="line">    public static A getInstance()</span><br><span class="line">    &#123;</span><br><span class="line">         if (cla == null)&#123;</span><br><span class="line">            synchronized(A.class)&#123;</span><br><span class="line">                if (cla==null)&#123;</span><br><span class="line">                    cla=new A();</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">          &#125;</span><br><span class="line">        return cla;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>其中volatile的关键字是确保多线程在cla变量初始化的时候，正确的处理cla变量。(volatile用在多线程，同步变量。 线程为了提高效率，将某成员变量(如A)拷贝了一份（如B），线程中对A的访问其实访问的是B。只在某些动作时才进行A和B的同步。因此存在A和B不一致的情况。volatile就是用来避免这种情况的。volatile告诉jvm， 它所修饰的变量不保留拷贝，直接访问主内存中的（也就是上面说的A))</p>
+]]></content>
       <categories>
         <category>Design Pattern</category>
       </categories>
@@ -1993,46 +2030,17 @@ init─┬─Xvnc
       </tags>
   </entry>
   <entry>
-    <title>设计模式-单件模式</title>
-    <url>/2014/09/02/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E5%8D%95%E4%BB%B6%E6%A8%A1%E5%BC%8F/</url>
-    <content><![CDATA[<p>工程中，某些对象我们只需要一个，比如线程池，缓存，对话框等的对象，我们通常的做法是可以定一个全局静态变量，然后通过程序初始化的时候就实例化他们，然后直接调用这个全局变量，但是这样有个问题，如果我的这个对象消耗的资源很多，而有的时候，我的程序在运行过程中又没用到这个对象，岂不是浪费了很多资源。通常的做法就是定义全局静态变量的时候，不初始化他，而是在调用过程中实例化，这样的话，对于全局变量的实例化，我们就要判断这个变量是否已经实例化了，如果实例化了的吧，我们就不对它进行实例化，所以代码如下：</p>
-<span id="more"></span>
+    <title>设计模式-状态模式</title>
+    <url>/2014/09/07/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E7%8A%B6%E6%80%81%E6%A8%A1%E5%BC%8F/</url>
+    <content><![CDATA[<p>状态模式是针对系统的状态转换的，其主要的定义如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">状态模式：允许对象在内部状态改变时改变他的行为，对象看起来好像修改了它的类。</span><br></pre></td></tr></table></figure>
 
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">public class A</span><br><span class="line">&#123;</span><br><span class="line">    private A()&#123;&#125;</span><br><span class="line">    public static A cla;</span><br><span class="line">    public static A getInstance()</span><br><span class="line">    &#123;</span><br><span class="line">        if (cla == null)&#123;</span><br><span class="line">            cla=new A();</span><br><span class="line">        &#125;</span><br><span class="line">        return cla;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>为了方便状态转移 我们为状态定义一个通用的接口，然后每一种状态都实现这个接口，而在系统类中，通过构造函数，将系统本身传入状态类中，这样，每一种状态的改变，都可以在自己类的内部完成，同时提高了可扩展性：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">public interface State&#123;</span><br><span class="line">    public void des();</span><br><span class="line">    public void action();</span><br><span class="line">&#125;</span><br><span class="line">public class State1 implements State&#123;</span><br><span class="line">    Sys sys;</span><br><span class="line">    public Sate1(Sys s)</span><br><span class="line">    &#123;</span><br><span class="line">        this.sys=sys;</span><br><span class="line">    &#125;</span><br><span class="line">    public void des()&#123;</span><br><span class="line">        .../ implements</span><br><span class="line">    &#125;</span><br><span class="line">    public void action()&#123;</span><br><span class="line">        .../ change the state</span><br><span class="line">        sys.setState(s.getState2());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">public class State2 implements State&#123;</span><br><span class="line">    Sys sys;</span><br><span class="line">    public Sate2(Sys s)</span><br><span class="line">    &#123;</span><br><span class="line">        this.sys=sys;</span><br><span class="line">    &#125;</span><br><span class="line">    public void des()&#123;</span><br><span class="line">        .../ implements</span><br><span class="line">    &#125;</span><br><span class="line">    public void action()&#123;</span><br><span class="line">        .../ change the state</span><br><span class="line">        sys.setState(s.getState1());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">public class Sys &#123;</span><br><span class="line">    private State1 state1;</span><br><span class="line">    private State2 state2;</span><br><span class="line">    private State state;//record the system&#x27;s state</span><br><span class="line">    ....//state1 &amp; state2&#x27;s setter &amp; getter</span><br><span class="line">    public Sys(State state)</span><br><span class="line">    &#123;</span><br><span class="line">        this.state=state;</span><br><span class="line">    &#125;</span><br><span class="line">    public void setState(State state)</span><br><span class="line">    &#123;    </span><br><span class="line">        this.state=state;</span><br><span class="line">    &#125;    </span><br><span class="line">    public void aciton()</span><br><span class="line">    &#123;</span><br><span class="line">        state.action();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<p>这里的A的构造器是私有的，这样子可以有效的保证A这个类不会再外部被实例化，从而保证他的唯一性，我们通过getInstance来获取A的全局唯一变量cla，这样就有效的解决了上面这个问题，但是问题又来了，多线程访问getInstance()的时候？cla完全可能出现实例化一次之后又被实例化，怎么办？</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">public class A</span><br><span class="line">&#123;</span><br><span class="line">    private A()&#123;&#125;</span><br><span class="line">    public static A cla;</span><br><span class="line">    public static synchronized A getInstance()</span><br><span class="line">    &#123;</span><br><span class="line">        if (cla == null)&#123;</span><br><span class="line">            cla=new A();</span><br><span class="line">        &#125;</span><br><span class="line">        return cla;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<p>我们就为A获取实力的方法getInstance增加一个同步锁来保证方法只能被唯一访问，可是，同步锁势必会降低运行效率，而且我们发现，事实上，也就是第一次实例化的时候会出现问题需要同步锁，以后再需要获取这个对象的时候完全不需要，如果我们频繁的获取对象的话，效率的影响就会相当大。回到最开始的做法?设置全局变量，程序运行的时候就实例化对象？</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">public class A</span><br><span class="line">&#123;</span><br><span class="line">    private A()&#123;&#125;</span><br><span class="line">    public static A cla = new A();</span><br><span class="line">    public static synchronized A getInstance()</span><br><span class="line">    &#123;</span><br><span class="line">        return cla;</span><br><span class="line">     &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<p>这个确实是种方法，但始终不是最好的方法，我们想到，之前所说的，只有在实例化的时候才需要同步锁，那么我们就想到采用双重检查加锁的方法，只在实例化的时候加锁：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">public class A</span><br><span class="line">&#123;</span><br><span class="line">    private A()&#123;&#125;</span><br><span class="line">    public volatile static A cla;</span><br><span class="line">    public static A getInstance()</span><br><span class="line">    &#123;</span><br><span class="line">         if (cla == null)&#123;</span><br><span class="line">            synchronized(A.class)&#123;</span><br><span class="line">                if (cla==null)&#123;</span><br><span class="line">                    cla=new A();</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">          &#125;</span><br><span class="line">        return cla;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>其中volatile的关键字是确保多线程在cla变量初始化的时候，正确的处理cla变量。(volatile用在多线程，同步变量。 线程为了提高效率，将某成员变量(如A)拷贝了一份（如B），线程中对A的访问其实访问的是B。只在某些动作时才进行A和B的同步。因此存在A和B不一致的情况。volatile就是用来避免这种情况的。volatile告诉jvm， 它所修饰的变量不保留拷贝，直接访问主内存中的（也就是上面说的A))</p>
-]]></content>
-      <categories>
-        <category>Design Pattern</category>
-      </categories>
-      <tags>
-        <tag>设计模式</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>设计模式-模板方法</title>
-    <url>/2014/09/05/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E6%A8%A1%E6%9D%BF%E6%96%B9%E6%B3%95/</url>
-    <content><![CDATA[<p>前面学习过了策略模式，策略模式是对一类的算法进行封装，利用组合，算法之间可以互相替换，但是这个是针对算法过程不是一样的算法。但是如果一系列的算法的步骤都是一样的，且算法的很多过程都是一样的处理，那么，用策略模式的话，会导致算法的重用不高，我们采用模板方法来实现：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">模板方法模式：在一个方法中定义一个算法的骨架，而将一些步骤延迟到子类中。模板方法使得子类可以在不改变算法结构的情况下，重新定义算法中的某些步骤。</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">public abstract class CAL&#123;</span><br><span class="line">    public final void algorithm()</span><br><span class="line">    &#123;</span><br><span class="line">        A1();</span><br><span class="line">        A2();</span><br><span class="line">        if (Judge())</span><br><span class="line">            A3();</span><br><span class="line">        A4();</span><br><span class="line">    &#125;</span><br><span class="line">    public void A1()&#123;</span><br><span class="line">        //实现</span><br><span class="line">        .....</span><br><span class="line">    &#125;</span><br><span class="line">    public  void A2()&#123;</span><br><span class="line">        //实现</span><br><span class="line">        .....</span><br><span class="line">    &#125;</span><br><span class="line">    public abstract void A3()&#123;&#125;</span><br><span class="line">    public abstract void A4()&#123;&#125;</span><br><span class="line">    public boolean Judge()&#123;</span><br><span class="line">        return true;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>其中模板类是一个抽象类，其中算法是确定了的，A1，A2是公共的方法，所有的子类都是一样的，A3，A4是子类自己实现的不一样的函数，定义为抽象方法，子类实现，而Judge方法被成为钩子，默认返回true，而子类可以重写这个方法，这样就能让子类拥有自己的方法。但是这个也反应了模板方法的一个缺点，就是与策略模式相比，弹性不足。</p>
-<span id="more"></span>
-
-<p>设计模式-好莱坞模式</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">好莱坞模式：别调用我们，我们会调用你。</span><br></pre></td></tr></table></figure>
-
-<p>允许低层组件将自己挂钩到系统上，但是高层组件会决定什么时候和怎样使用这些低层组件。</p>
+<p>虽然在实现上 状态模式和策略模式以及模板方法有些相似 但是几个设计模式完全不一样，策略模式是将可以互换的行为封装起来，然后使用委托的方法决定使用哪一个行为，模板方法则是由子类决定具体的如何实现算法中的某些步骤，而算法的流程是给定的，而状态模式则封装的是基于状态的行为，并将行为委托到当前状态，由当前状态来决定具体行为。</p>
 ]]></content>
       <categories>
         <category>Design Pattern</category>
@@ -2058,26 +2066,6 @@ init─┬─Xvnc
  这一章里面，也抽象出了下面的3种设计原则：
 </code></pre>
 <p>1、封装变化<br>2、多用组合，少用继承<br>3、针对接口编程，不针对实现编程</p>
-]]></content>
-      <categories>
-        <category>Design Pattern</category>
-      </categories>
-      <tags>
-        <tag>设计模式</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>设计模式-状态模式</title>
-    <url>/2014/09/07/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E7%8A%B6%E6%80%81%E6%A8%A1%E5%BC%8F/</url>
-    <content><![CDATA[<p>状态模式是针对系统的状态转换的，其主要的定义如下：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">状态模式：允许对象在内部状态改变时改变他的行为，对象看起来好像修改了它的类。</span><br></pre></td></tr></table></figure>
-
-<p>为了方便状态转移 我们为状态定义一个通用的接口，然后每一种状态都实现这个接口，而在系统类中，通过构造函数，将系统本身传入状态类中，这样，每一种状态的改变，都可以在自己类的内部完成，同时提高了可扩展性：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">public interface State&#123;</span><br><span class="line">    public void des();</span><br><span class="line">    public void action();</span><br><span class="line">&#125;</span><br><span class="line">public class State1 implements State&#123;</span><br><span class="line">    Sys sys;</span><br><span class="line">    public Sate1(Sys s)</span><br><span class="line">    &#123;</span><br><span class="line">        this.sys=sys;</span><br><span class="line">    &#125;</span><br><span class="line">    public void des()&#123;</span><br><span class="line">        .../ implements</span><br><span class="line">    &#125;</span><br><span class="line">    public void action()&#123;</span><br><span class="line">        .../ change the state</span><br><span class="line">        sys.setState(s.getState2());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">public class State2 implements State&#123;</span><br><span class="line">    Sys sys;</span><br><span class="line">    public Sate2(Sys s)</span><br><span class="line">    &#123;</span><br><span class="line">        this.sys=sys;</span><br><span class="line">    &#125;</span><br><span class="line">    public void des()&#123;</span><br><span class="line">        .../ implements</span><br><span class="line">    &#125;</span><br><span class="line">    public void action()&#123;</span><br><span class="line">        .../ change the state</span><br><span class="line">        sys.setState(s.getState1());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">public class Sys &#123;</span><br><span class="line">    private State1 state1;</span><br><span class="line">    private State2 state2;</span><br><span class="line">    private State state;//record the system&#x27;s state</span><br><span class="line">    ....//state1 &amp; state2&#x27;s setter &amp; getter</span><br><span class="line">    public Sys(State state)</span><br><span class="line">    &#123;</span><br><span class="line">        this.state=state;</span><br><span class="line">    &#125;</span><br><span class="line">    public void setState(State state)</span><br><span class="line">    &#123;    </span><br><span class="line">        this.state=state;</span><br><span class="line">    &#125;    </span><br><span class="line">    public void aciton()</span><br><span class="line">    &#123;</span><br><span class="line">        state.action();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-
-<p>虽然在实现上 状态模式和策略模式以及模板方法有些相似 但是几个设计模式完全不一样，策略模式是将可以互换的行为封装起来，然后使用委托的方法决定使用哪一个行为，模板方法则是由子类决定具体的如何实现算法中的某些步骤，而算法的流程是给定的，而状态模式则封装的是基于状态的行为，并将行为委托到当前状态，由当前状态来决定具体行为。</p>
 ]]></content>
       <categories>
         <category>Design Pattern</category>
@@ -2290,6 +2278,18 @@ init─┬─Xvnc
         <tag>领域划分</tag>
         <tag>业务建模</tag>
         <tag>架构思考</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>几种简单的传统加密算法概述</title>
+    <url>/2013/11/10/%E5%87%A0%E7%A7%8D%E7%AE%80%E5%8D%95%E7%9A%84%E4%BC%A0%E7%BB%9F%E5%8A%A0%E5%AF%86%E7%AE%97%E6%B3%95%E6%A6%82%E8%BF%B0/</url>
+    <content><![CDATA[<p>本文只是概述几种简单的传统加密算法，没有DES,没有RSA，没有想象中的高端大气上档次的东东。。。但是都是很传统很经典的一些算法 首先，提到加密，比如加密一段文字，让其不可读，一般人首先会想到的是将其中的各个字符用其他一些特定的字符代替，比如，讲所有的A用C来表示，所有的C用E表示等等…其中早的代替算法就是由Julius Caesar发明的Caesar，它是用字母表中每个字母的之后的第三个字母来代替其本身的（C=E(3，p)=（p+3) mod 26)，但是，这种加密方式，很容易可以用穷举算法来破解，毕竟只有25种可能的情况.. 为了改进上诉算法，增加其破解的难度，我们不用简单的有序的替代方式，我们让替代无序化，用其中字母表的一个置换（置换：有限元素的集合S的置换就是S的所有元素的有序排列，且每个元素就出现一次，如S={a,b}其置换就只有两种:ab,ba），这样的话，就有26！种方式，大大的增加了破解的难度，但是这个世界聪明人太多，虽然26！很多，但是语言本身有一定的特性，每个字母在语言中出现的相对频率可以统计出来的，这样子，只要密文有了一定数量，就可以从统计学的角度，得到准确的字母匹配了。 上面的算法我们称之为单表代替，其实单表代替密码之所以较容易被攻破，因为它带有原始字母使用频率的一些统计学特征。有两种主要的方法可以减少代替密码里明文结构在密文中的残留度，一种是对明文中的多个字母一起加密，另一种是采用多表代替密码。 先说多字母代替吧，最著名的就是playfair密码，它把明文中的双字母音节作为一个单元并将其转换成密文的双字母音节，它是一个基于由密钥词构成的5<em>5的字母矩阵中的，一个例子，如密钥为monarchy，将其从左往右从上往下填入后，将剩余的字母依次填入剩下的空格，其中I/J填入同一个空格: <a href="http://static.oschina.net/uploads/img/201311/10123647_Q0Ls.png"><img src="http://static.oschina.net/uploads/img/201311/10123647_Q0Ls.png"></a> 对明文加密规则如下： 1 若p1 p2在同一行，对应密文c1 c2分别是紧靠p1 p2 右端的字母。其中第一列被看做是最后一列的右方。 2 若p1 p2在同一列，对应密文c1 c2分别是紧靠p1 p2 下方的字母。其中第一行被看做是最后一行的下方。 3 若p1 p2不在同一行，不在同一列，则c1 c2是由p1 p2确定的矩形的其他两角的字母，并且c1和p1， c2和p2同行。 4 若p1 p2相同，则插入一个事先约定的字母，比如Q 。 5 若明文字母数为奇数时，则在明文的末端添加某个事先约定的字母作为填充。 虽然相对简单加密，安全性有所提高，但是还是保留了明文语言的大部分结构特征，依旧可以破解出来，另一个有意思的多表代替密码是Hill密码，由数学家Lester Hill提出来的，其实就是利用了线性代数中的可逆矩阵，一个矩阵乘以它的逆矩阵得到单位矩阵，那么假设我们对密文每m个字母进行加密，那么将这m个字母在字母表中的序号写成矩阵形式设为P（如abc，[1,2,3])，密钥就是一个m阶的矩阵K，则C=P</em>K mod26，，解密的时候只要将密文乘上K的逆矩阵模26就可以了。该方法大大的增加了安全性。 上面的算法主要是多字母代替，现在再说说另一种多表代替的加密算法吧，其中最著名最简单的是vigenere密码，它的主要思想是对明文每m个字母进行加密，将每个字母加密，和Caesar算法一样，每个字母用后面的第k个字母来代替，只不过是m个字母中，每一个字母的k值不同，简单的说就是C=C0C1C2C3…=E(K,P)=(p0+k0）mod26,(p1+k1)mod26,(p2+k2)mod26…..但是这样的算法也是比较容易破解的，可以对相同字母的组合（如都是KATB）间隔数（存在偶然性，可以进行取舍），取公约数，那么m就是这个约数的某个因子，之后通过观察，如果长度为m，其实就是m个单表，进行分离就是m个单表分离，然后就很容易的破解了。。 另外一种加密手段，是选择一个与明文无关的，且与他长度一致的密钥，进行异或，解密的时候再一次异或就OK了，这也是基于两次异或同一个值，值不变的结论，大家可以尝试一下的~ 上面主要说的是替换技术，其实传统加密算法除了替换的技术，还有一种就是置换的技术了，简单的说就是将明文的序列打乱，比如栅栏技术，就是按照对角线的顺序写出明文，而按行的顺序读出作为密文。当然这种技术太简单了，更复杂一点的就是将消息一行行的写成矩阵块，然后按列读出，但是把列的次序打乱的，为了增加安全性，还可以多次置换来着。 传统加密高端一点的就是转轮机和隐写术了，转轮机是一种多重加密的技术，其主要的意义就是为DES加密提供了方向…隐写术是个神奇的东西，比如我们经常在电视剧中看到的隐形药水啥的…这些东西，就问度娘吧…..</p>
+]]></content>
+      <categories>
+        <category>Theory</category>
+      </categories>
+      <tags>
+        <tag>proof</tag>
       </tags>
   </entry>
 </search>
