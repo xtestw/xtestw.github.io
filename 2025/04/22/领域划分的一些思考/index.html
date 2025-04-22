@@ -1,0 +1,616 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 7.3.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="https://fonts.loli.net/css?family=Ubuntu:300,300italic,400,400italic,700,700italic%7CCourier+New:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.3/css/all.min.css" integrity="sha256-2H3fkXt6FEmrReK448mDVGKb3WW2ZZw35gI7vqHOE4Y=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" integrity="sha256-Vzbj7sDDS/woiFS3uNKo8eIuni59rjyNGtXfstRzStA=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"xtestw.com","root":"/","images":"/images","scheme":"Pisces","version":"8.7.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"gitalk","storage":true,"lazyload":false,"nav":null,"activeClass":"gitalk"},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+<meta name="description" content="领域划分的一些思考 为什么要划分对于一个业务系统，以业务为核心，随着业务发展，在业务和工程侧必然导致以下2种情况的发生  最终导致一个问题：业务支持效率降低 解决的方法： 拆 原则：组织&#x2F;系统围绕业务的发展进行迭代升级 目标：既需要解决当下业务支持效率降低的问题，又能够很好的支撑业务长期稳定发展。  对于业务初期，通常会采用大的单体工程方式支持早期的快速发展，但是明显的业务膨胀带来代码量的急剧攀升">
+<meta property="og:type" content="article">
+<meta property="og:title" content="领域划分的一些思考">
+<meta property="og:url" content="http://xtestw.com/2025/04/22/%E9%A2%86%E5%9F%9F%E5%88%92%E5%88%86%E7%9A%84%E4%B8%80%E4%BA%9B%E6%80%9D%E8%80%83/index.html">
+<meta property="og:site_name" content="XtestW&#39;s Blog">
+<meta property="og:description" content="领域划分的一些思考 为什么要划分对于一个业务系统，以业务为核心，随着业务发展，在业务和工程侧必然导致以下2种情况的发生  最终导致一个问题：业务支持效率降低 解决的方法： 拆 原则：组织&#x2F;系统围绕业务的发展进行迭代升级 目标：既需要解决当下业务支持效率降低的问题，又能够很好的支撑业务长期稳定发展。  对于业务初期，通常会采用大的单体工程方式支持早期的快速发展，但是明显的业务膨胀带来代码量的急剧攀升">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://xtestw.com/2025/04/22/images/%E6%88%91%E7%9A%84%E9%A2%86%E5%9F%9F%E8%A7%82-%E5%85%B3%E4%BA%8E%E9%A2%86%E5%9F%9F%E5%88%92%E5%88%86/out.png">
+<meta property="og:image" content="http://xtestw.com/2025/04/22/images/%E6%88%91%E7%9A%84%E9%A2%86%E5%9F%9F%E8%A7%82-%E5%85%B3%E4%BA%8E%E9%A2%86%E5%9F%9F%E5%88%92%E5%88%86/out-20240128124119498.png">
+<meta property="og:image" content="http://xtestw.com/2025/04/22/images/%E6%88%91%E7%9A%84%E9%A2%86%E5%9F%9F%E8%A7%82-%E5%85%B3%E4%BA%8E%E9%A2%86%E5%9F%9F%E5%88%92%E5%88%86/out-20240128124142246.png">
+<meta property="og:image" content="http://xtestw.com/2025/04/22/images/%E6%88%91%E7%9A%84%E9%A2%86%E5%9F%9F%E8%A7%82-%E5%85%B3%E4%BA%8E%E9%A2%86%E5%9F%9F%E5%88%92%E5%88%86/out-20240128124254574.png">
+<meta property="og:image" content="http://xtestw.com/2025/04/22/images/%E6%88%91%E7%9A%84%E9%A2%86%E5%9F%9F%E8%A7%82-%E5%85%B3%E4%BA%8E%E9%A2%86%E5%9F%9F%E5%88%92%E5%88%86/out-20240128124309730.png">
+<meta property="og:image" content="http://xtestw.com/2025/04/22/images/%E6%88%91%E7%9A%84%E9%A2%86%E5%9F%9F%E8%A7%82-%E5%85%B3%E4%BA%8E%E9%A2%86%E5%9F%9F%E5%88%92%E5%88%86/out-20240128124315874.png">
+<meta property="og:image" content="http://xtestw.com/2025/04/22/images/%E6%88%91%E7%9A%84%E9%A2%86%E5%9F%9F%E8%A7%82-%E5%85%B3%E4%BA%8E%E9%A2%86%E5%9F%9F%E5%88%92%E5%88%86/out-20240128124342659.png">
+<meta property="og:image" content="http://xtestw.com/2025/04/22/images/%E6%88%91%E7%9A%84%E9%A2%86%E5%9F%9F%E8%A7%82-%E5%85%B3%E4%BA%8E%E9%A2%86%E5%9F%9F%E5%88%92%E5%88%86/image-20250422122050404-5295655.png">
+<meta property="og:image" content="http://xtestw.com/2025/04/22/images/%E6%88%91%E7%9A%84%E9%A2%86%E5%9F%9F%E8%A7%82-%E5%85%B3%E4%BA%8E%E9%A2%86%E5%9F%9F%E5%88%92%E5%88%86/resize,w_1656,m_lfit,limit_0.png">
+<meta property="article:published_time" content="2025-04-22T08:16:38.000Z">
+<meta property="article:modified_time" content="2025-04-22T08:16:38.420Z">
+<meta property="article:author" content="xtestw">
+<meta property="article:tag" content="领域划分">
+<meta property="article:tag" content="业务建模">
+<meta property="article:tag" content="架构思考">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://xtestw.com/2025/04/22/images/%E6%88%91%E7%9A%84%E9%A2%86%E5%9F%9F%E8%A7%82-%E5%85%B3%E4%BA%8E%E9%A2%86%E5%9F%9F%E5%88%92%E5%88%86/out.png">
+
+
+<link rel="canonical" href="http://xtestw.com/2025/04/22/%E9%A2%86%E5%9F%9F%E5%88%92%E5%88%86%E7%9A%84%E4%B8%80%E4%BA%9B%E6%80%9D%E8%80%83/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://xtestw.com/2025/04/22/%E9%A2%86%E5%9F%9F%E5%88%92%E5%88%86%E7%9A%84%E4%B8%80%E4%BA%9B%E6%80%9D%E8%80%83/","path":"2025/04/22/领域划分的一些思考/","title":"领域划分的一些思考"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- blog_article_banner -->
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+<meta name="msvalidate.01" content="3C4547C38326EF91B680BBDFBC0AC931" />
+<meta name="360-site-verification" content="dfc59046d613abde699ce261c16bbc58" />
+<meta name="sogou_site_verification" content="tfVqHGohqj"/>
+<meta name="shenma-site-verification" content="d58ad9b11af72e2fc607a1fd9bcbcbcf_1588396059">
+<title>领域划分的一些思考 | XtestW's Blog</title>
+  
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-144813087-1"></script>
+  <script class="next-config" data-name="google_analytics" type="application/json">{"tracking_id":"UA-144813087-1","only_pageview":false}</script>
+  <script src="/js/third-party/analytics/google-analytics.js"></script>
+
+  <script src="/js/third-party/analytics/baidu-analytics.js"></script>
+  <script async src="https://hm.baidu.com/hm.js?5678ede667e5d471807033f33ed70e0e"></script>
+
+
+
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1217509255829092"
+     crossorigin="anonymous"></script>
+
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+<meta name="msvalidate.01" content="3C4547C38326EF91B680BBDFBC0AC931" />
+<meta name="360-site-verification" content="dfc59046d613abde699ce261c16bbc58" />
+<meta name="sogou_site_verification" content="tfVqHGohqj"/>
+<meta name="shenma-site-verification" content="d58ad9b11af72e2fc607a1fd9bcbcbcf_1588396059">
+
+
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-144813087-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-144813087-1');
+</script>
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+<link rel="alternate" href="/atom.xml" title="XtestW's Blog" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">XtestW's Blog</h1>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li>
+        <li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li>
+        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li>
+        <li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li>
+        <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A6%81%E5%88%92%E5%88%86"><span class="nav-number">1.</span> <span class="nav-text">为什么要划分</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%80%8E%E4%B9%88%E5%88%92%E5%88%86"><span class="nav-number">2.</span> <span class="nav-text">怎么划分</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%80%8E%E4%B9%88%E8%AF%84%E4%BB%B7%E5%88%92%E5%88%86%E5%A5%BD%E5%9D%8F"><span class="nav-number">3.</span> <span class="nav-text">怎么评价划分好坏</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%8B%86%E4%BA%86%E4%B9%8B%E5%90%8E"><span class="nav-number">4.</span> <span class="nav-text">拆了之后</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-overview">
+            <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="xtestw"
+      src="/images/avatar.jpg">
+  <p class="site-author-name" itemprop="name">xtestw</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">47</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">13</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">21</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/xtestw" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;xtestw" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:xuwei8091@gmail.com" title="E-Mail → mailto:xuwei8091@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+<div class="sidebar-adsense">
+  <ins class="adsbygoogle"
+       style="display:block"
+       data-ad-client="ca-pub-1217509255829092"
+       data-ad-slot="8371441508"
+       data-ad-format="auto"
+       data-full-width-responsive="true"></ins>
+  <script>
+       (adsbygoogle = window.adsbygoogle || []).push({});
+  </script>
+</div> 
+          </div>
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+  <a href="https://github.com/xtestw" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://xtestw.com/2025/04/22/%E9%A2%86%E5%9F%9F%E5%88%92%E5%88%86%E7%9A%84%E4%B8%80%E4%BA%9B%E6%80%9D%E8%80%83/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="xtestw">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="XtestW's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          领域划分的一些思考
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2025-04-22 16:16:38" itemprop="dateCreated datePublished" datetime="2025-04-22T16:16:38+08:00">2025-04-22</time>
+    </span>
+
+  
+    <span id="/2025/04/22/%E9%A2%86%E5%9F%9F%E5%88%92%E5%88%86%E7%9A%84%E4%B8%80%E4%BA%9B%E6%80%9D%E8%80%83/" class="post-meta-item leancloud_visitors" data-flag-title="领域划分的一些思考" title="阅读次数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span class="leancloud-visitors-count"></span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <p><strong>领域划分的一些思考</strong></p>
+<h3 id="为什么要划分"><a href="#为什么要划分" class="headerlink" title="为什么要划分"></a><strong>为什么要划分</strong></h3><p>对于一个业务系统，以业务为核心，随着业务发展，在业务和工程侧必然导致以下2种情况的发生</p>
+<p><img src="../images/%E6%88%91%E7%9A%84%E9%A2%86%E5%9F%9F%E8%A7%82-%E5%85%B3%E4%BA%8E%E9%A2%86%E5%9F%9F%E5%88%92%E5%88%86/out.png" alt="img"></p>
+<p>最终导致一个问题：业务支持效率降低</p>
+<p>解决的方法： <strong>拆</strong></p>
+<p>原则：组织/系统围绕业务的发展进行迭代升级</p>
+<p>目标：既需要解决当下业务支持效率降低的问题，又能够很好的支撑业务长期稳定发展。 </p>
+<p>对于业务初期，通常会采用大的单体工程方式支持早期的快速发展，但是明显的业务膨胀带来代码量的急剧攀升，团队规模的扩大带来协作风险的增加，很难继续支持业务高速发展，故需要进行相应的领域拆分，以保持对业务的迭代的高效支撑，而 DDD 提供了一种从业务出发的建模方法，能很好满足我们的目标要求，故通过领域化，分而治之，进行我们的系统建设。</p>
+<p><img src="../images/%E6%88%91%E7%9A%84%E9%A2%86%E5%9F%9F%E8%A7%82-%E5%85%B3%E4%BA%8E%E9%A2%86%E5%9F%9F%E5%88%92%E5%88%86/out-20240128124119498.png" alt="img" style="zoom:50%;" /><img src="../images/%E6%88%91%E7%9A%84%E9%A2%86%E5%9F%9F%E8%A7%82-%E5%85%B3%E4%BA%8E%E9%A2%86%E5%9F%9F%E5%88%92%E5%88%86/out-20240128124142246.png" alt="img" style="zoom:50%;" /></p>
+<h3 id="怎么划分"><a href="#怎么划分" class="headerlink" title="怎么划分"></a><strong>怎么划分</strong></h3><p><img src="../images/%E6%88%91%E7%9A%84%E9%A2%86%E5%9F%9F%E8%A7%82-%E5%85%B3%E4%BA%8E%E9%A2%86%E5%9F%9F%E5%88%92%E5%88%86/out-20240128124254574.png" alt="img"></p>
+<p><strong>目的：</strong>保持对业务的迭代的高效支撑</p>
+<p><strong>目标：</strong></p>
+<p>对于领域的划分，一定是围绕着业务进行的，而最终的划分一定满足4个要求</p>
+<ul>
+<li>全面：能够涵盖直播全部的业务，足够支撑直播大域所需能力</li>
+<li>清晰：领域职责和边界足够清晰，领域内实体和能力的定义足够明确</li>
+<li>应变：稳定支撑现有业务的同时，能够高效的应变业务的变化，维持其迭代效率</li>
+<li>粒度：符合当前业务&amp;团队规模</li>
+</ul>
+<p><strong>原则：</strong></p>
+<ul>
+<li><p>领域化原则</p>
+<ul>
+<li>互斥——垂直领域互斥、子领域间互斥<strong>：</strong>一级领域参考电商线 要互斥（如领域：营销、交易、物流、售后），二级领域参考领域内模块划分 要互斥（如商品领域内的二级子域，包括商品、库存、价格），保证外部边界清晰；</li>
+<li>分层——领域内上下分层、并保持一致：某一个领域在开发服务的分层次对应，包括API/Gateway接入层、Service微服务、异步任务、数据库、API/Page的Path，具体参考开发代码规范环节对不同层的落地规则如何保持一致，保证垂直边界清晰；</li>
+<li>重用——领域间依赖、重用其他领域能力<strong>：</strong>域和域之间保持强依赖，对其他领域依赖的需求一定要在其他领域提诉求实现，反之自己的域也要承接其他所有域的依赖，以构建闭环的领域生命体；</li>
+</ul>
+</li>
+<li><p>领域定义原则，回答下列问题(只要你能回答这3个问题，你就是个领域，至于要不要拆除独立定义，得看粒度)：</p>
+<ul>
+<li>领域职责（愿景）是什么？</li>
+<li>领域的问题空间边界是什么？</li>
+<li>领域核心实体是什么？</li>
+</ul>
+</li>
+</ul>
+<p><strong>拆分方法：</strong></p>
+<p><img src="../images/%E6%88%91%E7%9A%84%E9%A2%86%E5%9F%9F%E8%A7%82-%E5%85%B3%E4%BA%8E%E9%A2%86%E5%9F%9F%E5%88%92%E5%88%86/out-20240128124309730.png" alt="img"></p>
+<p>需要明确的是我们做的是业务建模工作，首先需要的就是全面了解业务，了解业务的方法有很多种，比如事件风暴，比如uml建模，比如阅读代码，甚至是请教领域专家，但是在做划分之前，一定要保证对业务的全面了解，并且对业务发展有足够的前瞻意识，以顶层视角来进行领域划分定义。下图只是展示了2种参考路径，有个明确共识，<strong>领域是基于业务认知结合现状拆聚出来的，最终团队达成一致。</strong>拆是为了保证摸清全部业务脉络，聚是为了寻找共性，进行抽象。最终满足上述原则和目标。</p>
+<p><img src="../images/%E6%88%91%E7%9A%84%E9%A2%86%E5%9F%9F%E8%A7%82-%E5%85%B3%E4%BA%8E%E9%A2%86%E5%9F%9F%E5%88%92%E5%88%86/out-20240128124315874.png" alt="img"></p>
+<p>【洞察业务】对于具体的业务，我们基于已有的了解上，可以通过白盒化的方式，完整的梳理业务的业务流，</p>
+<p>【描述业务】我们可以用直播业务来说明下，下面的框图对直播业务进行完整描述：</p>
+<p><img src="../images/%E6%88%91%E7%9A%84%E9%A2%86%E5%9F%9F%E8%A7%82-%E5%85%B3%E4%BA%8E%E9%A2%86%E5%9F%9F%E5%88%92%E5%88%86/out-20240128124342659.png" alt="img"></p>
+<ol>
+<li><p><strong>以上框图可以完整描述一级领域直播的全部业务</strong>。直播间是一级直播领域的核心实体，对于其他一级领域也是以直播间作为聚合根提供服务，直播间的实体包含主播信息和直播间信息。整个业务围绕直播间展开，以此为基础进行分发、消费、互动</p>
+</li>
+<li><p><strong>能够支撑业务发展</strong>，各框图其边界清晰，有自己明确的定位和业务目标，业务规则均可聚合在各框图，业务侧的动作均是在此流程上建立</p>
+</li>
+<li><p><strong>能够服务到全部生态角色，</strong>生态参与者(主播/公会)均有独立明确领域为其提供服务能力</p>
+</li>
+<li><p><strong>符合当前团队/业务规模，</strong>这些领域能否细化？答案是必然的，但是细化之后不可避免的带来资源的浪费(服务过多，负载较低)和维护成本的增加(单人维护的服务数过多)，得不偿失，因此我们认为以此粒度基本符合当下团队规模。</p>
+</li>
+</ol>
+<p>【适配业务】对于这块，我们还是希望领域的划分与业务的发展目标保持一致，这里既包含团队分工，也包含业务目标。 我们会尝试以领域愿景(愿景本身可以随业务发展而迭代)串联业务和工程能力， 故以此为基础，进行领域划分，明确职责，<strong>团队达成一致</strong></p>
+<p>我们尝试用Q3的需要占比已经需求跨领域的数量，来浅浅的示意我们这种领域划分的方式与实际业务的契合程度，仅做参考(不会是唯一衡量指标)</p>
+<h3 id="怎么评价划分好坏"><a href="#怎么评价划分好坏" class="headerlink" title="怎么评价划分好坏"></a><strong>怎么评价划分好坏</strong></h3><p><img src="../images/%E6%88%91%E7%9A%84%E9%A2%86%E5%9F%9F%E8%A7%82-%E5%85%B3%E4%BA%8E%E9%A2%86%E5%9F%9F%E5%88%92%E5%88%86/image-20250422122050404-5295655.png" alt="image-20250422122050404"></p>
+<p>关于指标的定义，回到划分的目的上，为了保持对业务的迭代的高效支撑。因此，可以从这个指标三角形的角度来权衡领域划分的目标和收益</p>
+<ul>
+<li>稳定性</li>
+<li>研发效率</li>
+<li>应变能力</li>
+</ul>
+<p>事实上，领域的划分是一个相对动态的过程，在这个过程中过，我们会持续用需求的闭环率、各领域的需求pd数、工程代码量、资源分布等维度去动态观察划分的合理性。</p>
+<h3 id="拆了之后"><a href="#拆了之后" class="headerlink" title="拆了之后"></a><strong>拆了之后</strong></h3><p>领域化的起点是针对当前系统迭代效率&amp;协作风险和业务高速灵活发展之间的矛盾，提出的一种解决方案，但是领域化不仅仅是工程技术层面的问题，更多的是需要围绕业务领域出发，经过领域化分拆重塑脉络之后，也是希望技术同学能够在各自领域多一些业务知识的积累和沉淀，能够有自己的业务思考，从领域愿景出发，更好的用技术去赋能更多的可能性，助力业务起飞，而不单单是实现产品1/2/3功能的工具人。</p>
+<p><img src="../images/%E6%88%91%E7%9A%84%E9%A2%86%E5%9F%9F%E8%A7%82-%E5%85%B3%E4%BA%8E%E9%A2%86%E5%9F%9F%E5%88%92%E5%88%86/resize,w_1656,m_lfit,limit_0.png" alt="9ff5612cadf163455c67467b538e7a6f"></p>
+
+<div class="post-adsense">
+  <ins class="adsbygoogle"
+       style="display:block; text-align:center;"
+       data-ad-layout="in-article"
+       data-ad-format="fluid"
+       data-ad-client="ca-pub-1217509255829092"
+       data-ad-slot="2043800323"></ins>
+  <script>
+       (adsbygoogle = window.adsbygoogle || []).push({});
+  </script>
+</div> 
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+<div class="post-adsense">
+  <ins class="adsbygoogle"
+       style="display:block; min-height:280px;"
+       data-ad-client="ca-pub-1217509255829092"
+       data-ad-slot="2043800323"
+       data-ad-format="auto"
+       data-full-width-responsive="true"></ins>
+  <script>
+    // 检查广告是否已经初始化
+    var ad = document.currentScript.previousElementSibling;
+    if (!ad.hasAttribute('data-adsbygoogle-status')) {
+      (adsbygoogle = window.adsbygoogle || []).push({});
+    }
+  </script>
+</div> 
+          <div class="reward-container">
+  <div></div>
+  <button>
+    赞赏
+  </button>
+  <div class="post-reward">
+      <div>
+        <img src="/images/wechatpay.png" alt="xtestw 微信">
+        <span>微信</span>
+      </div>
+
+  </div>
+</div>
+
+          <div class="followme">
+  <span>欢迎关注我的其它发布渠道</span>
+
+  <div class="social-list">
+
+      <div class="social-item">
+        <a target="_blank" class="social-link" href="/atom.xml">
+          <span class="icon">
+            <i class="fa fa-rss"></i>
+          </span>
+
+          <span class="label">RSS</span>
+        </a>
+      </div>
+  </div>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/%E9%A2%86%E5%9F%9F%E5%88%92%E5%88%86/" rel="tag"># 领域划分</a>
+              <a href="/tags/%E4%B8%9A%E5%8A%A1%E5%BB%BA%E6%A8%A1/" rel="tag"># 业务建模</a>
+              <a href="/tags/%E6%9E%B6%E6%9E%84%E6%80%9D%E8%80%83/" rel="tag"># 架构思考</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2021/03/15/DDD-%E9%A2%86%E5%9F%9F%E5%BB%BA%E6%A8%A1/" rel="prev" title="DDD 领域建模笔记">
+                  <i class="fa fa-chevron-left"></i> DDD 领域建模笔记
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments gitalk-container"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="beian"><a href="https://beian.miit.gov.cn/" rel="noopener" target="_blank">苏ICP备19065574号-1 </a>
+  </div>
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2025</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">xtestw</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/pisces/" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div> 
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" integrity="sha256-yt2kYMy0w8AbtF89WXb2P1rfjcP/HTHLT7097U8Y5b8=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+
+  
+
+
+  <script class="next-config" data-name="leancloud_visitors" type="application/json">{"enable":true,"app_id":"P8HgKTTYwmpQX0NS1UFfXvUA-gzGzoHsz","app_key":"jlQNHhRgIup0JU78DCDJiX2Q","server_url":"https://p8hgktty.lc-cn-n1-shared.com","security":true}</script>
+  <script src="/js/third-party/statistics/lean-analytics.js"></script>
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">false</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"none","js":{"url":"https://cdn.jsdelivr.net/npm/mathjax@3.2.0/es5/tex-mml-chtml.js","integrity":"sha256-r+3itOMtGGjap0x+10hu6jW/gZCzxHsoKrOd7gyRSGY="}}</script>
+<script src="/js/third-party/math/mathjax.js"></script>
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1.7.2/dist/gitalk.css" integrity="sha256-AJnUHL7dBv6PGaeyPQJcgQPDjt/Hn/PvYZde1iqfp8U=" crossorigin="anonymous">
+
+<script class="next-config" data-name="gitalk" type="application/json">{"enable":true,"github_id":"xtestw","repo":"xtestw.github.io","client_id":"76ac809eebae5aded61d","client_secret":"a9c003726fcdec4f8a58716dd939d7b257c6b72c","admin_user":"xtestw","distraction_free_mode":true,"proxy":"https://cors-anywhere.azm.workers.dev/https://github.com/login/oauth/access_token","language":null,"js":{"url":"https://cdn.jsdelivr.net/npm/gitalk@1.7.2/dist/gitalk.min.js","integrity":"sha256-Pmj85ojLaPOWwRtlMJwmezB/Qg8BzvJp5eTzvXaYAfA="},"path_md5":"a73cf41a60b195db18e692b0130277fb"}</script>
+<script src="/js/third-party/comments/gitalk.js"></script>
+
+<div class="fixed-bottom-adsense" id="fixedBottomAd">
+  <div class="close-btn" onclick="document.getElementById('fixedBottomAd').style.display='none'">×</div>
+  <ins class="adsbygoogle"
+       style="display:block; width:100%; height:90px;"
+       data-ad-client="ca-pub-1217509255829092"
+       data-ad-slot="9558262455"
+       data-ad-format="horizontal"
+       data-full-width-responsive="true"></ins>
+</div>
+<script>
+  // 等待 DOM 完全加载
+  window.addEventListener('DOMContentLoaded', function() {
+    var adContainer = document.getElementById('fixedBottomAd');
+    
+    // 检查是否为PC端
+    if(window.innerWidth >= 992) {
+      setTimeout(function() {
+        try {
+          // 确保广告容器可见
+          adContainer.style.display = 'block';
+          
+          // 检查是否应该显示广告
+          var lastClosedTime = localStorage.getItem('adClosedTime');
+          if (!lastClosedTime || Date.now() - lastClosedTime > 30 * 60 * 1000) {
+            (adsbygoogle = window.adsbygoogle || []).push({
+              onerror: function(err) {
+                console.error('Ad load error for slot 9558262455:', err);
+                adContainer.style.display = 'none';
+              }
+            });
+          } else {
+            adContainer.style.display = 'none';
+          }
+        } catch(e) {
+          console.error('Ad initialization error for slot 9558262455:', e);
+          adContainer.style.display = 'none';
+        }
+      }, 2000);
+    }
+  });
+  
+  // 关闭按钮事件
+  document.querySelector('.close-btn').addEventListener('click', function(e) {
+    e.stopPropagation();
+    localStorage.setItem('adClosedTime', Date.now());
+  });
+</script> 
+</body>
+</html>

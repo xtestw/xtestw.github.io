@@ -222,7 +222,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">46</span>
+          <span class="site-state-item-count">47</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -233,7 +233,7 @@
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">18</span>
+        <span class="site-state-item-count">21</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -284,6 +284,141 @@
 
 
     <div class="main-inner index posts-expand">
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://xtestw.com/2025/04/22/%E9%A2%86%E5%9F%9F%E5%88%92%E5%88%86%E7%9A%84%E4%B8%80%E4%BA%9B%E6%80%9D%E8%80%83/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="xtestw">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="XtestW's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2025/04/22/%E9%A2%86%E5%9F%9F%E5%88%92%E5%88%86%E7%9A%84%E4%B8%80%E4%BA%9B%E6%80%9D%E8%80%83/" class="post-title-link" itemprop="url">领域划分的一些思考</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2025-04-22 16:16:38" itemprop="dateCreated datePublished" datetime="2025-04-22T16:16:38+08:00">2025-04-22</time>
+    </span>
+
+  
+    <span id="/2025/04/22/%E9%A2%86%E5%9F%9F%E5%88%92%E5%88%86%E7%9A%84%E4%B8%80%E4%BA%9B%E6%80%9D%E8%80%83/" class="post-meta-item leancloud_visitors" data-flag-title="领域划分的一些思考" title="阅读次数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span class="leancloud-visitors-count"></span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p><strong>领域划分的一些思考</strong></p>
+<h3 id="为什么要划分"><a href="#为什么要划分" class="headerlink" title="为什么要划分"></a><strong>为什么要划分</strong></h3><p>对于一个业务系统，以业务为核心，随着业务发展，在业务和工程侧必然导致以下2种情况的发生</p>
+<p><img src="../images/%E6%88%91%E7%9A%84%E9%A2%86%E5%9F%9F%E8%A7%82-%E5%85%B3%E4%BA%8E%E9%A2%86%E5%9F%9F%E5%88%92%E5%88%86/out.png" alt="img"></p>
+<p>最终导致一个问题：业务支持效率降低</p>
+<p>解决的方法： <strong>拆</strong></p>
+<p>原则：组织/系统围绕业务的发展进行迭代升级</p>
+<p>目标：既需要解决当下业务支持效率降低的问题，又能够很好的支撑业务长期稳定发展。 </p>
+<p>对于业务初期，通常会采用大的单体工程方式支持早期的快速发展，但是明显的业务膨胀带来代码量的急剧攀升，团队规模的扩大带来协作风险的增加，很难继续支持业务高速发展，故需要进行相应的领域拆分，以保持对业务的迭代的高效支撑，而 DDD 提供了一种从业务出发的建模方法，能很好满足我们的目标要求，故通过领域化，分而治之，进行我们的系统建设。</p>
+<p><img src="../images/%E6%88%91%E7%9A%84%E9%A2%86%E5%9F%9F%E8%A7%82-%E5%85%B3%E4%BA%8E%E9%A2%86%E5%9F%9F%E5%88%92%E5%88%86/out-20240128124119498.png" alt="img" style="zoom:50%;" /><img src="../images/%E6%88%91%E7%9A%84%E9%A2%86%E5%9F%9F%E8%A7%82-%E5%85%B3%E4%BA%8E%E9%A2%86%E5%9F%9F%E5%88%92%E5%88%86/out-20240128124142246.png" alt="img" style="zoom:50%;" /></p>
+<h3 id="怎么划分"><a href="#怎么划分" class="headerlink" title="怎么划分"></a><strong>怎么划分</strong></h3><p><img src="../images/%E6%88%91%E7%9A%84%E9%A2%86%E5%9F%9F%E8%A7%82-%E5%85%B3%E4%BA%8E%E9%A2%86%E5%9F%9F%E5%88%92%E5%88%86/out-20240128124254574.png" alt="img"></p>
+<p><strong>目的：</strong>保持对业务的迭代的高效支撑</p>
+<p><strong>目标：</strong></p>
+<p>对于领域的划分，一定是围绕着业务进行的，而最终的划分一定满足4个要求</p>
+<ul>
+<li>全面：能够涵盖直播全部的业务，足够支撑直播大域所需能力</li>
+<li>清晰：领域职责和边界足够清晰，领域内实体和能力的定义足够明确</li>
+<li>应变：稳定支撑现有业务的同时，能够高效的应变业务的变化，维持其迭代效率</li>
+<li>粒度：符合当前业务&amp;团队规模</li>
+</ul>
+<p><strong>原则：</strong></p>
+<ul>
+<li><p>领域化原则</p>
+<ul>
+<li>互斥——垂直领域互斥、子领域间互斥<strong>：</strong>一级领域参考电商线 要互斥（如领域：营销、交易、物流、售后），二级领域参考领域内模块划分 要互斥（如商品领域内的二级子域，包括商品、库存、价格），保证外部边界清晰；</li>
+<li>分层——领域内上下分层、并保持一致：某一个领域在开发服务的分层次对应，包括API/Gateway接入层、Service微服务、异步任务、数据库、API/Page的Path，具体参考开发代码规范环节对不同层的落地规则如何保持一致，保证垂直边界清晰；</li>
+<li>重用——领域间依赖、重用其他领域能力<strong>：</strong>域和域之间保持强依赖，对其他领域依赖的需求一定要在其他领域提诉求实现，反之自己的域也要承接其他所有域的依赖，以构建闭环的领域生命体；</li>
+</ul>
+</li>
+<li><p>领域定义原则，回答下列问题(只要你能回答这3个问题，你就是个领域，至于要不要拆除独立定义，得看粒度)：</p>
+<ul>
+<li>领域职责（愿景）是什么？</li>
+<li>领域的问题空间边界是什么？</li>
+<li>领域核心实体是什么？</li>
+</ul>
+</li>
+</ul>
+<p><strong>拆分方法：</strong></p>
+<p><img src="../images/%E6%88%91%E7%9A%84%E9%A2%86%E5%9F%9F%E8%A7%82-%E5%85%B3%E4%BA%8E%E9%A2%86%E5%9F%9F%E5%88%92%E5%88%86/out-20240128124309730.png" alt="img"></p>
+<p>需要明确的是我们做的是业务建模工作，首先需要的就是全面了解业务，了解业务的方法有很多种，比如事件风暴，比如uml建模，比如阅读代码，甚至是请教领域专家，但是在做划分之前，一定要保证对业务的全面了解，并且对业务发展有足够的前瞻意识，以顶层视角来进行领域划分定义。下图只是展示了2种参考路径，有个明确共识，<strong>领域是基于业务认知结合现状拆聚出来的，最终团队达成一致。</strong>拆是为了保证摸清全部业务脉络，聚是为了寻找共性，进行抽象。最终满足上述原则和目标。</p>
+<p><img src="../images/%E6%88%91%E7%9A%84%E9%A2%86%E5%9F%9F%E8%A7%82-%E5%85%B3%E4%BA%8E%E9%A2%86%E5%9F%9F%E5%88%92%E5%88%86/out-20240128124315874.png" alt="img"></p>
+<p>【洞察业务】对于具体的业务，我们基于已有的了解上，可以通过白盒化的方式，完整的梳理业务的业务流，</p>
+<p>【描述业务】我们可以用直播业务来说明下，下面的框图对直播业务进行完整描述：</p>
+<p><img src="../images/%E6%88%91%E7%9A%84%E9%A2%86%E5%9F%9F%E8%A7%82-%E5%85%B3%E4%BA%8E%E9%A2%86%E5%9F%9F%E5%88%92%E5%88%86/out-20240128124342659.png" alt="img"></p>
+<ol>
+<li><p><strong>以上框图可以完整描述一级领域直播的全部业务</strong>。直播间是一级直播领域的核心实体，对于其他一级领域也是以直播间作为聚合根提供服务，直播间的实体包含主播信息和直播间信息。整个业务围绕直播间展开，以此为基础进行分发、消费、互动</p>
+</li>
+<li><p><strong>能够支撑业务发展</strong>，各框图其边界清晰，有自己明确的定位和业务目标，业务规则均可聚合在各框图，业务侧的动作均是在此流程上建立</p>
+</li>
+<li><p><strong>能够服务到全部生态角色，</strong>生态参与者(主播/公会)均有独立明确领域为其提供服务能力</p>
+</li>
+<li><p><strong>符合当前团队/业务规模，</strong>这些领域能否细化？答案是必然的，但是细化之后不可避免的带来资源的浪费(服务过多，负载较低)和维护成本的增加(单人维护的服务数过多)，得不偿失，因此我们认为以此粒度基本符合当下团队规模。</p>
+</li>
+</ol>
+<p>【适配业务】对于这块，我们还是希望领域的划分与业务的发展目标保持一致，这里既包含团队分工，也包含业务目标。 我们会尝试以领域愿景(愿景本身可以随业务发展而迭代)串联业务和工程能力， 故以此为基础，进行领域划分，明确职责，<strong>团队达成一致</strong></p>
+<p>我们尝试用Q3的需要占比已经需求跨领域的数量，来浅浅的示意我们这种领域划分的方式与实际业务的契合程度，仅做参考(不会是唯一衡量指标)</p>
+<h3 id="怎么评价划分好坏"><a href="#怎么评价划分好坏" class="headerlink" title="怎么评价划分好坏"></a><strong>怎么评价划分好坏</strong></h3><p><img src="../images/%E6%88%91%E7%9A%84%E9%A2%86%E5%9F%9F%E8%A7%82-%E5%85%B3%E4%BA%8E%E9%A2%86%E5%9F%9F%E5%88%92%E5%88%86/image-20250422122050404-5295655.png" alt="image-20250422122050404"></p>
+<p>关于指标的定义，回到划分的目的上，为了保持对业务的迭代的高效支撑。因此，可以从这个指标三角形的角度来权衡领域划分的目标和收益</p>
+<ul>
+<li>稳定性</li>
+<li>研发效率</li>
+<li>应变能力</li>
+</ul>
+<p>事实上，领域的划分是一个相对动态的过程，在这个过程中过，我们会持续用需求的闭环率、各领域的需求pd数、工程代码量、资源分布等维度去动态观察划分的合理性。</p>
+<h3 id="拆了之后"><a href="#拆了之后" class="headerlink" title="拆了之后"></a><strong>拆了之后</strong></h3><p>领域化的起点是针对当前系统迭代效率&amp;协作风险和业务高速灵活发展之间的矛盾，提出的一种解决方案，但是领域化不仅仅是工程技术层面的问题，更多的是需要围绕业务领域出发，经过领域化分拆重塑脉络之后，也是希望技术同学能够在各自领域多一些业务知识的积累和沉淀，能够有自己的业务思考，从领域愿景出发，更好的用技术去赋能更多的可能性，助力业务起飞，而不单单是实现产品1/2/3功能的工具人。</p>
+<p><img src="../images/%E6%88%91%E7%9A%84%E9%A2%86%E5%9F%9F%E8%A7%82-%E5%85%B3%E4%BA%8E%E9%A2%86%E5%9F%9F%E5%88%92%E5%88%86/resize,w_1656,m_lfit,limit_0.png" alt="9ff5612cadf163455c67467b538e7a6f"></p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
 
     
 
@@ -1182,121 +1317,6 @@
 </ol>
 <p> <code>javassist</code> 使用方法参考： <a target="_blank" rel="noopener" href="https://jboss-javassist.github.io/javassist/tutorial/tutorial.html">https://jboss-javassist.github.io/javassist/tutorial/tutorial.html</a> 附上测试代码，修改一个方法</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">      javassist.tools.reflect.<span class="type">Loader</span> <span class="variable">cl</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">javassist</span>.tools.reflect.Loader();</span><br><span class="line">      <span class="type">ClassPool</span> <span class="variable">pool</span> <span class="operator">=</span> ClassPool.getDefault();</span><br><span class="line">      pool.insertClassPath(<span class="string">&quot;/tmp/aa/&quot;</span>);</span><br><span class="line">      <span class="type">CtClass</span> <span class="variable">cc</span> <span class="operator">=</span> pool.get(<span class="string">&quot;com.facebook.ads.internal.d.g&quot;</span>);</span><br><span class="line">      <span class="type">CtMethod</span> <span class="variable">ctmethod</span> <span class="operator">=</span> cc.getDeclaredMethod(<span class="string">&quot;c&quot;</span>);</span><br><span class="line">      cc.getDeclaredField(<span class="string">&quot;c&quot;</span>);</span><br><span class="line">      <span class="comment">// getCode()即为需要替换的的代码</span></span><br><span class="line">      ctmethod.setBody(getCode());</span><br><span class="line">      cc.writeFile(<span class="string">&quot;/tmp/aa/&quot;</span>);</span><br><span class="line">    &#125; <span class="keyword">catch</span> (CannotCompileException e) &#123;</span><br><span class="line">      e.printStackTrace();</span><br><span class="line">    &#125; <span class="keyword">catch</span> (NotFoundException e) &#123;</span><br><span class="line">      e.printStackTrace();</span><br><span class="line">    &#125; <span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">      e.printStackTrace();</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://xtestw.com/2016/05/24/rsa-e6-95-b4-e7-90-86/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.jpg">
-      <meta itemprop="name" content="xtestw">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="XtestW's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2016/05/24/rsa-e6-95-b4-e7-90-86/" class="post-title-link" itemprop="url">RSA整理</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2016-05-24 23:17:24" itemprop="dateCreated datePublished" datetime="2016-05-24T23:17:24+08:00">2016-05-24</time>
-    </span>
-      <span class="post-meta-item">
-        <span class="post-meta-item-icon">
-          <i class="far fa-calendar-check"></i>
-        </span>
-        <span class="post-meta-item-text">更新于</span>
-        <time title="修改时间：2025-01-01 01:54:51" itemprop="dateModified" datetime="2025-01-01T01:54:51+08:00">2025-01-01</time>
-      </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">分类于</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/Theory/" itemprop="url" rel="index"><span itemprop="name">Theory</span></a>
-        </span>
-    </span>
-
-  
-    <span id="/2016/05/24/rsa-e6-95-b4-e7-90-86/" class="post-meta-item leancloud_visitors" data-flag-title="RSA整理" title="阅读次数">
-      <span class="post-meta-item-icon">
-        <i class="far fa-eye"></i>
-      </span>
-      <span class="post-meta-item-text">阅读次数：</span>
-      <span class="leancloud-visitors-count"></span>
-    </span>
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p>最近的论文用到了RSA相关的东西，做一个整理。</p>
-<ul>
-<li><a href="#toc_0">RSA</a><ul>
-<li>  <a href="#toc_1">流程图</a></li>
-<li>  <a href="#toc_2">选取2个质数p、q</a></li>
-<li>  <a href="#toc_3">计算n = p * q</a></li>
-<li>  <a href="#toc_4">计算欧拉函数 φ(n)</a></li>
-<li>  <a href="#toc_5">选择加密密钥 e</a></li>
-<li>  <a href="#toc_6">计算解密密钥 d</a></li>
-<li>  <a href="#toc_7">加密解密</a></li>
-</ul>
-</li>
-</ul>
-<h2 id="流程图"><a href="#流程图" class="headerlink" title="流程图"></a>流程图</h2><ul>
-<li>  密钥生成过程： <img src="http://imgdata.hoop8.com/1605/3863736210165.png" alt="RSA"></li>
-<li>  加密解密过程： <img src="http://imgdata.hoop8.com/1605/1503736210165.png" alt="RSA"></li>
-</ul>
-<h2 id="选取2个质数p、q"><a href="#选取2个质数p、q" class="headerlink" title="选取2个质数p、q"></a>选取2个质数p、q</h2><p>\(RSA\)算法的主要就是基于一个十分简单的数论事实：将两个大素数相乘十分容易，但是想要对其乘积进行因式分解却极其困难。 同时为了增强强度，\(p-1\)和\(q-1\)的最大公因子要小 质数的选取方法：</p>
-<ul>
-<li>  随机搜索法随机产生一个奇数 \(p_1\) 进行素数测试,若是素数,则结束;否则,重新随机产生一个奇数 \(p_2\) 进行素性测试,直至找到一个素数 \(p_t\)。</li>
-<li>  随机递增搜索法随机产生一个奇数,对以该数为起点的奇数依次进行测试,直至找到一个素数。这种方法相对于随机搜索法，在速度上有一定的提高，但是并没有本质上的区别</li>
-</ul>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2016/05/24/rsa-e6-95-b4-e7-90-86/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
       
     </div>
 
