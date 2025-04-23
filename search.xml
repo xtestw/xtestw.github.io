@@ -1,26 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>AC 自动机</title>
-    <url>/2014/07/07/AC%20%E8%87%AA%E5%8A%A8%E6%9C%BA/</url>
-    <content><![CDATA[<p>AC 自动机主要有3个步骤：</p>
-<ol>
-<li>构造trie树</li>
-<li>在trie树的基础上，添加失败指针，其添加方法就是一句话：由父亲节点开始，沿着失败指针向上找，一直找到一个节点p的next[i]不为空或者到根节点，把当前节点的next[i]的失败指针指向p的next[i] </li>
-<li>进行模式串的匹配</li>
-</ol>
-<p> hdu 2222 代码，可兼作模板： </p>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="comment">/* * Author: xtestw </span></span><br><span class="line"><span class="comment">	* Created Time: 2014/7/7 8:54:30 </span></span><br><span class="line"><span class="comment">	* File Name: 2222.cpp **/</span> </span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;cstring&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;string&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;cstdlib&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="type">const</span> <span class="type">int</span> maxint = <span class="number">-1u</span> &gt;&gt; <span class="number">1</span>;</span><br><span class="line">string image;</span><br><span class="line">string strs[<span class="number">10010</span>];</span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">Node</span></span><br><span class="line">&#123;</span><br><span class="line">    Node *next[<span class="number">26</span>];</span><br><span class="line">    Node *fail;</span><br><span class="line">    <span class="type">int</span> count;</span><br><span class="line">    <span class="built_in">Node</span>()</span><br><span class="line">    &#123;</span><br><span class="line">        fail = <span class="literal">NULL</span>;</span><br><span class="line">        <span class="built_in">memset</span>(next, <span class="literal">NULL</span>, <span class="built_in">sizeof</span>(next));</span><br><span class="line">        count = <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125; q[<span class="number">500010</span>];</span><br><span class="line">Node *root;</span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">insert</span><span class="params">(string str, Node *root)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    Node *p = root;</span><br><span class="line">    <span class="type">int</span> i = <span class="number">0</span>, index;</span><br><span class="line">    <span class="keyword">while</span> (str[i])</span><br><span class="line">    &#123;</span><br><span class="line">        index = str[i] - <span class="string">&#x27;a&#x27;</span>;</span><br><span class="line">        <span class="keyword">if</span> (p-&gt;next[index] == <span class="literal">NULL</span>)</span><br><span class="line">            p-&gt;next[index] = <span class="keyword">new</span> <span class="built_in">Node</span>();</span><br><span class="line">        p = p-&gt;next[index];</span><br><span class="line">        i++;</span><br><span class="line">    &#125;</span><br><span class="line">    p-&gt;count++;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">buildfail</span><span class="params">(Node *root)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="type">int</span> i;</span><br><span class="line">    root-&gt;fail = <span class="literal">NULL</span>;</span><br><span class="line">    <span class="type">int</span> head, tail;</span><br><span class="line">    head = tail = <span class="number">0</span>;</span><br><span class="line">    q[head++] = root;</span><br><span class="line">    <span class="keyword">while</span> (head != tail)</span><br><span class="line">    &#123;</span><br><span class="line">        Node *tmp = q[tail++];</span><br><span class="line">        Node *p = <span class="literal">NULL</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; <span class="number">26</span>; i++)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">if</span> (tmp-&gt;next[i] != <span class="literal">NULL</span>)</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="keyword">if</span> (tmp == root)</span><br><span class="line">                    tmp-&gt;next[i]-&gt;fail = root;</span><br><span class="line">                <span class="keyword">else</span></span><br><span class="line">                &#123;</span><br><span class="line">                    p = tmp-&gt;fail;</span><br><span class="line">                    <span class="keyword">while</span> (p != <span class="literal">NULL</span>)</span><br><span class="line">                    &#123;</span><br><span class="line">                        <span class="keyword">if</span> (p-&gt;next[i] != <span class="literal">NULL</span>)</span><br><span class="line">                        &#123;</span><br><span class="line">                            tmp-&gt;next[i]-&gt;fail = p-&gt;next[i];</span><br><span class="line">                            <span class="keyword">break</span>;</span><br><span class="line">                        &#125;</span><br><span class="line">                        p = p-&gt;fail;</span><br><span class="line">                    &#125;</span><br><span class="line">                    <span class="keyword">if</span> (p == <span class="literal">NULL</span>)</span><br><span class="line">                        tmp-&gt;next[i]-&gt;fail = root;</span><br><span class="line">                &#125;</span><br><span class="line">                q[head++] = tmp-&gt;next[i];</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">query</span><span class="params">(Node *root)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="type">int</span> i = <span class="number">0</span>, cnt = <span class="number">0</span>, index, len = image.<span class="built_in">size</span>();</span><br><span class="line">    Node *p = root;</span><br><span class="line">    <span class="keyword">while</span> (image[i])</span><br><span class="line">    &#123;</span><br><span class="line">        index = image[i] - <span class="string">&#x27;a&#x27;</span>;</span><br><span class="line">        <span class="keyword">while</span> (p-&gt;next[index] == <span class="literal">NULL</span> &amp;&amp; p != root)</span><br><span class="line">            p = p-&gt;fail;</span><br><span class="line">        p = p-&gt;next[index];</span><br><span class="line">        p = (p == <span class="literal">NULL</span>) ? root : p;</span><br><span class="line">        Node *tmp = p;</span><br><span class="line">        <span class="keyword">while</span> (tmp != root &amp;&amp; tmp-&gt;count != <span class="number">-1</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            cnt += tmp-&gt;count;</span><br><span class="line">            tmp-&gt;count = <span class="number">-1</span>;</span><br><span class="line">            tmp = tmp-&gt;fail;</span><br><span class="line">        &#125;</span><br><span class="line">        i++;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> cnt;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line"><span class="meta">#<span class="keyword">ifndef</span> ONLINE_JUDGE freopen(<span class="string">&quot;f:/in.txt&quot;</span>, <span class="string">&quot;r&quot;</span>, stdin);</span></span><br><span class="line"><span class="meta">#<span class="keyword">endif</span> ios::sync_with_stdio(0);</span></span><br><span class="line">    <span class="type">int</span> T;</span><br><span class="line">    cin &gt;&gt; T;</span><br><span class="line">    <span class="keyword">while</span> (T--)</span><br><span class="line">    &#123;</span><br><span class="line">        root = <span class="keyword">new</span> <span class="built_in">Node</span>();</span><br><span class="line">        <span class="type">int</span> n;</span><br><span class="line">        cin &gt;&gt; n;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; n; i++)</span><br><span class="line">            cin &gt;&gt; strs[i];</span><br><span class="line">        cin &gt;&gt; image;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; n; i++)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="built_in">insert</span>(strs[i], root);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="built_in">buildfail</span>(root);</span><br><span class="line">        cout &lt;&lt; <span class="built_in">query</span>(root) &lt;&lt; endl;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-
-<p>详细的参看：<a href="http://www.cppblog.com/mythit/archive/2009/04/21/80633.html">http://www.cppblog.com/mythit/archive/2009/04/21/80633.html</a></p>
-]]></content>
-      <categories>
-        <category>ACMICPC</category>
-      </categories>
-  </entry>
-  <entry>
     <title>Xchart 源码分析（1）</title>
     <url>/2014/12/22/%20Xchart%20%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90%EF%BC%881/</url>
     <content><![CDATA[<p>学校课程需要找一份代码，来讲讲代码里面用了哪些设计模式- -！ 还是要java的。。。 于是上github上面翻代码，偶然翻到一个java的xchart图标库，感觉可能以后会用的到，而且代码不是很长，就直接拿过来用了。具体的链接地址如下：<a href="https://github.com/timmolter/XChart" title="https://github.com/timmolter/XChart">https://github.com/timmolter/XChart</a></p>
@@ -84,153 +64,24 @@
       </tags>
   </entry>
   <entry>
-    <title>Blink学习笔记</title>
-    <url>/2021/02/28/Blink%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</url>
-    <content><![CDATA[<h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><p>Blink 其实是阿里内部基于 flink 改造的系统，学习 Blink 首先要学习 flink 相关的知识，先了解一下 flink 产生的背景和要解决的问题。</p>
-<p>在大数据开始爆发的时代，mapreduce 作为初代的计算引擎，提供了分布式计算的核心思想，map&amp;reduce的分阶段处理。但是 map reduce 本质上还是批处理计算框架，随着业务发展，流式数据计算处理的需求越来越旺盛，storm 等应运而生，但是作为第一代流式计算框架，存在一些设计上的缺陷，包括 exactly once等语义的支持。而且批处理和流处理作为处理同一个业务逻辑的两套系统，需要维护两套代码，并不是很友好。而这个时候 spark也发展起来了，集批处理，流处理，SQL 功能，图计算，机器学习于一身，并且支持 SparkR 和 PySpark 来做科学计算。而同时支持流处理和批处理的计算引擎，只有2个选择，除了spark 便是 flink。</p>
-<span id="more"></span>
+    <title>AC 自动机</title>
+    <url>/2014/07/07/AC%20%E8%87%AA%E5%8A%A8%E6%9C%BA/</url>
+    <content><![CDATA[<p>AC 自动机主要有3个步骤：</p>
+<ol>
+<li>构造trie树</li>
+<li>在trie树的基础上，添加失败指针，其添加方法就是一句话：由父亲节点开始，沿着失败指针向上找，一直找到一个节点p的next[i]不为空或者到根节点，把当前节点的next[i]的失败指针指向p的next[i] </li>
+<li>进行模式串的匹配</li>
+</ol>
+<p> hdu 2222 代码，可兼作模板： </p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="comment">/* * Author: xtestw </span></span><br><span class="line"><span class="comment">	* Created Time: 2014/7/7 8:54:30 </span></span><br><span class="line"><span class="comment">	* File Name: 2222.cpp **/</span> </span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;cstring&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;string&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;cstdlib&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="type">const</span> <span class="type">int</span> maxint = <span class="number">-1u</span> &gt;&gt; <span class="number">1</span>;</span><br><span class="line">string image;</span><br><span class="line">string strs[<span class="number">10010</span>];</span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">Node</span></span><br><span class="line">&#123;</span><br><span class="line">    Node *next[<span class="number">26</span>];</span><br><span class="line">    Node *fail;</span><br><span class="line">    <span class="type">int</span> count;</span><br><span class="line">    <span class="built_in">Node</span>()</span><br><span class="line">    &#123;</span><br><span class="line">        fail = <span class="literal">NULL</span>;</span><br><span class="line">        <span class="built_in">memset</span>(next, <span class="literal">NULL</span>, <span class="built_in">sizeof</span>(next));</span><br><span class="line">        count = <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125; q[<span class="number">500010</span>];</span><br><span class="line">Node *root;</span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">insert</span><span class="params">(string str, Node *root)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    Node *p = root;</span><br><span class="line">    <span class="type">int</span> i = <span class="number">0</span>, index;</span><br><span class="line">    <span class="keyword">while</span> (str[i])</span><br><span class="line">    &#123;</span><br><span class="line">        index = str[i] - <span class="string">&#x27;a&#x27;</span>;</span><br><span class="line">        <span class="keyword">if</span> (p-&gt;next[index] == <span class="literal">NULL</span>)</span><br><span class="line">            p-&gt;next[index] = <span class="keyword">new</span> <span class="built_in">Node</span>();</span><br><span class="line">        p = p-&gt;next[index];</span><br><span class="line">        i++;</span><br><span class="line">    &#125;</span><br><span class="line">    p-&gt;count++;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">buildfail</span><span class="params">(Node *root)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="type">int</span> i;</span><br><span class="line">    root-&gt;fail = <span class="literal">NULL</span>;</span><br><span class="line">    <span class="type">int</span> head, tail;</span><br><span class="line">    head = tail = <span class="number">0</span>;</span><br><span class="line">    q[head++] = root;</span><br><span class="line">    <span class="keyword">while</span> (head != tail)</span><br><span class="line">    &#123;</span><br><span class="line">        Node *tmp = q[tail++];</span><br><span class="line">        Node *p = <span class="literal">NULL</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; <span class="number">26</span>; i++)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">if</span> (tmp-&gt;next[i] != <span class="literal">NULL</span>)</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="keyword">if</span> (tmp == root)</span><br><span class="line">                    tmp-&gt;next[i]-&gt;fail = root;</span><br><span class="line">                <span class="keyword">else</span></span><br><span class="line">                &#123;</span><br><span class="line">                    p = tmp-&gt;fail;</span><br><span class="line">                    <span class="keyword">while</span> (p != <span class="literal">NULL</span>)</span><br><span class="line">                    &#123;</span><br><span class="line">                        <span class="keyword">if</span> (p-&gt;next[i] != <span class="literal">NULL</span>)</span><br><span class="line">                        &#123;</span><br><span class="line">                            tmp-&gt;next[i]-&gt;fail = p-&gt;next[i];</span><br><span class="line">                            <span class="keyword">break</span>;</span><br><span class="line">                        &#125;</span><br><span class="line">                        p = p-&gt;fail;</span><br><span class="line">                    &#125;</span><br><span class="line">                    <span class="keyword">if</span> (p == <span class="literal">NULL</span>)</span><br><span class="line">                        tmp-&gt;next[i]-&gt;fail = root;</span><br><span class="line">                &#125;</span><br><span class="line">                q[head++] = tmp-&gt;next[i];</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">query</span><span class="params">(Node *root)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="type">int</span> i = <span class="number">0</span>, cnt = <span class="number">0</span>, index, len = image.<span class="built_in">size</span>();</span><br><span class="line">    Node *p = root;</span><br><span class="line">    <span class="keyword">while</span> (image[i])</span><br><span class="line">    &#123;</span><br><span class="line">        index = image[i] - <span class="string">&#x27;a&#x27;</span>;</span><br><span class="line">        <span class="keyword">while</span> (p-&gt;next[index] == <span class="literal">NULL</span> &amp;&amp; p != root)</span><br><span class="line">            p = p-&gt;fail;</span><br><span class="line">        p = p-&gt;next[index];</span><br><span class="line">        p = (p == <span class="literal">NULL</span>) ? root : p;</span><br><span class="line">        Node *tmp = p;</span><br><span class="line">        <span class="keyword">while</span> (tmp != root &amp;&amp; tmp-&gt;count != <span class="number">-1</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            cnt += tmp-&gt;count;</span><br><span class="line">            tmp-&gt;count = <span class="number">-1</span>;</span><br><span class="line">            tmp = tmp-&gt;fail;</span><br><span class="line">        &#125;</span><br><span class="line">        i++;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> cnt;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line"><span class="meta">#<span class="keyword">ifndef</span> ONLINE_JUDGE freopen(<span class="string">&quot;f:/in.txt&quot;</span>, <span class="string">&quot;r&quot;</span>, stdin);</span></span><br><span class="line"><span class="meta">#<span class="keyword">endif</span> ios::sync_with_stdio(0);</span></span><br><span class="line">    <span class="type">int</span> T;</span><br><span class="line">    cin &gt;&gt; T;</span><br><span class="line">    <span class="keyword">while</span> (T--)</span><br><span class="line">    &#123;</span><br><span class="line">        root = <span class="keyword">new</span> <span class="built_in">Node</span>();</span><br><span class="line">        <span class="type">int</span> n;</span><br><span class="line">        cin &gt;&gt; n;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; n; i++)</span><br><span class="line">            cin &gt;&gt; strs[i];</span><br><span class="line">        cin &gt;&gt; image;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; n; i++)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="built_in">insert</span>(strs[i], root);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="built_in">buildfail</span>(root);</span><br><span class="line">        cout &lt;&lt; <span class="built_in">query</span>(root) &lt;&lt; endl;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<p>spark 批流统一处理的核心思想其实是用批来模拟流的能力，而flink则完全相反，使用流计算来模拟批计算。flink在捐赠给apache后定位的主流方向便是 Streaming， 区别于Storm,Spark Streaming以及其他流式计算引擎的是：它不仅是一个高吞吐、低延迟的计算引擎，同时还提供很多高级的功能。比如它提供了有状态的计算，支持状态管理，支持强一致性的数据语义以及支持 Event Time,WaterMark 对消息乱序的处理。</p>
-<p>最后，回归到官网对它的定义：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">Apache Flink 是一个框架和分布式处理引擎，用于在无边界和有边界数据流上进行有状态的计算。Flink 能在所有常见集群环境中运行，并能以内存速度和任意规模进行计算。</span><br></pre></td></tr></table></figure>
 
-<p>关于应用场景， 官方主要给了3类应用和相应的事例可以参看：</p>
-<ul>
-<li><a href="https://flink.apache.org/zh/usecases.html#eventDrivenApps">事件驱动型应用</a></li>
-<li><a href="https://flink.apache.org/zh/usecases.html#analytics">数据分析应用</a></li>
-<li><a href="https://flink.apache.org/zh/usecases.html#pipelines">数据管道应用</a></li>
-</ul>
-<h2 id="设计架构"><a href="#设计架构" class="headerlink" title="设计架构"></a>设计架构</h2><p><img src="/images/Blink%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/image-20210218205017997.png" alt="image-20210218205017997"></p>
-<p>Client 构建dataflow graph 已经数据流下放到 jobmanager 去调度 taskmanager 执行。Flink 运行时由2种进程组成，JobManager 和 TaskManager。</p>
-<h4 id="JobManager"><a href="#JobManager" class="headerlink" title="JobManager"></a>JobManager</h4><p>JobManager  负责task的调度、失败处理、协调处理checkpoint等，主要由3个组件构成：</p>
-<ul>
-<li>ResourceManager：负责资源的申请、分配、回收(适配 YARN、Mesos、Kubernetes等)。管理TaskManager的Task Slots</li>
-<li>Dispacher：提供REST接口，用于提交Flink应用程序执行，并且为每一个Task启动一个新的JobMaster，同时提供一个WebUI反应作业执行情况。</li>
-<li>JobMaster: 负责管理单个<a href="https://ci.apache.org/projects/flink/flink-docs-release-1.12/zh/concepts/glossary.html#logical-graph">JobGraph</a>的执行。Flink 集群中可以同时运行多个作业，每个作业都有自己的 JobMaster。JobMaster可以有多个，其中一个事leader 其他的为Standby。JobMaster的HA有2种实现方式：Zookeeper 和 Kubernetes。</li>
-</ul>
-<h4 id="TaskManager"><a href="#TaskManager" class="headerlink" title="TaskManager"></a>TaskManager</h4><p>TaskManager 执行作业流的task，并且缓存和交换数据流。 本质上是一个 JVM 进程，可以在单独的线程中执行一个或多个 subtask，为了控制TaskManager接受多个task，也就是所谓的task slots。</p>
-<p>Task、Subtask、Slot 是 3 个不同层面的概念</p>
-<p>slot是独立资源，如果一个taskmanager有3个slot，那么每个slot独立分配1/3内存。同时同一个taskmanager下的slot共享同一个JVM。同一个JVM的多个task共享TCP链接和心跳信息。</p>
-<p>默认允许 SubTask 共享 slot， 即便是不同的task的subtask，只要是一个作业就可以。也就是说，一个slot可以持有整个作业的通道。</p>
-<h3 id="执行过程"><a href="#执行过程" class="headerlink" title="执行过程"></a>执行过程</h3><p>Flink的执行会被提交到3种类型的集群执行，其主要的差异在于执行的生命周期和资源的隔离保证：</p>
-<ul>
-<li>Flink Session 集群<ul>
-<li>生命周期：集群是长期运行的，可接受多个作业提交</li>
-<li>资源隔离：多个作业共享集群资源，如果 TaskManager 或者 JobManager 出问题，会影响所有集群运行</li>
-</ul>
-</li>
-<li>Flink Job 集群<ul>
-<li>生命周期：Yarn或者k8s 为每个作业启动一个集群，作业结束，则集群结束</li>
-<li>资源隔离：作业独占资源</li>
-</ul>
-</li>
-<li>Flink Application 集群<ul>
-<li>生命周期：专用的flink集群，运行不是通过作业提交的方式运行，而是以application的方式运行。</li>
-<li>资源隔离： ResourceManager 和 Dispatcher 作用于单个的 Flink 应用程序，相比于 Flink Session 集群，它提供了更好的隔离。</li>
-</ul>
-</li>
-</ul>
-<h2 id="核心概念"><a href="#核心概念" class="headerlink" title="核心概念"></a>核心概念</h2><p>Flink的四大基石：</p>
-<ul>
-<li>Checkpoint: 快照；高容错</li>
-<li>State: 状态</li>
-<li>Time: 通过WaterMark支持基于Event Time的时间窗口</li>
-<li>Window: 窗口机制</li>
-</ul>
-<h4 id="Checkpoint"><a href="#Checkpoint" class="headerlink" title="Checkpoint"></a>Checkpoint</h4><p><img src="/images/Blink%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/image-20210228143710944.png" alt="image-20210228143710944"></p>
-<p>checkpoint是一种通过快找容错恢复的机制，这种机制保证实时程序运行的时候，即便出现异常，也可以自我恢复。 checkpoint 是flink系统自身的系统行为，用户无感知，只需要配置就可以了。</p>
-<ul>
-<li>checkpoint 的实现参考了 <a href="https://en.wikipedia.org/wiki/Chandy-Lamport_algorithm">Chandy-Lamport algorithm</a> 算法， 自己实现了一套异步barrier快照的算法，在数据流中设置屏障，记录屏障点的信息(比如kafka偏移量)以及每个算子的 state 的状态。 拥有2个输入流的Operators 会执行 Barrier 对齐，保证当前快照消费了输入流barrier之前的所有events。                                        </li>
-<li>checkpoint的状态备份存储主要分为2类<ul>
-<li>基于RocksDB内嵌k/v存储，将工作状态保存到磁盘上</li>
-<li>基于堆的 state backend.<ul>
-<li>FsStateBackend，将状态快照持久化到分布式文件系统中</li>
-<li>MemoryStateBackend, 使用JobManager的堆保存状态</li>
-</ul>
-</li>
-</ul>
-</li>
-<li>在流处理过程中，对结果的保障分为3种<ul>
-<li>at most once (结果不会从快照中恢复)</li>
-<li>at least once（没有任何丢失，但是会有冗余结果）<ul>
-<li>souce 必须可以重放</li>
-</ul>
-</li>
-<li>Exactly once （没有丢失，没有冗余）<ul>
-<li>souce 必须可以重放</li>
-<li>sinks 必须是事务性的</li>
-</ul>
-</li>
-</ul>
-</li>
-<li>checkpoint 状态保留策略<ul>
-<li>当程序取消时，删除checkpoint存储文件</li>
-<li>当程序取消时，保存之前的checkpoint文件</li>
-</ul>
-</li>
-<li>chekpoint 配置<ul>
-<li><em>Exactly-once/at-least-once 模式配置</em></li>
-<li><em>checkpoint 超时</em>： 如果执行时间超过配置，checkpoint操作会被丢弃</li>
-<li><em>并发checkpoint的数目</em>： 默认为1</li>
-<li><em>checkpoints之间的最小时间</em></li>
-<li><em>externalized checkpoints</em>: 周期存储 checkpoint 到外部系统中</li>
-<li><em>在 checkpoint 出错时使 task 失败或者继续进行 task</em></li>
-<li><em>优先从 checkpoint 恢复</em>: 在有savepoint的情况下的选择 (checkpoint 恢复的更快)</li>
-</ul>
-</li>
-</ul>
-<h4 id="State"><a href="#State" class="headerlink" title="State"></a>State</h4><p><img src="/images/Blink%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/image-20210228151711717.png" alt="image-20210228151711717"></p>
-<p>有状态的计算是流处理框架要实现的重要功能，因为稍复杂的流处理场景都需要记录状态，主要用来作为中间状态来进行去重/对比/聚合/更新等操作。 而在flink中，一个算子会有多个子任务，状态是和子任务绑定的，有子任务创建和管理。对于状态的管理，flink作为计算框架，封装了一些实现，也包括状态的高效存储/checkpoint/savepoint持久化/计算资源扩缩容等等。</p>
-<ul>
-<li>针对不同的场景，会有状态的类型的划分<ul>
-<li>托管状态(Managed State)，由flink帮忙存储、恢复和优化，支持一些常见数据结构，比如ValueState/ListState/MapState<ul>
-<li>Keyed State<ul>
-<li>Keyed State是<code>KeyedStream</code>上的状态。假如输入流按照id为Key进行了<code>keyBy</code>分组，形成一个<code>KeyedStream</code>，数据流中所有id为1的数据共享一个状态，可以访问和更新这个状态，以此类推，每个Key对应一个自己的状态。</li>
-<li>Flink提供了几种现成的数据结构供我们使用，包括<code>ValueState</code>、<code>ListState</code>等</li>
-</ul>
-</li>
-<li>Operator State<ul>
-<li>Operator State可以用在所有算子上，每个算子子任务或者说每个算子实例共享一个状态，流入这个算子子任务的数据可以访问和更新这个状态。</li>
-</ul>
-</li>
-</ul>
-</li>
-<li>原生状态(Raw State)，需要开发者自己管理, 只支持字节，需要自己序列化</li>
-</ul>
-</li>
-<li>横向扩展问题</li>
-</ul>
-<h4 id="Time"><a href="#Time" class="headerlink" title="Time"></a>Time</h4><p>Flink 在流程序中支持不同的Time概念；</p>
-<ul>
-<li>Time 类型<ul>
-<li>Processing Time, 事件被处理时机器的系统时间</li>
-<li>Event Time, 事件发生的时间</li>
-<li>Ingestion Time, 事件进入 Flink 的时间</li>
-</ul>
-</li>
-<li>Watermark 机制<ul>
-<li>处理数据乱序的问题。在 Flink 的窗口处理过程中，如果确定<strong>全部数据到达</strong>，就可以对 Window 的所有数据做窗口计算操作（如汇总、分组等），如果数据没有全部到达，则继续等待该窗口中的数据全部到达才开始处理</li>
-<li><code>Watermark = 进入 Flink 的最大的事件时间（mxtEventTime）— 指定的延迟时间（t）</code></li>
-</ul>
-</li>
-</ul>
-<h4 id="Window"><a href="#Window" class="headerlink" title="Window"></a>Window</h4><p><img src="/images/Blink%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/image-20210228161951552.png" alt="image-20210228161951552"></p>
-<p>前文提过，flink中其实是通过流来模拟批处理的，而window就是实现的机制。window可以是时间驱动的，也可以是数据驱动的 ，几种不同的窗口还行，可以参看上图。</p>
-<h2 id="参考文档"><a href="#参考文档" class="headerlink" title="参考文档"></a>参考文档</h2><ul>
-<li><a href="https://flink.apache.org/">https://flink.apache.org/</a></li>
-<li><a href="https://ci.apache.org/projects/flink/flink-docs-release-1.12/zh/learn-flink/fault_tolerance.html">https://ci.apache.org/projects/flink/flink-docs-release-1.12/zh/learn-flink/fault_tolerance.html</a></li>
-<li><a href="https://cloud.tencent.com/developer/article/1478656">https://cloud.tencent.com/developer/article/1478656</a></li>
-<li><a href="https://mp.weixin.qq.com/s/AoSDPDKbTbjH9rviioK-5Q">https://mp.weixin.qq.com/s/AoSDPDKbTbjH9rviioK-5Q</a></li>
-<li><a href="https://arxiv.org/abs/1506.08603">https://arxiv.org/abs/1506.08603</a></li>
-<li></li>
-</ul>
+
+<p>详细的参看：<a href="http://www.cppblog.com/mythit/archive/2009/04/21/80633.html">http://www.cppblog.com/mythit/archive/2009/04/21/80633.html</a></p>
 ]]></content>
       <categories>
-        <category>大数据</category>
+        <category>ACMICPC</category>
       </categories>
-      <tags>
-        <tag>大数据</tag>
-      </tags>
   </entry>
   <entry>
     <title>DDD 领域建模笔记</title>
@@ -507,6 +358,155 @@
       </tags>
   </entry>
   <entry>
+    <title>Blink学习笔记</title>
+    <url>/2021/02/28/Blink%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</url>
+    <content><![CDATA[<h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><p>Blink 其实是阿里内部基于 flink 改造的系统，学习 Blink 首先要学习 flink 相关的知识，先了解一下 flink 产生的背景和要解决的问题。</p>
+<p>在大数据开始爆发的时代，mapreduce 作为初代的计算引擎，提供了分布式计算的核心思想，map&amp;reduce的分阶段处理。但是 map reduce 本质上还是批处理计算框架，随着业务发展，流式数据计算处理的需求越来越旺盛，storm 等应运而生，但是作为第一代流式计算框架，存在一些设计上的缺陷，包括 exactly once等语义的支持。而且批处理和流处理作为处理同一个业务逻辑的两套系统，需要维护两套代码，并不是很友好。而这个时候 spark也发展起来了，集批处理，流处理，SQL 功能，图计算，机器学习于一身，并且支持 SparkR 和 PySpark 来做科学计算。而同时支持流处理和批处理的计算引擎，只有2个选择，除了spark 便是 flink。</p>
+<span id="more"></span>
+
+<p>spark 批流统一处理的核心思想其实是用批来模拟流的能力，而flink则完全相反，使用流计算来模拟批计算。flink在捐赠给apache后定位的主流方向便是 Streaming， 区别于Storm,Spark Streaming以及其他流式计算引擎的是：它不仅是一个高吞吐、低延迟的计算引擎，同时还提供很多高级的功能。比如它提供了有状态的计算，支持状态管理，支持强一致性的数据语义以及支持 Event Time,WaterMark 对消息乱序的处理。</p>
+<p>最后，回归到官网对它的定义：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">Apache Flink 是一个框架和分布式处理引擎，用于在无边界和有边界数据流上进行有状态的计算。Flink 能在所有常见集群环境中运行，并能以内存速度和任意规模进行计算。</span><br></pre></td></tr></table></figure>
+
+<p>关于应用场景， 官方主要给了3类应用和相应的事例可以参看：</p>
+<ul>
+<li><a href="https://flink.apache.org/zh/usecases.html#eventDrivenApps">事件驱动型应用</a></li>
+<li><a href="https://flink.apache.org/zh/usecases.html#analytics">数据分析应用</a></li>
+<li><a href="https://flink.apache.org/zh/usecases.html#pipelines">数据管道应用</a></li>
+</ul>
+<h2 id="设计架构"><a href="#设计架构" class="headerlink" title="设计架构"></a>设计架构</h2><p><img src="/images/Blink%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/image-20210218205017997.png" alt="image-20210218205017997"></p>
+<p>Client 构建dataflow graph 已经数据流下放到 jobmanager 去调度 taskmanager 执行。Flink 运行时由2种进程组成，JobManager 和 TaskManager。</p>
+<h4 id="JobManager"><a href="#JobManager" class="headerlink" title="JobManager"></a>JobManager</h4><p>JobManager  负责task的调度、失败处理、协调处理checkpoint等，主要由3个组件构成：</p>
+<ul>
+<li>ResourceManager：负责资源的申请、分配、回收(适配 YARN、Mesos、Kubernetes等)。管理TaskManager的Task Slots</li>
+<li>Dispacher：提供REST接口，用于提交Flink应用程序执行，并且为每一个Task启动一个新的JobMaster，同时提供一个WebUI反应作业执行情况。</li>
+<li>JobMaster: 负责管理单个<a href="https://ci.apache.org/projects/flink/flink-docs-release-1.12/zh/concepts/glossary.html#logical-graph">JobGraph</a>的执行。Flink 集群中可以同时运行多个作业，每个作业都有自己的 JobMaster。JobMaster可以有多个，其中一个事leader 其他的为Standby。JobMaster的HA有2种实现方式：Zookeeper 和 Kubernetes。</li>
+</ul>
+<h4 id="TaskManager"><a href="#TaskManager" class="headerlink" title="TaskManager"></a>TaskManager</h4><p>TaskManager 执行作业流的task，并且缓存和交换数据流。 本质上是一个 JVM 进程，可以在单独的线程中执行一个或多个 subtask，为了控制TaskManager接受多个task，也就是所谓的task slots。</p>
+<p>Task、Subtask、Slot 是 3 个不同层面的概念</p>
+<p>slot是独立资源，如果一个taskmanager有3个slot，那么每个slot独立分配1/3内存。同时同一个taskmanager下的slot共享同一个JVM。同一个JVM的多个task共享TCP链接和心跳信息。</p>
+<p>默认允许 SubTask 共享 slot， 即便是不同的task的subtask，只要是一个作业就可以。也就是说，一个slot可以持有整个作业的通道。</p>
+<h3 id="执行过程"><a href="#执行过程" class="headerlink" title="执行过程"></a>执行过程</h3><p>Flink的执行会被提交到3种类型的集群执行，其主要的差异在于执行的生命周期和资源的隔离保证：</p>
+<ul>
+<li>Flink Session 集群<ul>
+<li>生命周期：集群是长期运行的，可接受多个作业提交</li>
+<li>资源隔离：多个作业共享集群资源，如果 TaskManager 或者 JobManager 出问题，会影响所有集群运行</li>
+</ul>
+</li>
+<li>Flink Job 集群<ul>
+<li>生命周期：Yarn或者k8s 为每个作业启动一个集群，作业结束，则集群结束</li>
+<li>资源隔离：作业独占资源</li>
+</ul>
+</li>
+<li>Flink Application 集群<ul>
+<li>生命周期：专用的flink集群，运行不是通过作业提交的方式运行，而是以application的方式运行。</li>
+<li>资源隔离： ResourceManager 和 Dispatcher 作用于单个的 Flink 应用程序，相比于 Flink Session 集群，它提供了更好的隔离。</li>
+</ul>
+</li>
+</ul>
+<h2 id="核心概念"><a href="#核心概念" class="headerlink" title="核心概念"></a>核心概念</h2><p>Flink的四大基石：</p>
+<ul>
+<li>Checkpoint: 快照；高容错</li>
+<li>State: 状态</li>
+<li>Time: 通过WaterMark支持基于Event Time的时间窗口</li>
+<li>Window: 窗口机制</li>
+</ul>
+<h4 id="Checkpoint"><a href="#Checkpoint" class="headerlink" title="Checkpoint"></a>Checkpoint</h4><p><img src="/images/Blink%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/image-20210228143710944.png" alt="image-20210228143710944"></p>
+<p>checkpoint是一种通过快找容错恢复的机制，这种机制保证实时程序运行的时候，即便出现异常，也可以自我恢复。 checkpoint 是flink系统自身的系统行为，用户无感知，只需要配置就可以了。</p>
+<ul>
+<li>checkpoint 的实现参考了 <a href="https://en.wikipedia.org/wiki/Chandy-Lamport_algorithm">Chandy-Lamport algorithm</a> 算法， 自己实现了一套异步barrier快照的算法，在数据流中设置屏障，记录屏障点的信息(比如kafka偏移量)以及每个算子的 state 的状态。 拥有2个输入流的Operators 会执行 Barrier 对齐，保证当前快照消费了输入流barrier之前的所有events。                                        </li>
+<li>checkpoint的状态备份存储主要分为2类<ul>
+<li>基于RocksDB内嵌k/v存储，将工作状态保存到磁盘上</li>
+<li>基于堆的 state backend.<ul>
+<li>FsStateBackend，将状态快照持久化到分布式文件系统中</li>
+<li>MemoryStateBackend, 使用JobManager的堆保存状态</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>在流处理过程中，对结果的保障分为3种<ul>
+<li>at most once (结果不会从快照中恢复)</li>
+<li>at least once（没有任何丢失，但是会有冗余结果）<ul>
+<li>souce 必须可以重放</li>
+</ul>
+</li>
+<li>Exactly once （没有丢失，没有冗余）<ul>
+<li>souce 必须可以重放</li>
+<li>sinks 必须是事务性的</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>checkpoint 状态保留策略<ul>
+<li>当程序取消时，删除checkpoint存储文件</li>
+<li>当程序取消时，保存之前的checkpoint文件</li>
+</ul>
+</li>
+<li>chekpoint 配置<ul>
+<li><em>Exactly-once/at-least-once 模式配置</em></li>
+<li><em>checkpoint 超时</em>： 如果执行时间超过配置，checkpoint操作会被丢弃</li>
+<li><em>并发checkpoint的数目</em>： 默认为1</li>
+<li><em>checkpoints之间的最小时间</em></li>
+<li><em>externalized checkpoints</em>: 周期存储 checkpoint 到外部系统中</li>
+<li><em>在 checkpoint 出错时使 task 失败或者继续进行 task</em></li>
+<li><em>优先从 checkpoint 恢复</em>: 在有savepoint的情况下的选择 (checkpoint 恢复的更快)</li>
+</ul>
+</li>
+</ul>
+<h4 id="State"><a href="#State" class="headerlink" title="State"></a>State</h4><p><img src="/images/Blink%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/image-20210228151711717.png" alt="image-20210228151711717"></p>
+<p>有状态的计算是流处理框架要实现的重要功能，因为稍复杂的流处理场景都需要记录状态，主要用来作为中间状态来进行去重/对比/聚合/更新等操作。 而在flink中，一个算子会有多个子任务，状态是和子任务绑定的，有子任务创建和管理。对于状态的管理，flink作为计算框架，封装了一些实现，也包括状态的高效存储/checkpoint/savepoint持久化/计算资源扩缩容等等。</p>
+<ul>
+<li>针对不同的场景，会有状态的类型的划分<ul>
+<li>托管状态(Managed State)，由flink帮忙存储、恢复和优化，支持一些常见数据结构，比如ValueState/ListState/MapState<ul>
+<li>Keyed State<ul>
+<li>Keyed State是<code>KeyedStream</code>上的状态。假如输入流按照id为Key进行了<code>keyBy</code>分组，形成一个<code>KeyedStream</code>，数据流中所有id为1的数据共享一个状态，可以访问和更新这个状态，以此类推，每个Key对应一个自己的状态。</li>
+<li>Flink提供了几种现成的数据结构供我们使用，包括<code>ValueState</code>、<code>ListState</code>等</li>
+</ul>
+</li>
+<li>Operator State<ul>
+<li>Operator State可以用在所有算子上，每个算子子任务或者说每个算子实例共享一个状态，流入这个算子子任务的数据可以访问和更新这个状态。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>原生状态(Raw State)，需要开发者自己管理, 只支持字节，需要自己序列化</li>
+</ul>
+</li>
+<li>横向扩展问题</li>
+</ul>
+<h4 id="Time"><a href="#Time" class="headerlink" title="Time"></a>Time</h4><p>Flink 在流程序中支持不同的Time概念；</p>
+<ul>
+<li>Time 类型<ul>
+<li>Processing Time, 事件被处理时机器的系统时间</li>
+<li>Event Time, 事件发生的时间</li>
+<li>Ingestion Time, 事件进入 Flink 的时间</li>
+</ul>
+</li>
+<li>Watermark 机制<ul>
+<li>处理数据乱序的问题。在 Flink 的窗口处理过程中，如果确定<strong>全部数据到达</strong>，就可以对 Window 的所有数据做窗口计算操作（如汇总、分组等），如果数据没有全部到达，则继续等待该窗口中的数据全部到达才开始处理</li>
+<li><code>Watermark = 进入 Flink 的最大的事件时间（mxtEventTime）— 指定的延迟时间（t）</code></li>
+</ul>
+</li>
+</ul>
+<h4 id="Window"><a href="#Window" class="headerlink" title="Window"></a>Window</h4><p><img src="/images/Blink%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/image-20210228161951552.png" alt="image-20210228161951552"></p>
+<p>前文提过，flink中其实是通过流来模拟批处理的，而window就是实现的机制。window可以是时间驱动的，也可以是数据驱动的 ，几种不同的窗口还行，可以参看上图。</p>
+<h2 id="参考文档"><a href="#参考文档" class="headerlink" title="参考文档"></a>参考文档</h2><ul>
+<li><a href="https://flink.apache.org/">https://flink.apache.org/</a></li>
+<li><a href="https://ci.apache.org/projects/flink/flink-docs-release-1.12/zh/learn-flink/fault_tolerance.html">https://ci.apache.org/projects/flink/flink-docs-release-1.12/zh/learn-flink/fault_tolerance.html</a></li>
+<li><a href="https://cloud.tencent.com/developer/article/1478656">https://cloud.tencent.com/developer/article/1478656</a></li>
+<li><a href="https://mp.weixin.qq.com/s/AoSDPDKbTbjH9rviioK-5Q">https://mp.weixin.qq.com/s/AoSDPDKbTbjH9rviioK-5Q</a></li>
+<li><a href="https://arxiv.org/abs/1506.08603">https://arxiv.org/abs/1506.08603</a></li>
+<li></li>
+</ul>
+]]></content>
+      <categories>
+        <category>大数据</category>
+      </categories>
+      <tags>
+        <tag>大数据</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>GraphQl 使用 - java</title>
     <url>/2019/08/03/GraphQl-%E4%BD%BF%E7%94%A8-java/</url>
     <content><![CDATA[<p>去年在做内容库的时候，涉及到了多系统多数据源互相查询的情景，当时就想要将内容库的所有数据，增加统一的数据接入层，通过graphql的方式提供给上层业务使用，后面受限于人力没有实施。目前从头开始做站群相关的业务，顺带着浅尝了一下graphql，感觉还不错。</p>
@@ -629,25 +629,6 @@
         <tag>graphiql</tag>
         <tag>github</tag>
       </tags>
-  </entry>
-  <entry>
-    <title>HttpURLConnection使用http代理</title>
-    <url>/2017/08/13/HttpURLConnection%E4%BD%BF%E7%94%A8http%E4%BB%A3%E7%90%86/</url>
-    <content><![CDATA[<p>工程中的网络请求，有时会需要使用http代理，比较简单的方法是使用apache的httpclient 直接设置代理，但有的时候使用java自带的HttpURLConnection的时候，就需要注意多线程的问题了。 使用HttpURLConnection 实现代理的方法也很简单，在建立连接之前先设置代理：</p>
-<p>Authenticator.setDefault(authenticator);</p>
-<p>需要注意的是，设置代理的方法并不是使用HttpURLConnection的一个方法，而在建立请求的时候，也没有任何调用和使用 Authenticator的地方，可以猜测这里设置了代理是使用了全局量，跟进Authenticator中去，会发现： <img src="http://xtestw.site/wp-content/uploads/2017/08/1.png" alt="1"> <img src="http://xtestw.site/wp-content/uploads/2017/08/2.png" alt="2"> 其实setDefault 方法就是设置了一个静态变量，而这个变量被使用的地方在： <img src="http://xtestw.site/wp-content/uploads/2017/08/3.png" alt="3"> （三个同名函数，相同的处理）这个静态变量被全局的网络请求所使用，而不是当前连接独占的配置，一般来说，当前网络使用一个http代理的时候没有问题（比如我们就是通过elb代理多个IP出口），但是当我们有多个代理的时候，在多线程环境下就会出现问题，如果代理服务器的账号密码不同，请求的服务球对cookie和ip进行校验的时候，就会比较麻烦，所以需要想办法来让每一个HttpURLConnection独占这个代理配置，直接的方法似乎没有，但是可以折中，同步网络请求过程中，HttpURLConnection是和唯一线程绑定的，我们可以用ThreadLocal,让每个线程独占一个代理配置，从而间接的保证每个HttpURLConnection始终使用一个代理配置。 可以定一个类：</p>
-<span id="more"></span>
-
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">ThreadLocalAuthenticator</span> <span class="keyword">extends</span> <span class="title class_">Authenticator</span> &#123;</span><br><span class="line"></span><br><span class="line">  ThreadLocal&lt;PasswordAuthentication&gt; auth = <span class="keyword">new</span> <span class="title class_">ThreadLocal</span>&lt;&gt;();</span><br><span class="line"></span><br><span class="line">  <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">setPasswordAuthentication</span><span class="params">(PasswordAuthentication passwordAuthentication)</span> &#123;</span><br><span class="line">    auth.set(passwordAuthentication);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">clearPasswordAuthentication</span><span class="params">()</span> &#123;</span><br><span class="line">    auth.remove();</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="meta">@Override</span></span><br><span class="line">  <span class="keyword">protected</span> PasswordAuthentication <span class="title function_">getPasswordAuthentication</span><span class="params">()</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> auth.get();</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>然后在http网络请求的工具类中定义一个全局的静态ThreadLocalAuthenticator的实例：</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="type">ThreadLocalAuthenticator</span> <span class="variable">authenticator</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">ThreadLocalAuthenticator</span>();</span><br></pre></td></tr></table></figure>
-
-<p>然后在需要的时候使用它就OK了。</p>
-]]></content>
-      <categories>
-        <category>JAVA</category>
-      </categories>
   </entry>
   <entry>
     <title>Ha3 学习笔记</title>
@@ -890,6 +871,25 @@
       </tags>
   </entry>
   <entry>
+    <title>HttpURLConnection使用http代理</title>
+    <url>/2017/08/13/HttpURLConnection%E4%BD%BF%E7%94%A8http%E4%BB%A3%E7%90%86/</url>
+    <content><![CDATA[<p>工程中的网络请求，有时会需要使用http代理，比较简单的方法是使用apache的httpclient 直接设置代理，但有的时候使用java自带的HttpURLConnection的时候，就需要注意多线程的问题了。 使用HttpURLConnection 实现代理的方法也很简单，在建立连接之前先设置代理：</p>
+<p>Authenticator.setDefault(authenticator);</p>
+<p>需要注意的是，设置代理的方法并不是使用HttpURLConnection的一个方法，而在建立请求的时候，也没有任何调用和使用 Authenticator的地方，可以猜测这里设置了代理是使用了全局量，跟进Authenticator中去，会发现： <img src="http://xtestw.site/wp-content/uploads/2017/08/1.png" alt="1"> <img src="http://xtestw.site/wp-content/uploads/2017/08/2.png" alt="2"> 其实setDefault 方法就是设置了一个静态变量，而这个变量被使用的地方在： <img src="http://xtestw.site/wp-content/uploads/2017/08/3.png" alt="3"> （三个同名函数，相同的处理）这个静态变量被全局的网络请求所使用，而不是当前连接独占的配置，一般来说，当前网络使用一个http代理的时候没有问题（比如我们就是通过elb代理多个IP出口），但是当我们有多个代理的时候，在多线程环境下就会出现问题，如果代理服务器的账号密码不同，请求的服务球对cookie和ip进行校验的时候，就会比较麻烦，所以需要想办法来让每一个HttpURLConnection独占这个代理配置，直接的方法似乎没有，但是可以折中，同步网络请求过程中，HttpURLConnection是和唯一线程绑定的，我们可以用ThreadLocal,让每个线程独占一个代理配置，从而间接的保证每个HttpURLConnection始终使用一个代理配置。 可以定一个类：</p>
+<span id="more"></span>
+
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">ThreadLocalAuthenticator</span> <span class="keyword">extends</span> <span class="title class_">Authenticator</span> &#123;</span><br><span class="line"></span><br><span class="line">  ThreadLocal&lt;PasswordAuthentication&gt; auth = <span class="keyword">new</span> <span class="title class_">ThreadLocal</span>&lt;&gt;();</span><br><span class="line"></span><br><span class="line">  <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">setPasswordAuthentication</span><span class="params">(PasswordAuthentication passwordAuthentication)</span> &#123;</span><br><span class="line">    auth.set(passwordAuthentication);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">clearPasswordAuthentication</span><span class="params">()</span> &#123;</span><br><span class="line">    auth.remove();</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="meta">@Override</span></span><br><span class="line">  <span class="keyword">protected</span> PasswordAuthentication <span class="title function_">getPasswordAuthentication</span><span class="params">()</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> auth.get();</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>然后在http网络请求的工具类中定义一个全局的静态ThreadLocalAuthenticator的实例：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="type">ThreadLocalAuthenticator</span> <span class="variable">authenticator</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">ThreadLocalAuthenticator</span>();</span><br></pre></td></tr></table></figure>
+
+<p>然后在需要的时候使用它就OK了。</p>
+]]></content>
+      <categories>
+        <category>JAVA</category>
+      </categories>
+  </entry>
+  <entry>
     <title>MFC Invalidate闪屏问题</title>
     <url>/2014/06/22/MFC%20Invalidate%E9%97%AA%E5%B1%8F%E9%97%AE%E9%A2%98/</url>
     <content><![CDATA[<p>使用Invalidate（true），即使在OnDraw中使用了双缓冲，也会出现闪屏问题，下面的解决方案转载自：<a href="http://blog.sina.com.cn/s/blog_60fa20600100igh6.html">http://blog.sina.com.cn/s/blog_60fa20600100igh6.html</a></p>
@@ -976,17 +976,6 @@
       </tags>
   </entry>
   <entry>
-    <title>c++ 子类要正确的调用父类构造函数</title>
-    <url>/2015/04/05/cplusplus/</url>
-    <content><![CDATA[<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">base</span>&#123;</span><br><span class="line">    <span class="keyword">public</span>:</span><br><span class="line">        <span class="type">int</span> i,j;</span><br><span class="line">        <span class="built_in">base</span>()&#123;</span><br><span class="line">            i=j=<span class="number">0</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line"><span class="built_in">base</span>(<span class="type">int</span> a,<span class="type">int</span> b)&#123;</span><br><span class="line">            i=a;j=b;</span><br><span class="line">        &#125;    </span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">derived</span>:<span class="keyword">public</span> base&#123;</span><br><span class="line">        <span class="keyword">public</span>:</span><br><span class="line">        <span class="built_in">derived</span>(<span class="type">int</span> a,<span class="type">int</span> b)&#123;</span><br><span class="line">             <span class="built_in">base</span>(a,b); </span><br><span class="line">        &#125;  </span><br><span class="line">&#125;;    </span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">　　<span class="function">derived <span class="title">d</span><span class="params">(<span class="number">3</span>,<span class="number">1</span>)</span></span>;</span><br><span class="line">　　cout&lt;&lt;d.i&lt;&lt;<span class="string">&quot; &quot;</span>&lt;&lt;d.j&lt;&lt;endl;</span><br><span class="line">　　<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p>上面的这段代码会输出什么呢？！正确的答案是输出了”0 0”. 我的理解是，虽然其中调用了base(a,b) 但是其实操作的a和b不是当前d的a,b，其实是定义了一个新的base的对象。正确的写法应该是下面这样</p>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">base</span>&#123;</span><br><span class="line">    <span class="keyword">public</span>:</span><br><span class="line">        <span class="type">int</span> i,j;</span><br><span class="line">        <span class="built_in">base</span>()&#123;</span><br><span class="line">            i=j=<span class="number">0</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="built_in">base</span>(<span class="type">int</span> a,<span class="type">int</span> b)&#123;</span><br><span class="line">            i=a;j=b;</span><br><span class="line">        &#125;    </span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">dervied</span>:<span class="keyword">public</span> base&#123;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">public</span>:</span><br><span class="line">        <span class="built_in">derived</span>(<span class="type">int</span> a,<span class="type">int</span> b):<span class="built_in">base</span>(a,b)&#123;    </span><br><span class="line">        &#125;  </span><br><span class="line">&#125;;    </span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">　　<span class="function">derived <span class="title">d</span><span class="params">(<span class="number">3</span>,<span class="number">1</span>)</span></span>;</span><br><span class="line">　　cout&lt;&lt;d.i&lt;&lt;<span class="string">&quot; &quot;</span>&lt;&lt;d.j&lt;&lt;endl;</span><br><span class="line">　　<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>]]></content>
-      <categories>
-        <category>C++</category>
-      </categories>
-  </entry>
-  <entry>
     <title>Millar_rabin和Pollard_Rho</title>
     <url>/2014/06/09/Millar_rabin%E5%92%8CPollard_Rho/</url>
     <content><![CDATA[<p>1.Millar_rabin 素数判定</p>
@@ -1020,6 +1009,32 @@
       <tags>
         <tag>prof</tag>
       </tags>
+  </entry>
+  <entry>
+    <title>c++ 默认构造函数</title>
+    <url>/2015/04/03/c++%20%E9%BB%98%E8%AE%A4%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0/</url>
+    <content><![CDATA[<p><strong>关于c++构造函数两个误解</strong></p>
+<ol>
+<li><p>任何class只要没有定义构造函数，就会被编译器自动合成一个。 有些构造函数在实际中有和没有是没有任何用处的，所以无用的构造函数是不会被构建出来</p>
+</li>
+<li><p>编译器合成的构造函数，会为每个成员变量设定初始值 在我看来，编译器合成的构造函数，是为了调用成员类或者父类的构造函数，而这个成员类的构造函数的调用顺序则是按照申明的顺序来调用。</p>
+</li>
+</ol>
+]]></content>
+      <categories>
+        <category>C++</category>
+      </categories>
+  </entry>
+  <entry>
+    <title>c++ 子类要正确的调用父类构造函数</title>
+    <url>/2015/04/05/cplusplus/</url>
+    <content><![CDATA[<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">base</span>&#123;</span><br><span class="line">    <span class="keyword">public</span>:</span><br><span class="line">        <span class="type">int</span> i,j;</span><br><span class="line">        <span class="built_in">base</span>()&#123;</span><br><span class="line">            i=j=<span class="number">0</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line"><span class="built_in">base</span>(<span class="type">int</span> a,<span class="type">int</span> b)&#123;</span><br><span class="line">            i=a;j=b;</span><br><span class="line">        &#125;    </span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">derived</span>:<span class="keyword">public</span> base&#123;</span><br><span class="line">        <span class="keyword">public</span>:</span><br><span class="line">        <span class="built_in">derived</span>(<span class="type">int</span> a,<span class="type">int</span> b)&#123;</span><br><span class="line">             <span class="built_in">base</span>(a,b); </span><br><span class="line">        &#125;  </span><br><span class="line">&#125;;    </span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">　　<span class="function">derived <span class="title">d</span><span class="params">(<span class="number">3</span>,<span class="number">1</span>)</span></span>;</span><br><span class="line">　　cout&lt;&lt;d.i&lt;&lt;<span class="string">&quot; &quot;</span>&lt;&lt;d.j&lt;&lt;endl;</span><br><span class="line">　　<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>上面的这段代码会输出什么呢？！正确的答案是输出了”0 0”. 我的理解是，虽然其中调用了base(a,b) 但是其实操作的a和b不是当前d的a,b，其实是定义了一个新的base的对象。正确的写法应该是下面这样</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">base</span>&#123;</span><br><span class="line">    <span class="keyword">public</span>:</span><br><span class="line">        <span class="type">int</span> i,j;</span><br><span class="line">        <span class="built_in">base</span>()&#123;</span><br><span class="line">            i=j=<span class="number">0</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="built_in">base</span>(<span class="type">int</span> a,<span class="type">int</span> b)&#123;</span><br><span class="line">            i=a;j=b;</span><br><span class="line">        &#125;    </span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">dervied</span>:<span class="keyword">public</span> base&#123;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">public</span>:</span><br><span class="line">        <span class="built_in">derived</span>(<span class="type">int</span> a,<span class="type">int</span> b):<span class="built_in">base</span>(a,b)&#123;    </span><br><span class="line">        &#125;  </span><br><span class="line">&#125;;    </span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">　　<span class="function">derived <span class="title">d</span><span class="params">(<span class="number">3</span>,<span class="number">1</span>)</span></span>;</span><br><span class="line">　　cout&lt;&lt;d.i&lt;&lt;<span class="string">&quot; &quot;</span>&lt;&lt;d.j&lt;&lt;endl;</span><br><span class="line">　　<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>]]></content>
+      <categories>
+        <category>C++</category>
+      </categories>
   </entry>
   <entry>
     <title>UndeclaredThrowableException原因</title>
@@ -1059,15 +1074,63 @@
       </tags>
   </entry>
   <entry>
-    <title>c++ 默认构造函数</title>
-    <url>/2015/04/03/c++%20%E9%BB%98%E8%AE%A4%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0/</url>
-    <content><![CDATA[<p><strong>关于c++构造函数两个误解</strong></p>
-<ol>
-<li><p>任何class只要没有定义构造函数，就会被编译器自动合成一个。 有些构造函数在实际中有和没有是没有任何用处的，所以无用的构造函数是不会被构建出来</p>
+    <title>c++对象模型</title>
+    <url>/2016/05/05/cplusplusobjectmodel/</url>
+    <content><![CDATA[<p>最近在看《深度探索c++对象模型》对于对象模型有了一点了解，做一个总结。以下的一些结论的实验见：<a href="https://github.com/xtestw/CPPObjModelTest">https://github.com/xtestw/CPPObjModelTest</a></p>
+<ul>
+<li><a href="#toc_0">c++对象模型</a><ul>
+<li>  <a href="#toc_1">单个对象模型</a></li>
+<li><a href="#toc_2">单继承对象模型</a><ul>
+<li>  <a href="#toc_3">不考虑虚函数的单继承</a></li>
+<li>  <a href="#toc_4">考虑虚函数的单继承</a></li>
+</ul>
 </li>
-<li><p>编译器合成的构造函数，会为每个成员变量设定初始值 在我看来，编译器合成的构造函数，是为了调用成员类或者父类的构造函数，而这个成员类的构造函数的调用顺序则是按照申明的顺序来调用。</p>
+<li>  <a href="#toc_5">多继承对象模型</a></li>
+<li>  <a href="#toc_6">存在虚基类的对象模型</a></li>
+</ul>
 </li>
-</ol>
+</ul>
+<h2 id="单个对象模型"><a href="#单个对象模型" class="headerlink" title="单个对象模型"></a>单个对象模型</h2><p>对于一个单个对象而言，对象的内部结构是类似于一张表结构，依次存储着c++的对象内部数据，我们都知道，一个c++的类内部一般会包含下面的几个部分：</p>
+<ul>
+<li>  非静态成员变量</li>
+<li>  非静态成员函数</li>
+<li>  静态成员变量</li>
+<li>  静态成员函数</li>
+<li>  虚函数</li>
+<li>  友元函数</li>
+<li>  构造函数、析构函数、拷贝构造函数</li>
+</ul>
+<p>对于一个简单的对象，将设我们定义类如下：</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">base</span>&#123;</span><br><span class="line">    <span class="keyword">public</span>:</span><br><span class="line">        <span class="built_in">base</span>();</span><br><span class="line">        <span class="keyword">virtual</span> ~<span class="built_in">base</span>();</span><br><span class="line">        <span class="type">int</span> a,b;</span><br><span class="line">        <span class="function"><span class="type">void</span> <span class="title">f</span><span class="params">()</span></span>;</span><br><span class="line">        <span class="type">static</span> <span class="type">int</span> c,d;</span><br><span class="line">        <span class="function"><span class="type">static</span> <span class="type">void</span> <span class="title">f2</span><span class="params">()</span></span>;</span><br><span class="line">        <span class="function"><span class="keyword">virtual</span> <span class="type">void</span> <span class="title">f3</span><span class="params">()</span></span>;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>不考虑继承的话，他们的存储结构会是这样的一个结构，如下图： <img src="http://i.imgur.com/lVYnj2P.png"> 其中，非静态数据成员，被放在对象的内部，而虚函数会放在对象的一个虚表中，对象在编译的时候会形成一个vptr的指针置于对象的内部，其指针指向这张虚表（考虑类的继承和多态，指向这张虚表的vptr的设置和重置会在构造函数、析构函数和拷贝函数中自动完成）。 对象在图对象表中的位置，是按照对象的申明顺序来排列的。比如a,b的申明，因为a先申明的，那么a就被先压栈，占据高地址。 而如图所见，不论虚函数是多少个，对象内部只有一个指针指向它，所以始终占一个指针大小的空间（32位机器下是4byte). 而对这个vptr在对象中的位置，不同的编译器的处理是不一样的，vc为代表的是将其放在了头部，而gcc等则是将其放在了对象的尾部，放在尾部是为了综合考虑与C的struct的兼容问题，而在头部，则是考虑继承之后的子类在调用vptr的方便性。(我个人更偏向于放在头部，因为这样在继承的时候更好理解也更方便自然),本文中的代码和模型是基于g++编译器做的实验，都是放在头部的。 还有一个问题，《深度探索c++对象模型》中，对这个1byte的类的type_info位置，他是说放在虚表的第一个位置，而其实g++中，下面这个实验，并不是放在虚表中的：</p>
+<span id="more"></span>
+
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="keyword">class</span> <span class="title class_">base</span>&#123;</span><br><span class="line">    <span class="keyword">public</span>:</span><br><span class="line">        <span class="function"><span class="keyword">virtual</span> <span class="type">void</span> <span class="title">f</span><span class="params">()</span></span>&#123;cout&lt;&lt;<span class="string">&quot;f&quot;</span>&lt;&lt;endl;&#125;</span><br><span class="line">        <span class="function"><span class="keyword">virtual</span> <span class="type">void</span> <span class="title">f1</span><span class="params">()</span></span>&#123;cout&lt;&lt;<span class="string">&quot;f1&quot;</span>&lt;&lt;endl;&#125;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="function"><span class="keyword">typedef</span> <span class="title">void</span><span class="params">(*Fun)</span><span class="params">(<span class="type">void</span>)</span></span>;</span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    base b;</span><br><span class="line">    ((Fun)*(<span class="type">int</span>*)*(<span class="type">int</span>*)(&amp;b))();</span><br><span class="line">    ((Fun)*((<span class="type">int</span>*)*(<span class="type">int</span>*)(&amp;b)<span class="number">+1</span>))();</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>上面的这段代码的输出是</p>
+<pre><code>f
+f1
+</code></pre>
+<p>可见虚表的第一项并不是type_info。</p>
+<h2 id="单继承对象模型"><a href="#单继承对象模型" class="headerlink" title="单继承对象模型"></a>单继承对象模型</h2><h3 id="不考虑虚函数的单继承"><a href="#不考虑虚函数的单继承" class="headerlink" title="不考虑虚函数的单继承"></a>不考虑虚函数的单继承</h3><p>在对象申明的过程中，如果从上级单继承了一个对象，那么对父类的成员变量的存储是怎样的一个结构呢，参看下面的代码</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">base</span>&#123;</span><br><span class="line">    <span class="keyword">public</span>:</span><br><span class="line">        <span class="type">int</span> a,b;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="keyword">class</span> <span class="title class_">derived</span>:<span class="keyword">public</span> base&#123;</span><br><span class="line">    <span class="keyword">public</span>:</span><br><span class="line">        <span class="type">int</span> c,d;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>子类从父类继承过来的成员变量，无论是private,protected,public,也无论是通过private,protected还是public的方式继承过来的，其在子类中的对象中，都有内存空间来存储它，只是这些成员变量对子类的函数的可访问性的问题而已，不考虑非虚函数和静态变量这些（下面的没说明也是一样）没有存在类里的成员，类内部的结构应该是下面这种情况： <img src="http://i.imgur.com/11kcdkI.png"> 这个地方需要注意的是，如果基类的b不是int类型，而是char类型，而且c,d也都不是int类型，也都是char类型，我们sizeof(derived)的值是多少呢？！ 答案是12！<strong>因为在继承过来的时候，基类已经做了位对齐的处理，在b和c之间填充了3个空字节，</strong>所以，</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">sizeof</span>（derived)=<span class="built_in">sizeof</span>(base)<span class="number">+1</span>(c)<span class="number">+1</span>(d)<span class="number">+2</span>(padding);</span><br></pre></td></tr></table></figure>
+
+<h3 id="考虑虚函数的单继承"><a href="#考虑虚函数的单继承" class="headerlink" title="考虑虚函数的单继承"></a>考虑虚函数的单继承</h3><p>如果父类中，出现虚函数，子类中也出现虚函数，会是怎样的一个结构呢？！比如下面的代码：</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">base</span>&#123;</span><br><span class="line">    <span class="keyword">public</span>:</span><br><span class="line">        <span class="type">int</span> a,b;</span><br><span class="line">        <span class="function"><span class="keyword">virtual</span> <span class="type">void</span> <span class="title">f</span><span class="params">()</span></span>;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="keyword">class</span> <span class="title class_">derived</span>:<span class="keyword">public</span> base&#123;</span><br><span class="line">    <span class="keyword">public</span>:</span><br><span class="line">        <span class="type">int</span> c,d;</span><br><span class="line">        <span class="function"><span class="keyword">virtual</span> <span class="type">void</span> <span class="title">f2</span><span class="params">()</span></span>;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>在实际的存储中的结构应该是这个样子的： <img src="http://i.imgur.com/mnAVrDA.png"></p>
+<h2 id="多继承对象模型"><a href="#多继承对象模型" class="headerlink" title="多继承对象模型"></a>多继承对象模型</h2><p>上面讨论了单继承的对象模型，现在讨论一下多继承的对象模型，比如下面的代码：</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">base1</span>&#123;</span><br><span class="line">    <span class="keyword">public</span>:</span><br><span class="line">        <span class="type">int</span> a,b;</span><br><span class="line">        <span class="function"><span class="keyword">virtual</span> <span class="type">void</span> <span class="title">f</span><span class="params">()</span></span>;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="keyword">class</span> <span class="title class_">base2</span>&#123;</span><br><span class="line">    <span class="keyword">public</span>:</span><br><span class="line">        <span class="type">int</span> c,d;</span><br><span class="line">        <span class="function"><span class="keyword">virtual</span> <span class="type">void</span> <span class="title">f2</span><span class="params">()</span></span>;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="keyword">class</span> <span class="title class_">derived</span>:<span class="keyword">public</span> base1,<span class="keyword">public</span> base2&#123;</span><br><span class="line">    <span class="keyword">public</span>:</span><br><span class="line">        <span class="type">int</span> e,ff;</span><br><span class="line">        <span class="function"><span class="keyword">virtual</span> <span class="type">void</span> <span class="title">f3</span><span class="params">()</span></span>;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>上面的代码，在类中的布局应该是下面的这样的： <img src="http://i.imgur.com/ZXmsdm4.png"> 在这种继承模式下，每个父类都会有一张自己的虚表，里面包含自己的虚函数，而派生类中自己的虚函数，则是放在第一个虚表中的，如果派生类重写了虚函数，那么会自动替换成派生类的虚函数。</p>
+<h2 id="存在虚基类的对象模型"><a href="#存在虚基类的对象模型" class="headerlink" title="存在虚基类的对象模型"></a>存在虚基类的对象模型</h2><p>对象继承中，涉及到虚基类的问题，对象继承链中，虚基类只会保存一个实例。如下面的代码：</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">base</span>&#123;</span><br><span class="line">    <span class="keyword">public</span>:</span><br><span class="line">        <span class="type">int</span> a,b;</span><br><span class="line">        <span class="function"><span class="keyword">virtual</span> <span class="type">void</span> <span class="title">f</span><span class="params">()</span></span>;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="keyword">class</span> <span class="title class_">base1</span>:<span class="keyword">public</span> <span class="keyword">virtual</span> base&#123;</span><br><span class="line">    <span class="keyword">public</span>:</span><br><span class="line">        <span class="type">int</span> c,d;</span><br><span class="line">        <span class="function"><span class="keyword">virtual</span> <span class="type">void</span> <span class="title">f1</span><span class="params">()</span></span>;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="keyword">class</span> <span class="title class_">base2</span>：<span class="keyword">public</span> <span class="keyword">virtual</span> base&#123;</span><br><span class="line">    <span class="keyword">public</span>:</span><br><span class="line">        <span class="type">int</span> e,ff;</span><br><span class="line">        <span class="function"><span class="keyword">virtual</span> <span class="type">void</span> <span class="title">f2</span><span class="params">()</span></span>;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="keyword">class</span> <span class="title class_">derived</span>:<span class="keyword">public</span> base1,<span class="keyword">public</span> base2&#123;</span><br><span class="line">    <span class="keyword">public</span>:</span><br><span class="line">        <span class="type">int</span> g,h;</span><br><span class="line">        <span class="function"><span class="keyword">virtual</span> <span class="type">void</span> <span class="title">f3</span><span class="params">()</span></span>;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>这份代码在实际的对象继承中应该是这个样子的布局： <img src="http://i.imgur.com/P5WybyU.png"> 可以发现虚继承过来的基类并不像之前那样放在最上面，而且其实是放在最下面的（事实上，在g++中，表中地址从上而下是变大的）,而每一个虚表都是指向的自己的虚函数，在继承类中，如果重写了这个虚函数函数，对应的虚表中的函数也是会被改成继承类中的虚函数的。 // &lt;![CDATA[ if (typeof MathJaxListener !== ‘undefined’) { MathJax.Hub.Register.StartupHook(‘End’, function () { MathJaxListener.invokeCallbackForKey_(‘End’); }); } // ]]&gt;</p>
 ]]></content>
       <categories>
         <category>C++</category>
@@ -1295,6 +1358,23 @@
       </tags>
   </entry>
   <entry>
+    <title>kruskal 算法</title>
+    <url>/2013/04/29/kruskal-e7-ae-97-e6-b3-95/</url>
+    <content><![CDATA[<p>kruskal算法的主要思想就是从当前路径中选择一个不能构成环的最小边加入</p>
+<p>for (int i=1;i&lt;n;i++)<br>    {<br>        int mi=1000000,k;<br>        for (int j=0;j&lt;m;j++)<br>        {<br>            if ((v[e[j].x] + v[e[j].y]==1 || i==1 ) &amp;&amp; e[j].d&lt;mi){ mi=e[j].d; k=j; } } result.push_back(k); v[e[k].x]=1; v[e[k].y]=1; if (mi&gt;ma) ma=mi;<br>    }</p>
+<p>因为此算法本质上是一个贪心策略，可以通过并查集进行优化，现将其从小到大排序</p>
+<p>int kruskal()//返回最小生成树的和<br>{<br>    int ans=0;<br>    qsort(e,e+n,cmp);//cmp是将其按d值从小到大排序<br>    for (int i=0;i&lt;m;i++)//m is the number of edges<br>    {<br>        if (find(e[i].x)!=find(e[i].y)) {//判断边的两个端点是否在一个集合<br>             result.push_back(i);<br>             ans+=e[i].d;<br>        }<br>    }<br>    return ans;<br>}</p>
+<p>poj 1861</p>
+<p>#include<br>#include<br>#include<br>#include<br>using namespace std;<br>struct P{<br>    int x,y,d;<br>};<br>P e[15100];<br>vector result;<br>int ma=-1;<br>int v[1002]={0};<br>int main()<br>{<br>    int n,m;<br>    scanf(“%d%d”,&amp;n,&amp;m);<br>    for (int i=0;i&lt;m;i++)<br>        scanf(“%d%d%d”,&amp;e[i].x,&amp;e[i].y,&amp;e[i].d);<br>    for (int i=1;i&lt;n;i++)<br>    {<br>        int mi=1000000,k;<br>        for (int j=0;j&lt;m;j++)<br>        {<br>            if ((v[e[j].x] + v[e[j].y]==1 || i==1 ) &amp;&amp; e[j].d&lt;mi){                 mi=e[j].d;                 k=j;             }         }         result.push_back(k);         v[e[k].x]=1;         v[e[k].y]=1;         if (mi&gt;ma) ma=mi;<br>    }<br>    cout&lt;&lt;ma&lt;&lt;endl;<br>    cout&lt;&lt;result.size()&lt;&lt;endl;<br>    for (int i=0;i&lt;result.size();i++)<br>    {<br>        cout&lt;&lt;e[result[i]].x&lt;&lt; “ “&lt;&lt;e[result[i]].y&lt;&lt;endl;<br>    }<br>    return 0;<br>}</p>
+]]></content>
+      <categories>
+        <category>ACMICPC</category>
+      </categories>
+      <tags>
+        <tag>prof,acm</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Linux 技巧：让进程在后台可靠运行的几种方法</title>
     <url>/2016/01/29/linuxrunonbackground/</url>
     <content><![CDATA[<p>转自：<a href="http://www.ibm.com/developerworks/cn/linux/l-cn-nohup/">http://www.ibm.com/developerworks/cn/linux/l-cn-nohup/</a> 我们经常会碰到这样的问题，用 telnet/ssh 登录了远程的 Linux 服务器，运行了一些耗时较长的任务， 结果却由于网络的不稳定导致任务中途失败。如何让命令提交后不受本地关闭终端窗口/网络断开连接的干扰呢？下面举了一些例子， 您可以针对不同的场景选择不同的方式来处理这个问题。</p>
@@ -1456,43 +1536,12 @@ init─┬─Xvnc
       </tags>
   </entry>
   <entry>
-    <title>kruskal 算法</title>
-    <url>/2013/04/29/kruskal-e7-ae-97-e6-b3-95/</url>
-    <content><![CDATA[<p>kruskal算法的主要思想就是从当前路径中选择一个不能构成环的最小边加入</p>
-<p>for (int i=1;i&lt;n;i++)<br>    {<br>        int mi=1000000,k;<br>        for (int j=0;j&lt;m;j++)<br>        {<br>            if ((v[e[j].x] + v[e[j].y]==1 || i==1 ) &amp;&amp; e[j].d&lt;mi){ mi=e[j].d; k=j; } } result.push_back(k); v[e[k].x]=1; v[e[k].y]=1; if (mi&gt;ma) ma=mi;<br>    }</p>
-<p>因为此算法本质上是一个贪心策略，可以通过并查集进行优化，现将其从小到大排序</p>
-<p>int kruskal()//返回最小生成树的和<br>{<br>    int ans=0;<br>    qsort(e,e+n,cmp);//cmp是将其按d值从小到大排序<br>    for (int i=0;i&lt;m;i++)//m is the number of edges<br>    {<br>        if (find(e[i].x)!=find(e[i].y)) {//判断边的两个端点是否在一个集合<br>             result.push_back(i);<br>             ans+=e[i].d;<br>        }<br>    }<br>    return ans;<br>}</p>
-<p>poj 1861</p>
-<p>#include<br>#include<br>#include<br>#include<br>using namespace std;<br>struct P{<br>    int x,y,d;<br>};<br>P e[15100];<br>vector result;<br>int ma=-1;<br>int v[1002]={0};<br>int main()<br>{<br>    int n,m;<br>    scanf(“%d%d”,&amp;n,&amp;m);<br>    for (int i=0;i&lt;m;i++)<br>        scanf(“%d%d%d”,&amp;e[i].x,&amp;e[i].y,&amp;e[i].d);<br>    for (int i=1;i&lt;n;i++)<br>    {<br>        int mi=1000000,k;<br>        for (int j=0;j&lt;m;j++)<br>        {<br>            if ((v[e[j].x] + v[e[j].y]==1 || i==1 ) &amp;&amp; e[j].d&lt;mi){                 mi=e[j].d;                 k=j;             }         }         result.push_back(k);         v[e[k].x]=1;         v[e[k].y]=1;         if (mi&gt;ma) ma=mi;<br>    }<br>    cout&lt;&lt;ma&lt;&lt;endl;<br>    cout&lt;&lt;result.size()&lt;&lt;endl;<br>    for (int i=0;i&lt;result.size();i++)<br>    {<br>        cout&lt;&lt;e[result[i]].x&lt;&lt; “ “&lt;&lt;e[result[i]].y&lt;&lt;endl;<br>    }<br>    return 0;<br>}</p>
-]]></content>
-      <categories>
-        <category>ACMICPC</category>
-      </categories>
-      <tags>
-        <tag>prof,acm</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>POJ 1015</title>
     <url>/2013/04/25/poj1015/</url>
     <content><![CDATA[<p>原题的题意是给n个人，每个人对于控辩两方都有一个值，现在选择m个人，使得控辩两方的值的差的和最小，如果有相同的最小值，那么就选择最大的一个。 本题的关键是模型的构建，对于每个人都有两种选择，一个是选择，一个是不选择，对于相同的差值，维护一个最大的和值，换言之，就是假设差值一定，从n个人选择m个人使得和最大.可以转换为背包问题。状态转移的方程为f[i][j][k+p[i]]=max{f[i-1][j][k+p[i]],f[i-1][j-1][k]+v[i]},表示前i个人中选择j个人差的和为k的最大的和的和（p[i]是第i个人的控辩双方的值差，v[i]是第i个人的控辩双方的值和）.本题的另外一个难点在于路径的记录，我们知道，动态规划的一个本质就是状态转移，也就是在当前状态记录是由哪个值推倒过来的，就可以逆序退出上个状态的值。同时通过对路径的遍历，从而可以判断当前的第i个人是否被选择过，从而达到了降维的作用。</p>
 <span id="more"></span>
 
 <p>#include #include #include #include #include using namespace std;<br>int a[201],b[201];<br>int f[30][801],path[30][801];<br>int p[205],v[205];<br>bool select(int i,int j,int k)<br>{<br>    while (true)<br>    {<br>        if (path[i][k]&lt;0 || i&lt;0) break;<br>         if (j==path[i][k]) return true;<br>        k=k-p[path[i][k]];<br>        i–;<br>    }<br>    return false;<br>}<br>int main()<br>{<br>    int n,m;<br>    int No=0;<br>    while (scanf(“%d%d”,&amp;n,&amp;m)!=EOF &amp;&amp; n+m!=0){<br>        cout&lt;&lt;”Jury #”&lt;&lt;++No&lt;=0){<br>                for (int j=0;j=0 &amp;&amp; f[m][m*20+i]&gt;=f[m][m*20-i])<br>                {<br>                    k=m<em>20+i;<br>                    break;<br>                }<br>                if (f[m][m</em>20-i]&gt;=0){<br>                    k=m<em>20-i;<br>                    break;<br>                }<br>            }<br>        int suma=0,sumb=0;<br>        int id[300];<br>        int sum=0;<br>        while (true)<br>        {<br>            int i=path[m–][k];<br>            if (i==-1 || m&lt;0) break;<br>            id[sum++]=i;<br>            suma+=a[i];<br>            sumb+=b[i];<br>            k=k-p[i];<br>        }<br>        cout&lt;&lt;”Best jury has value “&lt; #include #include #include #include using namespace std;<br>int a[201],b[201];<br>int f[30][801],path[30][801];<br>int p[205],v[205];<br>bool select(int i,int j,int k)<br>{<br>    while (true)<br>    {<br>        if (path[i][k]&lt;0 || i&lt;0) break;<br>         if (j==path[i][k]) return true;<br>        k=k-p[path[i][k]];<br>        i–;<br>    }<br>    return false;<br>}<br>int main()<br>{<br>    int n,m;<br>    int No=0;<br>    while (scanf(“%d%d”,&amp;n,&amp;m)!=EOF &amp;&amp; n+m!=0){<br>        cout&lt;&lt;”Jury #”&lt;&lt;++No&lt;=0){<br>                for (int j=0;j=0 &amp;&amp; f[m][m*20+i]&gt;=f[m][m*20-i])<br>                {<br>                    k=m</em>20+i;<br>                    break;<br>                }<br>                if (f[m][m<em>20-i]&gt;=0){<br>                    k=m</em>20-i;<br>                    break;<br>                }<br>            }<br>        int suma=0,sumb=0;<br>        int id[300];<br>        int sum=0;<br>        while (true)<br>        {<br>            int i=path[m–][k];<br>            if (i==-1 || m&lt;0) break;<br>            id[sum++]=i;<br>            suma+=a[i];<br>            sumb+=b[i];<br>            k=k-p[i];<br>        }<br>        cout&lt;&lt;”Best jury has value “&lt;</p>
-]]></content>
-      <categories>
-        <category>ACMICPC</category>
-      </categories>
-  </entry>
-  <entry>
-    <title>POJ 1061</title>
-    <url>/2013/04/28/poj1061/</url>
-    <content><![CDATA[<p>题意就不赘诉了，青蛙约会。是一个关于欧几里得扩展的定理的题目</p>
-<p>int gcd(int a,int b)//欧几里得求最大公约数<br>{<br>    if (b==0) return a;<br>    return gcd(b,a%b);<br>}</p>
-<p>int exgcd(int a,int b,int &amp;x,int &amp;y)//欧几里得扩展求ax+by=gcd(a,b)的一组解<br>{<br>   if (b==0) {x=1;y=0;return a;}<br>   int r=exgcd(b,a%b,x,y);<br>   int t=x;<br>   x=y;<br>   y=t-a/b*y;<br>   return r;<br>}</p>
-<p>针对本题，需要注意的是，    1.数据比较大，需要用long long 2.因为是时间，所以x不能是负数，如果出现负数怎么办呢？ a*x1+b*y1=d(d=gcd(a,b)),那个转换成 a*(x1+b*n）+b*（y1-a*n)=d 最终x=(x1%b+b)%b;或者(x1+(abs([x1/b])+1)*b)%b; AC代码：</p>
-<p>#include #include #include #include #include using namespace std;</p>
-<p>int gcd(int a,int b)<br>{<br>    if (b==0) return a;<br>    return gcd(b,a%b);<br>}<br>long long exgcd(long long a,long long b,long long &amp;x,long long &amp;y)<br>{<br>    if (b==0){ x=1;y=0;return a;}<br>    long long r=exgcd(b,a%b,x,y);<br>    long long t=x;<br>    x=y;<br>    y=t-(a/b)*y;<br>    return r;<br>}<br>int main()<br>{<br>    long long x,y,m,n,L;<br>    cin&gt;&gt;x&gt;&gt;y&gt;&gt;m&gt;&gt;n&gt;&gt;L;<br>    long long s=gcd(n-m,L);<br>    if ((x-y)%s!=0){<br>    cout&lt;&lt;”Impossible”&lt;</p>
 ]]></content>
       <categories>
         <category>ACMICPC</category>
@@ -1518,66 +1567,17 @@ init─┬─Xvnc
       </tags>
   </entry>
   <entry>
-    <title>c++对象模型</title>
-    <url>/2016/05/05/cplusplusobjectmodel/</url>
-    <content><![CDATA[<p>最近在看《深度探索c++对象模型》对于对象模型有了一点了解，做一个总结。以下的一些结论的实验见：<a href="https://github.com/xtestw/CPPObjModelTest">https://github.com/xtestw/CPPObjModelTest</a></p>
-<ul>
-<li><a href="#toc_0">c++对象模型</a><ul>
-<li>  <a href="#toc_1">单个对象模型</a></li>
-<li><a href="#toc_2">单继承对象模型</a><ul>
-<li>  <a href="#toc_3">不考虑虚函数的单继承</a></li>
-<li>  <a href="#toc_4">考虑虚函数的单继承</a></li>
-</ul>
-</li>
-<li>  <a href="#toc_5">多继承对象模型</a></li>
-<li>  <a href="#toc_6">存在虚基类的对象模型</a></li>
-</ul>
-</li>
-</ul>
-<h2 id="单个对象模型"><a href="#单个对象模型" class="headerlink" title="单个对象模型"></a>单个对象模型</h2><p>对于一个单个对象而言，对象的内部结构是类似于一张表结构，依次存储着c++的对象内部数据，我们都知道，一个c++的类内部一般会包含下面的几个部分：</p>
-<ul>
-<li>  非静态成员变量</li>
-<li>  非静态成员函数</li>
-<li>  静态成员变量</li>
-<li>  静态成员函数</li>
-<li>  虚函数</li>
-<li>  友元函数</li>
-<li>  构造函数、析构函数、拷贝构造函数</li>
-</ul>
-<p>对于一个简单的对象，将设我们定义类如下：</p>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">base</span>&#123;</span><br><span class="line">    <span class="keyword">public</span>:</span><br><span class="line">        <span class="built_in">base</span>();</span><br><span class="line">        <span class="keyword">virtual</span> ~<span class="built_in">base</span>();</span><br><span class="line">        <span class="type">int</span> a,b;</span><br><span class="line">        <span class="function"><span class="type">void</span> <span class="title">f</span><span class="params">()</span></span>;</span><br><span class="line">        <span class="type">static</span> <span class="type">int</span> c,d;</span><br><span class="line">        <span class="function"><span class="type">static</span> <span class="type">void</span> <span class="title">f2</span><span class="params">()</span></span>;</span><br><span class="line">        <span class="function"><span class="keyword">virtual</span> <span class="type">void</span> <span class="title">f3</span><span class="params">()</span></span>;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
-<p>不考虑继承的话，他们的存储结构会是这样的一个结构，如下图： <img src="http://i.imgur.com/lVYnj2P.png"> 其中，非静态数据成员，被放在对象的内部，而虚函数会放在对象的一个虚表中，对象在编译的时候会形成一个vptr的指针置于对象的内部，其指针指向这张虚表（考虑类的继承和多态，指向这张虚表的vptr的设置和重置会在构造函数、析构函数和拷贝函数中自动完成）。 对象在图对象表中的位置，是按照对象的申明顺序来排列的。比如a,b的申明，因为a先申明的，那么a就被先压栈，占据高地址。 而如图所见，不论虚函数是多少个，对象内部只有一个指针指向它，所以始终占一个指针大小的空间（32位机器下是4byte). 而对这个vptr在对象中的位置，不同的编译器的处理是不一样的，vc为代表的是将其放在了头部，而gcc等则是将其放在了对象的尾部，放在尾部是为了综合考虑与C的struct的兼容问题，而在头部，则是考虑继承之后的子类在调用vptr的方便性。(我个人更偏向于放在头部，因为这样在继承的时候更好理解也更方便自然),本文中的代码和模型是基于g++编译器做的实验，都是放在头部的。 还有一个问题，《深度探索c++对象模型》中，对这个1byte的类的type_info位置，他是说放在虚表的第一个位置，而其实g++中，下面这个实验，并不是放在虚表中的：</p>
-<span id="more"></span>
-
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="keyword">class</span> <span class="title class_">base</span>&#123;</span><br><span class="line">    <span class="keyword">public</span>:</span><br><span class="line">        <span class="function"><span class="keyword">virtual</span> <span class="type">void</span> <span class="title">f</span><span class="params">()</span></span>&#123;cout&lt;&lt;<span class="string">&quot;f&quot;</span>&lt;&lt;endl;&#125;</span><br><span class="line">        <span class="function"><span class="keyword">virtual</span> <span class="type">void</span> <span class="title">f1</span><span class="params">()</span></span>&#123;cout&lt;&lt;<span class="string">&quot;f1&quot;</span>&lt;&lt;endl;&#125;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="function"><span class="keyword">typedef</span> <span class="title">void</span><span class="params">(*Fun)</span><span class="params">(<span class="type">void</span>)</span></span>;</span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    base b;</span><br><span class="line">    ((Fun)*(<span class="type">int</span>*)*(<span class="type">int</span>*)(&amp;b))();</span><br><span class="line">    ((Fun)*((<span class="type">int</span>*)*(<span class="type">int</span>*)(&amp;b)<span class="number">+1</span>))();</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>上面的这段代码的输出是</p>
-<pre><code>f
-f1
-</code></pre>
-<p>可见虚表的第一项并不是type_info。</p>
-<h2 id="单继承对象模型"><a href="#单继承对象模型" class="headerlink" title="单继承对象模型"></a>单继承对象模型</h2><h3 id="不考虑虚函数的单继承"><a href="#不考虑虚函数的单继承" class="headerlink" title="不考虑虚函数的单继承"></a>不考虑虚函数的单继承</h3><p>在对象申明的过程中，如果从上级单继承了一个对象，那么对父类的成员变量的存储是怎样的一个结构呢，参看下面的代码</p>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">base</span>&#123;</span><br><span class="line">    <span class="keyword">public</span>:</span><br><span class="line">        <span class="type">int</span> a,b;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="keyword">class</span> <span class="title class_">derived</span>:<span class="keyword">public</span> base&#123;</span><br><span class="line">    <span class="keyword">public</span>:</span><br><span class="line">        <span class="type">int</span> c,d;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
-<p>子类从父类继承过来的成员变量，无论是private,protected,public,也无论是通过private,protected还是public的方式继承过来的，其在子类中的对象中，都有内存空间来存储它，只是这些成员变量对子类的函数的可访问性的问题而已，不考虑非虚函数和静态变量这些（下面的没说明也是一样）没有存在类里的成员，类内部的结构应该是下面这种情况： <img src="http://i.imgur.com/11kcdkI.png"> 这个地方需要注意的是，如果基类的b不是int类型，而是char类型，而且c,d也都不是int类型，也都是char类型，我们sizeof(derived)的值是多少呢？！ 答案是12！<strong>因为在继承过来的时候，基类已经做了位对齐的处理，在b和c之间填充了3个空字节，</strong>所以，</p>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">sizeof</span>（derived)=<span class="built_in">sizeof</span>(base)<span class="number">+1</span>(c)<span class="number">+1</span>(d)<span class="number">+2</span>(padding);</span><br></pre></td></tr></table></figure>
-
-<h3 id="考虑虚函数的单继承"><a href="#考虑虚函数的单继承" class="headerlink" title="考虑虚函数的单继承"></a>考虑虚函数的单继承</h3><p>如果父类中，出现虚函数，子类中也出现虚函数，会是怎样的一个结构呢？！比如下面的代码：</p>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">base</span>&#123;</span><br><span class="line">    <span class="keyword">public</span>:</span><br><span class="line">        <span class="type">int</span> a,b;</span><br><span class="line">        <span class="function"><span class="keyword">virtual</span> <span class="type">void</span> <span class="title">f</span><span class="params">()</span></span>;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="keyword">class</span> <span class="title class_">derived</span>:<span class="keyword">public</span> base&#123;</span><br><span class="line">    <span class="keyword">public</span>:</span><br><span class="line">        <span class="type">int</span> c,d;</span><br><span class="line">        <span class="function"><span class="keyword">virtual</span> <span class="type">void</span> <span class="title">f2</span><span class="params">()</span></span>;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
-<p>在实际的存储中的结构应该是这个样子的： <img src="http://i.imgur.com/mnAVrDA.png"></p>
-<h2 id="多继承对象模型"><a href="#多继承对象模型" class="headerlink" title="多继承对象模型"></a>多继承对象模型</h2><p>上面讨论了单继承的对象模型，现在讨论一下多继承的对象模型，比如下面的代码：</p>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">base1</span>&#123;</span><br><span class="line">    <span class="keyword">public</span>:</span><br><span class="line">        <span class="type">int</span> a,b;</span><br><span class="line">        <span class="function"><span class="keyword">virtual</span> <span class="type">void</span> <span class="title">f</span><span class="params">()</span></span>;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="keyword">class</span> <span class="title class_">base2</span>&#123;</span><br><span class="line">    <span class="keyword">public</span>:</span><br><span class="line">        <span class="type">int</span> c,d;</span><br><span class="line">        <span class="function"><span class="keyword">virtual</span> <span class="type">void</span> <span class="title">f2</span><span class="params">()</span></span>;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="keyword">class</span> <span class="title class_">derived</span>:<span class="keyword">public</span> base1,<span class="keyword">public</span> base2&#123;</span><br><span class="line">    <span class="keyword">public</span>:</span><br><span class="line">        <span class="type">int</span> e,ff;</span><br><span class="line">        <span class="function"><span class="keyword">virtual</span> <span class="type">void</span> <span class="title">f3</span><span class="params">()</span></span>;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
-<p>上面的代码，在类中的布局应该是下面的这样的： <img src="http://i.imgur.com/ZXmsdm4.png"> 在这种继承模式下，每个父类都会有一张自己的虚表，里面包含自己的虚函数，而派生类中自己的虚函数，则是放在第一个虚表中的，如果派生类重写了虚函数，那么会自动替换成派生类的虚函数。</p>
-<h2 id="存在虚基类的对象模型"><a href="#存在虚基类的对象模型" class="headerlink" title="存在虚基类的对象模型"></a>存在虚基类的对象模型</h2><p>对象继承中，涉及到虚基类的问题，对象继承链中，虚基类只会保存一个实例。如下面的代码：</p>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">base</span>&#123;</span><br><span class="line">    <span class="keyword">public</span>:</span><br><span class="line">        <span class="type">int</span> a,b;</span><br><span class="line">        <span class="function"><span class="keyword">virtual</span> <span class="type">void</span> <span class="title">f</span><span class="params">()</span></span>;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="keyword">class</span> <span class="title class_">base1</span>:<span class="keyword">public</span> <span class="keyword">virtual</span> base&#123;</span><br><span class="line">    <span class="keyword">public</span>:</span><br><span class="line">        <span class="type">int</span> c,d;</span><br><span class="line">        <span class="function"><span class="keyword">virtual</span> <span class="type">void</span> <span class="title">f1</span><span class="params">()</span></span>;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="keyword">class</span> <span class="title class_">base2</span>：<span class="keyword">public</span> <span class="keyword">virtual</span> base&#123;</span><br><span class="line">    <span class="keyword">public</span>:</span><br><span class="line">        <span class="type">int</span> e,ff;</span><br><span class="line">        <span class="function"><span class="keyword">virtual</span> <span class="type">void</span> <span class="title">f2</span><span class="params">()</span></span>;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="keyword">class</span> <span class="title class_">derived</span>:<span class="keyword">public</span> base1,<span class="keyword">public</span> base2&#123;</span><br><span class="line">    <span class="keyword">public</span>:</span><br><span class="line">        <span class="type">int</span> g,h;</span><br><span class="line">        <span class="function"><span class="keyword">virtual</span> <span class="type">void</span> <span class="title">f3</span><span class="params">()</span></span>;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
-<p>这份代码在实际的对象继承中应该是这个样子的布局： <img src="http://i.imgur.com/P5WybyU.png"> 可以发现虚继承过来的基类并不像之前那样放在最上面，而且其实是放在最下面的（事实上，在g++中，表中地址从上而下是变大的）,而每一个虚表都是指向的自己的虚函数，在继承类中，如果重写了这个虚函数函数，对应的虚表中的函数也是会被改成继承类中的虚函数的。 // &lt;![CDATA[ if (typeof MathJaxListener !== ‘undefined’) { MathJax.Hub.Register.StartupHook(‘End’, function () { MathJaxListener.invokeCallbackForKey_(‘End’); }); } // ]]&gt;</p>
+    <title>POJ 1061</title>
+    <url>/2013/04/28/poj1061/</url>
+    <content><![CDATA[<p>题意就不赘诉了，青蛙约会。是一个关于欧几里得扩展的定理的题目</p>
+<p>int gcd(int a,int b)//欧几里得求最大公约数<br>{<br>    if (b==0) return a;<br>    return gcd(b,a%b);<br>}</p>
+<p>int exgcd(int a,int b,int &amp;x,int &amp;y)//欧几里得扩展求ax+by=gcd(a,b)的一组解<br>{<br>   if (b==0) {x=1;y=0;return a;}<br>   int r=exgcd(b,a%b,x,y);<br>   int t=x;<br>   x=y;<br>   y=t-a/b*y;<br>   return r;<br>}</p>
+<p>针对本题，需要注意的是，    1.数据比较大，需要用long long 2.因为是时间，所以x不能是负数，如果出现负数怎么办呢？ a*x1+b*y1=d(d=gcd(a,b)),那个转换成 a*(x1+b*n）+b*（y1-a*n)=d 最终x=(x1%b+b)%b;或者(x1+(abs([x1/b])+1)*b)%b; AC代码：</p>
+<p>#include #include #include #include #include using namespace std;</p>
+<p>int gcd(int a,int b)<br>{<br>    if (b==0) return a;<br>    return gcd(b,a%b);<br>}<br>long long exgcd(long long a,long long b,long long &amp;x,long long &amp;y)<br>{<br>    if (b==0){ x=1;y=0;return a;}<br>    long long r=exgcd(b,a%b,x,y);<br>    long long t=x;<br>    x=y;<br>    y=t-(a/b)*y;<br>    return r;<br>}<br>int main()<br>{<br>    long long x,y,m,n,L;<br>    cin&gt;&gt;x&gt;&gt;y&gt;&gt;m&gt;&gt;n&gt;&gt;L;<br>    long long s=gcd(n-m,L);<br>    if ((x-y)%s!=0){<br>    cout&lt;&lt;”Impossible”&lt;</p>
 ]]></content>
       <categories>
-        <category>C++</category>
+        <category>ACMICPC</category>
       </categories>
   </entry>
   <entry>
@@ -1588,6 +1588,64 @@ f1
 ]]></content>
       <categories>
         <category>ACMICPC</category>
+      </categories>
+  </entry>
+  <entry>
+    <title>x&amp;(-x)取x的最后一个1的证明</title>
+    <url>/2015/04/22/proof/</url>
+    <content><![CDATA[<p><a href="http://xtestw.site/?p=29">http://xtestw.site/?p=29</a></p>
+<p>##x&amp;(-x)取x的最后一个1的证明##<br>明天要给新队员讲树状数组，避不开的一个证明，之前教主讲过，当时没听明白给忘了- -，只有自己想了一种证明方法。</p>
+<p>#####证明#####<br>大家都知道，计算机是用补码来存储一个数的，在这种编码情况下，整数是自然状态编码，假设我们是一个5位的机器（只是假设），那么1，编码就为00001, 而-1的编码则是11111(并不是10001)，在这种情况下，我们会有下面的结论：</p>
+<pre><code>             -x=11111 – x +1 (x 假设为正数二进制)  -----------------结论一
+              x=00000 + x (x 假设为正数二进制) ----------------------结论二
+</code></pre>
+<p>我们还会有以下2个结论：</p>
+<pre><code>结论三：11111 - x 不会出现借位的情况(二进制下 ，对应位只会是两种情况 1-0 和 1-1)
+结论四：00000 + x 不会出现进位的情况（二进制下，对应位只会是 0+1,0+0）
+</code></pre>
+<p>假设 x的二进制编码为 x1 x2 x3 x4 x5</p>
+<p>那么我们就会发现 对于任何一位(以x1为例) 0+x1 和 1-x1 两个 必然是一个为1 一个为0，因为：</p>
+<table>
+<tr><td>X1的值</td>    <td>0+x1</td>    <td>1-x1</td></tr>
+<tr><td>0</td>    <td>0</td>    <td>1</td></tr>
+<tr><td>1</td>    <td>1</td>    <td>0</td></tr>
+</table>
+
+<span id="more"></span>
+
+<p>有了上面的结论，<strong>我们把焦点放到x的最后几位</strong>，我们要分离的是最后一个1，那么假设是第i位xi是最后一个1，那么i位以后的每一位都是0，在这个基础上，根据上面这个表格，我们会发现，11111-x 这个值在第i位以后全部都是1，而第i位为0，整理一下，每一位如下：</p>
+<ol>
+<li>X的每一位为  x1 ,x2,…… xi-1, 1 ,0,0,0…. 后面每一位都是0<ol start="2">
+<li>11111-x 结果的每一位为 1-X1,1-X2,….1-Xi-1 ,0,1,1,1….. 后面每一位都是1</li>
+</ol>
+</li>
+</ol>
+<p>下面这一点是关键 ，就是 –x = 11111-x +1, 也就是说-x的每一位是这样的：</p>
+<pre><code>                    1-X1,1-X2,….1-Xi-1 ,1,0,0,0…..
+</code></pre>
+<p>也就是说，最后一位+1 ，然后会变成0 一直往前进位到第i位，将第i位变成1后停止进位， 我们现在比较一下 x 和 –x的每一位的值， 会发现 ，<strong>除了第i位为一样的1，其余每一位都是不一样的</strong>即，都是一组0,1. 那么 </p>
+<pre><code>                    X&amp;(-X)= 0,0,0….1, 0,0,0,….
+</code></pre>
+<p><strong>除了第i位是1，其他每一位的值都是0</strong>， 而根据我们最开始所说的，<strong>X的第i位的1就是X当前二进制编码的最后一个1</strong>，所以通过 x &amp;(-x) 我们能够得到x的最后一个</p>
+]]></content>
+      <categories>
+        <category>ACMICPC</category>
+      </categories>
+  </entry>
+  <entry>
+    <title>sdk篡改</title>
+    <url>/2017/07/23/sdk-e7-af-a1-e6-94-b9/</url>
+    <content><![CDATA[<p>前段时间，因为一年前篡改了一个sdk的包，导致了一系列不可预知的损失，这也充分说明了技术的正确性，需要决策的正确性来支撑的。作为技术人员，不仅仅要考虑技术的可行性，也要考虑实施后的风险和结果的预期假设。 从工程角度，简单记录一下篡改sdk包的技术。</p>
+<ol>
+<li>解压jar或者apk的包 </li>
+<li>JD-GUI 反编译查看class的相关代码，找到修改点</li>
+<li>自己编写相应的方法或者类，使用 <code>javaassist</code> 注入到class文件 </li>
+<li>重新打包</li>
+</ol>
+<p> <code>javassist</code> 使用方法参考： <a href="https://jboss-javassist.github.io/javassist/tutorial/tutorial.html">https://jboss-javassist.github.io/javassist/tutorial/tutorial.html</a> 附上测试代码，修改一个方法</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">      javassist.tools.reflect.<span class="type">Loader</span> <span class="variable">cl</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">javassist</span>.tools.reflect.Loader();</span><br><span class="line">      <span class="type">ClassPool</span> <span class="variable">pool</span> <span class="operator">=</span> ClassPool.getDefault();</span><br><span class="line">      pool.insertClassPath(<span class="string">&quot;/tmp/aa/&quot;</span>);</span><br><span class="line">      <span class="type">CtClass</span> <span class="variable">cc</span> <span class="operator">=</span> pool.get(<span class="string">&quot;com.facebook.ads.internal.d.g&quot;</span>);</span><br><span class="line">      <span class="type">CtMethod</span> <span class="variable">ctmethod</span> <span class="operator">=</span> cc.getDeclaredMethod(<span class="string">&quot;c&quot;</span>);</span><br><span class="line">      cc.getDeclaredField(<span class="string">&quot;c&quot;</span>);</span><br><span class="line">      <span class="comment">// getCode()即为需要替换的的代码</span></span><br><span class="line">      ctmethod.setBody(getCode());</span><br><span class="line">      cc.writeFile(<span class="string">&quot;/tmp/aa/&quot;</span>);</span><br><span class="line">    &#125; <span class="keyword">catch</span> (CannotCompileException e) &#123;</span><br><span class="line">      e.printStackTrace();</span><br><span class="line">    &#125; <span class="keyword">catch</span> (NotFoundException e) &#123;</span><br><span class="line">      e.printStackTrace();</span><br><span class="line">    &#125; <span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">      e.printStackTrace();</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>]]></content>
+      <categories>
+        <category>JAVA</category>
       </categories>
   </entry>
   <entry>
@@ -1712,59 +1770,28 @@ f1
       </tags>
   </entry>
   <entry>
-    <title>sdk篡改</title>
-    <url>/2017/07/23/sdk-e7-af-a1-e6-94-b9/</url>
-    <content><![CDATA[<p>前段时间，因为一年前篡改了一个sdk的包，导致了一系列不可预知的损失，这也充分说明了技术的正确性，需要决策的正确性来支撑的。作为技术人员，不仅仅要考虑技术的可行性，也要考虑实施后的风险和结果的预期假设。 从工程角度，简单记录一下篡改sdk包的技术。</p>
-<ol>
-<li>解压jar或者apk的包 </li>
-<li>JD-GUI 反编译查看class的相关代码，找到修改点</li>
-<li>自己编写相应的方法或者类，使用 <code>javaassist</code> 注入到class文件 </li>
-<li>重新打包</li>
-</ol>
-<p> <code>javassist</code> 使用方法参考： <a href="https://jboss-javassist.github.io/javassist/tutorial/tutorial.html">https://jboss-javassist.github.io/javassist/tutorial/tutorial.html</a> 附上测试代码，修改一个方法</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">      javassist.tools.reflect.<span class="type">Loader</span> <span class="variable">cl</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">javassist</span>.tools.reflect.Loader();</span><br><span class="line">      <span class="type">ClassPool</span> <span class="variable">pool</span> <span class="operator">=</span> ClassPool.getDefault();</span><br><span class="line">      pool.insertClassPath(<span class="string">&quot;/tmp/aa/&quot;</span>);</span><br><span class="line">      <span class="type">CtClass</span> <span class="variable">cc</span> <span class="operator">=</span> pool.get(<span class="string">&quot;com.facebook.ads.internal.d.g&quot;</span>);</span><br><span class="line">      <span class="type">CtMethod</span> <span class="variable">ctmethod</span> <span class="operator">=</span> cc.getDeclaredMethod(<span class="string">&quot;c&quot;</span>);</span><br><span class="line">      cc.getDeclaredField(<span class="string">&quot;c&quot;</span>);</span><br><span class="line">      <span class="comment">// getCode()即为需要替换的的代码</span></span><br><span class="line">      ctmethod.setBody(getCode());</span><br><span class="line">      cc.writeFile(<span class="string">&quot;/tmp/aa/&quot;</span>);</span><br><span class="line">    &#125; <span class="keyword">catch</span> (CannotCompileException e) &#123;</span><br><span class="line">      e.printStackTrace();</span><br><span class="line">    &#125; <span class="keyword">catch</span> (NotFoundException e) &#123;</span><br><span class="line">      e.printStackTrace();</span><br><span class="line">    &#125; <span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">      e.printStackTrace();</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>]]></content>
+    <title>windows核心编程-错误处理</title>
+    <url>/2015/01/29/windows-e6-a0-b8-e5-bf-83-e7-bc-96-e7-a8-8b-e9-94-99-e8-af-af-e5-a4-84-e7-90-86/</url>
+    <content><![CDATA[<p>1.常见的错误返回类型</p>
+<p>VOID/BOOL/HANDLE/PVOID/LONG/DWORD VOID 不可能失败 BOOL 错误返回false 编码的时候最好测试是否不为FALSE HANDLE 错误 NULL/INVALID_HANDLE_VALUE PVOID  失败返回NULL,成功返回一个数据块的地址 LONG/DWORD 0或-1，不绝对 2.GetLastError函数   DWORD GetLastError(); 3.WinError.h 头文件定义了若干的Mircosoft定义的代码列表 4.</p>
+]]></content>
       <categories>
-        <category>JAVA</category>
+        <category>ACMICPC</category>
       </categories>
+      <tags>
+        <tag>windows</tag>
+      </tags>
   </entry>
   <entry>
-    <title>x&amp;(-x)取x的最后一个1的证明</title>
-    <url>/2015/04/22/proof/</url>
-    <content><![CDATA[<p><a href="http://xtestw.site/?p=29">http://xtestw.site/?p=29</a></p>
-<p>##x&amp;(-x)取x的最后一个1的证明##<br>明天要给新队员讲树状数组，避不开的一个证明，之前教主讲过，当时没听明白给忘了- -，只有自己想了一种证明方法。</p>
-<p>#####证明#####<br>大家都知道，计算机是用补码来存储一个数的，在这种编码情况下，整数是自然状态编码，假设我们是一个5位的机器（只是假设），那么1，编码就为00001, 而-1的编码则是11111(并不是10001)，在这种情况下，我们会有下面的结论：</p>
-<pre><code>             -x=11111 – x +1 (x 假设为正数二进制)  -----------------结论一
-              x=00000 + x (x 假设为正数二进制) ----------------------结论二
-</code></pre>
-<p>我们还会有以下2个结论：</p>
-<pre><code>结论三：11111 - x 不会出现借位的情况(二进制下 ，对应位只会是两种情况 1-0 和 1-1)
-结论四：00000 + x 不会出现进位的情况（二进制下，对应位只会是 0+1,0+0）
-</code></pre>
-<p>假设 x的二进制编码为 x1 x2 x3 x4 x5</p>
-<p>那么我们就会发现 对于任何一位(以x1为例) 0+x1 和 1-x1 两个 必然是一个为1 一个为0，因为：</p>
-<table>
-<tr><td>X1的值</td>    <td>0+x1</td>    <td>1-x1</td></tr>
-<tr><td>0</td>    <td>0</td>    <td>1</td></tr>
-<tr><td>1</td>    <td>1</td>    <td>0</td></tr>
-</table>
-
-<span id="more"></span>
-
-<p>有了上面的结论，<strong>我们把焦点放到x的最后几位</strong>，我们要分离的是最后一个1，那么假设是第i位xi是最后一个1，那么i位以后的每一位都是0，在这个基础上，根据上面这个表格，我们会发现，11111-x 这个值在第i位以后全部都是1，而第i位为0，整理一下，每一位如下：</p>
+    <title>并查集</title>
+    <url>/2013/04/27/set/</url>
+    <content><![CDATA[<p>好吧，前两天做了一场CF，遇到一道并查集的题目，感觉并查集还需学习啊，记录一下 具体的算法如下</p>
 <ol>
-<li>X的每一位为  x1 ,x2,…… xi-1, 1 ,0,0,0…. 后面每一位都是0<ol start="2">
-<li>11111-x 结果的每一位为 1-X1,1-X2,….1-Xi-1 ,0,1,1,1….. 后面每一位都是1</li>
+<li>有father数组，全部初始化为本身 </li>
+<li>添加一个关系进来的时候，s–t，找到s的祖先a,t的祖先b，将a的father设为b </li>
+<li>通过查找祖先，来确定是否在一个集合内</li>
 </ol>
-</li>
-</ol>
-<p>下面这一点是关键 ，就是 –x = 11111-x +1, 也就是说-x的每一位是这样的：</p>
-<pre><code>                    1-X1,1-X2,….1-Xi-1 ,1,0,0,0…..
-</code></pre>
-<p>也就是说，最后一位+1 ，然后会变成0 一直往前进位到第i位，将第i位变成1后停止进位， 我们现在比较一下 x 和 –x的每一位的值， 会发现 ，<strong>除了第i位为一样的1，其余每一位都是不一样的</strong>即，都是一组0,1. 那么 </p>
-<pre><code>                    X&amp;(-X)= 0,0,0….1, 0,0,0,….
-</code></pre>
-<p><strong>除了第i位是1，其他每一位的值都是0</strong>， 而根据我们最开始所说的，<strong>X的第i位的1就是X当前二进制编码的最后一个1</strong>，所以通过 x &amp;(-x) 我们能够得到x的最后一个</p>
-]]></content>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">init</span><span class="params">(<span class="type">int</span> n)</span></span>&#123;<span class="comment">//初始化，节点编号1-n</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i=<span class="number">1</span>;i&lt;=n;i++) father[i]=i;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">find</span><span class="params">(<span class="type">int</span> x)</span><span class="comment">//查找祖先节点</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">while</span> (father[x]!=x) x=father[x];</span><br><span class="line">	<span class="keyword">return</span> x;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">add</span><span class="params">(<span class="type">int</span> s,<span class="type">int</span> t)</span><span class="comment">//增加一个关系，改变集合</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  <span class="type">int</span> a=<span class="built_in">find</span>(s);</span><br><span class="line">  <span class="type">int</span> b=<span class="built_in">find</span>(t);</span><br><span class="line">  father[a]=b;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">bool</span> <span class="title">judge</span><span class="params">(<span class="type">int</span> s,<span class="type">int</span> t)</span><span class="comment">//判断是不是一个集合</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">find</span>(s)==<span class="built_in">find</span>(t);</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>]]></content>
       <categories>
         <category>ACMICPC</category>
       </categories>
@@ -1797,33 +1824,6 @@ f1
       </tags>
   </entry>
   <entry>
-    <title>并查集</title>
-    <url>/2013/04/27/set/</url>
-    <content><![CDATA[<p>好吧，前两天做了一场CF，遇到一道并查集的题目，感觉并查集还需学习啊，记录一下 具体的算法如下</p>
-<ol>
-<li>有father数组，全部初始化为本身 </li>
-<li>添加一个关系进来的时候，s–t，找到s的祖先a,t的祖先b，将a的father设为b </li>
-<li>通过查找祖先，来确定是否在一个集合内</li>
-</ol>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">init</span><span class="params">(<span class="type">int</span> n)</span></span>&#123;<span class="comment">//初始化，节点编号1-n</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i=<span class="number">1</span>;i&lt;=n;i++) father[i]=i;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">find</span><span class="params">(<span class="type">int</span> x)</span><span class="comment">//查找祖先节点</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">while</span> (father[x]!=x) x=father[x];</span><br><span class="line">	<span class="keyword">return</span> x;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">add</span><span class="params">(<span class="type">int</span> s,<span class="type">int</span> t)</span><span class="comment">//增加一个关系，改变集合</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  <span class="type">int</span> a=<span class="built_in">find</span>(s);</span><br><span class="line">  <span class="type">int</span> b=<span class="built_in">find</span>(t);</span><br><span class="line">  father[a]=b;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">bool</span> <span class="title">judge</span><span class="params">(<span class="type">int</span> s,<span class="type">int</span> t)</span><span class="comment">//判断是不是一个集合</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">find</span>(s)==<span class="built_in">find</span>(t);</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>]]></content>
-      <categories>
-        <category>ACMICPC</category>
-      </categories>
-  </entry>
-  <entry>
-    <title>windows核心编程-错误处理</title>
-    <url>/2015/01/29/windows-e6-a0-b8-e5-bf-83-e7-bc-96-e7-a8-8b-e9-94-99-e8-af-af-e5-a4-84-e7-90-86/</url>
-    <content><![CDATA[<p>1.常见的错误返回类型</p>
-<p>VOID/BOOL/HANDLE/PVOID/LONG/DWORD VOID 不可能失败 BOOL 错误返回false 编码的时候最好测试是否不为FALSE HANDLE 错误 NULL/INVALID_HANDLE_VALUE PVOID  失败返回NULL,成功返回一个数据块的地址 LONG/DWORD 0或-1，不绝对 2.GetLastError函数   DWORD GetLastError(); 3.WinError.h 头文件定义了若干的Mircosoft定义的代码列表 4.</p>
-]]></content>
-      <categories>
-        <category>ACMICPC</category>
-      </categories>
-      <tags>
-        <tag>windows</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>匈牙利二分匹配</title>
     <url>/2013/04/28/%E5%8C%88%E7%89%99%E5%88%A9%E4%BA%8C%E5%88%86%E5%8C%B9%E9%85%8D/</url>
     <content><![CDATA[<p>关于算法的说明，可以参看这个大牛的讲解，很详细： <a href="http://imlazy.ycool.com/post.1603708.html">http://imlazy.ycool.com/post.1603708.html</a> 直接上代码</p>
@@ -1835,6 +1835,25 @@ f1
 
 <p>  好吧，具体的代码就应该是这样了，但是二分图是无向图吧。。。有向图，怎么破…</p>
 ]]></content>
+      <categories>
+        <category>ACMICPC</category>
+      </categories>
+  </entry>
+  <entry>
+    <title>匈牙利算法</title>
+    <url>/2014/07/07/%E5%8C%88%E7%89%99%E5%88%A9%E7%AE%97%E6%B3%95/</url>
+    <content><![CDATA[<p>参见博客：<a href="http://blog.csdn.net/dark_scope/article/details/8880547%EF%BC%8C%E9%9D%9E%E5%B8%B8%E7%BB%99%E5%8A%9B%E7%9A%84%E8%AF%B4%E6%B3%95">http://blog.csdn.net/dark_scope/article/details/8880547，非常给力的说法</a> 关于二分图匹配，常用的结论如下：</p>
+<ol>
+<li><p>二分图的最小顶点覆盖 最小顶点覆盖要求用最少的点（X或Y中都行），让每条边都至少和其中一个点关联。 knoig定理:二分图的最小顶点覆盖数 = 二分图的最大匹配数（m）。</p>
+</li>
+<li><p>DAG图的最小路径覆盖 用尽量少的不相交简单路径覆盖有向无环图(DAG)G的所有顶点，这就是DAG图的最小路径覆盖问题。 结论：DAG图的最小路径覆盖数 = 节点数（n）- 最大匹配数（m）</p>
+</li>
+</ol>
+<ol start="3">
+<li>二分图的最大独立集 结论：二分图的最大独立集数 = 节点数（n）— 最大匹配数（m）</li>
+</ol>
+<p>匈牙利算法模板:</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment"> * Author:  xtestw</span></span><br><span class="line"><span class="comment"> * Created Time:  2014/7/6 21:55:04</span></span><br><span class="line"><span class="comment"> * File Name: hungry.cpp</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;cstdlib&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;cstring&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;cmath&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;algorithm&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;string&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;vector&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stack&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;queue&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;set&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;time.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="type">const</span> <span class="type">int</span> maxint = <span class="number">-1u</span>&gt;&gt;<span class="number">1</span>;</span><br><span class="line"><span class="type">int</span> g[<span class="number">1000</span>][<span class="number">1001</span>];</span><br><span class="line"><span class="type">int</span> vis[<span class="number">1010</span>];</span><br><span class="line"><span class="type">int</span> pre[<span class="number">1010</span>];</span><br><span class="line"><span class="type">int</span> m,n1,n2;</span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">init</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="built_in">memset</span>(g,<span class="number">0</span>,<span class="built_in">sizeof</span>(g));</span><br><span class="line">    <span class="built_in">memset</span>(vis,<span class="number">0</span>,<span class="built_in">sizeof</span>(vis));</span><br><span class="line">    <span class="built_in">memset</span>(pre,<span class="number">-1</span>,<span class="built_in">sizeof</span>(pre));</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">&quot;%d&quot;</span>,&amp;m);</span><br><span class="line">    <span class="keyword">if</span> (m==<span class="number">0</span>) <span class="keyword">return</span>;</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">&quot;%d%d&quot;</span>,&amp;n1,&amp;n2);</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i = <span class="number">0</span>; i &lt; m ; i++)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="type">int</span> a,b;</span><br><span class="line">        <span class="built_in">scanf</span>(<span class="string">&quot;%d%d&quot;</span>,&amp;a,&amp;b);</span><br><span class="line">        g[a][b]=<span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">find</span><span class="params">(<span class="type">int</span> x)</span></span>&#123;</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>;i&lt;=n2;i++)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span> (g[x][i] &amp;&amp; !vis[i])&#123;</span><br><span class="line">            vis[i]=<span class="number">1</span>;</span><br><span class="line">            <span class="keyword">if</span> (pre[i]&lt;<span class="number">0</span> || <span class="built_in">find</span>(pre[i]))</span><br><span class="line">            &#123;</span><br><span class="line">                pre[i]=x;</span><br><span class="line">                <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">hungry</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="type">int</span> ret=<span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>;i&lt;=n1;i++)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">memset</span>(vis,<span class="number">0</span>,<span class="built_in">sizeof</span>(vis));</span><br><span class="line">        <span class="keyword">if</span> (<span class="built_in">find</span>(i))&#123;</span><br><span class="line">            ret++;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> ret;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line"><span class="meta">#<span class="keyword">ifndef</span> ONLINE_JUDGE</span></span><br><span class="line">  <span class="comment">// freopen(&quot;f:/in.txt&quot;,&quot;r&quot;,stdin);</span></span><br><span class="line"><span class="meta">#<span class="keyword">endif</span></span></span><br><span class="line">    <span class="keyword">while</span> (<span class="literal">true</span>)&#123;</span><br><span class="line">         <span class="built_in">init</span>();</span><br><span class="line">         <span class="keyword">if</span> (m==<span class="number">0</span>) <span class="keyword">break</span>;</span><br><span class="line">        cout&lt;&lt;<span class="built_in">hungry</span>()&lt;&lt;endl;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
       <categories>
         <category>ACMICPC</category>
       </categories>
@@ -1888,25 +1907,6 @@ f1
       </tags>
   </entry>
   <entry>
-    <title>匈牙利算法</title>
-    <url>/2014/07/07/%E5%8C%88%E7%89%99%E5%88%A9%E7%AE%97%E6%B3%95/</url>
-    <content><![CDATA[<p>参见博客：<a href="http://blog.csdn.net/dark_scope/article/details/8880547%EF%BC%8C%E9%9D%9E%E5%B8%B8%E7%BB%99%E5%8A%9B%E7%9A%84%E8%AF%B4%E6%B3%95">http://blog.csdn.net/dark_scope/article/details/8880547，非常给力的说法</a> 关于二分图匹配，常用的结论如下：</p>
-<ol>
-<li><p>二分图的最小顶点覆盖 最小顶点覆盖要求用最少的点（X或Y中都行），让每条边都至少和其中一个点关联。 knoig定理:二分图的最小顶点覆盖数 = 二分图的最大匹配数（m）。</p>
-</li>
-<li><p>DAG图的最小路径覆盖 用尽量少的不相交简单路径覆盖有向无环图(DAG)G的所有顶点，这就是DAG图的最小路径覆盖问题。 结论：DAG图的最小路径覆盖数 = 节点数（n）- 最大匹配数（m）</p>
-</li>
-</ol>
-<ol start="3">
-<li>二分图的最大独立集 结论：二分图的最大独立集数 = 节点数（n）— 最大匹配数（m）</li>
-</ol>
-<p>匈牙利算法模板:</p>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment"> * Author:  xtestw</span></span><br><span class="line"><span class="comment"> * Created Time:  2014/7/6 21:55:04</span></span><br><span class="line"><span class="comment"> * File Name: hungry.cpp</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;cstdlib&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;cstring&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;cmath&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;algorithm&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;string&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;vector&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stack&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;queue&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;set&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;time.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="type">const</span> <span class="type">int</span> maxint = <span class="number">-1u</span>&gt;&gt;<span class="number">1</span>;</span><br><span class="line"><span class="type">int</span> g[<span class="number">1000</span>][<span class="number">1001</span>];</span><br><span class="line"><span class="type">int</span> vis[<span class="number">1010</span>];</span><br><span class="line"><span class="type">int</span> pre[<span class="number">1010</span>];</span><br><span class="line"><span class="type">int</span> m,n1,n2;</span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">init</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="built_in">memset</span>(g,<span class="number">0</span>,<span class="built_in">sizeof</span>(g));</span><br><span class="line">    <span class="built_in">memset</span>(vis,<span class="number">0</span>,<span class="built_in">sizeof</span>(vis));</span><br><span class="line">    <span class="built_in">memset</span>(pre,<span class="number">-1</span>,<span class="built_in">sizeof</span>(pre));</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">&quot;%d&quot;</span>,&amp;m);</span><br><span class="line">    <span class="keyword">if</span> (m==<span class="number">0</span>) <span class="keyword">return</span>;</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">&quot;%d%d&quot;</span>,&amp;n1,&amp;n2);</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i = <span class="number">0</span>; i &lt; m ; i++)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="type">int</span> a,b;</span><br><span class="line">        <span class="built_in">scanf</span>(<span class="string">&quot;%d%d&quot;</span>,&amp;a,&amp;b);</span><br><span class="line">        g[a][b]=<span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">find</span><span class="params">(<span class="type">int</span> x)</span></span>&#123;</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>;i&lt;=n2;i++)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span> (g[x][i] &amp;&amp; !vis[i])&#123;</span><br><span class="line">            vis[i]=<span class="number">1</span>;</span><br><span class="line">            <span class="keyword">if</span> (pre[i]&lt;<span class="number">0</span> || <span class="built_in">find</span>(pre[i]))</span><br><span class="line">            &#123;</span><br><span class="line">                pre[i]=x;</span><br><span class="line">                <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">hungry</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="type">int</span> ret=<span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>;i&lt;=n1;i++)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">memset</span>(vis,<span class="number">0</span>,<span class="built_in">sizeof</span>(vis));</span><br><span class="line">        <span class="keyword">if</span> (<span class="built_in">find</span>(i))&#123;</span><br><span class="line">            ret++;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> ret;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line"><span class="meta">#<span class="keyword">ifndef</span> ONLINE_JUDGE</span></span><br><span class="line">  <span class="comment">// freopen(&quot;f:/in.txt&quot;,&quot;r&quot;,stdin);</span></span><br><span class="line"><span class="meta">#<span class="keyword">endif</span></span></span><br><span class="line">    <span class="keyword">while</span> (<span class="literal">true</span>)&#123;</span><br><span class="line">         <span class="built_in">init</span>();</span><br><span class="line">         <span class="keyword">if</span> (m==<span class="number">0</span>) <span class="keyword">break</span>;</span><br><span class="line">        cout&lt;&lt;<span class="built_in">hungry</span>()&lt;&lt;endl;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
-      <categories>
-        <category>ACMICPC</category>
-      </categories>
-  </entry>
-  <entry>
     <title>图论入门算法理解</title>
     <url>/2014/06/09/%E5%9B%BE%E8%AE%BA%E5%85%A5%E9%97%A8%E7%AE%97%E6%B3%95%E7%90%86%E8%A7%A3/</url>
     <content><![CDATA[<p>1.Dijsktra 算法</p>
@@ -1957,29 +1957,6 @@ f1
 <span id="more"></span>
 
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">代理模式：为另一个对象提供一个替身或占位符以访问这个对象。</span><br></pre></td></tr></table></figure>]]></content>
-      <categories>
-        <category>Design Pattern</category>
-      </categories>
-      <tags>
-        <tag>设计模式</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>设计模式-模板方法</title>
-    <url>/2014/09/05/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E6%A8%A1%E6%9D%BF%E6%96%B9%E6%B3%95/</url>
-    <content><![CDATA[<p>前面学习过了策略模式，策略模式是对一类的算法进行封装，利用组合，算法之间可以互相替换，但是这个是针对算法过程不是一样的算法。但是如果一系列的算法的步骤都是一样的，且算法的很多过程都是一样的处理，那么，用策略模式的话，会导致算法的重用不高，我们采用模板方法来实现：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">模板方法模式：在一个方法中定义一个算法的骨架，而将一些步骤延迟到子类中。模板方法使得子类可以在不改变算法结构的情况下，重新定义算法中的某些步骤。</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">public abstract class CAL&#123;</span><br><span class="line">    public final void algorithm()</span><br><span class="line">    &#123;</span><br><span class="line">        A1();</span><br><span class="line">        A2();</span><br><span class="line">        if (Judge())</span><br><span class="line">            A3();</span><br><span class="line">        A4();</span><br><span class="line">    &#125;</span><br><span class="line">    public void A1()&#123;</span><br><span class="line">        //实现</span><br><span class="line">        .....</span><br><span class="line">    &#125;</span><br><span class="line">    public  void A2()&#123;</span><br><span class="line">        //实现</span><br><span class="line">        .....</span><br><span class="line">    &#125;</span><br><span class="line">    public abstract void A3()&#123;&#125;</span><br><span class="line">    public abstract void A4()&#123;&#125;</span><br><span class="line">    public boolean Judge()&#123;</span><br><span class="line">        return true;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>其中模板类是一个抽象类，其中算法是确定了的，A1，A2是公共的方法，所有的子类都是一样的，A3，A4是子类自己实现的不一样的函数，定义为抽象方法，子类实现，而Judge方法被成为钩子，默认返回true，而子类可以重写这个方法，这样就能让子类拥有自己的方法。但是这个也反应了模板方法的一个缺点，就是与策略模式相比，弹性不足。</p>
-<span id="more"></span>
-
-<p>设计模式-好莱坞模式</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">好莱坞模式：别调用我们，我们会调用你。</span><br></pre></td></tr></table></figure>
-
-<p>允许低层组件将自己挂钩到系统上，但是高层组件会决定什么时候和怎样使用这些低层组件。</p>
-]]></content>
       <categories>
         <category>Design Pattern</category>
       </categories>
@@ -2042,6 +2019,29 @@ f1
       </tags>
   </entry>
   <entry>
+    <title>设计模式-模板方法</title>
+    <url>/2014/09/05/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E6%A8%A1%E6%9D%BF%E6%96%B9%E6%B3%95/</url>
+    <content><![CDATA[<p>前面学习过了策略模式，策略模式是对一类的算法进行封装，利用组合，算法之间可以互相替换，但是这个是针对算法过程不是一样的算法。但是如果一系列的算法的步骤都是一样的，且算法的很多过程都是一样的处理，那么，用策略模式的话，会导致算法的重用不高，我们采用模板方法来实现：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">模板方法模式：在一个方法中定义一个算法的骨架，而将一些步骤延迟到子类中。模板方法使得子类可以在不改变算法结构的情况下，重新定义算法中的某些步骤。</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">public abstract class CAL&#123;</span><br><span class="line">    public final void algorithm()</span><br><span class="line">    &#123;</span><br><span class="line">        A1();</span><br><span class="line">        A2();</span><br><span class="line">        if (Judge())</span><br><span class="line">            A3();</span><br><span class="line">        A4();</span><br><span class="line">    &#125;</span><br><span class="line">    public void A1()&#123;</span><br><span class="line">        //实现</span><br><span class="line">        .....</span><br><span class="line">    &#125;</span><br><span class="line">    public  void A2()&#123;</span><br><span class="line">        //实现</span><br><span class="line">        .....</span><br><span class="line">    &#125;</span><br><span class="line">    public abstract void A3()&#123;&#125;</span><br><span class="line">    public abstract void A4()&#123;&#125;</span><br><span class="line">    public boolean Judge()&#123;</span><br><span class="line">        return true;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>其中模板类是一个抽象类，其中算法是确定了的，A1，A2是公共的方法，所有的子类都是一样的，A3，A4是子类自己实现的不一样的函数，定义为抽象方法，子类实现，而Judge方法被成为钩子，默认返回true，而子类可以重写这个方法，这样就能让子类拥有自己的方法。但是这个也反应了模板方法的一个缺点，就是与策略模式相比，弹性不足。</p>
+<span id="more"></span>
+
+<p>设计模式-好莱坞模式</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">好莱坞模式：别调用我们，我们会调用你。</span><br></pre></td></tr></table></figure>
+
+<p>允许低层组件将自己挂钩到系统上，但是高层组件会决定什么时候和怎样使用这些低层组件。</p>
+]]></content>
+      <categories>
+        <category>Design Pattern</category>
+      </categories>
+      <tags>
+        <tag>设计模式</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>设计模式-状态模式</title>
     <url>/2014/09/07/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E7%8A%B6%E6%80%81%E6%A8%A1%E5%BC%8F/</url>
     <content><![CDATA[<p>状态模式是针对系统的状态转换的，其主要的定义如下：</p>
@@ -2087,33 +2087,63 @@ f1
       </tags>
   </entry>
   <entry>
-    <title>设计模式-适配器模式和外观模式</title>
-    <url>/2014/09/04/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E9%80%82%E9%85%8D%E5%99%A8%E6%A8%A1%E5%BC%8F%E5%92%8C%E5%A4%96%E8%A7%82%E6%A8%A1%E5%BC%8F/</url>
-    <content><![CDATA[<p>1.适配器模式</p>
-<p>适配器模式是针对接口不一时处理的情况，比如我的类的参数是IInterface1，但是我现在想要调用IInterface2接口的函数，怎么办呢？就是用适配器来解决这个问题：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">public interface IInterface1()&#123;</span><br><span class="line">    public void method1();</span><br><span class="line">&#125;</span><br><span class="line">public interface IInterface2()&#123;</span><br><span class="line">    public void method2();</span><br><span class="line">&#125;</span><br><span class="line">public class adapter implements IInterface1&#123;</span><br><span class="line">    IInterface2 v;</span><br><span class="line">    public adapter(IInterface2 t)&#123;</span><br><span class="line">        this.v=t;</span><br><span class="line">    &#125;</span><br><span class="line">    public void method1()&#123;</span><br><span class="line">        v.method2();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>现在我们调用IIterface2的method1的方法的时候，就是可以直接构造一个适配器来完成</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">public class A&#123;</span><br><span class="line"></span><br><span class="line">    public void method3(IInterface1 t)</span><br><span class="line">    &#123;</span><br><span class="line">        t.method1();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public static void main(String[] arg)</span><br><span class="line">    &#123;</span><br><span class="line">        (new A()).method3(new adapter(claimplementInterfce2));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>其中claimplementInterface2是实现Interface2的一个类的实例。这种适配器的方法被称作为对象适配器，还有一种适配器，叫做类适配器，是基于类的多继承的，其中适配器继承自要适配的两个类，用其中一个类的方法调用另一个类，思想是一致的，不过java不支持多继承，所以也就是只能用对象适配器。</p>
+    <title>设计模式-观察者模式</title>
+    <url>/2014/08/30/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E8%A7%82%E5%AF%9F%E8%80%85%E6%A8%A1%E5%BC%8F/</url>
+    <content><![CDATA[<p>在项目设计阶段，处理一对多的依赖关系类的时候，我们需要降低代码的耦合性从而增强可扩展性，比如一个班级，班主任老师和学生的关系，对于学校的通知，必定不会是学生没事的时候就问一下班主任”学校有通知没啊？”（铁定会把班主任搞毛的），明智的做法则是等着班主任在班级里面通知（对于学校的通知，班主任不会不通知学生的）,在这个关系里，班主任就是所谓的被观察者，而学生则是观察者，也就是所谓的观察者模式：</p>
+<blockquote>
+<p>观察者模式：定义了对象之间的一对多的依赖，这样一来，当一个对象改变状态的时候，他的所有依赖都会收到通知并自动更新</p>
+</blockquote>
 <span id="more"></span>
 
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">适配器模式：将一个类的接口，转换成客户期望的另一个接口，适配器让原本接口不兼容的类可以合作无间</span><br></pre></td></tr></table></figure>
+<p>对于观察者模式中所说的通知，就是在被观察者的状态改变的时候，能够让所有观察者根据这种变化作出反应,对于被观察者，他的手里应该有一张观察者的名单，只有这样，才能在状态改变的时候，给出观察者通知，就如上面的例子，班主任只有知道他们班有哪些学生，才能通知到位，当然有的时候，有的学生并不想知道学校的那些通知，那么他就要从老师那边把自己的名字从通知名单中删除掉，但是如果有一天他又想听了，那么对名单还有提供增加一个观察者的名单，之所以命名为观察者和被观察者，而不是通知者和被通知者，就是因为观察者有是否观察的主动权，按照前面一章所讲的，针对接口编程，我们就可以设计出一个被观察者的接口:</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> interface Observerable&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="type">void</span> <span class="title">addObserver</span><span class="params">(Observer o)</span></span>;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="type">void</span> <span class="title">deleteObserver</span><span class="params">(Observer o)</span></span>;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="type">void</span> <span class="title">notifyChanged</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<p>2.外观模式</p>
-<p>  外观模式，其实就是对一个子系统的方法进行整理，对外公开一些方法，方便外部的调用，但是并不是对这些类的一个封装，只是提供了一个简单的接口，用户如果觉得没什么用出，可以直接调用子系统的方法，而且，一个子系统可以有很多个外观。所以外观模式的定义如下</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">外观模式：提供一个统一的接口，用来访问子系统的一群接口。外观定义了一个高层接口，让子系统更容易使用。</span><br></pre></td></tr></table></figure>
+<p>对于观察者，他的职责就是等着被观察者的更新，然后更新自己的状态，我们也设计出他的接口</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> interface Observer&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="type">void</span> <span class="title">update</span><span class="params">(object[] data)</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<p>比如我们用电脑，怎么开机，怎么关机呢：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">public class UseComputer&#123;</span><br><span class="line">    ZHUJI zhuji;</span><br><span class="line">                XIANSHIQI xianshiqi;</span><br><span class="line">            ...</span><br><span class="line">    public UseComputer(ZHUJI zhuji,XIANSHIQI xianshiqi,....)</span><br><span class="line">    &#123;</span><br><span class="line">        this.zhuji=zhuji;</span><br><span class="line">        this.xianshiqi=xianshiqi;</span><br><span class="line">        .....</span><br><span class="line">    &#125;</span><br><span class="line">    public void guanji()</span><br><span class="line">    &#123;</span><br><span class="line">        zhuji.off();</span><br><span class="line">        xianshiqi.off();</span><br><span class="line">    &#125;</span><br><span class="line">    public void kaiji()</span><br><span class="line">    &#123;</span><br><span class="line">        xianshiqi.on();</span><br><span class="line">        zhuji.on();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>很明显的观察者在运行的时候，必须知道知道自己的观察对象是谁，所以在观察者类中应该有个变量记录被观察者：</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Observer1</span> implements Observer&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> Observerable subject;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Observer1</span><span class="params">(Observerable subject)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.subject=subject;</span><br><span class="line">        subject.<span class="built_in">addObserver</span>(<span class="keyword">this</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="type">void</span> <span class="title">update</span><span class="params">(object\[\] data)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        ........</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<p>这样就直接提供给用户开机和关机的操作了，而不用用户自己去调用开机关机的一系列的方法了。</p>
-<p>3.设计原则</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">最少知识原则：只和你的密友谈话</span><br></pre></td></tr></table></figure>
+<p>在java的java.until包中 也提供了这两个接口，但是与我们不同的是，他的被观察者ObserverAble不是一个接口而是一个类，其中提供了setChanged()的这个函数，这个函数的作用就是设定changed的值从而决定是否通知所有的观察者是否更新，因为有些变化并不一定是要通知观察者，比如学校专门给老师发的工资调整的通知，这个真的有必要告诉学生么？(另外需要注意的是，java这个ObserverAble类，提供的setChanged方法是protected的，所以你要是用它，就必须继承这个类，如果你要同时继承另外一个类的话，….) 另一个问题，学生向学校提交了一份申请，但是，老师那边久久没有回应，怎么办，学生一直等下去么？肯定不行的，必定是要主动向老师询问结果的，这也就意味着，我们的观察者可以主动的从被观察者那边获取数据，那么观察者就必须提供对应数据的get方法。 另外这一章中也提到了一个新的设计原则：</p>
+<blockquote>
+<p>为交互对象间的松耦合设计而努力</p>
+</blockquote>
+]]></content>
+      <categories>
+        <category>Design Pattern</category>
+      </categories>
+      <tags>
+        <tag>设计模式</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>设计模式-装饰者模式</title>
+    <url>/2014/08/31/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E8%A3%85%E9%A5%B0%E8%80%85%E6%A8%A1%E5%BC%8F/</url>
+    <content><![CDATA[<blockquote>
+<p>​     这一章看完之后，我感觉，装饰者模式就是对类继承的一种递归调用式的组合应用，很好的是实现了开闭原则，可以有效的扩展应用程序。比如书中的例子，有几种饮料，每种饮料的价格已经知道了，但是我们又有很多种的调料，每种调料也有它的价格，我们现在需要是在饮料中加调料，那么这样一来，饮料的售价就会变化，如何来描述这种售价呢？如果通过对调料种类的组合来定义若干的类，肯定是非常愚蠢的行为。</p>
+</blockquote>
+<blockquote>
+<p>​     通过装饰者模式，就能很好的解决这个问题，我们将这些类分为装饰类（调料），待装饰类（饮料）两种，这两种类继承同一个父类，不同的是装饰类中的构造函数有一个父类引用的构造函数，这样子就可以递归调用构造函数来进行 装饰了。</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">public class A extends BaseClass&#123;</span><br><span class="line">    </span><br><span class="line">    public string who()</span><br><span class="line">    &#123;</span><br><span class="line">        return &quot;A&quot;;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public int cost()</span><br><span class="line">    &#123;</span><br><span class="line">        return 5;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<p>需要做到这个原则，建议只调用一下的范围的方法：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">对象本身</span><br><span class="line">被当作方法的参数而传递进来的对象</span><br><span class="line">此方法所创建或实例化的任何对象</span><br><span class="line">对象的任何组组件</span><br></pre></td></tr></table></figure>]]></content>
+<p>我们定义一个待装饰类A，再定义几个装饰类：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">public class decorator1 extends BaseClass&#123;</span><br><span class="line">    BaseClass baseClass;    </span><br><span class="line">    public decorator1(BaseClass t）</span><br><span class="line">    &#123;</span><br><span class="line">        this.baseClass = t;</span><br><span class="line">    &#125;</span><br><span class="line">    public string who()</span><br><span class="line">    &#123;</span><br><span class="line">        return baseClass.who()+&quot;,decoratro1&quot;;    </span><br><span class="line">    &#125;    </span><br><span class="line">    public int cost()</span><br><span class="line">    &#123;</span><br><span class="line">        return baseClass.cost()+10;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">public class decorator2 extends BaseClass&#123;</span><br><span class="line">    BaseClass baseClass;    </span><br><span class="line">    public decorator2(BaseClass t）</span><br><span class="line">    &#123;</span><br><span class="line">        this.baseClass = t;</span><br><span class="line">    &#125;</span><br><span class="line">    public string who()</span><br><span class="line">    &#123;</span><br><span class="line">        return baseClass.who()+&quot;,decoratro2&quot;;    </span><br><span class="line">    &#125;    </span><br><span class="line">    public int cost()</span><br><span class="line">    &#123;</span><br><span class="line">        return baseClass.cost()+20;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>然后我们在用decorator1 和decorator2 来装饰A的时候，就有了很犀利的调用方法：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">A  a;</span><br><span class="line">a=new decorator1(a);</span><br><span class="line">a=new deocorator2(a);</span><br><span class="line">system.out.println(a.who());</span><br><span class="line">system.out.println(a.cost());</span><br></pre></td></tr></table></figure>
+
+<p>这样子 输出就是</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">A,decorator1,decorator2</span><br><span class="line">35</span><br></pre></td></tr></table></figure>
+
+<p>实际的调用过程就是一个递归的过程。</p>
+<p>装饰者模式的定义：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">装饰者模式：动态地将责任附加到对象上，若要扩展功能，装饰者提供了比继承更具有弹性的替代方案</span><br></pre></td></tr></table></figure>
+
+<p>其中用到的设计原则：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">开闭原则：对扩展开放，对修改关闭</span><br></pre></td></tr></table></figure>
+
+</blockquote>
+]]></content>
       <categories>
         <category>Design Pattern</category>
       </categories>
@@ -2228,63 +2258,33 @@ f1
       </tags>
   </entry>
   <entry>
-    <title>设计模式-装饰者模式</title>
-    <url>/2014/08/31/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E8%A3%85%E9%A5%B0%E8%80%85%E6%A8%A1%E5%BC%8F/</url>
-    <content><![CDATA[<blockquote>
-<p>​     这一章看完之后，我感觉，装饰者模式就是对类继承的一种递归调用式的组合应用，很好的是实现了开闭原则，可以有效的扩展应用程序。比如书中的例子，有几种饮料，每种饮料的价格已经知道了，但是我们又有很多种的调料，每种调料也有它的价格，我们现在需要是在饮料中加调料，那么这样一来，饮料的售价就会变化，如何来描述这种售价呢？如果通过对调料种类的组合来定义若干的类，肯定是非常愚蠢的行为。</p>
-</blockquote>
-<blockquote>
-<p>​     通过装饰者模式，就能很好的解决这个问题，我们将这些类分为装饰类（调料），待装饰类（饮料）两种，这两种类继承同一个父类，不同的是装饰类中的构造函数有一个父类引用的构造函数，这样子就可以递归调用构造函数来进行 装饰了。</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">public class A extends BaseClass&#123;</span><br><span class="line">    </span><br><span class="line">    public string who()</span><br><span class="line">    &#123;</span><br><span class="line">        return &quot;A&quot;;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public int cost()</span><br><span class="line">    &#123;</span><br><span class="line">        return 5;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+    <title>设计模式-适配器模式和外观模式</title>
+    <url>/2014/09/04/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E9%80%82%E9%85%8D%E5%99%A8%E6%A8%A1%E5%BC%8F%E5%92%8C%E5%A4%96%E8%A7%82%E6%A8%A1%E5%BC%8F/</url>
+    <content><![CDATA[<p>1.适配器模式</p>
+<p>适配器模式是针对接口不一时处理的情况，比如我的类的参数是IInterface1，但是我现在想要调用IInterface2接口的函数，怎么办呢？就是用适配器来解决这个问题：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">public interface IInterface1()&#123;</span><br><span class="line">    public void method1();</span><br><span class="line">&#125;</span><br><span class="line">public interface IInterface2()&#123;</span><br><span class="line">    public void method2();</span><br><span class="line">&#125;</span><br><span class="line">public class adapter implements IInterface1&#123;</span><br><span class="line">    IInterface2 v;</span><br><span class="line">    public adapter(IInterface2 t)&#123;</span><br><span class="line">        this.v=t;</span><br><span class="line">    &#125;</span><br><span class="line">    public void method1()&#123;</span><br><span class="line">        v.method2();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<p>我们定义一个待装饰类A，再定义几个装饰类：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">public class decorator1 extends BaseClass&#123;</span><br><span class="line">    BaseClass baseClass;    </span><br><span class="line">    public decorator1(BaseClass t）</span><br><span class="line">    &#123;</span><br><span class="line">        this.baseClass = t;</span><br><span class="line">    &#125;</span><br><span class="line">    public string who()</span><br><span class="line">    &#123;</span><br><span class="line">        return baseClass.who()+&quot;,decoratro1&quot;;    </span><br><span class="line">    &#125;    </span><br><span class="line">    public int cost()</span><br><span class="line">    &#123;</span><br><span class="line">        return baseClass.cost()+10;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">public class decorator2 extends BaseClass&#123;</span><br><span class="line">    BaseClass baseClass;    </span><br><span class="line">    public decorator2(BaseClass t）</span><br><span class="line">    &#123;</span><br><span class="line">        this.baseClass = t;</span><br><span class="line">    &#125;</span><br><span class="line">    public string who()</span><br><span class="line">    &#123;</span><br><span class="line">        return baseClass.who()+&quot;,decoratro2&quot;;    </span><br><span class="line">    &#125;    </span><br><span class="line">    public int cost()</span><br><span class="line">    &#123;</span><br><span class="line">        return baseClass.cost()+20;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>现在我们调用IIterface2的method1的方法的时候，就是可以直接构造一个适配器来完成</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">public class A&#123;</span><br><span class="line"></span><br><span class="line">    public void method3(IInterface1 t)</span><br><span class="line">    &#123;</span><br><span class="line">        t.method1();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public static void main(String[] arg)</span><br><span class="line">    &#123;</span><br><span class="line">        (new A()).method3(new adapter(claimplementInterfce2));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<p>然后我们在用decorator1 和decorator2 来装饰A的时候，就有了很犀利的调用方法：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">A  a;</span><br><span class="line">a=new decorator1(a);</span><br><span class="line">a=new deocorator2(a);</span><br><span class="line">system.out.println(a.who());</span><br><span class="line">system.out.println(a.cost());</span><br></pre></td></tr></table></figure>
-
-<p>这样子 输出就是</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">A,decorator1,decorator2</span><br><span class="line">35</span><br></pre></td></tr></table></figure>
-
-<p>实际的调用过程就是一个递归的过程。</p>
-<p>装饰者模式的定义：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">装饰者模式：动态地将责任附加到对象上，若要扩展功能，装饰者提供了比继承更具有弹性的替代方案</span><br></pre></td></tr></table></figure>
-
-<p>其中用到的设计原则：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">开闭原则：对扩展开放，对修改关闭</span><br></pre></td></tr></table></figure>
-
-</blockquote>
-]]></content>
-      <categories>
-        <category>Design Pattern</category>
-      </categories>
-      <tags>
-        <tag>设计模式</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>设计模式-观察者模式</title>
-    <url>/2014/08/30/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E8%A7%82%E5%AF%9F%E8%80%85%E6%A8%A1%E5%BC%8F/</url>
-    <content><![CDATA[<p>在项目设计阶段，处理一对多的依赖关系类的时候，我们需要降低代码的耦合性从而增强可扩展性，比如一个班级，班主任老师和学生的关系，对于学校的通知，必定不会是学生没事的时候就问一下班主任”学校有通知没啊？”（铁定会把班主任搞毛的），明智的做法则是等着班主任在班级里面通知（对于学校的通知，班主任不会不通知学生的）,在这个关系里，班主任就是所谓的被观察者，而学生则是观察者，也就是所谓的观察者模式：</p>
-<blockquote>
-<p>观察者模式：定义了对象之间的一对多的依赖，这样一来，当一个对象改变状态的时候，他的所有依赖都会收到通知并自动更新</p>
-</blockquote>
+<p>其中claimplementInterface2是实现Interface2的一个类的实例。这种适配器的方法被称作为对象适配器，还有一种适配器，叫做类适配器，是基于类的多继承的，其中适配器继承自要适配的两个类，用其中一个类的方法调用另一个类，思想是一致的，不过java不支持多继承，所以也就是只能用对象适配器。</p>
 <span id="more"></span>
 
-<p>对于观察者模式中所说的通知，就是在被观察者的状态改变的时候，能够让所有观察者根据这种变化作出反应,对于被观察者，他的手里应该有一张观察者的名单，只有这样，才能在状态改变的时候，给出观察者通知，就如上面的例子，班主任只有知道他们班有哪些学生，才能通知到位，当然有的时候，有的学生并不想知道学校的那些通知，那么他就要从老师那边把自己的名字从通知名单中删除掉，但是如果有一天他又想听了，那么对名单还有提供增加一个观察者的名单，之所以命名为观察者和被观察者，而不是通知者和被通知者，就是因为观察者有是否观察的主动权，按照前面一章所讲的，针对接口编程，我们就可以设计出一个被观察者的接口:</p>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> interface Observerable&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="type">void</span> <span class="title">addObserver</span><span class="params">(Observer o)</span></span>;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="type">void</span> <span class="title">deleteObserver</span><span class="params">(Observer o)</span></span>;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="type">void</span> <span class="title">notifyChanged</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">适配器模式：将一个类的接口，转换成客户期望的另一个接口，适配器让原本接口不兼容的类可以合作无间</span><br></pre></td></tr></table></figure>
 
-<p>对于观察者，他的职责就是等着被观察者的更新，然后更新自己的状态，我们也设计出他的接口</p>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> interface Observer&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="type">void</span> <span class="title">update</span><span class="params">(object[] data)</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>2.外观模式</p>
+<p>  外观模式，其实就是对一个子系统的方法进行整理，对外公开一些方法，方便外部的调用，但是并不是对这些类的一个封装，只是提供了一个简单的接口，用户如果觉得没什么用出，可以直接调用子系统的方法，而且，一个子系统可以有很多个外观。所以外观模式的定义如下</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">外观模式：提供一个统一的接口，用来访问子系统的一群接口。外观定义了一个高层接口，让子系统更容易使用。</span><br></pre></td></tr></table></figure>
 
-<p>很明显的观察者在运行的时候，必须知道知道自己的观察对象是谁，所以在观察者类中应该有个变量记录被观察者：</p>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Observer1</span> implements Observer&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> Observerable subject;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Observer1</span><span class="params">(Observerable subject)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.subject=subject;</span><br><span class="line">        subject.<span class="built_in">addObserver</span>(<span class="keyword">this</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="type">void</span> <span class="title">update</span><span class="params">(object\[\] data)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        ........</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>比如我们用电脑，怎么开机，怎么关机呢：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">public class UseComputer&#123;</span><br><span class="line">    ZHUJI zhuji;</span><br><span class="line">                XIANSHIQI xianshiqi;</span><br><span class="line">            ...</span><br><span class="line">    public UseComputer(ZHUJI zhuji,XIANSHIQI xianshiqi,....)</span><br><span class="line">    &#123;</span><br><span class="line">        this.zhuji=zhuji;</span><br><span class="line">        this.xianshiqi=xianshiqi;</span><br><span class="line">        .....</span><br><span class="line">    &#125;</span><br><span class="line">    public void guanji()</span><br><span class="line">    &#123;</span><br><span class="line">        zhuji.off();</span><br><span class="line">        xianshiqi.off();</span><br><span class="line">    &#125;</span><br><span class="line">    public void kaiji()</span><br><span class="line">    &#123;</span><br><span class="line">        xianshiqi.on();</span><br><span class="line">        zhuji.on();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<p>在java的java.until包中 也提供了这两个接口，但是与我们不同的是，他的被观察者ObserverAble不是一个接口而是一个类，其中提供了setChanged()的这个函数，这个函数的作用就是设定changed的值从而决定是否通知所有的观察者是否更新，因为有些变化并不一定是要通知观察者，比如学校专门给老师发的工资调整的通知，这个真的有必要告诉学生么？(另外需要注意的是，java这个ObserverAble类，提供的setChanged方法是protected的，所以你要是用它，就必须继承这个类，如果你要同时继承另外一个类的话，….) 另一个问题，学生向学校提交了一份申请，但是，老师那边久久没有回应，怎么办，学生一直等下去么？肯定不行的，必定是要主动向老师询问结果的，这也就意味着，我们的观察者可以主动的从被观察者那边获取数据，那么观察者就必须提供对应数据的get方法。 另外这一章中也提到了一个新的设计原则：</p>
-<blockquote>
-<p>为交互对象间的松耦合设计而努力</p>
-</blockquote>
-]]></content>
+<p>这样就直接提供给用户开机和关机的操作了，而不用用户自己去调用开机关机的一系列的方法了。</p>
+<p>3.设计原则</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">最少知识原则：只和你的密友谈话</span><br></pre></td></tr></table></figure>
+
+<p>需要做到这个原则，建议只调用一下的范围的方法：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">对象本身</span><br><span class="line">被当作方法的参数而传递进来的对象</span><br><span class="line">此方法所创建或实例化的任何对象</span><br><span class="line">对象的任何组组件</span><br></pre></td></tr></table></figure>]]></content>
       <categories>
         <category>Design Pattern</category>
       </categories>
