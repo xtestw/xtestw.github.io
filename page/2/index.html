@@ -222,13 +222,13 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">47</span>
+          <span class="site-state-item-count">48</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
           <a href="/categories/">
-        <span class="site-state-item-count">13</span>
+        <span class="site-state-item-count">14</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
@@ -285,7 +285,101 @@
 
     <div class="main-inner index posts-expand">
 
+      
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://xtestw.com/2017/07/23/sdk-e7-af-a1-e6-94-b9/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="xtestw">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="XtestW's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2017/07/23/sdk-e7-af-a1-e6-94-b9/" class="post-title-link" itemprop="url">sdk篡改</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2017-07-23 20:51:22" itemprop="dateCreated datePublished" datetime="2017-07-23T20:51:22+08:00">2017-07-23</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新于</span>
+        <time title="修改时间：2025-01-01 01:54:10" itemprop="dateModified" datetime="2025-01-01T01:54:10+08:00">2025-01-01</time>
+      </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/JAVA/" itemprop="url" rel="index"><span itemprop="name">JAVA</span></a>
+        </span>
+    </span>
+
+  
+    <span id="/2017/07/23/sdk-e7-af-a1-e6-94-b9/" class="post-meta-item leancloud_visitors" data-flag-title="sdk篡改" title="阅读次数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span class="leancloud-visitors-count"></span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
     
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p>前段时间，因为一年前篡改了一个sdk的包，导致了一系列不可预知的损失，这也充分说明了技术的正确性，需要决策的正确性来支撑的。作为技术人员，不仅仅要考虑技术的可行性，也要考虑实施后的风险和结果的预期假设。 从工程角度，简单记录一下篡改sdk包的技术。</p>
+<ol>
+<li>解压jar或者apk的包 </li>
+<li>JD-GUI 反编译查看class的相关代码，找到修改点</li>
+<li>自己编写相应的方法或者类，使用 <code>javaassist</code> 注入到class文件 </li>
+<li>重新打包</li>
+</ol>
+<p> <code>javassist</code> 使用方法参考： <a target="_blank" rel="noopener" href="https://jboss-javassist.github.io/javassist/tutorial/tutorial.html">https://jboss-javassist.github.io/javassist/tutorial/tutorial.html</a> 附上测试代码，修改一个方法</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">      javassist.tools.reflect.<span class="type">Loader</span> <span class="variable">cl</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">javassist</span>.tools.reflect.Loader();</span><br><span class="line">      <span class="type">ClassPool</span> <span class="variable">pool</span> <span class="operator">=</span> ClassPool.getDefault();</span><br><span class="line">      pool.insertClassPath(<span class="string">&quot;/tmp/aa/&quot;</span>);</span><br><span class="line">      <span class="type">CtClass</span> <span class="variable">cc</span> <span class="operator">=</span> pool.get(<span class="string">&quot;com.facebook.ads.internal.d.g&quot;</span>);</span><br><span class="line">      <span class="type">CtMethod</span> <span class="variable">ctmethod</span> <span class="operator">=</span> cc.getDeclaredMethod(<span class="string">&quot;c&quot;</span>);</span><br><span class="line">      cc.getDeclaredField(<span class="string">&quot;c&quot;</span>);</span><br><span class="line">      <span class="comment">// getCode()即为需要替换的的代码</span></span><br><span class="line">      ctmethod.setBody(getCode());</span><br><span class="line">      cc.writeFile(<span class="string">&quot;/tmp/aa/&quot;</span>);</span><br><span class="line">    &#125; <span class="keyword">catch</span> (CannotCompileException e) &#123;</span><br><span class="line">      e.printStackTrace();</span><br><span class="line">    &#125; <span class="keyword">catch</span> (NotFoundException e) &#123;</span><br><span class="line">      e.printStackTrace();</span><br><span class="line">    &#125; <span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">      e.printStackTrace();</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+      
 
 
 <div class="post-block">
@@ -400,7 +494,7 @@
 
 
 
-    
+      
 
 
 <div class="post-block">
@@ -521,7 +615,7 @@
 
 
 
-    
+      
 
 
 <div class="post-block">
@@ -619,7 +713,7 @@
 
 
 
-    
+      
 
 
 <div class="post-block">
@@ -729,7 +823,7 @@
 
 
 
-    
+      
 
 
 <div class="post-block">
@@ -818,7 +912,7 @@
 
 
 
-    
+      
 
 
 <div class="post-block">
@@ -911,7 +1005,7 @@
 
 
 
-    
+      
 
 
 <div class="post-block">
@@ -1015,7 +1109,7 @@
 
 
 
-    
+      
 
 
 <div class="post-block">
@@ -1103,7 +1197,7 @@
 
 
 
-    
+      
 
 
 <div class="post-block">
@@ -1174,108 +1268,6 @@
           <p>IOCP是windows下的一种异步IO通信模式（linux下面对应epoll，二者有区别—&gt;<a target="_blank" rel="noopener" href="http://www.cnblogs.com/uzhang/archive/2012/02/24/2365980.html%EF%BC%89">http://www.cnblogs.com/uzhang/archive/2012/02/24/2365980.html）</a></p>
 <p>一样的socket的绑定通信的过程，不同的是并不对每一个用户请求单独开设一个线程去处理用户请求，而是在后面一线程池的方式，开固定的线程，轮流处理用户请求，减少线程的上下文切换损耗，同时利用重叠IO，减低内存等资源的消耗。 关于具体的一些内容，见：<a target="_blank" rel="noopener" href="http://blog.csdn.net/neicole/article/details/7549497">http://blog.csdn.net/neicole/article/details/7549497</a></p>
 
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://xtestw.com/2014/12/22/%20Xchart%20%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90%EF%BC%881/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.jpg">
-      <meta itemprop="name" content="xtestw">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="XtestW's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2014/12/22/%20Xchart%20%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90%EF%BC%881/" class="post-title-link" itemprop="url">Xchart 源码分析（1）</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2014-12-22 07:04:00" itemprop="dateCreated datePublished" datetime="2014-12-22T07:04:00+08:00">2014-12-22</time>
-    </span>
-      <span class="post-meta-item">
-        <span class="post-meta-item-icon">
-          <i class="far fa-calendar-check"></i>
-        </span>
-        <span class="post-meta-item-text">更新于</span>
-        <time title="修改时间：2025-01-01 01:54:51" itemprop="dateModified" datetime="2025-01-01T01:54:51+08:00">2025-01-01</time>
-      </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">分类于</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/SourceReading/" itemprop="url" rel="index"><span itemprop="name">SourceReading</span></a>
-        </span>
-    </span>
-
-  
-    <span id="/2014/12/22/%20Xchart%20%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90%EF%BC%881/" class="post-meta-item leancloud_visitors" data-flag-title="Xchart 源码分析（1）" title="阅读次数">
-      <span class="post-meta-item-icon">
-        <i class="far fa-eye"></i>
-      </span>
-      <span class="post-meta-item-text">阅读次数：</span>
-      <span class="leancloud-visitors-count"></span>
-    </span>
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p>学校课程需要找一份代码，来讲讲代码里面用了哪些设计模式- -！ 还是要java的。。。 于是上github上面翻代码，偶然翻到一个java的xchart图标库，感觉可能以后会用的到，而且代码不是很长，就直接拿过来用了。具体的链接地址如下：<a target="_blank" rel="noopener" href="https://github.com/timmolter/XChart" title="https://github.com/timmolter/XChart">https://github.com/timmolter/XChart</a></p>
-<p>先看文件夹结构：<br> <a target="_blank" rel="noopener" href="http://images.cnitblog.com/blog/372495/201412/212006353907368.png"><img src="http://images.cnitblog.com/blog/372495/201412/212021296717659.png" alt="image" title="image"></a>           </p>
-<p>一共有6个包，最后一个是用来测试的包，可以忽略不计，一共5个包，5个包的作用分别是</p>
-<ul>
-<li><p>com.xeiam.xchart:<br>主要是图表生成的代码以及一些图表的功能包括导出功能的代码，是给我们使用该jar包人调用的结构，表示的是一个图表整体的构造，包括Chart,ChartBuild,Series等类。<br><a target="_blank" rel="noopener" href="http://images.cnitblog.com/blog/372495/201412/212021311244117.png"><img src="http://images.cnitblog.com/blog/372495/201412/212021319529230.png" alt="image" title="image"></a></p>
-</li>
-<li><p>com.xeiam.xchart.internal<br>这个package里面只有两个类，一个是package-info，我也不是很明白他的作用。。。就是写了一个license的地址。另一个类是Utils的类，提供了两个静态方法，一个求幂的，一个就是求差值的一半。</p>
-</li>
-</ul>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2014/12/22/%20Xchart%20%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90%EF%BC%881/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
       
     </div>
 

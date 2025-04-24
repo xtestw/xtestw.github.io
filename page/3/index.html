@@ -222,13 +222,13 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">47</span>
+          <span class="site-state-item-count">48</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
           <a href="/categories/">
-        <span class="site-state-item-count">13</span>
+        <span class="site-state-item-count">14</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
@@ -285,7 +285,109 @@
 
     <div class="main-inner index posts-expand">
 
+      
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://xtestw.com/2014/12/22/%20Xchart%20%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90%EF%BC%881/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="xtestw">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="XtestW's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2014/12/22/%20Xchart%20%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90%EF%BC%881/" class="post-title-link" itemprop="url">Xchart 源码分析（1）</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2014-12-22 07:04:00" itemprop="dateCreated datePublished" datetime="2014-12-22T07:04:00+08:00">2014-12-22</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新于</span>
+        <time title="修改时间：2025-01-01 01:54:51" itemprop="dateModified" datetime="2025-01-01T01:54:51+08:00">2025-01-01</time>
+      </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/SourceReading/" itemprop="url" rel="index"><span itemprop="name">SourceReading</span></a>
+        </span>
+    </span>
+
+  
+    <span id="/2014/12/22/%20Xchart%20%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90%EF%BC%881/" class="post-meta-item leancloud_visitors" data-flag-title="Xchart 源码分析（1）" title="阅读次数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span class="leancloud-visitors-count"></span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
     
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p>学校课程需要找一份代码，来讲讲代码里面用了哪些设计模式- -！ 还是要java的。。。 于是上github上面翻代码，偶然翻到一个java的xchart图标库，感觉可能以后会用的到，而且代码不是很长，就直接拿过来用了。具体的链接地址如下：<a target="_blank" rel="noopener" href="https://github.com/timmolter/XChart" title="https://github.com/timmolter/XChart">https://github.com/timmolter/XChart</a></p>
+<p>先看文件夹结构：<br> <a target="_blank" rel="noopener" href="http://images.cnitblog.com/blog/372495/201412/212006353907368.png"><img src="http://images.cnitblog.com/blog/372495/201412/212021296717659.png" alt="image" title="image"></a>           </p>
+<p>一共有6个包，最后一个是用来测试的包，可以忽略不计，一共5个包，5个包的作用分别是</p>
+<ul>
+<li><p>com.xeiam.xchart:<br>主要是图表生成的代码以及一些图表的功能包括导出功能的代码，是给我们使用该jar包人调用的结构，表示的是一个图表整体的构造，包括Chart,ChartBuild,Series等类。<br><a target="_blank" rel="noopener" href="http://images.cnitblog.com/blog/372495/201412/212021311244117.png"><img src="http://images.cnitblog.com/blog/372495/201412/212021319529230.png" alt="image" title="image"></a></p>
+</li>
+<li><p>com.xeiam.xchart.internal<br>这个package里面只有两个类，一个是package-info，我也不是很明白他的作用。。。就是写了一个license的地址。另一个类是Utils的类，提供了两个静态方法，一个求幂的，一个就是求差值的一半。</p>
+</li>
+</ul>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2014/12/22/%20Xchart%20%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90%EF%BC%881/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+      
 
 
 <div class="post-block">
@@ -382,7 +484,7 @@
 
 
 
-    
+      
 
 
 <div class="post-block">
@@ -477,7 +579,7 @@
 
 
 
-    
+      
 
 
 <div class="post-block">
@@ -578,7 +680,7 @@
 
 
 
-    
+      
 
 
 <div class="post-block">
@@ -677,7 +779,7 @@
 
 
 
-    
+      
 
 
 <div class="post-block">
@@ -778,7 +880,7 @@
 
 
 
-    
+      
 
 
 <div class="post-block">
@@ -876,7 +978,7 @@
 
 
 
-    
+      
 
 
 <div class="post-block">
@@ -970,7 +1072,7 @@
 
 
 
-    
+      
 
 
 <div class="post-block">
@@ -1065,7 +1167,7 @@
 
 
 
-    
+      
 
 
 <div class="post-block">
@@ -1158,103 +1260,6 @@
 
 </blockquote>
 
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://xtestw.com/2014/08/30/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E8%A7%82%E5%AF%9F%E8%80%85%E6%A8%A1%E5%BC%8F/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.jpg">
-      <meta itemprop="name" content="xtestw">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="XtestW's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2014/08/30/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E8%A7%82%E5%AF%9F%E8%80%85%E6%A8%A1%E5%BC%8F/" class="post-title-link" itemprop="url">设计模式-观察者模式</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2014-08-30 04:20:00" itemprop="dateCreated datePublished" datetime="2014-08-30T04:20:00+08:00">2014-08-30</time>
-    </span>
-      <span class="post-meta-item">
-        <span class="post-meta-item-icon">
-          <i class="far fa-calendar-check"></i>
-        </span>
-        <span class="post-meta-item-text">更新于</span>
-        <time title="修改时间：2025-01-01 01:54:51" itemprop="dateModified" datetime="2025-01-01T01:54:51+08:00">2025-01-01</time>
-      </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">分类于</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/Design-Pattern/" itemprop="url" rel="index"><span itemprop="name">Design Pattern</span></a>
-        </span>
-    </span>
-
-  
-    <span id="/2014/08/30/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E8%A7%82%E5%AF%9F%E8%80%85%E6%A8%A1%E5%BC%8F/" class="post-meta-item leancloud_visitors" data-flag-title="设计模式-观察者模式" title="阅读次数">
-      <span class="post-meta-item-icon">
-        <i class="far fa-eye"></i>
-      </span>
-      <span class="post-meta-item-text">阅读次数：</span>
-      <span class="leancloud-visitors-count"></span>
-    </span>
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p>在项目设计阶段，处理一对多的依赖关系类的时候，我们需要降低代码的耦合性从而增强可扩展性，比如一个班级，班主任老师和学生的关系，对于学校的通知，必定不会是学生没事的时候就问一下班主任”学校有通知没啊？”（铁定会把班主任搞毛的），明智的做法则是等着班主任在班级里面通知（对于学校的通知，班主任不会不通知学生的）,在这个关系里，班主任就是所谓的被观察者，而学生则是观察者，也就是所谓的观察者模式：</p>
-<blockquote>
-<p>观察者模式：定义了对象之间的一对多的依赖，这样一来，当一个对象改变状态的时候，他的所有依赖都会收到通知并自动更新</p>
-</blockquote>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2014/08/30/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E8%A7%82%E5%AF%9F%E8%80%85%E6%A8%A1%E5%BC%8F/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
       
     </div>
 

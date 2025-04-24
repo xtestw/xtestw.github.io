@@ -6,7 +6,7 @@
   <link href="http://xtestw.com/atom.xml" rel="self"/>
   
   <link href="http://xtestw.com/"/>
-  <updated>2025-04-22T08:22:49.323Z</updated>
+  <updated>2025-04-24T07:35:33.303Z</updated>
   <id>http://xtestw.com/</id>
   
   <author>
@@ -15,6 +15,26 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>goolge无法读取此站点地图</title>
+    <link href="http://xtestw.com/2025/04/24/goolge%E6%97%A0%E6%B3%95%E8%AF%BB%E5%8F%96%E6%AD%A4%E7%AB%99%E7%82%B9%E5%9C%B0%E5%9B%BE/"/>
+    <id>http://xtestw.com/2025/04/24/goolge%E6%97%A0%E6%B3%95%E8%AF%BB%E5%8F%96%E6%AD%A4%E7%AB%99%E7%82%B9%E5%9C%B0%E5%9B%BE/</id>
+    <published>2025-04-24T07:20:12.000Z</published>
+    <updated>2025-04-24T07:35:33.303Z</updated>
+    
+    
+      
+      
+    <summary type="html">&lt;h2 id=&quot;省流结论&quot;&gt;&lt;a href=&quot;#省流结论&quot; class=&quot;headerlink&quot; title=&quot;省流结论&quot;&gt;&lt;/a&gt;省流结论&lt;/h2&gt;&lt;p&gt;sitemap.xml 能够正常访问，且格式内容没问题的情况下， 提交地址的时候尝试在sitemap.xml后面加”/“， </summary>
+      
+    
+    
+    
+    <category term="疑难杂症" scheme="http://xtestw.com/categories/%E7%96%91%E9%9A%BE%E6%9D%82%E7%97%87/"/>
+    
+    
+  </entry>
   
   <entry>
     <title>领域划分的一些思考</title>
@@ -553,31 +573,6 @@
     
     
     <category term="windows" scheme="http://xtestw.com/tags/windows/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Xchart 源码分析（1）</title>
-    <link href="http://xtestw.com/2014/12/22/%20Xchart%20%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90%EF%BC%881/"/>
-    <id>http://xtestw.com/2014/12/22/%20Xchart%20%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90%EF%BC%881/</id>
-    <published>2014-12-21T23:04:00.000Z</published>
-    <updated>2024-12-31T17:54:51.858Z</updated>
-    
-    
-    <summary type="html">&lt;p&gt;学校课程需要找一份代码，来讲讲代码里面用了哪些设计模式- -！ 还是要java的。。。 于是上github上面翻代码，偶然翻到一个java的xchart图标库，感觉可能以后会用的到，而且代码不是很长，就直接拿过来用了。具体的链接地址如下：&lt;a href=&quot;https://github.com/timmolter/XChart&quot; title=&quot;https://github.com/timmolter/XChart&quot;&gt;https://github.com/timmolter/XChart&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;先看文件夹结构：&lt;br&gt; &lt;a href=&quot;http://images.cnitblog.com/blog/372495/201412/212006353907368.png&quot;&gt;&lt;img src=&quot;http://images.cnitblog.com/blog/372495/201412/212021296717659.png&quot; alt=&quot;image&quot; title=&quot;image&quot;&gt;&lt;/a&gt;           &lt;/p&gt;
-&lt;p&gt;一共有6个包，最后一个是用来测试的包，可以忽略不计，一共5个包，5个包的作用分别是&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;p&gt;com.xeiam.xchart:&lt;br&gt;主要是图表生成的代码以及一些图表的功能包括导出功能的代码，是给我们使用该jar包人调用的结构，表示的是一个图表整体的构造，包括Chart,ChartBuild,Series等类。&lt;br&gt;&lt;a href=&quot;http://images.cnitblog.com/blog/372495/201412/212021311244117.png&quot;&gt;&lt;img src=&quot;http://images.cnitblog.com/blog/372495/201412/212021319529230.png&quot; alt=&quot;image&quot; title=&quot;image&quot;&gt;&lt;/a&gt;&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;&lt;p&gt;com.xeiam.xchart.internal&lt;br&gt;这个package里面只有两个类，一个是package-info，我也不是很明白他的作用。。。就是写了一个license的地址。另一个类是Utils的类，提供了两个静态方法，一个求幂的，一个就是求差值的一半。&lt;/p&gt;
-&lt;/li&gt;
-&lt;/ul&gt;</summary>
-    
-    
-    
-    <category term="SourceReading" scheme="http://xtestw.com/categories/SourceReading/"/>
-    
     
   </entry>
   
