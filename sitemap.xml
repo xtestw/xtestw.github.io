@@ -410,13 +410,6 @@
   </url>
   
   <url>
-    <loc>http://xtestw.com/tags/%E6%90%9C%E7%B4%A2%E5%BC%95%E6%93%8E/</loc>
-    <lastmod>2025-04-25</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
     <loc>http://xtestw.com/tags/windows/</loc>
     <lastmod>2025-04-25</lastmod>
     <changefreq>daily</changefreq>
@@ -466,6 +459,13 @@
   </url>
   
   <url>
+    <loc>http://xtestw.com/tags/proof-acm/</loc>
+    <lastmod>2025-04-25</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>http://xtestw.com/tags/proof/</loc>
     <lastmod>2025-04-25</lastmod>
     <changefreq>daily</changefreq>
@@ -481,6 +481,13 @@
   
   <url>
     <loc>http://xtestw.com/tags/%E6%A6%82%E5%BF%B5/</loc>
+    <lastmod>2025-04-25</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://xtestw.com/tags/%E6%90%9C%E7%B4%A2%E5%BC%95%E6%93%8E/</loc>
     <lastmod>2025-04-25</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
@@ -507,13 +514,6 @@
     <priority>0.6</priority>
   </url>
   
-  <url>
-    <loc>http://xtestw.com/tags/proof-acm/</loc>
-    <lastmod>2025-04-25</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
 
   
   <url>
@@ -525,6 +525,13 @@
   
   <url>
     <loc>http://xtestw.com/categories/Design-Pattern/</loc>
+    <lastmod>2025-04-25</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://xtestw.com/categories/ACMICPC/</loc>
     <lastmod>2025-04-25</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
@@ -552,21 +559,14 @@
   </url>
   
   <url>
-    <loc>http://xtestw.com/categories/C/</loc>
-    <lastmod>2025-04-25</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>http://xtestw.com/categories/ACMICPC/</loc>
-    <lastmod>2025-04-25</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
     <loc>http://xtestw.com/categories/JAVA/</loc>
+    <lastmod>2025-04-25</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://xtestw.com/categories/C/</loc>
     <lastmod>2025-04-25</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
@@ -580,14 +580,14 @@
   </url>
   
   <url>
-    <loc>http://xtestw.com/categories/%E7%96%91%E9%9A%BE%E6%9D%82%E7%97%87/</loc>
+    <loc>http://xtestw.com/categories/Theory/</loc>
     <lastmod>2025-04-25</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
-    <loc>http://xtestw.com/categories/Theory/</loc>
+    <loc>http://xtestw.com/categories/%E7%96%91%E9%9A%BE%E6%9D%82%E7%97%87/</loc>
     <lastmod>2025-04-25</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
