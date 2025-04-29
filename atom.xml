@@ -6,7 +6,7 @@
   <link href="http://xtestw.com/atom.xml" rel="self"/>
   
   <link href="http://xtestw.com/"/>
-  <updated>2025-04-29T13:03:02.495Z</updated>
+  <updated>2025-04-29T13:06:01.436Z</updated>
   <id>http://xtestw.com/</id>
   
   <author>
@@ -21,7 +21,7 @@
     <link href="http://xtestw.com/2025/04/29/kafka%E9%87%8D%E5%A4%8D%E6%B6%88%E8%B4%B9%EF%BC%9F/"/>
     <id>http://xtestw.com/2025/04/29/kafka%E9%87%8D%E5%A4%8D%E6%B6%88%E8%B4%B9%EF%BC%9F/</id>
     <published>2025-04-29T13:03:02.000Z</published>
-    <updated>2025-04-29T13:03:02.495Z</updated>
+    <updated>2025-04-29T13:06:01.436Z</updated>
     
     
       
@@ -31,6 +31,12 @@
     
     
     
+    <category term="疑难杂症" scheme="http://xtestw.com/categories/%E7%96%91%E9%9A%BE%E6%9D%82%E7%97%87/"/>
+    
+    
+    <category term="kafka" scheme="http://xtestw.com/tags/kafka/"/>
+    
+    <category term="QA" scheme="http://xtestw.com/tags/QA/"/>
     
   </entry>
   

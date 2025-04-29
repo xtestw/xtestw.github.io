@@ -389,6 +389,13 @@
   </url>
   
   <url>
+    <loc>http://xtestw.com/tags/DDD/</loc>
+    <lastmod>2025-04-29</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>http://xtestw.com/tags/graphql/</loc>
     <lastmod>2025-04-29</lastmod>
     <changefreq>daily</changefreq>
@@ -404,13 +411,6 @@
   
   <url>
     <loc>http://xtestw.com/tags/github/</loc>
-    <lastmod>2025-04-29</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>http://xtestw.com/tags/DDD/</loc>
     <lastmod>2025-04-29</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
@@ -445,7 +445,14 @@
   </url>
   
   <url>
-    <loc>http://xtestw.com/tags/linux/</loc>
+    <loc>http://xtestw.com/tags/kafka/</loc>
+    <lastmod>2025-04-29</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://xtestw.com/tags/QA/</loc>
     <lastmod>2025-04-29</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
@@ -460,6 +467,13 @@
   
   <url>
     <loc>http://xtestw.com/tags/FE/</loc>
+    <lastmod>2025-04-29</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://xtestw.com/tags/linux/</loc>
     <lastmod>2025-04-29</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
@@ -524,7 +538,7 @@
 
   
   <url>
-    <loc>http://xtestw.com/categories/SourceReading/</loc>
+    <loc>http://xtestw.com/categories/ACMICPC/</loc>
     <lastmod>2025-04-29</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
@@ -538,7 +552,7 @@
   </url>
   
   <url>
-    <loc>http://xtestw.com/categories/ACMICPC/</loc>
+    <loc>http://xtestw.com/categories/SourceReading/</loc>
     <lastmod>2025-04-29</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
@@ -546,6 +560,13 @@
   
   <url>
     <loc>http://xtestw.com/categories/%E5%A4%A7%E6%95%B0%E6%8D%AE/</loc>
+    <lastmod>2025-04-29</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://xtestw.com/categories/%E6%9E%B6%E6%9E%84/</loc>
     <lastmod>2025-04-29</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
@@ -566,13 +587,6 @@
   </url>
   
   <url>
-    <loc>http://xtestw.com/categories/%E6%9E%B6%E6%9E%84/</loc>
-    <lastmod>2025-04-29</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
     <loc>http://xtestw.com/categories/C/</loc>
     <lastmod>2025-04-29</lastmod>
     <changefreq>daily</changefreq>
@@ -587,13 +601,6 @@
   </url>
   
   <url>
-    <loc>http://xtestw.com/categories/Theory/</loc>
-    <lastmod>2025-04-29</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
     <loc>http://xtestw.com/categories/%E7%96%91%E9%9A%BE%E6%9D%82%E7%97%87/</loc>
     <lastmod>2025-04-29</lastmod>
     <changefreq>daily</changefreq>
@@ -601,7 +608,7 @@
   </url>
   
   <url>
-    <loc>http://xtestw.com/categories/Linux/</loc>
+    <loc>http://xtestw.com/categories/Theory/</loc>
     <lastmod>2025-04-29</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
@@ -609,6 +616,13 @@
   
   <url>
     <loc>http://xtestw.com/categories/FE/</loc>
+    <lastmod>2025-04-29</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://xtestw.com/categories/Linux/</loc>
     <lastmod>2025-04-29</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
