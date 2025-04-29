@@ -6,7 +6,7 @@
   <link href="http://xtestw.com/atom.xml" rel="self"/>
   
   <link href="http://xtestw.com/"/>
-  <updated>2025-04-24T07:35:33.303Z</updated>
+  <updated>2025-04-29T13:03:02.495Z</updated>
   <id>http://xtestw.com/</id>
   
   <author>
@@ -15,6 +15,24 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>kafka重复消费？</title>
+    <link href="http://xtestw.com/2025/04/29/kafka%E9%87%8D%E5%A4%8D%E6%B6%88%E8%B4%B9%EF%BC%9F/"/>
+    <id>http://xtestw.com/2025/04/29/kafka%E9%87%8D%E5%A4%8D%E6%B6%88%E8%B4%B9%EF%BC%9F/</id>
+    <published>2025-04-29T13:03:02.000Z</published>
+    <updated>2025-04-29T13:03:02.495Z</updated>
+    
+    
+      
+      
+    <summary type="html">&lt;h2 id=&quot;问题阐述&quot;&gt;&lt;a href=&quot;#问题阐述&quot; class=&quot;headerlink&quot; title=&quot;问题阐述&quot;&gt;&lt;/a&gt;问题阐述&lt;/h2&gt;&lt;p&gt;有个业务场景，是通过kafka给审核中台推审核任务，链路是 离线获取待审核直播间 -&amp;gt; 推送kafka -&amp;gt; 业</summary>
+      
+    
+    
+    
+    
+  </entry>
   
   <entry>
     <title>goolge无法读取此站点地图</title>
@@ -548,28 +566,6 @@
     
     
     <category term="ACMICPC" scheme="http://xtestw.com/categories/ACMICPC/"/>
-    
-    
-    <category term="windows" scheme="http://xtestw.com/tags/windows/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>IOCP</title>
-    <link href="http://xtestw.com/2015/01/29/iocp/"/>
-    <id>http://xtestw.com/2015/01/29/iocp/</id>
-    <published>2015-01-29T05:41:00.000Z</published>
-    <updated>2024-12-31T17:52:20.249Z</updated>
-    
-    
-      
-      
-    <summary type="html">&lt;p&gt;IOCP是windows下的一种异步IO通信模式（linux下面对应epoll，二者有区别—&amp;gt;&lt;a href=&quot;http://www.cnblogs.com/uzhang/archive/2012/02/24/2365980.html%EF%BC%89&quot;&gt;http:/</summary>
-      
-    
-    
-    
-    <category term="Theory" scheme="http://xtestw.com/categories/Theory/"/>
     
     
     <category term="windows" scheme="http://xtestw.com/tags/windows/"/>

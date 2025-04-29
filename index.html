@@ -223,7 +223,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">48</span>
+          <span class="site-state-item-count">49</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -285,6 +285,90 @@
 
 
     <div class="main-inner index posts-expand">
+
+      
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://xtestw.com/2025/04/29/kafka%E9%87%8D%E5%A4%8D%E6%B6%88%E8%B4%B9%EF%BC%9F/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="xtestw">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="XtestW's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2025/04/29/kafka%E9%87%8D%E5%A4%8D%E6%B6%88%E8%B4%B9%EF%BC%9F/" class="post-title-link" itemprop="url">kafka重复消费？</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2025-04-29 21:03:02" itemprop="dateCreated datePublished" datetime="2025-04-29T21:03:02+08:00">2025-04-29</time>
+    </span>
+
+  
+    <span id="/2025/04/29/kafka%E9%87%8D%E5%A4%8D%E6%B6%88%E8%B4%B9%EF%BC%9F/" class="post-meta-item leancloud_visitors" data-flag-title="kafka重复消费？" title="阅读次数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span class="leancloud-visitors-count"></span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h2 id="问题阐述"><a href="#问题阐述" class="headerlink" title="问题阐述"></a>问题阐述</h2><p>有个业务场景，是通过kafka给审核中台推审核任务，链路是 离线获取待审核直播间 -&gt; 推送kafka -&gt; 业务消费kafka做物料整理 -&gt; 通过kafka 推到审核中台审核。</p>
+<p>问题的现象是： 离线待审核直播间只有几百个的时候， 审核中台收到了几千个直播间，经检查明显是重复推送了。</p>
+<h2 id="问题分析"><a href="#问题分析" class="headerlink" title="问题分析"></a>问题分析</h2><ul>
+<li>检查业务代码逻辑，不存在重复推送的情况</li>
+<li>相关监控 验证了 确实没有单次消费，多次推送的情况</li>
+<li>查看kafka相关监控，发现offset 一只没有变化， 且 lag 很高</li>
+<li>继续观察相关监控 发现 持续rebalance</li>
+<li>初步怀疑是 rebalance 导致kafka 重复消费</li>
+</ul>
+<h2 id="问题原因"><a href="#问题原因" class="headerlink" title="问题原因"></a>问题原因</h2><ul>
+<li>由于审核材料会调用AI进行预处理，有频控问题，所以整体消费速度很慢</li>
+<li>由于消费速度慢，因此在hive2kafka的过程中限制了生产速度 1条/s</li>
+<li>由于前两者，导致kafka 执行速度非常慢，中台配置单次pull 执行超过了5min，就会自动rebalance</li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
 
       
 
@@ -1073,102 +1157,6 @@
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/2019/08/03/GraphQl-%E4%BD%BF%E7%94%A8-java/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-      
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://xtestw.com/2017/08/13/HttpURLConnection%E4%BD%BF%E7%94%A8http%E4%BB%A3%E7%90%86/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.jpg">
-      <meta itemprop="name" content="xtestw">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="XtestW's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2017/08/13/HttpURLConnection%E4%BD%BF%E7%94%A8http%E4%BB%A3%E7%90%86/" class="post-title-link" itemprop="url">HttpURLConnection使用http代理</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2017-08-13 22:38:08" itemprop="dateCreated datePublished" datetime="2017-08-13T22:38:08+08:00">2017-08-13</time>
-    </span>
-      <span class="post-meta-item">
-        <span class="post-meta-item-icon">
-          <i class="far fa-calendar-check"></i>
-        </span>
-        <span class="post-meta-item-text">更新于</span>
-        <time title="修改时间：2025-01-01 01:52:20" itemprop="dateModified" datetime="2025-01-01T01:52:20+08:00">2025-01-01</time>
-      </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">分类于</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/JAVA/" itemprop="url" rel="index"><span itemprop="name">JAVA</span></a>
-        </span>
-    </span>
-
-  
-    <span id="/2017/08/13/HttpURLConnection%E4%BD%BF%E7%94%A8http%E4%BB%A3%E7%90%86/" class="post-meta-item leancloud_visitors" data-flag-title="HttpURLConnection使用http代理" title="阅读次数">
-      <span class="post-meta-item-icon">
-        <i class="far fa-eye"></i>
-      </span>
-      <span class="post-meta-item-text">阅读次数：</span>
-      <span class="leancloud-visitors-count"></span>
-    </span>
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p>工程中的网络请求，有时会需要使用http代理，比较简单的方法是使用apache的httpclient 直接设置代理，但有的时候使用java自带的HttpURLConnection的时候，就需要注意多线程的问题了。 使用HttpURLConnection 实现代理的方法也很简单，在建立连接之前先设置代理：</p>
-<p>Authenticator.setDefault(authenticator);</p>
-<p>需要注意的是，设置代理的方法并不是使用HttpURLConnection的一个方法，而在建立请求的时候，也没有任何调用和使用 Authenticator的地方，可以猜测这里设置了代理是使用了全局量，跟进Authenticator中去，会发现： <img src="http://xtestw.site/wp-content/uploads/2017/08/1.png" alt="1"> <img src="http://xtestw.site/wp-content/uploads/2017/08/2.png" alt="2"> 其实setDefault 方法就是设置了一个静态变量，而这个变量被使用的地方在： <img src="http://xtestw.site/wp-content/uploads/2017/08/3.png" alt="3"> （三个同名函数，相同的处理）这个静态变量被全局的网络请求所使用，而不是当前连接独占的配置，一般来说，当前网络使用一个http代理的时候没有问题（比如我们就是通过elb代理多个IP出口），但是当我们有多个代理的时候，在多线程环境下就会出现问题，如果代理服务器的账号密码不同，请求的服务球对cookie和ip进行校验的时候，就会比较麻烦，所以需要想办法来让每一个HttpURLConnection独占这个代理配置，直接的方法似乎没有，但是可以折中，同步网络请求过程中，HttpURLConnection是和唯一线程绑定的，我们可以用ThreadLocal,让每个线程独占一个代理配置，从而间接的保证每个HttpURLConnection始终使用一个代理配置。 可以定一个类：</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2017/08/13/HttpURLConnection%E4%BD%BF%E7%94%A8http%E4%BB%A3%E7%90%86/#more" rel="contents">
                 阅读全文 &raquo;
               </a>
             </div>
