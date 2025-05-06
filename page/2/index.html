@@ -149,6 +149,7 @@
         <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li>
         <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li>
         <li class="menu-item menu-item-problem"><a href="/categories/%E7%96%91%E9%9A%BE%E6%9D%82%E7%97%87/" rel="section"><i class="fa fa-question-circle fa-fw"></i>疑难杂症</a></li>
+        <li class="menu-item menu-item-fragment"><a href="/categories/%E9%9B%B6%E7%A2%8E%E7%9F%A5%E8%AF%86/" rel="section"><i class="fa fa-file-text fa-fw"></i>零碎知识</a></li>
         <li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li>
         <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li>
         <li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li>
@@ -223,18 +224,18 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">49</span>
+          <span class="site-state-item-count">50</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
           <a href="/categories/">
-        <span class="site-state-item-count">14</span>
+        <span class="site-state-item-count">15</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">23</span>
+        <span class="site-state-item-count">25</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -285,6 +286,113 @@
 
 
     <div class="main-inner index posts-expand">
+
+      
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://xtestw.com/2019/08/03/GraphQl-%E4%BD%BF%E7%94%A8-java/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="xtestw">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="XtestW's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2019/08/03/GraphQl-%E4%BD%BF%E7%94%A8-java/" class="post-title-link" itemprop="url">GraphQl 使用 - java</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2019-08-03 14:26:05" itemprop="dateCreated datePublished" datetime="2019-08-03T14:26:05+08:00">2019-08-03</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新于</span>
+        <time title="修改时间：2025-01-01 01:54:51" itemprop="dateModified" datetime="2025-01-01T01:54:51+08:00">2025-01-01</time>
+      </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Java/" itemprop="url" rel="index"><span itemprop="name">Java</span></a>
+        </span>
+          ，
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Java/New-Skill/" itemprop="url" rel="index"><span itemprop="name">New Skill</span></a>
+        </span>
+          ，
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Java/New-Skill/GraphQL/" itemprop="url" rel="index"><span itemprop="name">GraphQL</span></a>
+        </span>
+    </span>
+
+  
+    <span id="/2019/08/03/GraphQl-%E4%BD%BF%E7%94%A8-java/" class="post-meta-item leancloud_visitors" data-flag-title="GraphQl 使用 - java" title="阅读次数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span class="leancloud-visitors-count"></span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p>去年在做内容库的时候，涉及到了多系统多数据源互相查询的情景，当时就想要将内容库的所有数据，增加统一的数据接入层，通过graphql的方式提供给上层业务使用，后面受限于人力没有实施。目前从头开始做站群相关的业务，顺带着浅尝了一下graphql，感觉还不错。</p>
+<h2 id="GraphQL-是什么"><a href="#GraphQL-是什么" class="headerlink" title="GraphQL 是什么"></a>GraphQL 是什么</h2><blockquote>
+<p>GraphQL is a query language for APIs and a runtime for fulfilling those queries with your existing data. GraphQL provides a complete and understandable description of the data in your API, gives clients the power to ask for exactly what they need and nothing more, makes it easier to evolve APIs over time, and enables powerful developer tools.</p>
+</blockquote>
+<h3 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h3><p>参看:  <a target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=Ah6GSCK5Rfs">https://www.youtube.com/watch?v=Ah6GSCK5Rfs</a></p>
+<p>graphql 和 rest api 是同一层的东西，都是一种基于 http 之上的数据接口协议，两者设计理念完全不同。目前来说 graphql 在很多大小厂也都开始使用，确实会方便很多。 但是 rest api 还是最广泛应用的协议，比如 AMP (T T)。 事实上任何东西都有2面性，对于graphql 来说，优缺点都有</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2019/08/03/GraphQl-%E4%BD%BF%E7%94%A8-java/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
 
       
 
@@ -1189,94 +1297,6 @@
             </div>
           <!--/noindex-->
         
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-      
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://xtestw.com/2015/01/29/windows-e6-a0-b8-e5-bf-83-e7-bc-96-e7-a8-8b-e9-94-99-e8-af-af-e5-a4-84-e7-90-86/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.jpg">
-      <meta itemprop="name" content="xtestw">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="XtestW's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2015/01/29/windows-e6-a0-b8-e5-bf-83-e7-bc-96-e7-a8-8b-e9-94-99-e8-af-af-e5-a4-84-e7-90-86/" class="post-title-link" itemprop="url">windows核心编程-错误处理</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2015-01-29 14:04:00" itemprop="dateCreated datePublished" datetime="2015-01-29T14:04:00+08:00">2015-01-29</time>
-    </span>
-      <span class="post-meta-item">
-        <span class="post-meta-item-icon">
-          <i class="far fa-calendar-check"></i>
-        </span>
-        <span class="post-meta-item-text">更新于</span>
-        <time title="修改时间：2025-01-01 01:52:20" itemprop="dateModified" datetime="2025-01-01T01:52:20+08:00">2025-01-01</time>
-      </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">分类于</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/ACMICPC/" itemprop="url" rel="index"><span itemprop="name">ACMICPC</span></a>
-        </span>
-    </span>
-
-  
-    <span id="/2015/01/29/windows-e6-a0-b8-e5-bf-83-e7-bc-96-e7-a8-8b-e9-94-99-e8-af-af-e5-a4-84-e7-90-86/" class="post-meta-item leancloud_visitors" data-flag-title="windows核心编程-错误处理" title="阅读次数">
-      <span class="post-meta-item-icon">
-        <i class="far fa-eye"></i>
-      </span>
-      <span class="post-meta-item-text">阅读次数：</span>
-      <span class="leancloud-visitors-count"></span>
-    </span>
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p>1.常见的错误返回类型</p>
-<p>VOID/BOOL/HANDLE/PVOID/LONG/DWORD VOID 不可能失败 BOOL 错误返回false 编码的时候最好测试是否不为FALSE HANDLE 错误 NULL/INVALID_HANDLE_VALUE PVOID  失败返回NULL,成功返回一个数据块的地址 LONG/DWORD 0或-1，不绝对 2.GetLastError函数   DWORD GetLastError(); 3.WinError.h 头文件定义了若干的Mircosoft定义的代码列表 4.</p>
-
       
     </div>
 

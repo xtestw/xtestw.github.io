@@ -6,7 +6,7 @@
   <link href="http://xtestw.com/atom.xml" rel="self"/>
   
   <link href="http://xtestw.com/"/>
-  <updated>2025-04-29T13:06:01.436Z</updated>
+  <updated>2025-05-06T08:02:39.983Z</updated>
   <id>http://xtestw.com/</id>
   
   <author>
@@ -15,6 +15,30 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>jvm的一些参数说明</title>
+    <link href="http://xtestw.com/2025/05/06/jvm%E7%9A%84%E4%B8%80%E4%BA%9B%E5%8F%82%E6%95%B0%E8%AF%B4%E6%98%8E/"/>
+    <id>http://xtestw.com/2025/05/06/jvm%E7%9A%84%E4%B8%80%E4%BA%9B%E5%8F%82%E6%95%B0%E8%AF%B4%E6%98%8E/</id>
+    <published>2025-05-06T08:02:39.000Z</published>
+    <updated>2025-05-06T08:02:39.983Z</updated>
+    
+    
+      
+      
+    <summary type="html">&lt;h2 id=&quot;ReservedCodeCacheSize&quot;&gt;&lt;a href=&quot;#ReservedCodeCacheSize&quot; class=&quot;headerlink&quot; title=&quot;ReservedCodeCacheSize&quot;&gt;&lt;/a&gt;ReservedCodeCacheSize&lt;/</summary>
+      
+    
+    
+    
+    <category term="零碎知识" scheme="http://xtestw.com/categories/%E9%9B%B6%E7%A2%8E%E7%9F%A5%E8%AF%86/"/>
+    
+    
+    <category term="jvm" scheme="http://xtestw.com/tags/jvm/"/>
+    
+    <category term="ReservedCodeCacheSize" scheme="http://xtestw.com/tags/ReservedCodeCacheSize/"/>
+    
+  </entry>
   
   <entry>
     <title>kafka重复消费？</title>
@@ -552,29 +576,6 @@
     
     <category term="JAVA" scheme="http://xtestw.com/categories/JAVA/"/>
     
-    
-  </entry>
-  
-  <entry>
-    <title>windows核心编程-错误处理</title>
-    <link href="http://xtestw.com/2015/01/29/windows-e6-a0-b8-e5-bf-83-e7-bc-96-e7-a8-8b-e9-94-99-e8-af-af-e5-a4-84-e7-90-86/"/>
-    <id>http://xtestw.com/2015/01/29/windows-e6-a0-b8-e5-bf-83-e7-bc-96-e7-a8-8b-e9-94-99-e8-af-af-e5-a4-84-e7-90-86/</id>
-    <published>2015-01-29T06:04:00.000Z</published>
-    <updated>2024-12-31T17:52:20.211Z</updated>
-    
-    
-      
-      
-    <summary type="html">&lt;p&gt;1.常见的错误返回类型&lt;/p&gt;
-&lt;p&gt;VOID/BOOL/HANDLE/PVOID/LONG/DWORD VOID 不可能失败 BOOL 错误返回false 编码的时候最好测试是否不为FALSE HANDLE 错误 NULL/INVALID_HANDLE_VALUE PVO</summary>
-      
-    
-    
-    
-    <category term="ACMICPC" scheme="http://xtestw.com/categories/ACMICPC/"/>
-    
-    
-    <category term="windows" scheme="http://xtestw.com/tags/windows/"/>
     
   </entry>
   

@@ -149,6 +149,7 @@
         <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li>
         <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li>
         <li class="menu-item menu-item-problem"><a href="/categories/%E7%96%91%E9%9A%BE%E6%9D%82%E7%97%87/" rel="section"><i class="fa fa-question-circle fa-fw"></i>疑难杂症</a></li>
+        <li class="menu-item menu-item-fragment"><a href="/categories/%E9%9B%B6%E7%A2%8E%E7%9F%A5%E8%AF%86/" rel="section"><i class="fa fa-file-text fa-fw"></i>零碎知识</a></li>
         <li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li>
         <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li>
         <li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li>
@@ -223,18 +224,18 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">49</span>
+          <span class="site-state-item-count">50</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
           <a href="/categories/">
-        <span class="site-state-item-count">14</span>
+        <span class="site-state-item-count">15</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">23</span>
+        <span class="site-state-item-count">25</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -285,6 +286,103 @@
 
 
     <div class="main-inner index posts-expand">
+
+      
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://xtestw.com/2014/06/09/%E5%9B%BE%E8%AE%BA%E5%85%A5%E9%97%A8%E7%AE%97%E6%B3%95%E7%90%86%E8%A7%A3/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="xtestw">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="XtestW's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2014/06/09/%E5%9B%BE%E8%AE%BA%E5%85%A5%E9%97%A8%E7%AE%97%E6%B3%95%E7%90%86%E8%A7%A3/" class="post-title-link" itemprop="url">图论入门算法理解</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2014-06-09 13:16:00" itemprop="dateCreated datePublished" datetime="2014-06-09T13:16:00+08:00">2014-06-09</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新于</span>
+        <time title="修改时间：2025-01-01 01:54:51" itemprop="dateModified" datetime="2025-01-01T01:54:51+08:00">2025-01-01</time>
+      </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/ACMICPC/" itemprop="url" rel="index"><span itemprop="name">ACMICPC</span></a>
+        </span>
+    </span>
+
+  
+    <span id="/2014/06/09/%E5%9B%BE%E8%AE%BA%E5%85%A5%E9%97%A8%E7%AE%97%E6%B3%95%E7%90%86%E8%A7%A3/" class="post-meta-item leancloud_visitors" data-flag-title="图论入门算法理解" title="阅读次数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span class="leancloud-visitors-count"></span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p>1.Dijsktra 算法</p>
+<p>​        Dijsktra算法是基于贪心的，从源点开始扩展，将当前已经是最短路的点加入集合中。dist[i]表示源点s到i的距离，那么初始的时候，找距离源点最近的一个点t0,那么dist[t0]必定是s到t0最短的距离，因为不可能通过其他的点转到t0再让t0最短了（这也是为什么Dijsktra不能处理负权边的原因），同理，扩展第二点的时候也是一样，因为 在扩展第二个点的时候，已经用 第一个点 优化了所有其他的点，那么最近的那个点，一定无法 通过剩余的其他的那个点来 优化自己的距离了，也就是说这个点dist[t1]必定是s到t1的最短路径。</p>
+<p>2.floyd：</p>
+<p>　　每个点而言，剩余的点的两两最短路，要么经过这个点，要么不经过这个点 ，只要看经过它是否能更短。从另一个角度来理解的话,c[i][j][k]表示i,j经过的中间节点最大的点的标号不超过k的最短路，那么dp的 转移方程就是c[i][j][k]=min(c[i][k][k-1]+c[k][j][k-1],c[i][j][k]).</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2014/06/09/%E5%9B%BE%E8%AE%BA%E5%85%A5%E9%97%A8%E7%AE%97%E6%B3%95%E7%90%86%E8%A7%A3/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
 
       
 
