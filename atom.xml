@@ -6,7 +6,7 @@
   <link href="http://xtestw.com/atom.xml" rel="self"/>
   
   <link href="http://xtestw.com/"/>
-  <updated>2025-05-06T08:02:39.983Z</updated>
+  <updated>2025-05-13T14:44:33.688Z</updated>
   <id>http://xtestw.com/</id>
   
   <author>
@@ -15,6 +15,31 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>java内省机制</title>
+    <link href="http://xtestw.com/2025/05/13/java%E5%86%85%E7%9C%81%E6%9C%BA%E5%88%B6/"/>
+    <id>http://xtestw.com/2025/05/13/java%E5%86%85%E7%9C%81%E6%9C%BA%E5%88%B6/</id>
+    <published>2025-05-13T14:44:12.000Z</published>
+    <updated>2025-05-13T14:44:33.688Z</updated>
+    
+    
+      
+      
+    <summary type="html">&lt;blockquote&gt;
+&lt;p&gt;At runtime and in the builder environment we need to be able to figure out which properties, events, and methods a Java Bean</summary>
+      
+    
+    
+    
+    <category term="零碎知识" scheme="http://xtestw.com/categories/%E9%9B%B6%E7%A2%8E%E7%9F%A5%E8%AF%86/"/>
+    
+    
+    <category term="java" scheme="http://xtestw.com/tags/java/"/>
+    
+    <category term="内省" scheme="http://xtestw.com/tags/%E5%86%85%E7%9C%81/"/>
+    
+  </entry>
   
   <entry>
     <title>jvm的一些参数说明</title>
@@ -548,33 +573,6 @@
     
     
     <category term="C++" scheme="http://xtestw.com/categories/C/"/>
-    
-    
-  </entry>
-  
-  <entry>
-    <title>hibernate ID 生成方式</title>
-    <link href="http://xtestw.com/2015/02/10/hibernate%20ID%20%E7%94%9F%E6%88%90%E6%96%B9%E5%BC%8F/"/>
-    <id>http://xtestw.com/2015/02/10/hibernate%20ID%20%E7%94%9F%E6%88%90%E6%96%B9%E5%BC%8F/</id>
-    <published>2015-02-10T05:08:00.000Z</published>
-    <updated>2024-12-31T17:54:10.456Z</updated>
-    
-    
-    <summary type="html">&lt;h1 id=&quot;1、assigned&quot;&gt;&lt;a href=&quot;#1、assigned&quot; class=&quot;headerlink&quot; title=&quot;1、assigned&quot;&gt;&lt;/a&gt;1、assigned&lt;/h1&gt;&lt;p&gt;主键由外部程序负责生成，在 save() 之前必须指定一个。Hibernate不负责维护主键生成。与Hibernate和底层数据库都无关，可以跨数据库。在存储对象前，必须要使用主键的setter方法给主键赋值，至于这个值怎么生成，完全由自己决定，这种方法应该尽量避免。&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;&lt;id name=&quot;id&quot; column=&quot;id&quot;&gt;&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;&lt;generator class=&quot;assigned&quot; /&gt;&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;&lt;/id&gt;&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;“ud”是自定义的策略名，人为起的名字，后面均用“ud”表示。&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;特点：可以跨数据库，人为控制主键生成，应尽量避免。&lt;/strong&gt;&lt;/p&gt;
-&lt;h1 id=&quot;2、increment&quot;&gt;&lt;a href=&quot;#2、increment&quot; class=&quot;headerlink&quot; title=&quot;2、increment&quot;&gt;&lt;/a&gt;2、increment&lt;/h1&gt;&lt;p&gt;由Hibernate从数据库中取出主键的最大值（每个session只取1次），以该值为基础，每次增量为1，在内存中生成主键，不依赖于底层的数据库，因此可以跨数据库。&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;&lt;id name=&quot;id&quot; column=&quot;id&quot;&gt;&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;&lt;generator class=&quot;increment&quot; /&gt;&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;&lt;/id&gt;&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;Hibernate调用org.hibernate.id.IncrementGenerator类里面的generate()方法，使用select max(idColumnName) from tableName语句获取主键最大值。该方法被声明成了synchronized，所以在一个独立的Java虚拟机内部是没有问题的，然而，在多个JVM同时并发访问数据库select max时就可能取出相同的值，再insert就会发生Dumplicate entry的错误。所以只能有一个Hibernate应用进程访问数据库，否则就可能产生主键冲突，所以不适合多进程并发更新数据库，适合单一进程访问数据库，不能用于群集环境。&lt;/p&gt;</summary>
-    
-    
-    
-    <category term="JAVA" scheme="http://xtestw.com/categories/JAVA/"/>
     
     
   </entry>

@@ -871,6 +871,25 @@
       </tags>
   </entry>
   <entry>
+    <title>HttpURLConnection使用http代理</title>
+    <url>/2017/08/13/HttpURLConnection%E4%BD%BF%E7%94%A8http%E4%BB%A3%E7%90%86/</url>
+    <content><![CDATA[<p>工程中的网络请求，有时会需要使用http代理，比较简单的方法是使用apache的httpclient 直接设置代理，但有的时候使用java自带的HttpURLConnection的时候，就需要注意多线程的问题了。 使用HttpURLConnection 实现代理的方法也很简单，在建立连接之前先设置代理：</p>
+<p>Authenticator.setDefault(authenticator);</p>
+<p>需要注意的是，设置代理的方法并不是使用HttpURLConnection的一个方法，而在建立请求的时候，也没有任何调用和使用 Authenticator的地方，可以猜测这里设置了代理是使用了全局量，跟进Authenticator中去，会发现： <img src="http://xtestw.site/wp-content/uploads/2017/08/1.png" alt="1"> <img src="http://xtestw.site/wp-content/uploads/2017/08/2.png" alt="2"> 其实setDefault 方法就是设置了一个静态变量，而这个变量被使用的地方在： <img src="http://xtestw.site/wp-content/uploads/2017/08/3.png" alt="3"> （三个同名函数，相同的处理）这个静态变量被全局的网络请求所使用，而不是当前连接独占的配置，一般来说，当前网络使用一个http代理的时候没有问题（比如我们就是通过elb代理多个IP出口），但是当我们有多个代理的时候，在多线程环境下就会出现问题，如果代理服务器的账号密码不同，请求的服务球对cookie和ip进行校验的时候，就会比较麻烦，所以需要想办法来让每一个HttpURLConnection独占这个代理配置，直接的方法似乎没有，但是可以折中，同步网络请求过程中，HttpURLConnection是和唯一线程绑定的，我们可以用ThreadLocal,让每个线程独占一个代理配置，从而间接的保证每个HttpURLConnection始终使用一个代理配置。 可以定一个类：</p>
+<span id="more"></span>
+
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">ThreadLocalAuthenticator</span> <span class="keyword">extends</span> <span class="title class_">Authenticator</span> &#123;</span><br><span class="line"></span><br><span class="line">  ThreadLocal&lt;PasswordAuthentication&gt; auth = <span class="keyword">new</span> <span class="title class_">ThreadLocal</span>&lt;&gt;();</span><br><span class="line"></span><br><span class="line">  <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">setPasswordAuthentication</span><span class="params">(PasswordAuthentication passwordAuthentication)</span> &#123;</span><br><span class="line">    auth.set(passwordAuthentication);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">clearPasswordAuthentication</span><span class="params">()</span> &#123;</span><br><span class="line">    auth.remove();</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="meta">@Override</span></span><br><span class="line">  <span class="keyword">protected</span> PasswordAuthentication <span class="title function_">getPasswordAuthentication</span><span class="params">()</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> auth.get();</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>然后在http网络请求的工具类中定义一个全局的静态ThreadLocalAuthenticator的实例：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="type">ThreadLocalAuthenticator</span> <span class="variable">authenticator</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">ThreadLocalAuthenticator</span>();</span><br></pre></td></tr></table></figure>
+
+<p>然后在需要的时候使用它就OK了。</p>
+]]></content>
+      <categories>
+        <category>JAVA</category>
+      </categories>
+  </entry>
+  <entry>
     <title>MFC Invalidate闪屏问题</title>
     <url>/2014/06/22/MFC%20Invalidate%E9%97%AA%E5%B1%8F%E9%97%AE%E9%A2%98/</url>
     <content><![CDATA[<p>使用Invalidate（true），即使在OnDraw中使用了双缓冲，也会出现闪屏问题，下面的解决方案转载自：<a href="http://blog.sina.com.cn/s/blog_60fa20600100igh6.html">http://blog.sina.com.cn/s/blog_60fa20600100igh6.html</a></p>
@@ -957,25 +976,6 @@
       </tags>
   </entry>
   <entry>
-    <title>HttpURLConnection使用http代理</title>
-    <url>/2017/08/13/HttpURLConnection%E4%BD%BF%E7%94%A8http%E4%BB%A3%E7%90%86/</url>
-    <content><![CDATA[<p>工程中的网络请求，有时会需要使用http代理，比较简单的方法是使用apache的httpclient 直接设置代理，但有的时候使用java自带的HttpURLConnection的时候，就需要注意多线程的问题了。 使用HttpURLConnection 实现代理的方法也很简单，在建立连接之前先设置代理：</p>
-<p>Authenticator.setDefault(authenticator);</p>
-<p>需要注意的是，设置代理的方法并不是使用HttpURLConnection的一个方法，而在建立请求的时候，也没有任何调用和使用 Authenticator的地方，可以猜测这里设置了代理是使用了全局量，跟进Authenticator中去，会发现： <img src="http://xtestw.site/wp-content/uploads/2017/08/1.png" alt="1"> <img src="http://xtestw.site/wp-content/uploads/2017/08/2.png" alt="2"> 其实setDefault 方法就是设置了一个静态变量，而这个变量被使用的地方在： <img src="http://xtestw.site/wp-content/uploads/2017/08/3.png" alt="3"> （三个同名函数，相同的处理）这个静态变量被全局的网络请求所使用，而不是当前连接独占的配置，一般来说，当前网络使用一个http代理的时候没有问题（比如我们就是通过elb代理多个IP出口），但是当我们有多个代理的时候，在多线程环境下就会出现问题，如果代理服务器的账号密码不同，请求的服务球对cookie和ip进行校验的时候，就会比较麻烦，所以需要想办法来让每一个HttpURLConnection独占这个代理配置，直接的方法似乎没有，但是可以折中，同步网络请求过程中，HttpURLConnection是和唯一线程绑定的，我们可以用ThreadLocal,让每个线程独占一个代理配置，从而间接的保证每个HttpURLConnection始终使用一个代理配置。 可以定一个类：</p>
-<span id="more"></span>
-
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">ThreadLocalAuthenticator</span> <span class="keyword">extends</span> <span class="title class_">Authenticator</span> &#123;</span><br><span class="line"></span><br><span class="line">  ThreadLocal&lt;PasswordAuthentication&gt; auth = <span class="keyword">new</span> <span class="title class_">ThreadLocal</span>&lt;&gt;();</span><br><span class="line"></span><br><span class="line">  <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">setPasswordAuthentication</span><span class="params">(PasswordAuthentication passwordAuthentication)</span> &#123;</span><br><span class="line">    auth.set(passwordAuthentication);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">clearPasswordAuthentication</span><span class="params">()</span> &#123;</span><br><span class="line">    auth.remove();</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="meta">@Override</span></span><br><span class="line">  <span class="keyword">protected</span> PasswordAuthentication <span class="title function_">getPasswordAuthentication</span><span class="params">()</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> auth.get();</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>然后在http网络请求的工具类中定义一个全局的静态ThreadLocalAuthenticator的实例：</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="type">ThreadLocalAuthenticator</span> <span class="variable">authenticator</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">ThreadLocalAuthenticator</span>();</span><br></pre></td></tr></table></figure>
-
-<p>然后在需要的时候使用它就OK了。</p>
-]]></content>
-      <categories>
-        <category>JAVA</category>
-      </categories>
-  </entry>
-  <entry>
     <title>Millar_rabin和Pollard_Rho</title>
     <url>/2014/06/09/Millar_rabin%E5%92%8CPollard_Rho/</url>
     <content><![CDATA[<p>1.Millar_rabin 素数判定</p>
@@ -1009,32 +1009,6 @@
       <tags>
         <tag>prof</tag>
       </tags>
-  </entry>
-  <entry>
-    <title>c++ 子类要正确的调用父类构造函数</title>
-    <url>/2015/04/05/cplusplus/</url>
-    <content><![CDATA[<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">base</span>&#123;</span><br><span class="line">    <span class="keyword">public</span>:</span><br><span class="line">        <span class="type">int</span> i,j;</span><br><span class="line">        <span class="built_in">base</span>()&#123;</span><br><span class="line">            i=j=<span class="number">0</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line"><span class="built_in">base</span>(<span class="type">int</span> a,<span class="type">int</span> b)&#123;</span><br><span class="line">            i=a;j=b;</span><br><span class="line">        &#125;    </span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">derived</span>:<span class="keyword">public</span> base&#123;</span><br><span class="line">        <span class="keyword">public</span>:</span><br><span class="line">        <span class="built_in">derived</span>(<span class="type">int</span> a,<span class="type">int</span> b)&#123;</span><br><span class="line">             <span class="built_in">base</span>(a,b); </span><br><span class="line">        &#125;  </span><br><span class="line">&#125;;    </span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">　　<span class="function">derived <span class="title">d</span><span class="params">(<span class="number">3</span>,<span class="number">1</span>)</span></span>;</span><br><span class="line">　　cout&lt;&lt;d.i&lt;&lt;<span class="string">&quot; &quot;</span>&lt;&lt;d.j&lt;&lt;endl;</span><br><span class="line">　　<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p>上面的这段代码会输出什么呢？！正确的答案是输出了”0 0”. 我的理解是，虽然其中调用了base(a,b) 但是其实操作的a和b不是当前d的a,b，其实是定义了一个新的base的对象。正确的写法应该是下面这样</p>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">base</span>&#123;</span><br><span class="line">    <span class="keyword">public</span>:</span><br><span class="line">        <span class="type">int</span> i,j;</span><br><span class="line">        <span class="built_in">base</span>()&#123;</span><br><span class="line">            i=j=<span class="number">0</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="built_in">base</span>(<span class="type">int</span> a,<span class="type">int</span> b)&#123;</span><br><span class="line">            i=a;j=b;</span><br><span class="line">        &#125;    </span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">dervied</span>:<span class="keyword">public</span> base&#123;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">public</span>:</span><br><span class="line">        <span class="built_in">derived</span>(<span class="type">int</span> a,<span class="type">int</span> b):<span class="built_in">base</span>(a,b)&#123;    </span><br><span class="line">        &#125;  </span><br><span class="line">&#125;;    </span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">　　<span class="function">derived <span class="title">d</span><span class="params">(<span class="number">3</span>,<span class="number">1</span>)</span></span>;</span><br><span class="line">　　cout&lt;&lt;d.i&lt;&lt;<span class="string">&quot; &quot;</span>&lt;&lt;d.j&lt;&lt;endl;</span><br><span class="line">　　<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>]]></content>
-      <categories>
-        <category>C++</category>
-      </categories>
-  </entry>
-  <entry>
-    <title>c++ 默认构造函数</title>
-    <url>/2015/04/03/c++%20%E9%BB%98%E8%AE%A4%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0/</url>
-    <content><![CDATA[<p><strong>关于c++构造函数两个误解</strong></p>
-<ol>
-<li><p>任何class只要没有定义构造函数，就会被编译器自动合成一个。 有些构造函数在实际中有和没有是没有任何用处的，所以无用的构造函数是不会被构建出来</p>
-</li>
-<li><p>编译器合成的构造函数，会为每个成员变量设定初始值 在我看来，编译器合成的构造函数，是为了调用成员类或者父类的构造函数，而这个成员类的构造函数的调用顺序则是按照申明的顺序来调用。</p>
-</li>
-</ol>
-]]></content>
-      <categories>
-        <category>C++</category>
-      </categories>
   </entry>
   <entry>
     <title>UndeclaredThrowableException原因</title>
@@ -1072,6 +1046,32 @@
       <tags>
         <tag>Java</tag>
       </tags>
+  </entry>
+  <entry>
+    <title>c++ 默认构造函数</title>
+    <url>/2015/04/03/c++%20%E9%BB%98%E8%AE%A4%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0/</url>
+    <content><![CDATA[<p><strong>关于c++构造函数两个误解</strong></p>
+<ol>
+<li><p>任何class只要没有定义构造函数，就会被编译器自动合成一个。 有些构造函数在实际中有和没有是没有任何用处的，所以无用的构造函数是不会被构建出来</p>
+</li>
+<li><p>编译器合成的构造函数，会为每个成员变量设定初始值 在我看来，编译器合成的构造函数，是为了调用成员类或者父类的构造函数，而这个成员类的构造函数的调用顺序则是按照申明的顺序来调用。</p>
+</li>
+</ol>
+]]></content>
+      <categories>
+        <category>C++</category>
+      </categories>
+  </entry>
+  <entry>
+    <title>c++ 子类要正确的调用父类构造函数</title>
+    <url>/2015/04/05/cplusplus/</url>
+    <content><![CDATA[<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">base</span>&#123;</span><br><span class="line">    <span class="keyword">public</span>:</span><br><span class="line">        <span class="type">int</span> i,j;</span><br><span class="line">        <span class="built_in">base</span>()&#123;</span><br><span class="line">            i=j=<span class="number">0</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line"><span class="built_in">base</span>(<span class="type">int</span> a,<span class="type">int</span> b)&#123;</span><br><span class="line">            i=a;j=b;</span><br><span class="line">        &#125;    </span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">derived</span>:<span class="keyword">public</span> base&#123;</span><br><span class="line">        <span class="keyword">public</span>:</span><br><span class="line">        <span class="built_in">derived</span>(<span class="type">int</span> a,<span class="type">int</span> b)&#123;</span><br><span class="line">             <span class="built_in">base</span>(a,b); </span><br><span class="line">        &#125;  </span><br><span class="line">&#125;;    </span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">　　<span class="function">derived <span class="title">d</span><span class="params">(<span class="number">3</span>,<span class="number">1</span>)</span></span>;</span><br><span class="line">　　cout&lt;&lt;d.i&lt;&lt;<span class="string">&quot; &quot;</span>&lt;&lt;d.j&lt;&lt;endl;</span><br><span class="line">　　<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>上面的这段代码会输出什么呢？！正确的答案是输出了”0 0”. 我的理解是，虽然其中调用了base(a,b) 但是其实操作的a和b不是当前d的a,b，其实是定义了一个新的base的对象。正确的写法应该是下面这样</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">base</span>&#123;</span><br><span class="line">    <span class="keyword">public</span>:</span><br><span class="line">        <span class="type">int</span> i,j;</span><br><span class="line">        <span class="built_in">base</span>()&#123;</span><br><span class="line">            i=j=<span class="number">0</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="built_in">base</span>(<span class="type">int</span> a,<span class="type">int</span> b)&#123;</span><br><span class="line">            i=a;j=b;</span><br><span class="line">        &#125;    </span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">dervied</span>:<span class="keyword">public</span> base&#123;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">public</span>:</span><br><span class="line">        <span class="built_in">derived</span>(<span class="type">int</span> a,<span class="type">int</span> b):<span class="built_in">base</span>(a,b)&#123;    </span><br><span class="line">        &#125;  </span><br><span class="line">&#125;;    </span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">　　<span class="function">derived <span class="title">d</span><span class="params">(<span class="number">3</span>,<span class="number">1</span>)</span></span>;</span><br><span class="line">　　cout&lt;&lt;d.i&lt;&lt;<span class="string">&quot; &quot;</span>&lt;&lt;d.j&lt;&lt;endl;</span><br><span class="line">　　<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>]]></content>
+      <categories>
+        <category>C++</category>
+      </categories>
   </entry>
   <entry>
     <title>c++对象模型</title>
@@ -1363,6 +1363,19 @@ f1
       </categories>
   </entry>
   <entry>
+    <title>IOCP</title>
+    <url>/2015/01/29/iocp/</url>
+    <content><![CDATA[<p>IOCP是windows下的一种异步IO通信模式（linux下面对应epoll，二者有区别—&gt;<a href="http://www.cnblogs.com/uzhang/archive/2012/02/24/2365980.html%EF%BC%89">http://www.cnblogs.com/uzhang/archive/2012/02/24/2365980.html）</a></p>
+<p>一样的socket的绑定通信的过程，不同的是并不对每一个用户请求单独开设一个线程去处理用户请求，而是在后面一线程池的方式，开固定的线程，轮流处理用户请求，减少线程的上下文切换损耗，同时利用重叠IO，减低内存等资源的消耗。 关于具体的一些内容，见：<a href="http://blog.csdn.net/neicole/article/details/7549497">http://blog.csdn.net/neicole/article/details/7549497</a></p>
+]]></content>
+      <categories>
+        <category>Theory</category>
+      </categories>
+      <tags>
+        <tag>windows</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>jvm的一些参数说明</title>
     <url>/2025/05/06/jvm%E7%9A%84%E4%B8%80%E4%BA%9B%E5%8F%82%E6%95%B0%E8%AF%B4%E6%98%8E/</url>
     <content><![CDATA[<h2 id="ReservedCodeCacheSize"><a href="#ReservedCodeCacheSize" class="headerlink" title="ReservedCodeCacheSize"></a>ReservedCodeCacheSize</h2><p>ReservedCodeCacheSize 参数主要用于设置 Java 虚拟机（JVM）中用于存储已编译的本地方法和JIT编译后的代码的缓存大小。这个参数对于运行大量需要即时编译的代码的应用程序尤其重要，比如大型的Java应用或者使用了大量动态代理、反射等技术的应用。<br>当 JVM 启动时，会预留一块内存区域作为 Code Cache 来存放这些编译后的代码。如果 Code Cache 的空间不足，可能会导致编译器停止编译新的代码，转而使用解释执行的方式，这会影响应用程序的性能。通过调整 ReservedCodeCacheSize 的值，可以确保有足够的空间来存储更多的编译代码，从而提高应用的运行效率。<br>通常，如果你的应用程序在运行过程中遇到了“CodeCache is full”的错误信息，可能就需要考虑增加 ReservedCodeCacheSize 的值了。可以通过启动参数 -XX:ReservedCodeCacheSize=<size> 来设置这个值，其中 <size> 是你希望分配给 Code Cache 的内存大小，例如 -XX:ReservedCodeCacheSize=256m 表示设置 Code Cache 的大小为 256MB。</p>
@@ -1431,16 +1444,47 @@ f1
       </tags>
   </entry>
   <entry>
-    <title>IOCP</title>
-    <url>/2015/01/29/iocp/</url>
-    <content><![CDATA[<p>IOCP是windows下的一种异步IO通信模式（linux下面对应epoll，二者有区别—&gt;<a href="http://www.cnblogs.com/uzhang/archive/2012/02/24/2365980.html%EF%BC%89">http://www.cnblogs.com/uzhang/archive/2012/02/24/2365980.html）</a></p>
-<p>一样的socket的绑定通信的过程，不同的是并不对每一个用户请求单独开设一个线程去处理用户请求，而是在后面一线程池的方式，开固定的线程，轮流处理用户请求，减少线程的上下文切换损耗，同时利用重叠IO，减低内存等资源的消耗。 关于具体的一些内容，见：<a href="http://blog.csdn.net/neicole/article/details/7549497">http://blog.csdn.net/neicole/article/details/7549497</a></p>
-]]></content>
+    <title>java内省机制</title>
+    <url>/2025/05/13/java%E5%86%85%E7%9C%81%E6%9C%BA%E5%88%B6/</url>
+    <content><![CDATA[<blockquote>
+<p>At runtime and in the builder environment we need to be able to figure out which properties, events, and methods a Java Bean supports. We call this process introspection.</p>
+</blockquote>
+<h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><p>之所以要了解这个概念，是修改了pom之后，线上出现了 <code> Post-processing of merged bean definition failed; nested exception is java.lang.IllegalStateException: Failed to introspect Class</code> 的错误，其实本身就是因为spring尝试分析bean属性时发生的错误，大概率是依赖找不到，后面也是在后续的日志里发现了 ClassNotFound 的错误。</p>
+<h2 id="什么是内省机制"><a href="#什么是内省机制" class="headerlink" title="什么是内省机制"></a>什么是内省机制</h2><p>计算机程序在运行时(Runtime)检查对象(Object)类型的一种能力, 通常也可以称作运行时类型检查。<br>简单来说，可以用反射来理解，就是运行时能够动态的获取java bean的相关属性</p>
+<h2 id="java-内省机制的实现"><a href="#java-内省机制的实现" class="headerlink" title="java 内省机制的实现"></a>java 内省机制的实现</h2><p>java 提供了一套 api 来允许程序运行时获取对象的信息和实例的信息。 这些类在 <code>java.beans</code> 中，核心的类是 <code>Introspector</code>。 本质上是反射的一层封装。</p>
+<h2 id="spring-中-内省机制的应用"><a href="#spring-中-内省机制的应用" class="headerlink" title="spring 中 内省机制的应用"></a>spring 中 内省机制的应用</h2>]]></content>
       <categories>
-        <category>Theory</category>
+        <category>零碎知识</category>
       </categories>
       <tags>
-        <tag>windows</tag>
+        <tag>java</tag>
+        <tag>内省</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>kafka重复消费？</title>
+    <url>/2025/04/29/kafka%E9%87%8D%E5%A4%8D%E6%B6%88%E8%B4%B9%EF%BC%9F/</url>
+    <content><![CDATA[<h2 id="问题阐述"><a href="#问题阐述" class="headerlink" title="问题阐述"></a>问题阐述</h2><p>有个业务场景，是通过kafka给审核中台推审核任务，链路是 离线获取待审核直播间 -&gt; 推送kafka -&gt; 业务消费kafka做物料整理 -&gt; 通过kafka 推到审核中台审核。</p>
+<p>问题的现象是： 离线待审核直播间只有几百个的时候， 审核中台收到了几千个直播间，经检查明显是重复推送了。</p>
+<h2 id="问题分析"><a href="#问题分析" class="headerlink" title="问题分析"></a>问题分析</h2><ul>
+<li>检查业务代码逻辑，不存在重复推送的情况</li>
+<li>相关监控 验证了 确实没有单次消费，多次推送的情况</li>
+<li>查看kafka相关监控，发现offset 一只没有变化， 且 lag 很高</li>
+<li>继续观察相关监控 发现 持续rebalance</li>
+<li>初步怀疑是 rebalance 导致kafka 重复消费</li>
+</ul>
+<h2 id="问题原因"><a href="#问题原因" class="headerlink" title="问题原因"></a>问题原因</h2><ul>
+<li>由于审核材料会调用AI进行预处理，有频控问题，所以整体消费速度很慢</li>
+<li>由于消费速度慢，因此在hive2kafka的过程中限制了生产速度 1条/s</li>
+<li>由于前两者，导致kafka 执行速度非常慢，中台配置单次pull 执行超过了5min，就会自动rebalance</li>
+</ul>
+]]></content>
+      <categories>
+        <category>疑难杂症</category>
+      </categories>
+      <tags>
+        <tag>kafka</tag>
+        <tag>QA</tag>
       </tags>
   </entry>
   <entry>
@@ -1622,32 +1666,6 @@ init─┬─Xvnc
       </tags>
   </entry>
   <entry>
-    <title>kafka重复消费？</title>
-    <url>/2025/04/29/kafka%E9%87%8D%E5%A4%8D%E6%B6%88%E8%B4%B9%EF%BC%9F/</url>
-    <content><![CDATA[<h2 id="问题阐述"><a href="#问题阐述" class="headerlink" title="问题阐述"></a>问题阐述</h2><p>有个业务场景，是通过kafka给审核中台推审核任务，链路是 离线获取待审核直播间 -&gt; 推送kafka -&gt; 业务消费kafka做物料整理 -&gt; 通过kafka 推到审核中台审核。</p>
-<p>问题的现象是： 离线待审核直播间只有几百个的时候， 审核中台收到了几千个直播间，经检查明显是重复推送了。</p>
-<h2 id="问题分析"><a href="#问题分析" class="headerlink" title="问题分析"></a>问题分析</h2><ul>
-<li>检查业务代码逻辑，不存在重复推送的情况</li>
-<li>相关监控 验证了 确实没有单次消费，多次推送的情况</li>
-<li>查看kafka相关监控，发现offset 一只没有变化， 且 lag 很高</li>
-<li>继续观察相关监控 发现 持续rebalance</li>
-<li>初步怀疑是 rebalance 导致kafka 重复消费</li>
-</ul>
-<h2 id="问题原因"><a href="#问题原因" class="headerlink" title="问题原因"></a>问题原因</h2><ul>
-<li>由于审核材料会调用AI进行预处理，有频控问题，所以整体消费速度很慢</li>
-<li>由于消费速度慢，因此在hive2kafka的过程中限制了生产速度 1条/s</li>
-<li>由于前两者，导致kafka 执行速度非常慢，中台配置单次pull 执行超过了5min，就会自动rebalance</li>
-</ul>
-]]></content>
-      <categories>
-        <category>疑难杂症</category>
-      </categories>
-      <tags>
-        <tag>kafka</tag>
-        <tag>QA</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>nextjs静态页面github pages资源文件404</title>
     <url>/2021/02/12/nextjs%E9%9D%99%E6%80%81%E9%A1%B5%E9%9D%A2github-pages%E8%B5%84%E6%BA%90%E6%96%87%E4%BB%B6404/</url>
     <content><![CDATA[<h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><p>通过把nextjs的静态文件放到github pages上，省一波流量钱，但是发现资源文件总是会404，本来以为是github pages构建完成更新cdn需要缓存，但是过了很久都没有成功，以下是静态文件目录</p>
@@ -1675,6 +1693,28 @@ init─┬─Xvnc
 <p>针对本题，需要注意的是，    1.数据比较大，需要用long long 2.因为是时间，所以x不能是负数，如果出现负数怎么办呢？ a*x1+b*y1=d(d=gcd(a,b)),那个转换成 a*(x1+b*n）+b*（y1-a*n)=d 最终x=(x1%b+b)%b;或者(x1+(abs([x1/b])+1)*b)%b; AC代码：</p>
 <p>#include #include #include #include #include using namespace std;</p>
 <p>int gcd(int a,int b)<br>{<br>    if (b==0) return a;<br>    return gcd(b,a%b);<br>}<br>long long exgcd(long long a,long long b,long long &amp;x,long long &amp;y)<br>{<br>    if (b==0){ x=1;y=0;return a;}<br>    long long r=exgcd(b,a%b,x,y);<br>    long long t=x;<br>    x=y;<br>    y=t-(a/b)*y;<br>    return r;<br>}<br>int main()<br>{<br>    long long x,y,m,n,L;<br>    cin&gt;&gt;x&gt;&gt;y&gt;&gt;m&gt;&gt;n&gt;&gt;L;<br>    long long s=gcd(n-m,L);<br>    if ((x-y)%s!=0){<br>    cout&lt;&lt;”Impossible”&lt;</p>
+]]></content>
+      <categories>
+        <category>ACMICPC</category>
+      </categories>
+  </entry>
+  <entry>
+    <title>POJ 1015</title>
+    <url>/2013/04/25/poj1015/</url>
+    <content><![CDATA[<p>原题的题意是给n个人，每个人对于控辩两方都有一个值，现在选择m个人，使得控辩两方的值的差的和最小，如果有相同的最小值，那么就选择最大的一个。 本题的关键是模型的构建，对于每个人都有两种选择，一个是选择，一个是不选择，对于相同的差值，维护一个最大的和值，换言之，就是假设差值一定，从n个人选择m个人使得和最大.可以转换为背包问题。状态转移的方程为f[i][j][k+p[i]]=max{f[i-1][j][k+p[i]],f[i-1][j-1][k]+v[i]},表示前i个人中选择j个人差的和为k的最大的和的和（p[i]是第i个人的控辩双方的值差，v[i]是第i个人的控辩双方的值和）.本题的另外一个难点在于路径的记录，我们知道，动态规划的一个本质就是状态转移，也就是在当前状态记录是由哪个值推倒过来的，就可以逆序退出上个状态的值。同时通过对路径的遍历，从而可以判断当前的第i个人是否被选择过，从而达到了降维的作用。</p>
+<span id="more"></span>
+
+<p>#include #include #include #include #include using namespace std;<br>int a[201],b[201];<br>int f[30][801],path[30][801];<br>int p[205],v[205];<br>bool select(int i,int j,int k)<br>{<br>    while (true)<br>    {<br>        if (path[i][k]&lt;0 || i&lt;0) break;<br>         if (j==path[i][k]) return true;<br>        k=k-p[path[i][k]];<br>        i–;<br>    }<br>    return false;<br>}<br>int main()<br>{<br>    int n,m;<br>    int No=0;<br>    while (scanf(“%d%d”,&amp;n,&amp;m)!=EOF &amp;&amp; n+m!=0){<br>        cout&lt;&lt;”Jury #”&lt;&lt;++No&lt;=0){<br>                for (int j=0;j=0 &amp;&amp; f[m][m*20+i]&gt;=f[m][m*20-i])<br>                {<br>                    k=m<em>20+i;<br>                    break;<br>                }<br>                if (f[m][m</em>20-i]&gt;=0){<br>                    k=m<em>20-i;<br>                    break;<br>                }<br>            }<br>        int suma=0,sumb=0;<br>        int id[300];<br>        int sum=0;<br>        while (true)<br>        {<br>            int i=path[m–][k];<br>            if (i==-1 || m&lt;0) break;<br>            id[sum++]=i;<br>            suma+=a[i];<br>            sumb+=b[i];<br>            k=k-p[i];<br>        }<br>        cout&lt;&lt;”Best jury has value “&lt; #include #include #include #include using namespace std;<br>int a[201],b[201];<br>int f[30][801],path[30][801];<br>int p[205],v[205];<br>bool select(int i,int j,int k)<br>{<br>    while (true)<br>    {<br>        if (path[i][k]&lt;0 || i&lt;0) break;<br>         if (j==path[i][k]) return true;<br>        k=k-p[path[i][k]];<br>        i–;<br>    }<br>    return false;<br>}<br>int main()<br>{<br>    int n,m;<br>    int No=0;<br>    while (scanf(“%d%d”,&amp;n,&amp;m)!=EOF &amp;&amp; n+m!=0){<br>        cout&lt;&lt;”Jury #”&lt;&lt;++No&lt;=0){<br>                for (int j=0;j=0 &amp;&amp; f[m][m*20+i]&gt;=f[m][m*20-i])<br>                {<br>                    k=m</em>20+i;<br>                    break;<br>                }<br>                if (f[m][m<em>20-i]&gt;=0){<br>                    k=m</em>20-i;<br>                    break;<br>                }<br>            }<br>        int suma=0,sumb=0;<br>        int id[300];<br>        int sum=0;<br>        while (true)<br>        {<br>            int i=path[m–][k];<br>            if (i==-1 || m&lt;0) break;<br>            id[sum++]=i;<br>            suma+=a[i];<br>            sumb+=b[i];<br>            k=k-p[i];<br>        }<br>        cout&lt;&lt;”Best jury has value “&lt;</p>
+]]></content>
+      <categories>
+        <category>ACMICPC</category>
+      </categories>
+  </entry>
+  <entry>
+    <title>POJ 1422</title>
+    <url>/2013/04/28/poj1422/</url>
+    <content><![CDATA[<p>题意不追溯，关于匈牙利算法看：<a href="http://my.oschina.net/xuwei8091/blog/126320">http://my.oschina.net/xuwei8091/blog/126320</a>。 最小路径覆盖等于N-最大匹配</p>
+<p>#include #include #include using namespace std;<br>int T;<br>int n,m;<br>int map[200][200];<br>int vis[200];<br>int result[200];<br>bool find(int s)<br>{<br>        for (int i=1;i&lt;=n;i++)<br>        {<br>            if (map[s][i] &amp;&amp; !vis[i])<br>            {<br>                vis[i]=1;<br>                if (result[i]==0 || find(result[i]))<br>                {<br>                    result[i]=s;<br>                    return true;<br>                }<br>            }<br>        }<br>        return false;<br>}<br>int main()<br>{<br>    scanf(“%d”,&amp;T);<br>    while (T–){<br>        memset(map,0,sizeof(map));<br>        memset(result,0,sizeof(result));<br>        scanf(“%d%d”,&amp;n,&amp;m);<br>        for (int i=0;i</p>
 ]]></content>
       <categories>
         <category>ACMICPC</category>
@@ -1717,28 +1757,6 @@ init─┬─Xvnc
 <pre><code>                    X&amp;(-X)= 0,0,0….1, 0,0,0,….
 </code></pre>
 <p><strong>除了第i位是1，其他每一位的值都是0</strong>， 而根据我们最开始所说的，<strong>X的第i位的1就是X当前二进制编码的最后一个1</strong>，所以通过 x &amp;(-x) 我们能够得到x的最后一个</p>
-]]></content>
-      <categories>
-        <category>ACMICPC</category>
-      </categories>
-  </entry>
-  <entry>
-    <title>POJ 1422</title>
-    <url>/2013/04/28/poj1422/</url>
-    <content><![CDATA[<p>题意不追溯，关于匈牙利算法看：<a href="http://my.oschina.net/xuwei8091/blog/126320">http://my.oschina.net/xuwei8091/blog/126320</a>。 最小路径覆盖等于N-最大匹配</p>
-<p>#include #include #include using namespace std;<br>int T;<br>int n,m;<br>int map[200][200];<br>int vis[200];<br>int result[200];<br>bool find(int s)<br>{<br>        for (int i=1;i&lt;=n;i++)<br>        {<br>            if (map[s][i] &amp;&amp; !vis[i])<br>            {<br>                vis[i]=1;<br>                if (result[i]==0 || find(result[i]))<br>                {<br>                    result[i]=s;<br>                    return true;<br>                }<br>            }<br>        }<br>        return false;<br>}<br>int main()<br>{<br>    scanf(“%d”,&amp;T);<br>    while (T–){<br>        memset(map,0,sizeof(map));<br>        memset(result,0,sizeof(result));<br>        scanf(“%d%d”,&amp;n,&amp;m);<br>        for (int i=0;i</p>
-]]></content>
-      <categories>
-        <category>ACMICPC</category>
-      </categories>
-  </entry>
-  <entry>
-    <title>POJ 1015</title>
-    <url>/2013/04/25/poj1015/</url>
-    <content><![CDATA[<p>原题的题意是给n个人，每个人对于控辩两方都有一个值，现在选择m个人，使得控辩两方的值的差的和最小，如果有相同的最小值，那么就选择最大的一个。 本题的关键是模型的构建，对于每个人都有两种选择，一个是选择，一个是不选择，对于相同的差值，维护一个最大的和值，换言之，就是假设差值一定，从n个人选择m个人使得和最大.可以转换为背包问题。状态转移的方程为f[i][j][k+p[i]]=max{f[i-1][j][k+p[i]],f[i-1][j-1][k]+v[i]},表示前i个人中选择j个人差的和为k的最大的和的和（p[i]是第i个人的控辩双方的值差，v[i]是第i个人的控辩双方的值和）.本题的另外一个难点在于路径的记录，我们知道，动态规划的一个本质就是状态转移，也就是在当前状态记录是由哪个值推倒过来的，就可以逆序退出上个状态的值。同时通过对路径的遍历，从而可以判断当前的第i个人是否被选择过，从而达到了降维的作用。</p>
-<span id="more"></span>
-
-<p>#include #include #include #include #include using namespace std;<br>int a[201],b[201];<br>int f[30][801],path[30][801];<br>int p[205],v[205];<br>bool select(int i,int j,int k)<br>{<br>    while (true)<br>    {<br>        if (path[i][k]&lt;0 || i&lt;0) break;<br>         if (j==path[i][k]) return true;<br>        k=k-p[path[i][k]];<br>        i–;<br>    }<br>    return false;<br>}<br>int main()<br>{<br>    int n,m;<br>    int No=0;<br>    while (scanf(“%d%d”,&amp;n,&amp;m)!=EOF &amp;&amp; n+m!=0){<br>        cout&lt;&lt;”Jury #”&lt;&lt;++No&lt;=0){<br>                for (int j=0;j=0 &amp;&amp; f[m][m*20+i]&gt;=f[m][m*20-i])<br>                {<br>                    k=m<em>20+i;<br>                    break;<br>                }<br>                if (f[m][m</em>20-i]&gt;=0){<br>                    k=m<em>20-i;<br>                    break;<br>                }<br>            }<br>        int suma=0,sumb=0;<br>        int id[300];<br>        int sum=0;<br>        while (true)<br>        {<br>            int i=path[m–][k];<br>            if (i==-1 || m&lt;0) break;<br>            id[sum++]=i;<br>            suma+=a[i];<br>            sumb+=b[i];<br>            k=k-p[i];<br>        }<br>        cout&lt;&lt;”Best jury has value “&lt; #include #include #include #include using namespace std;<br>int a[201],b[201];<br>int f[30][801],path[30][801];<br>int p[205],v[205];<br>bool select(int i,int j,int k)<br>{<br>    while (true)<br>    {<br>        if (path[i][k]&lt;0 || i&lt;0) break;<br>         if (j==path[i][k]) return true;<br>        k=k-p[path[i][k]];<br>        i–;<br>    }<br>    return false;<br>}<br>int main()<br>{<br>    int n,m;<br>    int No=0;<br>    while (scanf(“%d%d”,&amp;n,&amp;m)!=EOF &amp;&amp; n+m!=0){<br>        cout&lt;&lt;”Jury #”&lt;&lt;++No&lt;=0){<br>                for (int j=0;j=0 &amp;&amp; f[m][m*20+i]&gt;=f[m][m*20-i])<br>                {<br>                    k=m</em>20+i;<br>                    break;<br>                }<br>                if (f[m][m<em>20-i]&gt;=0){<br>                    k=m</em>20-i;<br>                    break;<br>                }<br>            }<br>        int suma=0,sumb=0;<br>        int id[300];<br>        int sum=0;<br>        while (true)<br>        {<br>            int i=path[m–][k];<br>            if (i==-1 || m&lt;0) break;<br>            id[sum++]=i;<br>            suma+=a[i];<br>            sumb+=b[i];<br>            k=k-p[i];<br>        }<br>        cout&lt;&lt;”Best jury has value “&lt;</p>
 ]]></content>
       <categories>
         <category>ACMICPC</category>
@@ -1866,6 +1884,22 @@ init─┬─Xvnc
       </tags>
   </entry>
   <entry>
+    <title>sdk篡改</title>
+    <url>/2017/07/23/sdk-e7-af-a1-e6-94-b9/</url>
+    <content><![CDATA[<p>前段时间，因为一年前篡改了一个sdk的包，导致了一系列不可预知的损失，这也充分说明了技术的正确性，需要决策的正确性来支撑的。作为技术人员，不仅仅要考虑技术的可行性，也要考虑实施后的风险和结果的预期假设。 从工程角度，简单记录一下篡改sdk包的技术。</p>
+<ol>
+<li>解压jar或者apk的包 </li>
+<li>JD-GUI 反编译查看class的相关代码，找到修改点</li>
+<li>自己编写相应的方法或者类，使用 <code>javaassist</code> 注入到class文件 </li>
+<li>重新打包</li>
+</ol>
+<p> <code>javassist</code> 使用方法参考： <a href="https://jboss-javassist.github.io/javassist/tutorial/tutorial.html">https://jboss-javassist.github.io/javassist/tutorial/tutorial.html</a> 附上测试代码，修改一个方法</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">      javassist.tools.reflect.<span class="type">Loader</span> <span class="variable">cl</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">javassist</span>.tools.reflect.Loader();</span><br><span class="line">      <span class="type">ClassPool</span> <span class="variable">pool</span> <span class="operator">=</span> ClassPool.getDefault();</span><br><span class="line">      pool.insertClassPath(<span class="string">&quot;/tmp/aa/&quot;</span>);</span><br><span class="line">      <span class="type">CtClass</span> <span class="variable">cc</span> <span class="operator">=</span> pool.get(<span class="string">&quot;com.facebook.ads.internal.d.g&quot;</span>);</span><br><span class="line">      <span class="type">CtMethod</span> <span class="variable">ctmethod</span> <span class="operator">=</span> cc.getDeclaredMethod(<span class="string">&quot;c&quot;</span>);</span><br><span class="line">      cc.getDeclaredField(<span class="string">&quot;c&quot;</span>);</span><br><span class="line">      <span class="comment">// getCode()即为需要替换的的代码</span></span><br><span class="line">      ctmethod.setBody(getCode());</span><br><span class="line">      cc.writeFile(<span class="string">&quot;/tmp/aa/&quot;</span>);</span><br><span class="line">    &#125; <span class="keyword">catch</span> (CannotCompileException e) &#123;</span><br><span class="line">      e.printStackTrace();</span><br><span class="line">    &#125; <span class="keyword">catch</span> (NotFoundException e) &#123;</span><br><span class="line">      e.printStackTrace();</span><br><span class="line">    &#125; <span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">      e.printStackTrace();</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>]]></content>
+      <categories>
+        <category>JAVA</category>
+      </categories>
+  </entry>
+  <entry>
     <title>并查集</title>
     <url>/2013/04/27/set/</url>
     <content><![CDATA[<p>好吧，前两天做了一场CF，遇到一道并查集的题目，感觉并查集还需学习啊，记录一下 具体的算法如下</p>
@@ -1893,22 +1927,6 @@ init─┬─Xvnc
       </tags>
   </entry>
   <entry>
-    <title>sdk篡改</title>
-    <url>/2017/07/23/sdk-e7-af-a1-e6-94-b9/</url>
-    <content><![CDATA[<p>前段时间，因为一年前篡改了一个sdk的包，导致了一系列不可预知的损失，这也充分说明了技术的正确性，需要决策的正确性来支撑的。作为技术人员，不仅仅要考虑技术的可行性，也要考虑实施后的风险和结果的预期假设。 从工程角度，简单记录一下篡改sdk包的技术。</p>
-<ol>
-<li>解压jar或者apk的包 </li>
-<li>JD-GUI 反编译查看class的相关代码，找到修改点</li>
-<li>自己编写相应的方法或者类，使用 <code>javaassist</code> 注入到class文件 </li>
-<li>重新打包</li>
-</ol>
-<p> <code>javassist</code> 使用方法参考： <a href="https://jboss-javassist.github.io/javassist/tutorial/tutorial.html">https://jboss-javassist.github.io/javassist/tutorial/tutorial.html</a> 附上测试代码，修改一个方法</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">      javassist.tools.reflect.<span class="type">Loader</span> <span class="variable">cl</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">javassist</span>.tools.reflect.Loader();</span><br><span class="line">      <span class="type">ClassPool</span> <span class="variable">pool</span> <span class="operator">=</span> ClassPool.getDefault();</span><br><span class="line">      pool.insertClassPath(<span class="string">&quot;/tmp/aa/&quot;</span>);</span><br><span class="line">      <span class="type">CtClass</span> <span class="variable">cc</span> <span class="operator">=</span> pool.get(<span class="string">&quot;com.facebook.ads.internal.d.g&quot;</span>);</span><br><span class="line">      <span class="type">CtMethod</span> <span class="variable">ctmethod</span> <span class="operator">=</span> cc.getDeclaredMethod(<span class="string">&quot;c&quot;</span>);</span><br><span class="line">      cc.getDeclaredField(<span class="string">&quot;c&quot;</span>);</span><br><span class="line">      <span class="comment">// getCode()即为需要替换的的代码</span></span><br><span class="line">      ctmethod.setBody(getCode());</span><br><span class="line">      cc.writeFile(<span class="string">&quot;/tmp/aa/&quot;</span>);</span><br><span class="line">    &#125; <span class="keyword">catch</span> (CannotCompileException e) &#123;</span><br><span class="line">      e.printStackTrace();</span><br><span class="line">    &#125; <span class="keyword">catch</span> (NotFoundException e) &#123;</span><br><span class="line">      e.printStackTrace();</span><br><span class="line">    &#125; <span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">      e.printStackTrace();</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>]]></content>
-      <categories>
-        <category>JAVA</category>
-      </categories>
-  </entry>
-  <entry>
     <title>关于大数据的C(M,N)</title>
     <url>/2013/05/01/%E5%85%B3%E4%BA%8E%E5%A4%A7%E6%95%B0%E6%8D%AE%E7%9A%84C(M,N)/</url>
     <content><![CDATA[<p>cf181 div 2的C题<a href="http://codeforces.com/contest/300/problem/C">http://codeforces.com/contest/300/problem/C</a></p>
@@ -1922,6 +1940,34 @@ init─┬─Xvnc
       <tags>
         <tag>proof,acm</tag>
       </tags>
+  </entry>
+  <entry>
+    <title>几种简单的传统加密算法概述</title>
+    <url>/2013/11/10/%E5%87%A0%E7%A7%8D%E7%AE%80%E5%8D%95%E7%9A%84%E4%BC%A0%E7%BB%9F%E5%8A%A0%E5%AF%86%E7%AE%97%E6%B3%95%E6%A6%82%E8%BF%B0/</url>
+    <content><![CDATA[<p>本文只是概述几种简单的传统加密算法，没有DES,没有RSA，没有想象中的高端大气上档次的东东。。。但是都是很传统很经典的一些算法 首先，提到加密，比如加密一段文字，让其不可读，一般人首先会想到的是将其中的各个字符用其他一些特定的字符代替，比如，讲所有的A用C来表示，所有的C用E表示等等…其中早的代替算法就是由Julius Caesar发明的Caesar，它是用字母表中每个字母的之后的第三个字母来代替其本身的（C=E(3，p)=（p+3) mod 26)，但是，这种加密方式，很容易可以用穷举算法来破解，毕竟只有25种可能的情况.. 为了改进上诉算法，增加其破解的难度，我们不用简单的有序的替代方式，我们让替代无序化，用其中字母表的一个置换（置换：有限元素的集合S的置换就是S的所有元素的有序排列，且每个元素就出现一次，如S={a,b}其置换就只有两种:ab,ba），这样的话，就有26！种方式，大大的增加了破解的难度，但是这个世界聪明人太多，虽然26！很多，但是语言本身有一定的特性，每个字母在语言中出现的相对频率可以统计出来的，这样子，只要密文有了一定数量，就可以从统计学的角度，得到准确的字母匹配了。 上面的算法我们称之为单表代替，其实单表代替密码之所以较容易被攻破，因为它带有原始字母使用频率的一些统计学特征。有两种主要的方法可以减少代替密码里明文结构在密文中的残留度，一种是对明文中的多个字母一起加密，另一种是采用多表代替密码。 先说多字母代替吧，最著名的就是playfair密码，它把明文中的双字母音节作为一个单元并将其转换成密文的双字母音节，它是一个基于由密钥词构成的5<em>5的字母矩阵中的，一个例子，如密钥为monarchy，将其从左往右从上往下填入后，将剩余的字母依次填入剩下的空格，其中I/J填入同一个空格: <a href="http://static.oschina.net/uploads/img/201311/10123647_Q0Ls.png"><img src="http://static.oschina.net/uploads/img/201311/10123647_Q0Ls.png"></a> 对明文加密规则如下： 1 若p1 p2在同一行，对应密文c1 c2分别是紧靠p1 p2 右端的字母。其中第一列被看做是最后一列的右方。 2 若p1 p2在同一列，对应密文c1 c2分别是紧靠p1 p2 下方的字母。其中第一行被看做是最后一行的下方。 3 若p1 p2不在同一行，不在同一列，则c1 c2是由p1 p2确定的矩形的其他两角的字母，并且c1和p1， c2和p2同行。 4 若p1 p2相同，则插入一个事先约定的字母，比如Q 。 5 若明文字母数为奇数时，则在明文的末端添加某个事先约定的字母作为填充。 虽然相对简单加密，安全性有所提高，但是还是保留了明文语言的大部分结构特征，依旧可以破解出来，另一个有意思的多表代替密码是Hill密码，由数学家Lester Hill提出来的，其实就是利用了线性代数中的可逆矩阵，一个矩阵乘以它的逆矩阵得到单位矩阵，那么假设我们对密文每m个字母进行加密，那么将这m个字母在字母表中的序号写成矩阵形式设为P（如abc，[1,2,3])，密钥就是一个m阶的矩阵K，则C=P</em>K mod26，，解密的时候只要将密文乘上K的逆矩阵模26就可以了。该方法大大的增加了安全性。 上面的算法主要是多字母代替，现在再说说另一种多表代替的加密算法吧，其中最著名最简单的是vigenere密码，它的主要思想是对明文每m个字母进行加密，将每个字母加密，和Caesar算法一样，每个字母用后面的第k个字母来代替，只不过是m个字母中，每一个字母的k值不同，简单的说就是C=C0C1C2C3…=E(K,P)=(p0+k0）mod26,(p1+k1)mod26,(p2+k2)mod26…..但是这样的算法也是比较容易破解的，可以对相同字母的组合（如都是KATB）间隔数（存在偶然性，可以进行取舍），取公约数，那么m就是这个约数的某个因子，之后通过观察，如果长度为m，其实就是m个单表，进行分离就是m个单表分离，然后就很容易的破解了。。 另外一种加密手段，是选择一个与明文无关的，且与他长度一致的密钥，进行异或，解密的时候再一次异或就OK了，这也是基于两次异或同一个值，值不变的结论，大家可以尝试一下的~ 上面主要说的是替换技术，其实传统加密算法除了替换的技术，还有一种就是置换的技术了，简单的说就是将明文的序列打乱，比如栅栏技术，就是按照对角线的顺序写出明文，而按行的顺序读出作为密文。当然这种技术太简单了，更复杂一点的就是将消息一行行的写成矩阵块，然后按列读出，但是把列的次序打乱的，为了增加安全性，还可以多次置换来着。 传统加密高端一点的就是转轮机和隐写术了，转轮机是一种多重加密的技术，其主要的意义就是为DES加密提供了方向…隐写术是个神奇的东西，比如我们经常在电视剧中看到的隐形药水啥的…这些东西，就问度娘吧…..</p>
+]]></content>
+      <categories>
+        <category>Theory</category>
+      </categories>
+      <tags>
+        <tag>proof</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>匈牙利二分匹配</title>
+    <url>/2013/04/28/%E5%8C%88%E7%89%99%E5%88%A9%E4%BA%8C%E5%88%86%E5%8C%B9%E9%85%8D/</url>
+    <content><![CDATA[<p>关于算法的说明，可以参看这个大牛的讲解，很详细： <a href="http://imlazy.ycool.com/post.1603708.html">http://imlazy.ycool.com/post.1603708.html</a> 直接上代码</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="type">bool</span> <span class="title">find</span><span class="params">(<span class="type">int</span> s)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i=<span class="number">1</span>;i&lt;=n;i++)<span class="comment">//从1到n编号</span></span><br><span class="line">    &#123;</span><br><span class="line">         <span class="keyword">if</span> (map[s][i] &amp;&amp; !visit[i])</span><br><span class="line">        &#123;</span><br><span class="line">            visit[i]=<span class="number">1</span>;</span><br><span class="line">            <span class="keyword">if</span> (pre[i]==<span class="number">0</span> || <span class="built_in">find</span>(pre[i]))</span><br><span class="line">             &#123;</span><br><span class="line">                 pre[i]=s;</span><br><span class="line">                 <span class="keyword">return</span> <span class="literal">true</span>;      </span><br><span class="line">             &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">hungary</span><span class="params">()</span><span class="comment">//返回最大匹配数</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">     <span class="type">int</span> ans=<span class="number">0</span>;</span><br><span class="line">     <span class="keyword">for</span> (<span class="type">int</span> i=<span class="number">1</span>;i&lt;=n;i++)</span><br><span class="line">     &#123;</span><br><span class="line">        <span class="built_in">memset</span>(visit,<span class="number">0</span>,<span class="built_in">sizeof</span>(visit));</span><br><span class="line">        <span class="keyword">if</span> (<span class="built_in">find</span>(i)) ans++;</span><br><span class="line">     &#125;</span><br><span class="line">     <span class="keyword">return</span> ans;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<p>  好吧，具体的代码就应该是这样了，但是二分图是无向图吧。。。有向图，怎么破…</p>
+]]></content>
+      <categories>
+        <category>ACMICPC</category>
+      </categories>
   </entry>
   <entry>
     <title>匈牙利算法</title>
@@ -1941,34 +1987,6 @@ init─┬─Xvnc
       <categories>
         <category>ACMICPC</category>
       </categories>
-  </entry>
-  <entry>
-    <title>匈牙利二分匹配</title>
-    <url>/2013/04/28/%E5%8C%88%E7%89%99%E5%88%A9%E4%BA%8C%E5%88%86%E5%8C%B9%E9%85%8D/</url>
-    <content><![CDATA[<p>关于算法的说明，可以参看这个大牛的讲解，很详细： <a href="http://imlazy.ycool.com/post.1603708.html">http://imlazy.ycool.com/post.1603708.html</a> 直接上代码</p>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="type">bool</span> <span class="title">find</span><span class="params">(<span class="type">int</span> s)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i=<span class="number">1</span>;i&lt;=n;i++)<span class="comment">//从1到n编号</span></span><br><span class="line">    &#123;</span><br><span class="line">         <span class="keyword">if</span> (map[s][i] &amp;&amp; !visit[i])</span><br><span class="line">        &#123;</span><br><span class="line">            visit[i]=<span class="number">1</span>;</span><br><span class="line">            <span class="keyword">if</span> (pre[i]==<span class="number">0</span> || <span class="built_in">find</span>(pre[i]))</span><br><span class="line">             &#123;</span><br><span class="line">                 pre[i]=s;</span><br><span class="line">                 <span class="keyword">return</span> <span class="literal">true</span>;      </span><br><span class="line">             &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">hungary</span><span class="params">()</span><span class="comment">//返回最大匹配数</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">     <span class="type">int</span> ans=<span class="number">0</span>;</span><br><span class="line">     <span class="keyword">for</span> (<span class="type">int</span> i=<span class="number">1</span>;i&lt;=n;i++)</span><br><span class="line">     &#123;</span><br><span class="line">        <span class="built_in">memset</span>(visit,<span class="number">0</span>,<span class="built_in">sizeof</span>(visit));</span><br><span class="line">        <span class="keyword">if</span> (<span class="built_in">find</span>(i)) ans++;</span><br><span class="line">     &#125;</span><br><span class="line">     <span class="keyword">return</span> ans;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-
-
-
-
-<p>  好吧，具体的代码就应该是这样了，但是二分图是无向图吧。。。有向图，怎么破…</p>
-]]></content>
-      <categories>
-        <category>ACMICPC</category>
-      </categories>
-  </entry>
-  <entry>
-    <title>几种简单的传统加密算法概述</title>
-    <url>/2013/11/10/%E5%87%A0%E7%A7%8D%E7%AE%80%E5%8D%95%E7%9A%84%E4%BC%A0%E7%BB%9F%E5%8A%A0%E5%AF%86%E7%AE%97%E6%B3%95%E6%A6%82%E8%BF%B0/</url>
-    <content><![CDATA[<p>本文只是概述几种简单的传统加密算法，没有DES,没有RSA，没有想象中的高端大气上档次的东东。。。但是都是很传统很经典的一些算法 首先，提到加密，比如加密一段文字，让其不可读，一般人首先会想到的是将其中的各个字符用其他一些特定的字符代替，比如，讲所有的A用C来表示，所有的C用E表示等等…其中早的代替算法就是由Julius Caesar发明的Caesar，它是用字母表中每个字母的之后的第三个字母来代替其本身的（C=E(3，p)=（p+3) mod 26)，但是，这种加密方式，很容易可以用穷举算法来破解，毕竟只有25种可能的情况.. 为了改进上诉算法，增加其破解的难度，我们不用简单的有序的替代方式，我们让替代无序化，用其中字母表的一个置换（置换：有限元素的集合S的置换就是S的所有元素的有序排列，且每个元素就出现一次，如S={a,b}其置换就只有两种:ab,ba），这样的话，就有26！种方式，大大的增加了破解的难度，但是这个世界聪明人太多，虽然26！很多，但是语言本身有一定的特性，每个字母在语言中出现的相对频率可以统计出来的，这样子，只要密文有了一定数量，就可以从统计学的角度，得到准确的字母匹配了。 上面的算法我们称之为单表代替，其实单表代替密码之所以较容易被攻破，因为它带有原始字母使用频率的一些统计学特征。有两种主要的方法可以减少代替密码里明文结构在密文中的残留度，一种是对明文中的多个字母一起加密，另一种是采用多表代替密码。 先说多字母代替吧，最著名的就是playfair密码，它把明文中的双字母音节作为一个单元并将其转换成密文的双字母音节，它是一个基于由密钥词构成的5<em>5的字母矩阵中的，一个例子，如密钥为monarchy，将其从左往右从上往下填入后，将剩余的字母依次填入剩下的空格，其中I/J填入同一个空格: <a href="http://static.oschina.net/uploads/img/201311/10123647_Q0Ls.png"><img src="http://static.oschina.net/uploads/img/201311/10123647_Q0Ls.png"></a> 对明文加密规则如下： 1 若p1 p2在同一行，对应密文c1 c2分别是紧靠p1 p2 右端的字母。其中第一列被看做是最后一列的右方。 2 若p1 p2在同一列，对应密文c1 c2分别是紧靠p1 p2 下方的字母。其中第一行被看做是最后一行的下方。 3 若p1 p2不在同一行，不在同一列，则c1 c2是由p1 p2确定的矩形的其他两角的字母，并且c1和p1， c2和p2同行。 4 若p1 p2相同，则插入一个事先约定的字母，比如Q 。 5 若明文字母数为奇数时，则在明文的末端添加某个事先约定的字母作为填充。 虽然相对简单加密，安全性有所提高，但是还是保留了明文语言的大部分结构特征，依旧可以破解出来，另一个有意思的多表代替密码是Hill密码，由数学家Lester Hill提出来的，其实就是利用了线性代数中的可逆矩阵，一个矩阵乘以它的逆矩阵得到单位矩阵，那么假设我们对密文每m个字母进行加密，那么将这m个字母在字母表中的序号写成矩阵形式设为P（如abc，[1,2,3])，密钥就是一个m阶的矩阵K，则C=P</em>K mod26，，解密的时候只要将密文乘上K的逆矩阵模26就可以了。该方法大大的增加了安全性。 上面的算法主要是多字母代替，现在再说说另一种多表代替的加密算法吧，其中最著名最简单的是vigenere密码，它的主要思想是对明文每m个字母进行加密，将每个字母加密，和Caesar算法一样，每个字母用后面的第k个字母来代替，只不过是m个字母中，每一个字母的k值不同，简单的说就是C=C0C1C2C3…=E(K,P)=(p0+k0）mod26,(p1+k1)mod26,(p2+k2)mod26…..但是这样的算法也是比较容易破解的，可以对相同字母的组合（如都是KATB）间隔数（存在偶然性，可以进行取舍），取公约数，那么m就是这个约数的某个因子，之后通过观察，如果长度为m，其实就是m个单表，进行分离就是m个单表分离，然后就很容易的破解了。。 另外一种加密手段，是选择一个与明文无关的，且与他长度一致的密钥，进行异或，解密的时候再一次异或就OK了，这也是基于两次异或同一个值，值不变的结论，大家可以尝试一下的~ 上面主要说的是替换技术，其实传统加密算法除了替换的技术，还有一种就是置换的技术了，简单的说就是将明文的序列打乱，比如栅栏技术，就是按照对角线的顺序写出明文，而按行的顺序读出作为密文。当然这种技术太简单了，更复杂一点的就是将消息一行行的写成矩阵块，然后按列读出，但是把列的次序打乱的，为了增加安全性，还可以多次置换来着。 传统加密高端一点的就是转轮机和隐写术了，转轮机是一种多重加密的技术，其主要的意义就是为DES加密提供了方向…隐写术是个神奇的东西，比如我们经常在电视剧中看到的隐形药水啥的…这些东西，就问度娘吧…..</p>
-]]></content>
-      <categories>
-        <category>Theory</category>
-      </categories>
-      <tags>
-        <tag>proof</tag>
-      </tags>
   </entry>
   <entry>
     <title>国内NextJs代理支持amp</title>
@@ -2040,23 +2058,6 @@ init─┬─Xvnc
       </tags>
   </entry>
   <entry>
-    <title>设计模式-代理模式</title>
-    <url>/2014/09/08/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E4%BB%A3%E7%90%86%E6%A8%A1%E5%BC%8F/</url>
-    <content><![CDATA[<p>在实际开发的时候，我们同样的一个对象，对于不同的客户，可能能够调用的方法是不一样的，就是权限的控制，这个时候，对象的方法都应该是public，那么就要给对象加上一层，通过客户的类型，决定是否可以访问，也就是说，客户不直接访问对象，而是访问给对象加上的这一层，就是代理层。</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">public interface T1&#123;</span><br><span class="line">    public void method();</span><br><span class="line">&#125;;</span><br><span class="line">public class Item implements T1&#123;</span><br><span class="line">    public void method();</span><br><span class="line">&#125;</span><br><span class="line">public class ItemProxy implements T1&#123;</span><br><span class="line">    Item item;</span><br><span class="line">    Client client;</span><br><span class="line">    public ItemProxy(Client c)&#123;</span><br><span class="line">        this.Client=c;</span><br><span class="line">        this.item=new item();</span><br><span class="line">    &#125;</span><br><span class="line">    public void method()&#123;</span><br><span class="line">        if (client,allow())&#123;    </span><br><span class="line">            item.method1();</span><br><span class="line">        &#125;else&#123;</span><br><span class="line">            return;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">public class Client&#123;</span><br><span class="line">    T1 t;</span><br><span class="line">    public Client()    </span><br><span class="line">    &#123;</span><br><span class="line">        t=new ItemProxy(this);</span><br><span class="line">    &#125;</span><br><span class="line">    public void method1()</span><br><span class="line">    &#123;    </span><br><span class="line">        t.method();    </span><br><span class="line">    &#125;    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>这样就可以在代理类中，控制对象的访问了，当然代理模式实现方式还有很多种，（远程代理管理客户和远程对象的交互，虚拟代理控制访问实例化开销大的对象，保护代理基于调用者控制对对象方法的访问），上面只是其中的一种方式，代理模式的定义如下：</p>
-<span id="more"></span>
-
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">代理模式：为另一个对象提供一个替身或占位符以访问这个对象。</span><br></pre></td></tr></table></figure>]]></content>
-      <categories>
-        <category>Design Pattern</category>
-      </categories>
-      <tags>
-        <tag>设计模式</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>母函数</title>
     <url>/2014/07/08/%E6%AF%8D%E5%87%BD%E6%95%B0/</url>
     <content><![CDATA[<p>母函数的具体介绍见博客：<a href="http://www.wutianqi.com/?p=596">http://www.wutianqi.com/?p=596</a></p>
@@ -2074,6 +2075,23 @@ init─┬─Xvnc
       <tags>
         <tag>proof</tag>
         <tag>概念</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>设计模式-代理模式</title>
+    <url>/2014/09/08/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E4%BB%A3%E7%90%86%E6%A8%A1%E5%BC%8F/</url>
+    <content><![CDATA[<p>在实际开发的时候，我们同样的一个对象，对于不同的客户，可能能够调用的方法是不一样的，就是权限的控制，这个时候，对象的方法都应该是public，那么就要给对象加上一层，通过客户的类型，决定是否可以访问，也就是说，客户不直接访问对象，而是访问给对象加上的这一层，就是代理层。</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">public interface T1&#123;</span><br><span class="line">    public void method();</span><br><span class="line">&#125;;</span><br><span class="line">public class Item implements T1&#123;</span><br><span class="line">    public void method();</span><br><span class="line">&#125;</span><br><span class="line">public class ItemProxy implements T1&#123;</span><br><span class="line">    Item item;</span><br><span class="line">    Client client;</span><br><span class="line">    public ItemProxy(Client c)&#123;</span><br><span class="line">        this.Client=c;</span><br><span class="line">        this.item=new item();</span><br><span class="line">    &#125;</span><br><span class="line">    public void method()&#123;</span><br><span class="line">        if (client,allow())&#123;    </span><br><span class="line">            item.method1();</span><br><span class="line">        &#125;else&#123;</span><br><span class="line">            return;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">public class Client&#123;</span><br><span class="line">    T1 t;</span><br><span class="line">    public Client()    </span><br><span class="line">    &#123;</span><br><span class="line">        t=new ItemProxy(this);</span><br><span class="line">    &#125;</span><br><span class="line">    public void method1()</span><br><span class="line">    &#123;    </span><br><span class="line">        t.method();    </span><br><span class="line">    &#125;    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这样就可以在代理类中，控制对象的访问了，当然代理模式实现方式还有很多种，（远程代理管理客户和远程对象的交互，虚拟代理控制访问实例化开销大的对象，保护代理基于调用者控制对对象方法的访问），上面只是其中的一种方式，代理模式的定义如下：</p>
+<span id="more"></span>
+
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">代理模式：为另一个对象提供一个替身或占位符以访问这个对象。</span><br></pre></td></tr></table></figure>]]></content>
+      <categories>
+        <category>Design Pattern</category>
+      </categories>
+      <tags>
+        <tag>设计模式</tag>
       </tags>
   </entry>
   <entry>
@@ -2199,29 +2217,33 @@ init─┬─Xvnc
       </tags>
   </entry>
   <entry>
-    <title>设计模式-迭代器模式和组合模式</title>
-    <url>/2014/09/06/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E8%BF%AD%E4%BB%A3%E5%99%A8%E6%A8%A1%E5%BC%8F%E5%92%8C%E7%BB%84%E5%90%88%E6%A8%A1%E5%BC%8F/</url>
-    <content><![CDATA[<p>1.迭代器模式完成的功能是和迭代器一样的，封装了对对象的顺序遍历，因为子类的对象集合的存储方式可能并不一致。但是存储的对象是一致的。</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">public classItem&#123;</span><br><span class="line">    .....//各种属性</span><br><span class="line">&#125;</span><br><span class="line">public class Set1&#123;</span><br><span class="line">    item[] items;</span><br><span class="line">    ...</span><br><span class="line">    public Iterator createIterator()&#123;</span><br><span class="line">        return new ItemIterator(items);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">public class Set2&#123;</span><br><span class="line">    ArrayList items;</span><br><span class="line">    ...</span><br><span class="line">    public Iterator createIterator()&#123;</span><br><span class="line">        return  items.iterator();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">public class ItemIterator implements Iterator&#123;</span><br><span class="line">    Item[] items;</span><br><span class="line">     int position;</span><br><span class="line">    public ItemIterator(Item[] items)</span><br><span class="line">    &#123;</span><br><span class="line">        this.items=items;</span><br><span class="line">        position=0;</span><br><span class="line">    &#125;</span><br><span class="line">    public Object next()</span><br><span class="line">    &#123;</span><br><span class="line">        Item i=items[position];</span><br><span class="line">        position=position+1;</span><br><span class="line">        return i;</span><br><span class="line">    &#125;</span><br><span class="line">    public boolean hasNext()</span><br><span class="line">    &#123;</span><br><span class="line">        if (position&gt;=items.lenght || items[position]==null)</span><br><span class="line">            return false;</span><br><span class="line">        else</span><br><span class="line">            return true;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+    <title>设计模式-装饰者模式</title>
+    <url>/2014/08/31/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E8%A3%85%E9%A5%B0%E8%80%85%E6%A8%A1%E5%BC%8F/</url>
+    <content><![CDATA[<blockquote>
+<p>​     这一章看完之后，我感觉，装饰者模式就是对类继承的一种递归调用式的组合应用，很好的是实现了开闭原则，可以有效的扩展应用程序。比如书中的例子，有几种饮料，每种饮料的价格已经知道了，但是我们又有很多种的调料，每种调料也有它的价格，我们现在需要是在饮料中加调料，那么这样一来，饮料的售价就会变化，如何来描述这种售价呢？如果通过对调料种类的组合来定义若干的类，肯定是非常愚蠢的行为。</p>
+</blockquote>
+<blockquote>
+<p>​     通过装饰者模式，就能很好的解决这个问题，我们将这些类分为装饰类（调料），待装饰类（饮料）两种，这两种类继承同一个父类，不同的是装饰类中的构造函数有一个父类引用的构造函数，这样子就可以递归调用构造函数来进行 装饰了。</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">public class A extends BaseClass&#123;</span><br><span class="line">    </span><br><span class="line">    public string who()</span><br><span class="line">    &#123;</span><br><span class="line">        return &quot;A&quot;;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public int cost()</span><br><span class="line">    &#123;</span><br><span class="line">        return 5;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<p>通过这种方法，我们就可以通过自己定义的一个迭代器来访问数组，同时通过createIterator的方法来顺序遍历存储结构不一样的Set1和Set2中item对象。所以迭代器模式就是:</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">迭代器模式：提供一种方法顺序访问一个聚合对象中的各种元素，而又不暴露其内部的表示。</span><br></pre></td></tr></table></figure>
+<p>我们定义一个待装饰类A，再定义几个装饰类：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">public class decorator1 extends BaseClass&#123;</span><br><span class="line">    BaseClass baseClass;    </span><br><span class="line">    public decorator1(BaseClass t）</span><br><span class="line">    &#123;</span><br><span class="line">        this.baseClass = t;</span><br><span class="line">    &#125;</span><br><span class="line">    public string who()</span><br><span class="line">    &#123;</span><br><span class="line">        return baseClass.who()+&quot;,decoratro1&quot;;    </span><br><span class="line">    &#125;    </span><br><span class="line">    public int cost()</span><br><span class="line">    &#123;</span><br><span class="line">        return baseClass.cost()+10;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">public class decorator2 extends BaseClass&#123;</span><br><span class="line">    BaseClass baseClass;    </span><br><span class="line">    public decorator2(BaseClass t）</span><br><span class="line">    &#123;</span><br><span class="line">        this.baseClass = t;</span><br><span class="line">    &#125;</span><br><span class="line">    public string who()</span><br><span class="line">    &#123;</span><br><span class="line">        return baseClass.who()+&quot;,decoratro2&quot;;    </span><br><span class="line">    &#125;    </span><br><span class="line">    public int cost()</span><br><span class="line">    &#123;</span><br><span class="line">        return baseClass.cost()+20;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<p>2.组合模式</p>
-<p>组合模式其实就是整体与部分的一个关系，其实就是一个树形结构，根节点由他的子节点组合而成，而子节点又有自己的子节点来组合而成，所以组合模式的定义如下：</p>
-<span id="more"></span>
+<p>然后我们在用decorator1 和decorator2 来装饰A的时候，就有了很犀利的调用方法：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">A  a;</span><br><span class="line">a=new decorator1(a);</span><br><span class="line">a=new deocorator2(a);</span><br><span class="line">system.out.println(a.who());</span><br><span class="line">system.out.println(a.cost());</span><br></pre></td></tr></table></figure>
 
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">组合模式：允许你将对象组合成树形结构来表现“整体/部分”的层次结构，组合能让客户以一致的方法处理个别对象以及对象组合。</span><br></pre></td></tr></table></figure>
+<p>这样子 输出就是</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">A,decorator1,decorator2</span><br><span class="line">35</span><br></pre></td></tr></table></figure>
 
-<p>现在我们需要对组合模式下的对象这棵进行遍历怎么办？</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">public abstract class ItemComponent&#123;</span><br><span class="line">    ....//方法</span><br><span class="line">    public void method1()&#123;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">public classItem extends ItemComponent&#123;</span><br><span class="line">    .....//各种属性</span><br><span class="line">    public void method1()</span><br><span class="line">    &#123;</span><br><span class="line">        System.out.println(&quot;leaf&quot;);</span><br><span class="line">    &#125;    </span><br><span class="line">&#125;</span><br><span class="line">public class Set1 extends ItemComponent&#123;</span><br><span class="line">    item[] items;</span><br><span class="line">    ...</span><br><span class="line">    public Iterator Iterator()&#123;</span><br><span class="line">        return new ItemIterator(items);</span><br><span class="line">    &#125;</span><br><span class="line">    public void method1()</span><br><span class="line">    &#123;</span><br><span class="line">        System.out.println(&quot;not leaf&quot;);</span><br><span class="line">        Iterator iterator=itemComponent.iterator();//重写</span><br><span class="line">        while (iterator.hasNext())</span><br><span class="line">        &#123;</span><br><span class="line">            ItemComponent t=(ItemComponent) iterator.next();</span><br><span class="line">            t.method1();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">public class Set2 extends ItemComponent&#123;</span><br><span class="line">    ArrayList items;</span><br><span class="line">    ...</span><br><span class="line">    public Iterator Iterator()&#123;</span><br><span class="line">        return  items.iterator();</span><br><span class="line">    &#125;</span><br><span class="line">        public void method1()</span><br><span class="line">    &#123;</span><br><span class="line">        System.out.println(&quot;not leaf&quot;);</span><br><span class="line">        Iterator iterator=itemComponent.iterator();//重写</span><br><span class="line">        while (iterator.hasNext())</span><br><span class="line">        &#123;</span><br><span class="line">            ItemComponent t=(ItemComponent) iterator.next();</span><br><span class="line">            t.method1();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>实际的调用过程就是一个递归的过程。</p>
+<p>装饰者模式的定义：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">装饰者模式：动态地将责任附加到对象上，若要扩展功能，装饰者提供了比继承更具有弹性的替代方案</span><br></pre></td></tr></table></figure>
 
-<p>上面这种方式是一种通过递归的方式来实现全部遍历的</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">public class ItemIterator implements Iterator&#123;</span><br><span class="line">    stack stack = new Stack();</span><br><span class="line">    public ItemIterator(Iterator iter)</span><br><span class="line">    &#123;</span><br><span class="line">        stack.push(iter);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">     public Object next()</span><br><span class="line">    &#123;</span><br><span class="line">        if (hasNext())&#123;</span><br><span class="line">            Iterator iterator=(Iterator)stack.peek();</span><br><span class="line">            ItemComponent t=(ItemComponent) iterator.next();</span><br><span class="line">            if (t instanceof Set1)</span><br><span class="line">            &#123;</span><br><span class="line">                stack.push(t.createIterator());    </span><br><span class="line">            &#125;</span><br><span class="line">            return t;</span><br><span class="line">        &#125;else&#123;</span><br><span class="line">            return null;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    public boolean hasNext()</span><br><span class="line">    &#123;</span><br><span class="line">        if (stack.empty())&#123;</span><br><span class="line">            return false;</span><br><span class="line">        &#125;else&#123;</span><br><span class="line">            Iterator iterator=(Iterator) stack.peek();</span><br><span class="line">            if (!iterator.hasNext())&#123;</span><br><span class="line">                stack.pop();</span><br><span class="line">                return hasNext();</span><br><span class="line">            &#125;else &#123;</span><br><span class="line">                return true;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>其中用到的设计原则：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">开闭原则：对扩展开放，对修改关闭</span><br></pre></td></tr></table></figure>
 
-<p>现在定义的这种方式，是通过迭代器用栈模拟递归的一种方式。</p>
-<p>3。设计模式-职责单一</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">单一责任： 一个类应该只有一个引起变化的原因。</span><br></pre></td></tr></table></figure>]]></content>
+</blockquote>
+]]></content>
       <categories>
         <category>Design Pattern</category>
       </categories>
@@ -2260,33 +2282,29 @@ init─┬─Xvnc
       </tags>
   </entry>
   <entry>
-    <title>设计模式-装饰者模式</title>
-    <url>/2014/08/31/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E8%A3%85%E9%A5%B0%E8%80%85%E6%A8%A1%E5%BC%8F/</url>
-    <content><![CDATA[<blockquote>
-<p>​     这一章看完之后，我感觉，装饰者模式就是对类继承的一种递归调用式的组合应用，很好的是实现了开闭原则，可以有效的扩展应用程序。比如书中的例子，有几种饮料，每种饮料的价格已经知道了，但是我们又有很多种的调料，每种调料也有它的价格，我们现在需要是在饮料中加调料，那么这样一来，饮料的售价就会变化，如何来描述这种售价呢？如果通过对调料种类的组合来定义若干的类，肯定是非常愚蠢的行为。</p>
-</blockquote>
-<blockquote>
-<p>​     通过装饰者模式，就能很好的解决这个问题，我们将这些类分为装饰类（调料），待装饰类（饮料）两种，这两种类继承同一个父类，不同的是装饰类中的构造函数有一个父类引用的构造函数，这样子就可以递归调用构造函数来进行 装饰了。</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">public class A extends BaseClass&#123;</span><br><span class="line">    </span><br><span class="line">    public string who()</span><br><span class="line">    &#123;</span><br><span class="line">        return &quot;A&quot;;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public int cost()</span><br><span class="line">    &#123;</span><br><span class="line">        return 5;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+    <title>设计模式-迭代器模式和组合模式</title>
+    <url>/2014/09/06/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E8%BF%AD%E4%BB%A3%E5%99%A8%E6%A8%A1%E5%BC%8F%E5%92%8C%E7%BB%84%E5%90%88%E6%A8%A1%E5%BC%8F/</url>
+    <content><![CDATA[<p>1.迭代器模式完成的功能是和迭代器一样的，封装了对对象的顺序遍历，因为子类的对象集合的存储方式可能并不一致。但是存储的对象是一致的。</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">public classItem&#123;</span><br><span class="line">    .....//各种属性</span><br><span class="line">&#125;</span><br><span class="line">public class Set1&#123;</span><br><span class="line">    item[] items;</span><br><span class="line">    ...</span><br><span class="line">    public Iterator createIterator()&#123;</span><br><span class="line">        return new ItemIterator(items);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">public class Set2&#123;</span><br><span class="line">    ArrayList items;</span><br><span class="line">    ...</span><br><span class="line">    public Iterator createIterator()&#123;</span><br><span class="line">        return  items.iterator();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">public class ItemIterator implements Iterator&#123;</span><br><span class="line">    Item[] items;</span><br><span class="line">     int position;</span><br><span class="line">    public ItemIterator(Item[] items)</span><br><span class="line">    &#123;</span><br><span class="line">        this.items=items;</span><br><span class="line">        position=0;</span><br><span class="line">    &#125;</span><br><span class="line">    public Object next()</span><br><span class="line">    &#123;</span><br><span class="line">        Item i=items[position];</span><br><span class="line">        position=position+1;</span><br><span class="line">        return i;</span><br><span class="line">    &#125;</span><br><span class="line">    public boolean hasNext()</span><br><span class="line">    &#123;</span><br><span class="line">        if (position&gt;=items.lenght || items[position]==null)</span><br><span class="line">            return false;</span><br><span class="line">        else</span><br><span class="line">            return true;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<p>我们定义一个待装饰类A，再定义几个装饰类：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">public class decorator1 extends BaseClass&#123;</span><br><span class="line">    BaseClass baseClass;    </span><br><span class="line">    public decorator1(BaseClass t）</span><br><span class="line">    &#123;</span><br><span class="line">        this.baseClass = t;</span><br><span class="line">    &#125;</span><br><span class="line">    public string who()</span><br><span class="line">    &#123;</span><br><span class="line">        return baseClass.who()+&quot;,decoratro1&quot;;    </span><br><span class="line">    &#125;    </span><br><span class="line">    public int cost()</span><br><span class="line">    &#123;</span><br><span class="line">        return baseClass.cost()+10;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">public class decorator2 extends BaseClass&#123;</span><br><span class="line">    BaseClass baseClass;    </span><br><span class="line">    public decorator2(BaseClass t）</span><br><span class="line">    &#123;</span><br><span class="line">        this.baseClass = t;</span><br><span class="line">    &#125;</span><br><span class="line">    public string who()</span><br><span class="line">    &#123;</span><br><span class="line">        return baseClass.who()+&quot;,decoratro2&quot;;    </span><br><span class="line">    &#125;    </span><br><span class="line">    public int cost()</span><br><span class="line">    &#123;</span><br><span class="line">        return baseClass.cost()+20;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>通过这种方法，我们就可以通过自己定义的一个迭代器来访问数组，同时通过createIterator的方法来顺序遍历存储结构不一样的Set1和Set2中item对象。所以迭代器模式就是:</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">迭代器模式：提供一种方法顺序访问一个聚合对象中的各种元素，而又不暴露其内部的表示。</span><br></pre></td></tr></table></figure>
 
-<p>然后我们在用decorator1 和decorator2 来装饰A的时候，就有了很犀利的调用方法：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">A  a;</span><br><span class="line">a=new decorator1(a);</span><br><span class="line">a=new deocorator2(a);</span><br><span class="line">system.out.println(a.who());</span><br><span class="line">system.out.println(a.cost());</span><br></pre></td></tr></table></figure>
+<p>2.组合模式</p>
+<p>组合模式其实就是整体与部分的一个关系，其实就是一个树形结构，根节点由他的子节点组合而成，而子节点又有自己的子节点来组合而成，所以组合模式的定义如下：</p>
+<span id="more"></span>
 
-<p>这样子 输出就是</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">A,decorator1,decorator2</span><br><span class="line">35</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">组合模式：允许你将对象组合成树形结构来表现“整体/部分”的层次结构，组合能让客户以一致的方法处理个别对象以及对象组合。</span><br></pre></td></tr></table></figure>
 
-<p>实际的调用过程就是一个递归的过程。</p>
-<p>装饰者模式的定义：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">装饰者模式：动态地将责任附加到对象上，若要扩展功能，装饰者提供了比继承更具有弹性的替代方案</span><br></pre></td></tr></table></figure>
+<p>现在我们需要对组合模式下的对象这棵进行遍历怎么办？</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">public abstract class ItemComponent&#123;</span><br><span class="line">    ....//方法</span><br><span class="line">    public void method1()&#123;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">public classItem extends ItemComponent&#123;</span><br><span class="line">    .....//各种属性</span><br><span class="line">    public void method1()</span><br><span class="line">    &#123;</span><br><span class="line">        System.out.println(&quot;leaf&quot;);</span><br><span class="line">    &#125;    </span><br><span class="line">&#125;</span><br><span class="line">public class Set1 extends ItemComponent&#123;</span><br><span class="line">    item[] items;</span><br><span class="line">    ...</span><br><span class="line">    public Iterator Iterator()&#123;</span><br><span class="line">        return new ItemIterator(items);</span><br><span class="line">    &#125;</span><br><span class="line">    public void method1()</span><br><span class="line">    &#123;</span><br><span class="line">        System.out.println(&quot;not leaf&quot;);</span><br><span class="line">        Iterator iterator=itemComponent.iterator();//重写</span><br><span class="line">        while (iterator.hasNext())</span><br><span class="line">        &#123;</span><br><span class="line">            ItemComponent t=(ItemComponent) iterator.next();</span><br><span class="line">            t.method1();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">public class Set2 extends ItemComponent&#123;</span><br><span class="line">    ArrayList items;</span><br><span class="line">    ...</span><br><span class="line">    public Iterator Iterator()&#123;</span><br><span class="line">        return  items.iterator();</span><br><span class="line">    &#125;</span><br><span class="line">        public void method1()</span><br><span class="line">    &#123;</span><br><span class="line">        System.out.println(&quot;not leaf&quot;);</span><br><span class="line">        Iterator iterator=itemComponent.iterator();//重写</span><br><span class="line">        while (iterator.hasNext())</span><br><span class="line">        &#123;</span><br><span class="line">            ItemComponent t=(ItemComponent) iterator.next();</span><br><span class="line">            t.method1();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<p>其中用到的设计原则：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">开闭原则：对扩展开放，对修改关闭</span><br></pre></td></tr></table></figure>
+<p>上面这种方式是一种通过递归的方式来实现全部遍历的</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">public class ItemIterator implements Iterator&#123;</span><br><span class="line">    stack stack = new Stack();</span><br><span class="line">    public ItemIterator(Iterator iter)</span><br><span class="line">    &#123;</span><br><span class="line">        stack.push(iter);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">     public Object next()</span><br><span class="line">    &#123;</span><br><span class="line">        if (hasNext())&#123;</span><br><span class="line">            Iterator iterator=(Iterator)stack.peek();</span><br><span class="line">            ItemComponent t=(ItemComponent) iterator.next();</span><br><span class="line">            if (t instanceof Set1)</span><br><span class="line">            &#123;</span><br><span class="line">                stack.push(t.createIterator());    </span><br><span class="line">            &#125;</span><br><span class="line">            return t;</span><br><span class="line">        &#125;else&#123;</span><br><span class="line">            return null;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    public boolean hasNext()</span><br><span class="line">    &#123;</span><br><span class="line">        if (stack.empty())&#123;</span><br><span class="line">            return false;</span><br><span class="line">        &#125;else&#123;</span><br><span class="line">            Iterator iterator=(Iterator) stack.peek();</span><br><span class="line">            if (!iterator.hasNext())&#123;</span><br><span class="line">                stack.pop();</span><br><span class="line">                return hasNext();</span><br><span class="line">            &#125;else &#123;</span><br><span class="line">                return true;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-</blockquote>
-]]></content>
+<p>现在定义的这种方式，是通过迭代器用栈模拟递归的一种方式。</p>
+<p>3。设计模式-职责单一</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">单一责任： 一个类应该只有一个引起变化的原因。</span><br></pre></td></tr></table></figure>]]></content>
       <categories>
         <category>Design Pattern</category>
       </categories>
